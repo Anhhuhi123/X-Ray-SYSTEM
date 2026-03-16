@@ -26,30 +26,59 @@ depends_on: str | Sequence[str] | None = None
 
 
 def upgrade() -> None:
-    op.create_index(
-        "ix_notifications_user_read_type_created",
-        "notifications",
-        ["user_id", "read", "type", "created_at"],
-    )
-    op.create_index(
-        "ix_notifications_user_space_created",
-        "notifications",
-        ["user_id", "search_space_id", "created_at"],
-    )
-    op.create_index(
-        "ix_notifications_type",
-        "notifications",
-        ["type"],
-    )
-    op.create_index(
-        "ix_notifications_search_space_id",
-        "notifications",
-        ["search_space_id"],
+    op.execute(
+        """
+        DO $$
+        BEGIN
+            IF NOT EXISTS (
+                SELECT 1
+                FROM pg_indexes
+                WHERE schemaname = current_schema()
+                  AND tablename = 'notifications'
+                  AND indexname = 'ix_notifications_user_read_type_created'
+            ) THEN
+                CREATE INDEX ix_notifications_user_read_type_created
+                ON notifications (user_id, read, type, created_at);
+            END IF;
+
+            IF NOT EXISTS (
+                SELECT 1
+                FROM pg_indexes
+                WHERE schemaname = current_schema()
+                  AND tablename = 'notifications'
+                  AND indexname = 'ix_notifications_user_space_created'
+            ) THEN
+                CREATE INDEX ix_notifications_user_space_created
+                ON notifications (user_id, search_space_id, created_at);
+            END IF;
+
+            IF NOT EXISTS (
+                SELECT 1
+                FROM pg_indexes
+                WHERE schemaname = current_schema()
+                  AND tablename = 'notifications'
+                  AND indexname = 'ix_notifications_type'
+            ) THEN
+                CREATE INDEX ix_notifications_type ON notifications (type);
+            END IF;
+
+            IF NOT EXISTS (
+                SELECT 1
+                FROM pg_indexes
+                WHERE schemaname = current_schema()
+                  AND tablename = 'notifications'
+                  AND indexname = 'ix_notifications_search_space_id'
+            ) THEN
+                CREATE INDEX ix_notifications_search_space_id
+                ON notifications (search_space_id);
+            END IF;
+        END$$;
+        """
     )
 
 
 def downgrade() -> None:
-    op.drop_index("ix_notifications_search_space_id", table_name="notifications")
-    op.drop_index("ix_notifications_type", table_name="notifications")
-    op.drop_index("ix_notifications_user_space_created", table_name="notifications")
-    op.drop_index("ix_notifications_user_read_type_created", table_name="notifications")
+    op.execute("DROP INDEX IF EXISTS ix_notifications_search_space_id")
+    op.execute("DROP INDEX IF EXISTS ix_notifications_type")
+    op.execute("DROP INDEX IF EXISTS ix_notifications_user_space_created")
+    op.execute("DROP INDEX IF EXISTS ix_notifications_user_read_type_created")

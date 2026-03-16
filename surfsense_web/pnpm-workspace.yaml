@@ -1,0 +1,8 @@
+allowBuilds:
+  '@parcel/watcher': false
+  '@swc/core': false
+  core-js: false
+  esbuild: false
+  protobufjs: false
+  sharp: false
+  unrs-resolver: false

@@ -23,6 +23,14 @@
 # SurfSense
 Connect any LLM to your internal knowledge sources and chat with it in real time alongside your team. OSS alternative to NotebookLM, Perplexity, and Glean.
 
+## Fork Notice
+
+This repository is a modified fork of the original SurfSense project.
+
+- License: This fork remains licensed under Apache License 2.0. See [LICENSE](LICENSE).
+- Modifications: This fork includes code and asset changes, including branding and media replacement. See [MODIFICATIONS.md](MODIFICATIONS.md).
+- No Endorsement: References to SurfSense and original maintainers are for attribution only and do not imply endorsement, sponsorship, or partnership.
+
 SurfSense is a highly customizable AI research agent, connected to external sources such as Search Engines (SearxNG, Tavily, LinkUp), Google Drive, Slack, Microsoft Teams, Linear, Jira, ClickUp, Confluence, BookStack, Gmail, Notion, YouTube, GitHub, Discord, Airtable, Google Calendar, Luma, Circleback, Elasticsearch, Obsidian and more to come.
 
 

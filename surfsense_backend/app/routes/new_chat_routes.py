@@ -16,6 +16,8 @@ from datetime import UTC, datetime
 
 from fastapi import APIRouter, Depends, HTTPException, Request
 from fastapi.responses import StreamingResponse
+from pydantic import BaseModel
+from typing import Dict, Any
 from sqlalchemy import func, or_
 from sqlalchemy.exc import IntegrityError, OperationalError
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -54,6 +56,7 @@ from app.schemas.new_chat import (
 from app.tasks.chat.stream_new_chat import stream_new_chat, stream_resume_chat
 from app.users import current_active_user
 from app.utils.rbac import check_permission
+from app.services.connector_service import ConnectorService
 
 _logger = logging.getLogger(__name__)
 _background_tasks: set[asyncio.Task] = set()
@@ -960,6 +963,96 @@ async def append_message(
             status_code=500,
             detail=f"An unexpected error occurred while appending the message: {e!s}",
         ) from None
+
+
+class MultiFieldSearchRequest(BaseModel):
+    queries: Dict[str, str]
+    document_type: str = "FILE"
+    top_k: int = 3
+
+
+@router.post("/multi_field_search")
+async def multi_field_search(
+    body: MultiFieldSearchRequest,
+    search_space_id: int,
+    session: AsyncSession = Depends(get_async_session),
+    user: User = Depends(current_active_user),
+):
+    """
+    Accept a JSON object with multiple named fields and run a search for each field.
+
+    Returns top `top_k` documents per field and an aggregated ranking of documents
+    that appear most frequently across fields (ordered by frequency then combined score).
+    """
+    try:
+        await check_permission(
+            session,
+            user,
+            search_space_id,
+            Permission.CHATS_READ.value,
+            "You don't have permission to search in this search space",
+        )
+
+        svc = ConnectorService(session, search_space_id)
+
+        # Launch searches concurrently for each field
+        field_items = list(body.queries.items())
+
+        async def _search_field(field_key: str, query_text: str):
+            results = await svc._combined_rrf_search(
+                query_text=query_text,
+                search_space_id=search_space_id,
+                document_type=body.document_type,
+                top_k=body.top_k,
+            )
+            simplified = []
+            for r in results[: body.top_k]:
+                doc = r.get("document", {}) or {}
+                metadata = doc.get("metadata", {}) or {}
+                title = doc.get("title") or metadata.get("title") or "Untitled"
+                chunks = r.get("chunks", []) or []
+                snippet = chunks[0].get("content", "") if chunks else ""
+                simplified.append(
+                    {
+                        "document_id": r.get("document_id"),
+                        "score": r.get("score", 0.0),
+                        "title": title,
+                        "snippet": snippet,
+                    }
+                )
+            return field_key, simplified
+
+        tasks = [_search_field(k, q) for k, q in field_items]
+
+        # Use asyncio.gather to run all searches
+        gathered = await asyncio.gather(*[t for t in tasks])
+
+        per_field: dict[str, Any] = {k: v for k, v in gathered}
+
+        # Aggregate by document_id across all fields
+        agg_map: dict[int, dict[str, Any]] = {}
+        for docs in per_field.values():
+            for d in docs:
+                did = d.get("document_id")
+                if did is None:
+                    continue
+                entry = agg_map.setdefault(did, {"count": 0, "score_sum": 0.0, "title": d.get("title"), "snippet": d.get("snippet")})
+                entry["count"] += 1
+                entry["score_sum"] += float(d.get("score") or 0.0)
+
+        # Build aggregated list sorted by frequency then score_sum
+        aggregated = [
+            {"document_id": did, **vals, "avg_score": vals["score_sum"] / vals["count"]}
+            for did, vals in agg_map.items()
+        ]
+        aggregated.sort(key=lambda x: (x["count"], x["score_sum"]), reverse=True)
+
+        return {"per_field": per_field, "aggregated": aggregated[: body.top_k]}
+
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Search failed: {e!s}") from None
 
 
 @router.get("/threads/{thread_id}/messages", response_model=list[NewChatMessageRead])

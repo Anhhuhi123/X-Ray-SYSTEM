@@ -1104,6 +1104,7 @@ async def _index_composio_drive_delta_sync(
             document.content = summary_content
             document.content_hash = content_hash
             document.embedding = summary_embedding
+            document.source_markdown = markdown_content
             document.document_metadata = {
                 "file_id": item["file_id"],
                 "file_name": item["file_name"],
@@ -1512,6 +1513,7 @@ async def _index_composio_drive_full_scan(
             document.content = summary_content
             document.content_hash = content_hash
             document.embedding = summary_embedding
+            document.source_markdown = markdown_content
             document.document_metadata = {
                 "file_id": item["file_id"],
                 "file_name": item["file_name"],

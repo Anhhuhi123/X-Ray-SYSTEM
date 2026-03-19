@@ -68,6 +68,10 @@ dependencies = [
     "deepagents>=0.4.3",
     "langchain-daytona>=0.0.2",
     "pypandoc>=1.16.2",
+    "autogen-agentchat>=0.7.5",
+    "autogen-ext>=0.7.5",
+    "openai>=2.24.0",
+    "tiktoken>=0.12.0",
 ]
 
 [dependency-groups]

@@ -210,6 +210,9 @@ class Config:
         """Check if running in cloud mode."""
         return cls.DEPLOYMENT_MODE == "cloud"
 
+    # GEMINI_API_KEY 
+    GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
+
     # Database
     DATABASE_URL = os.getenv("DATABASE_URL")
 

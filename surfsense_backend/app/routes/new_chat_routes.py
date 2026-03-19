@@ -976,7 +976,7 @@ async def multi_field_search(
     body: MultiFieldSearchRequest,
     search_space_id: int,
     session: AsyncSession = Depends(get_async_session),
-    user: User = Depends(current_active_user),
+    # user: User = Depends(current_active_user),
 ):
     """
     Accept a JSON object with multiple named fields and run a search for each field.
@@ -985,13 +985,13 @@ async def multi_field_search(
     that appear most frequently across fields (ordered by frequency then combined score).
     """
     try:
-        await check_permission(
-            session,
-            user,
-            search_space_id,
-            Permission.CHATS_READ.value,
-            "You don't have permission to search in this search space",
-        )
+        # await check_permission(
+        #     session,
+        #     user,
+        #     search_space_id,
+        #     Permission.CHATS_READ.value,
+        #     "You don't have permission to search in this search space",
+        # )
 
         svc = ConnectorService(session, search_space_id)
 

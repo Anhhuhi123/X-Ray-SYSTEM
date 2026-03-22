@@ -995,57 +995,78 @@ async def multi_field_search(
 
         svc = ConnectorService(session, search_space_id)
 
-        # Launch searches concurrently for each field
+        # Launch searches concurrently for each field. Use tasks + return_exceptions
+        # so a failing field search doesn't cause the whole endpoint to 500.
         field_items = list(body.queries.items())
 
         async def _search_field(field_key: str, query_text: str):
-            results = await svc._combined_rrf_search(
-                query_text=query_text,
-                search_space_id=search_space_id,
-                document_type=body.document_type,
-                top_k=body.top_k,
-            )
-            simplified = []
-            for r in results[: body.top_k]:
-                doc = r.get("document", {}) or {}
-                metadata = doc.get("metadata", {}) or {}
+            try:
+                results = await svc._combined_rrf_search(
+                    query_text=query_text,
+                    search_space_id=search_space_id,
+                    document_type=body.document_type,
+                    top_k=body.top_k,
+                )
+            except Exception as e:
+                _logger.exception("multi_field_search: search failed for field %s", field_key)
+                raise
+
+            simplified: list[dict[str, Any]] = []
+            for r in (results or [])[: body.top_k]:
+                doc = (r.get("document") or {}) if isinstance(r, dict) else {}
+                metadata = (doc.get("metadata") or {}) if isinstance(doc, dict) else {}
                 title = doc.get("title") or metadata.get("title") or "Untitled"
-                chunks = r.get("chunks", []) or []
+                chunks = r.get("chunks", []) or [] if isinstance(r, dict) else []
                 snippet = chunks[0].get("content", "") if chunks else ""
                 simplified.append(
                     {
-                        "document_id": r.get("document_id"),
-                        "score": r.get("score", 0.0),
+                        "document_id": r.get("document_id") if isinstance(r, dict) else None,
+                        "score": r.get("score", 0.0) if isinstance(r, dict) else 0.0,
                         "title": title,
                         "snippet": snippet,
                     }
                 )
             return field_key, simplified
 
-        tasks = [_search_field(k, q) for k, q in field_items]
+        # create tasks mapped by field key to preserve association
+        tasks_map = {k: asyncio.create_task(_search_field(k, q)) for k, q in field_items}
 
-        # Use asyncio.gather to run all searches
-        gathered = await asyncio.gather(*[t for t in tasks])
+        gathered = await asyncio.gather(*tasks_map.values(), return_exceptions=True)
 
-        per_field: dict[str, Any] = {k: v for k, v in gathered}
+        per_field: dict[str, Any] = {}
 
-        # Aggregate by document_id across all fields
-        agg_map: dict[int, dict[str, Any]] = {}
+        # Build per-field results; when a task failed, include an error entry
+        for key, res in zip(tasks_map.keys(), gathered):
+            if isinstance(res, Exception):
+                per_field[key] = {"error": str(res)}
+            else:
+                fk, simplified = res
+                per_field[fk] = simplified
+
+        # Aggregate by document_id across all successful field results
+        agg_map: dict[str, dict[str, Any]] = {}
         for docs in per_field.values():
+            if not isinstance(docs, list):
+                continue
             for d in docs:
                 did = d.get("document_id")
                 if did is None:
                     continue
-                entry = agg_map.setdefault(did, {"count": 0, "score_sum": 0.0, "title": d.get("title"), "snippet": d.get("snippet")})
+                entry = agg_map.setdefault(
+                    str(did),
+                    {"count": 0, "score_sum": 0.0, "title": d.get("title"), "snippet": d.get("snippet")},
+                )
                 entry["count"] += 1
-                entry["score_sum"] += float(d.get("score") or 0.0)
+                try:
+                    entry["score_sum"] += float(d.get("score") or 0.0)
+                except Exception:
+                    pass
 
-        # Build aggregated list sorted by frequency then score_sum
         aggregated = [
-            {"document_id": did, **vals, "avg_score": vals["score_sum"] / vals["count"]}
+            {"document_id": did, **vals, "avg_score": (vals["score_sum"] / vals["count"] if vals["count"] else 0.0)}
             for did, vals in agg_map.items()
         ]
-        aggregated.sort(key=lambda x: (x["count"], x["score_sum"]), reverse=True)
+        aggregated.sort(key=lambda x: (x.get("count", 0), x.get("score_sum", 0.0)), reverse=True)
 
         return {"per_field": per_field, "aggregated": aggregated[: body.top_k]}
 

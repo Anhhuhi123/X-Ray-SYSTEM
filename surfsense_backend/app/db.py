@@ -2,6 +2,7 @@ from collections.abc import AsyncGenerator
 from contextlib import asynccontextmanager
 from datetime import UTC, datetime
 from enum import StrEnum
+from uuid import uuid4
 
 import anyio
 from fastapi import Depends
@@ -14,12 +15,14 @@ from sqlalchemy import (
     Boolean,
     Column,
     Enum as SQLAlchemyEnum,
+    Float,
     ForeignKey,
     Index,
     Integer,
     String,
     Text,
     UniqueConstraint,
+    delete,
     text,
 )
 from sqlalchemy.dialects.postgresql import JSONB, UUID
@@ -951,6 +954,12 @@ class Document(BaseModel, TimestampMixin):
     chunks = relationship(
         "Chunk", back_populates="document", cascade="all, delete-orphan"
     )
+    sections = relationship(
+        "DocumentSection",
+        back_populates="document",
+        cascade="all, delete-orphan",
+        order_by="DocumentSection.section_order",
+    )
 
 
 class Chunk(BaseModel, TimestampMixin):
@@ -965,7 +974,100 @@ class Chunk(BaseModel, TimestampMixin):
         nullable=False,
         index=True,
     )
+
+    # Section-level fields (added in migration 106)
+    section_id = Column(
+        UUID(as_uuid=True),
+        ForeignKey("document_sections.id", ondelete="SET NULL"),
+        nullable=True,
+        index=True,
+    )
+    chunk_order_in_section = Column(Integer, nullable=True)
+    heading_text = Column(Text, nullable=True)
+    heading_level = Column(Integer, nullable=True)
+    section_type = Column(Text, nullable=True)
+    chunk_type = Column(Text, nullable=True)
+    content_hash = Column(Text, nullable=True, index=True)
+    chunk_metadata = Column(
+        "metadata",
+        JSONB,
+        nullable=False,
+        default=dict,
+        server_default=text("'{}'::jsonb"),
+    )
+    updated_at = Column(
+        TIMESTAMP(timezone=True),
+        nullable=False,
+        default=lambda: datetime.now(UTC),
+        onupdate=lambda: datetime.now(UTC),
+    )
+
+    # Relationships
     document = relationship("Document", back_populates="chunks")
+    section = relationship("DocumentSection", back_populates="chunks")
+
+
+class DocumentSection(BaseModel, TimestampMixin):
+    """A structural section within a Document, identified by a Markdown heading."""
+
+    __tablename__ = "document_sections"
+
+    id = Column(
+        UUID(as_uuid=True),
+        primary_key=True,
+        default=uuid4,
+        server_default=text("gen_random_uuid()"),
+    )
+    document_id = Column(
+        Integer,
+        ForeignKey("documents.id", ondelete="CASCADE"),
+        nullable=False,
+        index=True,
+    )
+    heading_text = Column(Text, nullable=False)
+    normalized_heading = Column(Text, nullable=True)
+    heading_level = Column(Integer, nullable=False)
+    parent_section_id = Column(
+        UUID(as_uuid=True),
+        ForeignKey("document_sections.id", ondelete="SET NULL"),
+        nullable=True,
+        index=True,
+    )
+    section_order = Column(Integer, nullable=False)
+    raw_markdown = Column(Text, nullable=True)
+    plain_text = Column(Text, nullable=True)
+    page_start = Column(Integer, nullable=True)
+    page_end = Column(Integer, nullable=True)
+    section_type = Column(Text, nullable=True)
+    section_confidence = Column(Float, nullable=True)
+    classification_source = Column(Text, nullable=True)
+    section_metadata = Column(
+        "metadata",
+        JSONB,
+        nullable=False,
+        default=dict,
+        server_default=text("'{}'::jsonb"),
+    )
+    updated_at = Column(
+        TIMESTAMP(timezone=True),
+        nullable=False,
+        default=lambda: datetime.now(UTC),
+        onupdate=lambda: datetime.now(UTC),
+    )
+
+    # Relationships
+    document = relationship("Document", back_populates="sections")
+    parent = relationship(
+        "DocumentSection",
+        remote_side="DocumentSection.id",
+        backref="children",
+    )
+    chunks = relationship(
+        "Chunk",
+        back_populates="section",
+        cascade="all, delete-orphan",
+        order_by="Chunk.chunk_order_in_section",
+    )
 
 
 class SurfsenseDocsDocument(BaseModel, TimestampMixin):

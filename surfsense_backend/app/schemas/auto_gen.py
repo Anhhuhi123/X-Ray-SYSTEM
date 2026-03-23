@@ -1,21 +1,25 @@
 from pydantic import BaseModel
-from typing import List, Optional
+
 
 # Request / Response schema
 class DiscussionRequest(BaseModel):
     task: str
 
+
 # class DiscussionResponse(BaseModel):
 #     result: str
+
 
 class Message(BaseModel):
     role: str
     content: str
-    created_at: Optional[str]
+    created_at: str | None
+
 
 class DiscussionResult(BaseModel):
-    conversation: List[Message]
-    stop_reason: Optional[str]
+    conversation: list[Message]
+    stop_reason: str | None
+
 
 class DiscussionResponse(BaseModel):
     result: DiscussionResult

@@ -13,11 +13,11 @@ These endpoints support the ThreadHistoryAdapter pattern from assistant-ui:
 import asyncio
 import logging
 from datetime import UTC, datetime
+from typing import Any
 
 from fastapi import APIRouter, Depends, HTTPException, Request
 from fastapi.responses import StreamingResponse
 from pydantic import BaseModel
-from typing import Dict, Any
 from sqlalchemy import func, or_
 from sqlalchemy.exc import IntegrityError, OperationalError
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -53,10 +53,10 @@ from app.schemas.new_chat import (
     ThreadListItem,
     ThreadListResponse,
 )
+from app.services.connector_service import ConnectorService
 from app.tasks.chat.stream_new_chat import stream_new_chat, stream_resume_chat
 from app.users import current_active_user
 from app.utils.rbac import check_permission
-from app.services.connector_service import ConnectorService
 
 _logger = logging.getLogger(__name__)
 _background_tasks: set[asyncio.Task] = set()
@@ -966,7 +966,7 @@ async def append_message(
 
 
 class MultiFieldSearchRequest(BaseModel):
-    queries: Dict[str, str]
+    queries: dict[str, str]
     document_type: str = "FILE"
     top_k: int = 3
 
@@ -1007,8 +1007,10 @@ async def multi_field_search(
                     document_type=body.document_type,
                     top_k=body.top_k,
                 )
-            except Exception as e:
-                _logger.exception("multi_field_search: search failed for field %s", field_key)
+            except Exception:
+                _logger.exception(
+                    "multi_field_search: search failed for field %s", field_key
+                )
                 raise
 
             simplified: list[dict[str, Any]] = []
@@ -1020,7 +1022,9 @@ async def multi_field_search(
                 snippet = chunks[0].get("content", "") if chunks else ""
                 simplified.append(
                     {
-                        "document_id": r.get("document_id") if isinstance(r, dict) else None,
+                        "document_id": r.get("document_id")
+                        if isinstance(r, dict)
+                        else None,
                         "score": r.get("score", 0.0) if isinstance(r, dict) else 0.0,
                         "title": title,
                         "snippet": snippet,
@@ -1029,14 +1033,16 @@ async def multi_field_search(
             return field_key, simplified
 
         # create tasks mapped by field key to preserve association
-        tasks_map = {k: asyncio.create_task(_search_field(k, q)) for k, q in field_items}
+        tasks_map = {
+            k: asyncio.create_task(_search_field(k, q)) for k, q in field_items
+        }
 
         gathered = await asyncio.gather(*tasks_map.values(), return_exceptions=True)
 
         per_field: dict[str, Any] = {}
 
         # Build per-field results; when a task failed, include an error entry
-        for key, res in zip(tasks_map.keys(), gathered):
+        for key, res in zip(tasks_map.keys(), gathered, strict=False):
             if isinstance(res, Exception):
                 per_field[key] = {"error": str(res)}
             else:
@@ -1054,7 +1060,12 @@ async def multi_field_search(
                     continue
                 entry = agg_map.setdefault(
                     str(did),
-                    {"count": 0, "score_sum": 0.0, "title": d.get("title"), "snippet": d.get("snippet")},
+                    {
+                        "count": 0,
+                        "score_sum": 0.0,
+                        "title": d.get("title"),
+                        "snippet": d.get("snippet"),
+                    },
                 )
                 entry["count"] += 1
                 try:
@@ -1063,10 +1074,18 @@ async def multi_field_search(
                     pass
 
         aggregated = [
-            {"document_id": did, **vals, "avg_score": (vals["score_sum"] / vals["count"] if vals["count"] else 0.0)}
+            {
+                "document_id": did,
+                **vals,
+                "avg_score": (
+                    vals["score_sum"] / vals["count"] if vals["count"] else 0.0
+                ),
+            }
             for did, vals in agg_map.items()
         ]
-        aggregated.sort(key=lambda x: (x.get("count", 0), x.get("score_sum", 0.0)), reverse=True)
+        aggregated.sort(
+            key=lambda x: (x.get("count", 0), x.get("score_sum", 0.0)), reverse=True
+        )
 
         return {"per_field": per_field, "aggregated": aggregated[: body.top_k]}
 

@@ -30,42 +30,34 @@ def get_current_timestamp() -> datetime:
 
 def safe_set_chunks(document: Document, chunks: list) -> None:
     """
-    Safely assign chunks to a document without triggering lazy loading.
-
-    ALWAYS use this instead of `document.chunks = chunks` to avoid
-    SQLAlchemy async errors (MissingGreenlet / greenlet_spawn).
-
-    Why this is needed:
-    - Direct assignment `document.chunks = chunks` triggers SQLAlchemy to
-      load the OLD chunks first (for comparison/orphan detection)
-    - This lazy loading fails in async context with asyncpg driver
-    - set_committed_value bypasses this by setting the value directly
-
-    This function is safe regardless of how the document was loaded
-    (with or without selectinload).
-
-    Args:
-        document: The Document object to update
-        chunks: List of Chunk objects to assign
-
-    Example:
-        # Instead of: document.chunks = chunks (DANGEROUS!)
-        safe_set_chunks(document, chunks)  # Always safe
+    Safely assign chunks (and their attached sections) to a document without triggering lazy loading.
     """
     from sqlalchemy.orm import object_session
     from sqlalchemy.orm.attributes import set_committed_value
 
-    # Keep relationship assignment lazy-load-safe.
     set_committed_value(document, "chunks", chunks)
 
-    # Ensure chunk rows are actually persisted.
-    # set_committed_value bypasses normal unit-of-work tracking, so we need to
-    # explicitly attach chunk objects to the current session.
+    # Extract implicitly linked sections
+    sections = {}
+    for chunk in chunks:
+        if getattr(chunk, "section", None) is not None:
+            sections[chunk.section.id] = chunk.section
+
+    if sections:
+        set_committed_value(document, "sections", list(sections.values()))
+
+    # Ensure rows are actually persisted by adding them to session.
     session = object_session(document)
     if session is not None:
         if document.id is not None:
             for chunk in chunks:
                 chunk.document_id = document.id
+                if getattr(chunk, "section", None) is not None:
+                    chunk.section.document_id = document.id
+        
+        # Add sections first to establish FK properly if needed (though SQLAlchemy handles order)
+        if sections:
+            session.add_all(list(sections.values()))
         session.add_all(chunks)
 
 

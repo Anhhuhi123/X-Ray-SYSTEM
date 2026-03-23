@@ -8,14 +8,17 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.db import Chunk, Document, DocumentStatus
 from app.indexing_pipeline.connector_document import ConnectorDocument
-from app.indexing_pipeline.document_chunker import chunk_text
+from app.indexing_pipeline.document_chunker import (
+    chunk_text,
+    parse_markdown_into_sections,
+)
 from app.indexing_pipeline.document_embedder import embed_texts
 from app.indexing_pipeline.document_hashing import (
     compute_content_hash,
     compute_unique_identifier_hash,
 )
 from app.indexing_pipeline.document_persistence import (
-    attach_chunks_to_document,
+    attach_sections_and_chunks,
     rollback_and_persist_failure,
 )
 from app.indexing_pipeline.document_summarizer import summarize_document
@@ -200,39 +203,56 @@ class IndexingPipelineService:
             )
 
             t_step = time.perf_counter()
-            chunk_texts = chunk_text(
-                connector_doc.source_markdown,
-                use_code_chunker=connector_doc.should_use_code_chunker,
+            # ---- Section-aware chunking pipeline ----
+            sections = parse_markdown_into_sections(
+                connector_doc.source_markdown
             )
 
-            texts_to_embed = [content, *chunk_texts]
-            embeddings = embed_texts(texts_to_embed)
-            summary_embedding, *chunk_embeddings = embeddings
-
-            chunks = [
-                Chunk(content=text, embedding=emb)
-                for text, emb in zip(chunk_texts, chunk_embeddings, strict=False)
+            # Collect all chunk texts for bulk embedding
+            all_chunk_texts: list[str] = [
+                chunk.content
+                for section in sections
+                for chunk in section.chunks
             ]
+
+            # embed [summary_source, *chunk_texts] in one batch
+            texts_to_embed = [content, *all_chunk_texts]
+            embeddings = embed_texts(texts_to_embed)
+            summary_embedding = embeddings[0]
+            chunk_embeddings = embeddings[1:]
+
+            # Build content → embedding map (chunk texts are generally unique;
+            # if two chunks share the same text they'll reuse the same embedding)
+            chunk_embedding_map: dict[str, list[float]] = {
+                text: emb
+                for text, emb in zip(all_chunk_texts, chunk_embeddings, strict=False)
+            }
+
+            total_chunk_count = len(all_chunk_texts)
             perf.info(
-                "[indexing] chunk+embed doc=%d chunks=%d in %.3fs",
+                "[indexing] section-chunk+embed doc=%d sections=%d chunks=%d in %.3fs",
                 document.id,
-                len(chunks),
+                len(sections),
+                total_chunk_count,
                 time.perf_counter() - t_step,
             )
 
             document.content = content
             document.embedding = summary_embedding
-            attach_chunks_to_document(document, chunks)
+            await attach_sections_and_chunks(
+                self.session, document, sections, chunk_embedding_map
+            )
             document.updated_at = datetime.now(UTC)
             document.status = DocumentStatus.ready()
             await self.session.commit()
             perf.info(
-                "[indexing] index TOTAL doc=%d chunks=%d in %.3fs",
+                "[indexing] index TOTAL doc=%d sections=%d chunks=%d in %.3fs",
                 document.id,
-                len(chunks),
+                len(sections),
+                total_chunk_count,
                 time.perf_counter() - t_index,
             )
-            log_index_success(ctx, chunk_count=len(chunks))
+            log_index_success(ctx, chunk_count=total_chunk_count)
 
         except RETRYABLE_LLM_ERRORS as e:
             log_retryable_llm_error(ctx, e)

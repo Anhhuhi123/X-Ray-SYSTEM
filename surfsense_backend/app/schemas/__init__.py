@@ -7,6 +7,7 @@ from .auth import (
 )
 from .base import IDModel, TimestampModel
 from .chunks import ChunkBase, ChunkCreate, ChunkRead, ChunkUpdate
+from .document_sections import DocumentSectionRead, ParsedChunk, ParsedSection
 from .documents import (
     DocumentBase,
     DocumentRead,
@@ -111,6 +112,8 @@ __all__ = [
     "ChunkRead",
     "ChunkUpdate",
     "DefaultSystemInstructionsResponse",
+    # Document section schemas
+    "DocumentSectionRead",
     # Document schemas
     "DocumentBase",
     "DocumentRead",
@@ -183,6 +186,8 @@ __all__ = [
     "NewLLMConfigRead",
     "NewLLMConfigUpdate",
     "PaginatedResponse",
+    "ParsedChunk",
+    "ParsedSection",
     "PermissionInfo",
     "PermissionsListResponse",
     # Podcast schemas

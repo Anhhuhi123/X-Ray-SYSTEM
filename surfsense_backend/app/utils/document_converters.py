@@ -218,20 +218,74 @@ async def generate_document_summary(
 
 async def create_document_chunks(content: str) -> list[Chunk]:
     """
-    Create chunks from document content.
+    Create chunks from document content, preserving Markdown section hierarchy.
 
     Args:
         content: Document content to chunk
 
     Returns:
-        List of Chunk objects with embeddings
+        List of Chunk objects with embeddings, structurally bound to DocumentSection objects.
     """
-    chunk_texts = [c.text for c in config.chunker_instance.chunk(content)]
-    chunk_embeddings = embed_texts(chunk_texts)
-    return [ 
-        Chunk(content=text, embedding=emb)
-        for text, emb in zip(chunk_texts, chunk_embeddings, strict=False)
+    from uuid import uuid4
+
+    from app.db import DocumentSection
+    from app.indexing_pipeline.document_chunker import parse_markdown_into_sections
+
+    parsed_sections = parse_markdown_into_sections(content)
+
+    # 1. Gather all chunks linearly
+    all_chunk_texts = [
+        chunk.content for section in parsed_sections for chunk in section.chunks
     ]
+
+    # 2. Bulk embed text
+    if not all_chunk_texts:
+        return []
+
+    chunk_embeddings = embed_texts(all_chunk_texts)
+    emb_iter = iter(chunk_embeddings)
+
+    db_chunks = []
+    temp_to_db = {}
+
+    # 3. Create ORM objects with transient tree linkages
+    for parsed_section in parsed_sections:
+        parent_id = None
+        if parsed_section.parent_temp_id:
+            parent_id = temp_to_db[parsed_section.parent_temp_id].id
+
+        db_section = DocumentSection(
+            id=uuid4(),
+            heading_text=parsed_section.heading_text,
+            heading_level=parsed_section.heading_level,
+            parent_section_id=parent_id,
+            section_order=parsed_section.section_order,
+            raw_markdown=parsed_section.raw_markdown,
+            plain_text=parsed_section.plain_text,
+            section_type=parsed_section.section_type,
+            section_metadata=parsed_section.metadata,
+        )
+        temp_to_db[parsed_section.temp_id] = db_section
+
+        for p_chunk in parsed_section.chunks:
+            emb = next(emb_iter)
+            db_chunk = Chunk(
+                id=uuid4(),
+                content=p_chunk.content,
+                embedding=emb,
+                chunk_order_in_section=p_chunk.chunk_order,
+                heading_text=parsed_section.heading_text,
+                heading_level=parsed_section.heading_level,
+                section_type=parsed_section.section_type,
+                chunk_type=p_chunk.chunk_type,
+                content_hash=p_chunk.content_hash,
+                section=db_section,
+            )
+            # Link relationship natively
+            db_section.chunks.append(db_chunk)
+            db_chunks.append(db_chunk)
+
+    return db_chunks
 
 
 async def convert_element_to_markdown(element) -> str:

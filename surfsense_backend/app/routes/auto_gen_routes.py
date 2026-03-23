@@ -1,15 +1,13 @@
 import logging
 
-from fastapi import APIRouter, HTTPException, status
-from app.schemas.auto_gen import (
-    DiscussionRequest,
-    DiscussionResponse
-)
 from autogen_agentchat.agents import AssistantAgent
 from autogen_agentchat.conditions import TextMentionTermination
 from autogen_agentchat.teams import RoundRobinGroupChat
 from autogen_ext.models.openai import OpenAIChatCompletionClient
+from fastapi import APIRouter, HTTPException, status
+
 from app.config import config
+from app.schemas.auto_gen import DiscussionRequest, DiscussionResponse
 
 logger = logging.getLogger(__name__)
 
@@ -46,8 +44,7 @@ async def run_team_discussion(request: DiscussionRequest):
 
         # Create team
         team = RoundRobinGroupChat(
-            [primary_agent, critic_agent],
-            termination_condition=termination
+            [primary_agent, critic_agent], termination_condition=termination
         )
 
         # Reset team
@@ -60,7 +57,7 @@ async def run_team_discussion(request: DiscussionRequest):
             {
                 "role": msg.source,
                 "content": msg.content,
-                "created_at": msg.created_at.isoformat() if msg.created_at else None
+                "created_at": msg.created_at.isoformat() if msg.created_at else None,
             }
             for msg in result.messages
         ]
@@ -68,10 +65,7 @@ async def run_team_discussion(request: DiscussionRequest):
         logger.info("Team discussion completed")
 
         return DiscussionResponse(
-            result={
-                "conversation": messages,
-                "stop_reason": result.stop_reason
-            }
+            result={"conversation": messages, "stop_reason": result.stop_reason}
         )
 
     except Exception as e:

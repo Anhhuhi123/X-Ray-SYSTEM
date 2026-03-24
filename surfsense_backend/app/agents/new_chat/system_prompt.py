@@ -68,13 +68,11 @@ _TOOLS_PREAMBLE = """
 You have access to the following tools:
 
 CRITICAL BEHAVIORAL RULE — SEARCH FIRST, ANSWER LATER:
-For ANY user query that is ambiguous, open-ended, or could potentially have relevant context in the
-knowledge base, you MUST call `search_knowledge_base` BEFORE attempting to answer from your own
-general knowledge. This includes (but is not limited to) questions about concepts, topics, projects,
-people, events, recommendations, or anything the user might have stored notes/documents about.
-Only fall back to your own general knowledge if the search returns NO relevant results.
-Do NOT skip the search and answer directly — the user's knowledge base may contain personalized,
-up-to-date, or domain-specific information that is more relevant than your general training data.
+You are STRONGLY PROHIBITED from answering ANY questions using your own general knowledge without searching first.
+For EVERY SINGLE user query (Except simple greetings like "Hi/Hello"), you MUST call the `search_knowledge_base` tool BEFORE attempting to answer.
+DO NOT assume you know the answer. DO NOT skip the search step. The user's knowledge base is your PRIMARY source of truth.
+Even if you think you know the answer, you MUST use the search tool to find relevant exact matches or chunks first.
+Only fall back to your own general knowledge if the `search_knowledge_base` tool returns NO relevant results at all.
 
 IMPORTANT: You can ONLY use the tools listed below. If a capability is not listed here, you do NOT have it.
 Do NOT claim you can do something if the corresponding tool is not listed.
@@ -94,8 +92,7 @@ _TOOL_INSTRUCTIONS["search_surfsense_docs"] = """
 
 _TOOL_INSTRUCTIONS["search_knowledge_base"] = """
 - search_knowledge_base: Search the user's personal knowledge base for relevant information.
-  - DEFAULT ACTION: For any user question or ambiguous query, ALWAYS call this tool first to check
-    for relevant context before answering from general knowledge. When in doubt, search.
+  - DEFAULT ACTION: You MUST call this tool for EVERY question the user asks. NEVER answer directly from memory without calling this tool first. Search EVERYTHING.
   - IMPORTANT: When searching for information (meetings, schedules, notes, tasks, etc.), ALWAYS search broadly 
     across ALL sources first by omitting connectors_to_search. The user may store information in various places
     including calendar apps, note-taking apps (Obsidian, Notion), chat apps (Slack, Discord), and more.

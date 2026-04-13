@@ -334,7 +334,7 @@ async def read_documents(
         page: Zero-based page index used when 'skip' is not provided.
         page_size: Number of items per page (default: 50). Use -1 to return all remaining items after the offset.
         search_space_id: If provided, restrict results to a specific search space.
-        document_types: Comma-separated list of document types to filter by (e.g., "EXTENSION,FILE,SLACK_CONNECTOR").
+        document_types: Comma-separated list of document types to filter by (e.g., "EXTENSION,FILE,GITHUB_CONNECTOR").
         session: Database session (injected).
         user: Current authenticated user (injected).
 
@@ -500,7 +500,7 @@ async def search_documents(
         page: Zero-based page index used when 'skip' is not provided. Default: None.
         page_size: Number of items per page. Use -1 to return all remaining items after the offset. Default: 50.
         search_space_id: Filter results to a specific search space. Default: None.
-        document_types: Comma-separated list of document types to filter by (e.g., "EXTENSION,FILE,SLACK_CONNECTOR").
+        document_types: Comma-separated list of document types to filter by (e.g., "EXTENSION,FILE,GITHUB_CONNECTOR").
         session: Database session (injected).
         user: Current authenticated user (injected).
 

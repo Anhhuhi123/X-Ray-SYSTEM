@@ -393,8 +393,8 @@ _TOOL_EXAMPLES["search_knowledge_base"] = """
   - Call: `search_knowledge_base(query="gym session time schedule")` (searches ALL sources)
 - User: "Fetch all my notes and what's in them?"
   - Call: `search_knowledge_base(query="*", top_k=50, connectors_to_search=["NOTE"])`
-- User: "What did I discuss on Slack last week about the React migration?"
-  - Call: `search_knowledge_base(query="React migration", connectors_to_search=["SLACK_CONNECTOR"], start_date="YYYY-MM-DD", end_date="YYYY-MM-DD")`
+- User: "What changed in my GitHub project last week about the React migration?"
+  - Call: `search_knowledge_base(query="React migration", connectors_to_search=["GITHUB_CONNECTOR"], start_date="YYYY-MM-DD", end_date="YYYY-MM-DD")`
 - User: "Check my Obsidian notes for meeting notes"
   - Call: `search_knowledge_base(query="meeting notes", connectors_to_search=["OBSIDIAN_CONNECTOR"])`
 - User: "search me current usd to inr rate"

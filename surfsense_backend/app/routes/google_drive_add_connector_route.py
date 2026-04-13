@@ -29,7 +29,6 @@ from app.connectors.google_drive import (
     get_start_page_token,
     list_folder_contents,
 )
-from app.connectors.google_gmail_connector import fetch_google_user_email
 from app.db import (
     SearchSourceConnector,
     SearchSourceConnectorType,
@@ -41,6 +40,7 @@ from app.utils.connector_naming import (
     check_duplicate_connector,
     generate_unique_connector_name,
 )
+from app.utils.google_identity import fetch_google_user_email
 from app.utils.oauth_security import OAuthStateManager, TokenEncryption
 
 # Relax token scope validation for Google OAuth

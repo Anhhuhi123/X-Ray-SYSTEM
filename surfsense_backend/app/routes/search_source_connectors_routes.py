@@ -715,16 +715,14 @@ async def index_connector_content(
     Requires CONNECTORS_UPDATE permission (to trigger indexing).
 
     Currently supports:
-    - SLACK_CONNECTOR: Indexes messages from all accessible Slack channels
-    - TEAMS_CONNECTOR: Indexes messages from all accessible Microsoft Teams channels
-    - NOTION_CONNECTOR: Indexes pages from all accessible Notion pages
     - GITHUB_CONNECTOR: Indexes code and documentation from GitHub repositories
-    - LINEAR_CONNECTOR: Indexes issues and comments from Linear
-    - JIRA_CONNECTOR: Indexes issues and comments from Jira
-    - DISCORD_CONNECTOR: Indexes messages from all accessible Discord channels
+    - GOOGLE_DRIVE_CONNECTOR: Indexes files from Google Drive
     - LUMA_CONNECTOR: Indexes events from Luma
     - ELASTICSEARCH_CONNECTOR: Indexes documents from Elasticsearch
     - WEBCRAWLER_CONNECTOR: Indexes web pages from crawled websites
+    - BOOKSTACK_CONNECTOR: Indexes pages from BookStack
+    - OBSIDIAN_CONNECTOR: Indexes notes from Obsidian vaults
+    - COMPOSIO_* connectors: Indexes data via Composio integrations
 
     Args:
         connector_id: ID of the connector to use

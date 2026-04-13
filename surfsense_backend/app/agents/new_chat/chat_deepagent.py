@@ -45,19 +45,8 @@ _CONNECTOR_TYPE_TO_SEARCHABLE: dict[str, str] = {
     "SEARXNG_API": "SEARXNG_API",
     "LINKUP_API": "LINKUP_API",
     "BAIDU_SEARCH_API": "BAIDU_SEARCH_API",
-    "SLACK_CONNECTOR": "SLACK_CONNECTOR",
-    "TEAMS_CONNECTOR": "TEAMS_CONNECTOR",
-    "NOTION_CONNECTOR": "NOTION_CONNECTOR",
     "GITHUB_CONNECTOR": "GITHUB_CONNECTOR",
-    "LINEAR_CONNECTOR": "LINEAR_CONNECTOR",
-    "DISCORD_CONNECTOR": "DISCORD_CONNECTOR",
-    "JIRA_CONNECTOR": "JIRA_CONNECTOR",
-    "CONFLUENCE_CONNECTOR": "CONFLUENCE_CONNECTOR",
-    "CLICKUP_CONNECTOR": "CLICKUP_CONNECTOR",
-    "GOOGLE_CALENDAR_CONNECTOR": "GOOGLE_CALENDAR_CONNECTOR",
-    "GOOGLE_GMAIL_CONNECTOR": "GOOGLE_GMAIL_CONNECTOR",
     "GOOGLE_DRIVE_CONNECTOR": "GOOGLE_DRIVE_FILE",  # Connector type differs from document type
-    "AIRTABLE_CONNECTOR": "AIRTABLE_CONNECTOR",
     "LUMA_CONNECTOR": "LUMA_CONNECTOR",
     "ELASTICSEARCH_CONNECTOR": "ELASTICSEARCH_CONNECTOR",
     "WEBCRAWLER_CONNECTOR": "CRAWLED_URL",  # Maps to document type
@@ -267,30 +256,18 @@ async def create_surfsense_deep_agent(
         "max_input_tokens": _max_input_tokens,
     }
 
-    # Disable Notion action tools if no Notion connector is configured
     modified_disabled_tools = list(disabled_tools) if disabled_tools else []
-    has_notion_connector = (
-        available_connectors is not None and "NOTION_CONNECTOR" in available_connectors
-    )
-    if not has_notion_connector:
-        notion_tools = [
+    # Notion/Linear connectors are decommissioned; keep action tools disabled.
+    modified_disabled_tools.extend(
+        [
             "create_notion_page",
             "update_notion_page",
             "delete_notion_page",
-        ]
-        modified_disabled_tools.extend(notion_tools)
-
-    # Disable Linear action tools if no Linear connector is configured
-    has_linear_connector = (
-        available_connectors is not None and "LINEAR_CONNECTOR" in available_connectors
-    )
-    if not has_linear_connector:
-        linear_tools = [
             "create_linear_issue",
             "update_linear_issue",
             "delete_linear_issue",
         ]
-        modified_disabled_tools.extend(linear_tools)
+    )
 
     # Build tools using the async registry (includes MCP tools)
     _t0 = time.perf_counter()

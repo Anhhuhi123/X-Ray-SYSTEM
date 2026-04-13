@@ -176,21 +176,10 @@ async def _browse_recent_documents(
 _ALL_CONNECTORS: list[str] = [
     "EXTENSION",
     "FILE",
-    "SLACK_CONNECTOR",
-    "TEAMS_CONNECTOR",
-    "NOTION_CONNECTOR",
     "YOUTUBE_VIDEO",
     "GITHUB_CONNECTOR",
     "ELASTICSEARCH_CONNECTOR",
-    "LINEAR_CONNECTOR",
-    "JIRA_CONNECTOR",
-    "CONFLUENCE_CONNECTOR",
-    "CLICKUP_CONNECTOR",
-    "GOOGLE_CALENDAR_CONNECTOR",
-    "GOOGLE_GMAIL_CONNECTOR",
     "GOOGLE_DRIVE_FILE",
-    "DISCORD_CONNECTOR",
-    "AIRTABLE_CONNECTOR",
     "TAVILY_API",
     "SEARXNG_API",
     "LINKUP_API",
@@ -213,21 +202,10 @@ CONNECTOR_DESCRIPTIONS: dict[str, str] = {
     "EXTENSION": "Web content saved via SurfSense browser extension (personal browsing history)",
     "FILE": "User-uploaded documents (PDFs, Word, etc.) (personal files)",
     "NOTE": "SurfSense Notes (notes created inside SurfSense)",
-    "SLACK_CONNECTOR": "Slack conversations and shared content (personal workspace communications)",
-    "TEAMS_CONNECTOR": "Microsoft Teams messages and conversations (personal Teams communications)",
-    "NOTION_CONNECTOR": "Notion workspace pages and databases (personal knowledge management)",
     "YOUTUBE_VIDEO": "YouTube video transcripts and metadata (personally saved videos)",
     "GITHUB_CONNECTOR": "GitHub repository content and issues (personal repositories and interactions)",
     "ELASTICSEARCH_CONNECTOR": "Elasticsearch indexed documents and data (personal Elasticsearch instances)",
-    "LINEAR_CONNECTOR": "Linear project issues and discussions (personal project management)",
-    "JIRA_CONNECTOR": "Jira project issues, tickets, and comments (personal project tracking)",
-    "CONFLUENCE_CONNECTOR": "Confluence pages and comments (personal project documentation)",
-    "CLICKUP_CONNECTOR": "ClickUp tasks and project data (personal task management)",
-    "GOOGLE_CALENDAR_CONNECTOR": "Google Calendar events, meetings, and schedules (personal calendar)",
-    "GOOGLE_GMAIL_CONNECTOR": "Google Gmail emails and conversations (personal emails)",
     "GOOGLE_DRIVE_FILE": "Google Drive files and documents (personal cloud storage)",
-    "DISCORD_CONNECTOR": "Discord server conversations and shared content (personal community)",
-    "AIRTABLE_CONNECTOR": "Airtable records, tables, and database content (personal data)",
     "TAVILY_API": "Tavily web search API results (real-time web search)",
     "SEARXNG_API": "SearxNG search API results (privacy-focused web search)",
     "LINKUP_API": "Linkup search API results (web search)",
@@ -404,7 +382,7 @@ def format_documents_for_context(
     #   {
     #     "document": {...},
     #     "chunks": [{"chunk_id": 123, "content": "..."}, ...],
-    #     "source": "NOTION_CONNECTOR" | "FILE" | ...
+    #     "source": "GITHUB_CONNECTOR" | "FILE" | ...
     #   }
     #
     # We must preserve chunk_id so citations like [citation:123] are possible.

@@ -17,10 +17,10 @@ from uuid import UUID, uuid4
 from app.config import config
 from app.schemas.document_sections import ParsedChunk, ParsedSection
 
-
 # ---------------------------------------------------------------------------
 # Original flat chunker — unchanged, kept for backward compatibility
 # ---------------------------------------------------------------------------
+
 
 def chunk_text(text: str, use_code_chunker: bool = False) -> list[str]:
     """Chunk a text string using the configured chunker and return the chunk texts."""
@@ -39,9 +39,9 @@ _HEADING_RE = re.compile(r"^(#{1,6})\s+(.+?)(?:\s+#+)?\s*$", re.MULTILINE)
 
 def _strip_markdown(text: str) -> str:
     """Very lightweight markdown-to-plaintext (heading markup, bold, italic, code)."""
-    text = re.sub(r"#{1,6}\s+", "", text)       # headings
+    text = re.sub(r"#{1,6}\s+", "", text)  # headings
     text = re.sub(r"\*{1,2}(.+?)\*{1,2}", r"\1", text)  # bold/italic
-    text = re.sub(r"`{1,3}[^`]*`{1,3}", "", text)        # inline code / fenced
+    text = re.sub(r"`{1,3}[^`]*`{1,3}", "", text)  # inline code / fenced
     text = re.sub(r"!?\[([^\]]*)\]\([^)]*\)", r"\1", text)  # links/images
     return text.strip()
 
@@ -94,6 +94,7 @@ def _make_default_section(markdown: str) -> ParsedSection:
 # Public API — Section-aware parser
 # ---------------------------------------------------------------------------
 
+
 def parse_markdown_into_sections(markdown: str) -> list[ParsedSection]:
     """
     Parse a Markdown string into an ordered, flat list of ParsedSection objects.
@@ -128,7 +129,7 @@ def parse_markdown_into_sections(markdown: str) -> list[ParsedSection]:
     stack: list[tuple[int, UUID]] = []
 
     for i, match in enumerate(matches):
-        level = len(match.group(1))       # number of '#' chars
+        level = len(match.group(1))  # number of '#' chars
         title = match.group(2).strip()
 
         # Body = text from end of this heading line to start of next heading

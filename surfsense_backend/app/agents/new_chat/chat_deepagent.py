@@ -28,6 +28,7 @@ from app.agents.new_chat.system_prompt import (
 from app.agents.new_chat.tools.registry import build_tools_async
 from app.db import ChatVisibility
 from app.services.connector_service import ConnectorService
+from app.utils.decommissioned_connectors import DECOMMISSIONED_CONNECTOR_TYPE_VALUES
 from app.utils.perf import get_perf_logger
 
 _perf_log = get_perf_logger()
@@ -108,6 +109,8 @@ def _map_connectors_to_searchable_types(
     for ct in connector_types:
         # Handle both enum and string types
         ct_str = ct.value if hasattr(ct, "value") else str(ct)
+        if ct_str in DECOMMISSIONED_CONNECTOR_TYPE_VALUES:
+            continue
         searchable = _CONNECTOR_TYPE_TO_SEARCHABLE.get(ct_str)
         if searchable and searchable not in result_set:
             result_set.add(searchable)

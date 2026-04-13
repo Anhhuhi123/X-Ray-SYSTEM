@@ -9,7 +9,6 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from app.db import Chunk, Document, DocumentStatus
 from app.indexing_pipeline.connector_document import ConnectorDocument
 from app.indexing_pipeline.document_chunker import (
-    chunk_text,
     parse_markdown_into_sections,
 )
 from app.indexing_pipeline.document_embedder import embed_texts
@@ -204,15 +203,11 @@ class IndexingPipelineService:
 
             t_step = time.perf_counter()
             # ---- Section-aware chunking pipeline ----
-            sections = parse_markdown_into_sections(
-                connector_doc.source_markdown
-            )
+            sections = parse_markdown_into_sections(connector_doc.source_markdown)
 
             # Collect all chunk texts for bulk embedding
             all_chunk_texts: list[str] = [
-                chunk.content
-                for section in sections
-                for chunk in section.chunks
+                chunk.content for section in sections for chunk in section.chunks
             ]
 
             # embed [summary_source, *chunk_texts] in one batch
@@ -223,10 +218,9 @@ class IndexingPipelineService:
 
             # Build content → embedding map (chunk texts are generally unique;
             # if two chunks share the same text they'll reuse the same embedding)
-            chunk_embedding_map: dict[str, list[float]] = {
-                text: emb
-                for text, emb in zip(all_chunk_texts, chunk_embeddings, strict=False)
-            }
+            chunk_embedding_map: dict[str, list[float]] = dict(
+                zip(all_chunk_texts, chunk_embeddings, strict=False)
+            )
 
             total_chunk_count = len(all_chunk_texts)
             perf.info(

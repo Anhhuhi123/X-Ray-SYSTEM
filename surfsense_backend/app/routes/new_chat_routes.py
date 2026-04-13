@@ -11,6 +11,7 @@ These endpoints support the ThreadHistoryAdapter pattern from assistant-ui:
 """
 
 import asyncio
+import contextlib
 import logging
 from datetime import UTC, datetime
 from typing import Any
@@ -1068,10 +1069,8 @@ async def multi_field_search(
                     },
                 )
                 entry["count"] += 1
-                try:
+                with contextlib.suppress(Exception):
                     entry["score_sum"] += float(d.get("score") or 0.0)
-                except Exception:
-                    pass
 
         aggregated = [
             {

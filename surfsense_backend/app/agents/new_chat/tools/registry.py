@@ -52,18 +52,8 @@ from .google_drive import (
     create_delete_google_drive_file_tool,
 )
 from .knowledge_base import create_search_knowledge_base_tool
-from .linear import (
-    create_create_linear_issue_tool,
-    create_delete_linear_issue_tool,
-    create_update_linear_issue_tool,
-)
 from .link_preview import create_link_preview_tool
 from .mcp_tool import load_mcp_tools
-from .notion import (
-    create_create_notion_page_tool,
-    create_delete_notion_page_tool,
-    create_update_notion_page_tool,
-)
 from .podcast import create_generate_podcast_tool
 from .report import create_generate_report_tool
 from .scrape_webpage import create_scrape_webpage_tool
@@ -233,84 +223,6 @@ BUILTIN_TOOLS: list[ToolDefinition] = [
             )
         ),
         requires=["user_id", "search_space_id", "db_session", "thread_visibility"],
-    ),
-    # =========================================================================
-    # LINEAR TOOLS - create, update, delete issues (WIP - hidden from UI)
-    # =========================================================================
-    ToolDefinition(
-        name="create_linear_issue",
-        description="Create a new issue in the user's Linear workspace",
-        factory=lambda deps: create_create_linear_issue_tool(
-            db_session=deps["db_session"],
-            search_space_id=deps["search_space_id"],
-            user_id=deps["user_id"],
-        ),
-        requires=["db_session", "search_space_id", "user_id"],
-        enabled_by_default=False,
-        hidden=True,
-    ),
-    ToolDefinition(
-        name="update_linear_issue",
-        description="Update an existing indexed Linear issue",
-        factory=lambda deps: create_update_linear_issue_tool(
-            db_session=deps["db_session"],
-            search_space_id=deps["search_space_id"],
-            user_id=deps["user_id"],
-        ),
-        requires=["db_session", "search_space_id", "user_id"],
-        enabled_by_default=False,
-        hidden=True,
-    ),
-    ToolDefinition(
-        name="delete_linear_issue",
-        description="Archive (delete) an existing indexed Linear issue",
-        factory=lambda deps: create_delete_linear_issue_tool(
-            db_session=deps["db_session"],
-            search_space_id=deps["search_space_id"],
-            user_id=deps["user_id"],
-        ),
-        requires=["db_session", "search_space_id", "user_id"],
-        enabled_by_default=False,
-        hidden=True,
-    ),
-    # =========================================================================
-    # NOTION TOOLS - create, update, delete pages (WIP - hidden from UI)
-    # =========================================================================
-    ToolDefinition(
-        name="create_notion_page",
-        description="Create a new page in the user's Notion workspace",
-        factory=lambda deps: create_create_notion_page_tool(
-            db_session=deps["db_session"],
-            search_space_id=deps["search_space_id"],
-            user_id=deps["user_id"],
-        ),
-        requires=["db_session", "search_space_id", "user_id"],
-        enabled_by_default=False,
-        hidden=True,
-    ),
-    ToolDefinition(
-        name="update_notion_page",
-        description="Append new content to an existing Notion page",
-        factory=lambda deps: create_update_notion_page_tool(
-            db_session=deps["db_session"],
-            search_space_id=deps["search_space_id"],
-            user_id=deps["user_id"],
-        ),
-        requires=["db_session", "search_space_id", "user_id"],
-        enabled_by_default=False,
-        hidden=True,
-    ),
-    ToolDefinition(
-        name="delete_notion_page",
-        description="Delete an existing Notion page",
-        factory=lambda deps: create_delete_notion_page_tool(
-            db_session=deps["db_session"],
-            search_space_id=deps["search_space_id"],
-            user_id=deps["user_id"],
-        ),
-        requires=["db_session", "search_space_id", "user_id"],
-        enabled_by_default=False,
-        hidden=True,
     ),
     # =========================================================================
     # GOOGLE DRIVE TOOLS - create files, delete files (WIP - hidden from UI)

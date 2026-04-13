@@ -21,6 +21,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.db import shielded_async_session
 from app.services.connector_service import ConnectorService
+from app.utils.decommissioned_connectors import DECOMMISSIONED_CONNECTOR_TYPE_VALUES
 from app.utils.perf import get_perf_logger
 
 # Connectors that call external live-search APIs (no local DB / embedding needed).
@@ -243,6 +244,12 @@ CONNECTOR_DESCRIPTIONS: dict[str, str] = {
     "COMPOSIO_GOOGLE_CALENDAR_CONNECTOR": "Google Calendar events via Composio (personal calendar)",
 }
 
+_ACTIVE_CONNECTORS: list[str] = [
+    connector
+    for connector in _ALL_CONNECTORS
+    if connector not in DECOMMISSIONED_CONNECTOR_TYPE_VALUES
+]
+
 
 def _normalize_connectors(
     connectors_to_search: list[str] | None,
@@ -266,7 +273,7 @@ def _normalize_connectors(
     """
     # Determine the set of valid connectors to consider
     valid_set = (
-        set(available_connectors) if available_connectors else set(_ALL_CONNECTORS)
+        set(available_connectors) if available_connectors else set(_ACTIVE_CONNECTORS)
     )
 
     if not connectors_to_search:
@@ -274,7 +281,7 @@ def _normalize_connectors(
         return (
             list(available_connectors)
             if available_connectors
-            else list(_ALL_CONNECTORS)
+            else list(_ACTIVE_CONNECTORS)
         )
 
     normalized: list[str] = []
@@ -294,7 +301,7 @@ def _normalize_connectors(
         if c in seen:
             continue
         # Only include if it's a known connector AND available
-        if c not in _ALL_CONNECTORS:
+        if c not in _ACTIVE_CONNECTORS:
             continue
         if c not in valid_set:
             continue
@@ -308,7 +315,7 @@ def _normalize_connectors(
         else (
             list(available_connectors)
             if available_connectors
-            else list(_ALL_CONNECTORS)
+            else list(_ACTIVE_CONNECTORS)
         )
     )
 
@@ -874,7 +881,9 @@ def _build_connector_docstring(available_connectors: list[str] | None) -> str:
     Returns:
         Formatted docstring section listing available connectors
     """
-    connectors = available_connectors if available_connectors else list(_ALL_CONNECTORS)
+    connectors = (
+        available_connectors if available_connectors else list(_ACTIVE_CONNECTORS)
+    )
 
     lines = []
     for connector in connectors:

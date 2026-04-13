@@ -20,6 +20,7 @@ from app.db import (
 )
 from app.retriever.chunks_hybrid_search import ChucksHybridSearchRetriever
 from app.retriever.documents_hybrid_search import DocumentHybridSearchRetriever
+from app.utils.decommissioned_connectors import DECOMMISSIONED_CONNECTOR_TYPES
 from app.utils.perf import get_perf_logger
 
 
@@ -3225,7 +3226,11 @@ class ConnectorService:
 
         result = await self.session.execute(query)
         connector_types = result.scalars().all()
-        return list(connector_types)
+        return [
+            connector_type
+            for connector_type in connector_types
+            if connector_type not in DECOMMISSIONED_CONNECTOR_TYPES
+        ]
 
     async def get_available_document_types(
         self,

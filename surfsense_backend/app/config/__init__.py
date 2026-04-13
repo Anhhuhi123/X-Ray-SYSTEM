@@ -240,56 +240,11 @@ class Config:
     GOOGLE_OAUTH_CLIENT_SECRET = os.getenv("GOOGLE_OAUTH_CLIENT_SECRET")
     GOOGLE_PICKER_API_KEY = os.getenv("GOOGLE_PICKER_API_KEY")
 
-    # Google Calendar redirect URI
-    GOOGLE_CALENDAR_REDIRECT_URI = os.getenv("GOOGLE_CALENDAR_REDIRECT_URI")
-
-    # Google Gmail redirect URI
-    GOOGLE_GMAIL_REDIRECT_URI = os.getenv("GOOGLE_GMAIL_REDIRECT_URI")
-
     # Google Drive redirect URI
     GOOGLE_DRIVE_REDIRECT_URI = os.getenv("GOOGLE_DRIVE_REDIRECT_URI")
 
-    # Airtable OAuth
-    AIRTABLE_CLIENT_ID = os.getenv("AIRTABLE_CLIENT_ID")
-    AIRTABLE_CLIENT_SECRET = os.getenv("AIRTABLE_CLIENT_SECRET")
-    AIRTABLE_REDIRECT_URI = os.getenv("AIRTABLE_REDIRECT_URI")
-
-    # Notion OAuth
-    NOTION_CLIENT_ID = os.getenv("NOTION_CLIENT_ID")
-    NOTION_CLIENT_SECRET = os.getenv("NOTION_CLIENT_SECRET")
-    NOTION_REDIRECT_URI = os.getenv("NOTION_REDIRECT_URI")
-
-    # Atlassian OAuth (shared for Jira and Confluence)
-    ATLASSIAN_CLIENT_ID = os.getenv("ATLASSIAN_CLIENT_ID")
-    ATLASSIAN_CLIENT_SECRET = os.getenv("ATLASSIAN_CLIENT_SECRET")
-    JIRA_REDIRECT_URI = os.getenv("JIRA_REDIRECT_URI")
-    CONFLUENCE_REDIRECT_URI = os.getenv("CONFLUENCE_REDIRECT_URI")
-
-    # Linear OAuth
-    LINEAR_CLIENT_ID = os.getenv("LINEAR_CLIENT_ID")
-    LINEAR_CLIENT_SECRET = os.getenv("LINEAR_CLIENT_SECRET")
-    LINEAR_REDIRECT_URI = os.getenv("LINEAR_REDIRECT_URI")
-
-    # Slack OAuth
-    SLACK_CLIENT_ID = os.getenv("SLACK_CLIENT_ID")
-    SLACK_CLIENT_SECRET = os.getenv("SLACK_CLIENT_SECRET")
-    SLACK_REDIRECT_URI = os.getenv("SLACK_REDIRECT_URI")
-
     # Discord OAuth
-    DISCORD_CLIENT_ID = os.getenv("DISCORD_CLIENT_ID")
-    DISCORD_CLIENT_SECRET = os.getenv("DISCORD_CLIENT_SECRET")
-    DISCORD_REDIRECT_URI = os.getenv("DISCORD_REDIRECT_URI")
     DISCORD_BOT_TOKEN = os.getenv("DISCORD_BOT_TOKEN")
-
-    # Microsoft Teams OAuth
-    TEAMS_CLIENT_ID = os.getenv("TEAMS_CLIENT_ID")
-    TEAMS_CLIENT_SECRET = os.getenv("TEAMS_CLIENT_SECRET")
-    TEAMS_REDIRECT_URI = os.getenv("TEAMS_REDIRECT_URI")
-
-    # ClickUp OAuth
-    CLICKUP_CLIENT_ID = os.getenv("CLICKUP_CLIENT_ID")
-    CLICKUP_CLIENT_SECRET = os.getenv("CLICKUP_CLIENT_SECRET")
-    CLICKUP_REDIRECT_URI = os.getenv("CLICKUP_REDIRECT_URI")
 
     # Composio Configuration (for managed OAuth integrations)
     # Get your API key from https://app.composio.dev

@@ -104,19 +104,15 @@ from .search_space import (
 from .users import UserCreate, UserRead, UserUpdate
 
 __all__ = [
-    # Chat schemas (assistant-ui integration)
     "ChatMessage",
-    # Chunk schemas
     "ChunkBase",
     "ChunkCreate",
     "ChunkRead",
     "ChunkUpdate",
     "DefaultSystemInstructionsResponse",
-    # Document section schemas
-    "DocumentSectionRead",
-    # Document schemas
     "DocumentBase",
     "DocumentRead",
+    "DocumentSectionRead",
     "DocumentStatusBatchResponse",
     "DocumentStatusItemRead",
     "DocumentStatusSchema",
@@ -125,7 +121,6 @@ __all__ = [
     "DocumentUpdate",
     "DocumentWithChunksRead",
     "DocumentsCreate",
-    # Google Drive schemas
     "DriveItem",
     "ExtensionDocumentContent",
     "ExtensionDocumentMetadata",
@@ -133,38 +128,30 @@ __all__ = [
     "GlobalNewLLMConfigRead",
     "GoogleDriveIndexRequest",
     "GoogleDriveIndexingOptions",
-    # Base schemas
     "IDModel",
-    # Image Generation Config schemas
     "ImageGenerationConfigCreate",
     "ImageGenerationConfigPublic",
     "ImageGenerationConfigRead",
     "ImageGenerationConfigUpdate",
-    # Image Generation schemas
     "ImageGenerationCreate",
     "ImageGenerationListRead",
     "ImageGenerationRead",
-    # RBAC schemas
     "InviteAcceptRequest",
     "InviteAcceptResponse",
     "InviteCreate",
     "InviteInfoResponse",
     "InviteRead",
     "InviteUpdate",
-    # LLM Preferences schemas
     "LLMPreferencesRead",
     "LLMPreferencesUpdate",
-    # Log schemas
     "LogBase",
     "LogCreate",
     "LogFilter",
     "LogRead",
     "LogUpdate",
-    # Auth schemas
     "LogoutAllResponse",
     "LogoutRequest",
     "LogoutResponse",
-    # Search source connector schemas
     "MCPConnectorCreate",
     "MCPConnectorRead",
     "MCPConnectorUpdate",
@@ -180,7 +167,6 @@ __all__ = [
     "NewChatThreadRead",
     "NewChatThreadUpdate",
     "NewChatThreadWithMessages",
-    # NewLLMConfig schemas
     "NewLLMConfigCreate",
     "NewLLMConfigPublic",
     "NewLLMConfigRead",
@@ -190,14 +176,12 @@ __all__ = [
     "ParsedSection",
     "PermissionInfo",
     "PermissionsListResponse",
-    # Podcast schemas
     "PodcastBase",
     "PodcastCreate",
     "PodcastRead",
     "PodcastUpdate",
     "RefreshTokenRequest",
     "RefreshTokenResponse",
-    # Report schemas
     "ReportBase",
     "ReportContentRead",
     "ReportContentUpdate",
@@ -210,7 +194,6 @@ __all__ = [
     "SearchSourceConnectorCreate",
     "SearchSourceConnectorRead",
     "SearchSourceConnectorUpdate",
-    # Search space schemas
     "SearchSpaceBase",
     "SearchSpaceCreate",
     "SearchSpaceRead",
@@ -220,7 +203,6 @@ __all__ = [
     "ThreadListItem",
     "ThreadListResponse",
     "TimestampModel",
-    # User schemas
     "UserCreate",
     "UserRead",
     "UserSearchSpaceAccess",

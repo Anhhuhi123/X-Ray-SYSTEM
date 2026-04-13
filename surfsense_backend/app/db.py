@@ -22,7 +22,6 @@ from sqlalchemy import (
     String,
     Text,
     UniqueConstraint,
-    delete,
     text,
 )
 from sqlalchemy.dialects.postgresql import JSONB, UUID

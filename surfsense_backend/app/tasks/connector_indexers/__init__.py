@@ -8,7 +8,6 @@ from a specific connector type.
 Available indexers:
 - Slack: Index messages from Slack channels
 - Notion: Index pages from Notion workspaces
-- GitHub: Index repositories and files from GitHub
 - Linear: Index issues from Linear workspaces
 - Jira: Index issues from Jira projects
 - Confluence: Index pages from Confluence spaces
@@ -43,17 +42,12 @@ from .webcrawler_indexer import index_crawled_urls
 
 __all__ = [  # noqa: RUF022
     "index_airtable_records",
-    "index_bookstack_pages",
     "index_clickup_tasks",
     "index_confluence_pages",
     "index_discord_messages",
-    # Development platforms
-    "index_elasticsearch_documents",
-    "index_github_repos",
     # Calendar and scheduling
     "index_google_calendar_events",
     "index_google_drive_files",
-    "index_luma_events",
     "index_jira_issues",
     # Issue tracking and project management
     "index_linear_issues",

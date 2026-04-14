@@ -33,8 +33,6 @@ logger = logging.getLogger(__name__)
 # Valid Composio connector types
 COMPOSIO_CONNECTOR_TYPES = {
     SearchSourceConnectorType.COMPOSIO_GOOGLE_DRIVE_CONNECTOR,
-    SearchSourceConnectorType.COMPOSIO_GMAIL_CONNECTOR,
-    SearchSourceConnectorType.COMPOSIO_GOOGLE_CALENDAR_CONNECTOR,
 }
 
 

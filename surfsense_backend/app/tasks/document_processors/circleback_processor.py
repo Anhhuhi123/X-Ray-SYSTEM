@@ -21,8 +21,6 @@ from app.db import (
     Document,
     DocumentStatus,
     DocumentType,
-    SearchSourceConnector,
-    SearchSourceConnectorType,
     SearchSpace,
 )
 from app.services.llm_service import get_document_summary_llm
@@ -113,29 +111,11 @@ async def add_circleback_meeting_document(
             # This makes the document visible in the UI immediately
             # =======================================================================
 
-            # Fetch the user who set up the Circleback connector (preferred)
-            # or fall back to search space owner if no connector found
-            created_by_user_id = None
-
-            # Try to find the Circleback connector for this search space
-            connector_result = await session.execute(
-                select(SearchSourceConnector.user_id).where(
-                    SearchSourceConnector.search_space_id == search_space_id,
-                    SearchSourceConnector.connector_type
-                    == SearchSourceConnectorType.CIRCLEBACK_CONNECTOR,
-                )
+            # Use search space owner as the creator for incoming Circleback webhook docs.
+            search_space_result = await session.execute(
+                select(SearchSpace.user_id).where(SearchSpace.id == search_space_id)
             )
-            connector_user = connector_result.scalar_one_or_none()
-
-            if connector_user:
-                # Use the user who set up the Circleback connector
-                created_by_user_id = connector_user
-            else:
-                # Fallback: use search space owner if no connector found
-                search_space_result = await session.execute(
-                    select(SearchSpace.user_id).where(SearchSpace.id == search_space_id)
-                )
-                created_by_user_id = search_space_result.scalar_one_or_none()
+            created_by_user_id = search_space_result.scalar_one_or_none()
 
             # Create new document with PENDING status (visible in UI immediately)
             document = Document(

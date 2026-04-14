@@ -15,11 +15,8 @@ import {
 	type IndexConnectorRequest,
 	indexConnectorRequest,
 	indexConnectorResponse,
-	type ListGitHubRepositoriesRequest,
 	type ListGoogleDriveFoldersRequest,
 	listDiscordChannelsResponse,
-	listGitHubRepositoriesRequest,
-	listGitHubRepositoriesResponse,
 	listGoogleDriveFoldersRequest,
 	listGoogleDriveFoldersResponse,
 	listSlackChannelsResponse,
@@ -200,24 +197,6 @@ class ConnectorsApiService {
 				body: body || {},
 			}
 		);
-	};
-
-	/**
-	 * List GitHub repositories using a Personal Access Token
-	 */
-	listGitHubRepositories = async (request: ListGitHubRepositoriesRequest) => {
-		const parsedRequest = listGitHubRepositoriesRequest.safeParse(request);
-
-		if (!parsedRequest.success) {
-			console.error("Invalid request:", parsedRequest.error);
-
-			const errorMessage = parsedRequest.error.issues.map((issue) => issue.message).join(", ");
-			throw new ValidationError(`Invalid request: ${errorMessage}`);
-		}
-
-		return baseApiService.post(`/api/v1/github/repositories`, listGitHubRepositoriesResponse, {
-			body: parsedRequest.data,
-		});
 	};
 
 	/**

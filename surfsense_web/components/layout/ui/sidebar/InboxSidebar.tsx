@@ -87,7 +87,6 @@ function formatInboxCount(count: number): string {
 
 function getConnectorTypeDisplayName(connectorType: string): string {
 	const displayNames: Record<string, string> = {
-		GITHUB_CONNECTOR: "GitHub",
 		GOOGLE_CALENDAR_CONNECTOR: "Google Calendar",
 		GOOGLE_GMAIL_CONNECTOR: "Gmail",
 		GOOGLE_DRIVE_CONNECTOR: "Google Drive",
@@ -101,11 +100,8 @@ function getConnectorTypeDisplayName(connectorType: string): string {
 		DISCORD_CONNECTOR: "Discord",
 		JIRA_CONNECTOR: "Jira",
 		CONFLUENCE_CONNECTOR: "Confluence",
-		BOOKSTACK_CONNECTOR: "BookStack",
 		CLICKUP_CONNECTOR: "ClickUp",
 		AIRTABLE_CONNECTOR: "Airtable",
-		LUMA_CONNECTOR: "Luma",
-		ELASTICSEARCH_CONNECTOR: "Elasticsearch",
 		WEBCRAWLER_CONNECTOR: "Web Crawler",
 		YOUTUBE_CONNECTOR: "YouTube",
 		CIRCLEBACK_CONNECTOR: "Circleback",

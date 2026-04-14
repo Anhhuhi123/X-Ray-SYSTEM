@@ -11,13 +11,6 @@ export function getConnectorBenefits(connectorType: string): string[] | null {
 			"Keep your search results up-to-date with latest Linear content",
 			"Index your Linear issues for enhanced search capabilities",
 		],
-		ELASTICSEARCH_CONNECTOR: [
-			"Search across your indexed documents and logs",
-			"Access structured and unstructured data from your cluster",
-			"Leverage existing Elasticsearch indices for enhanced search",
-			"Real-time search capabilities with powerful query features",
-			"Integration with your existing Elasticsearch infrastructure",
-		],
 		TAVILY_API: [
 			"AI-powered search results tailored to your queries",
 			"Real-time information from the web",
@@ -66,20 +59,6 @@ export function getConnectorBenefits(connectorType: string): string[] | null {
 			"Keep your search results up-to-date with latest Confluence content",
 			"Index your Confluence workspace for enhanced search capabilities",
 		],
-		BOOKSTACK_CONNECTOR: [
-			"Search through all your BookStack pages and books",
-			"Access page content, chapters, and documentation",
-			"Connect your documentation directly to your search space",
-			"Keep your search results up-to-date with latest BookStack content",
-			"Index your BookStack instance for enhanced search capabilities",
-		],
-		GITHUB_CONNECTOR: [
-			"Search through code, issues, and documentation from GitHub repositories",
-			"Access repository content, pull requests, and discussions",
-			"Connect your codebase directly to your search space",
-			"Keep your search results up-to-date with latest GitHub content",
-			"Index your GitHub repositories for enhanced search capabilities",
-		],
 		JIRA_CONNECTOR: [
 			"Search through all your Jira issues and tickets",
 			"Access issue descriptions, comments, and project data",
@@ -93,13 +72,6 @@ export function getConnectorBenefits(connectorType: string): string[] | null {
 			"Connect your task management directly to your search space",
 			"Keep your search results up-to-date with latest ClickUp content",
 			"Index your ClickUp workspace for enhanced search capabilities",
-		],
-		LUMA_CONNECTOR: [
-			"Search through all your Luma events",
-			"Access event details, descriptions, and attendee information",
-			"Connect your events directly to your search space",
-			"Keep your search results up-to-date with latest Luma content",
-			"Index your Luma events for enhanced search capabilities",
 		],
 		CIRCLEBACK_CONNECTOR: [
 			"Automatically receive meeting notes, transcripts, and action items",

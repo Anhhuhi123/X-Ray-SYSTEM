@@ -107,30 +107,6 @@ export const CRAWLERS = [
 // Non-OAuth Connectors (redirect to old connector config pages)
 export const OTHER_CONNECTORS = [
 	{
-		id: "bookstack-connector",
-		title: "BookStack",
-		description: "Search BookStack docs",
-		connectorType: EnumConnectorName.BOOKSTACK_CONNECTOR,
-	},
-	{
-		id: "github-connector",
-		title: "GitHub",
-		description: "Search repositories",
-		connectorType: EnumConnectorName.GITHUB_CONNECTOR,
-	},
-	{
-		id: "luma-connector",
-		title: "Luma",
-		description: "Search Luma events",
-		connectorType: EnumConnectorName.LUMA_CONNECTOR,
-	},
-	{
-		id: "elasticsearch-connector",
-		title: "Elasticsearch",
-		description: "Search ES indexes",
-		connectorType: EnumConnectorName.ELASTICSEARCH_CONNECTOR,
-	},
-	{
 		id: "tavily-api",
 		title: "Tavily AI",
 		description: "Search with Tavily",

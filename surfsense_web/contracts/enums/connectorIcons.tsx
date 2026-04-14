@@ -27,8 +27,6 @@ export const getConnectorIcon = (connectorType: EnumConnectorName | string, clas
 			return <Image src="/connectors/linkup.svg" alt="Linkup" {...imgProps} />;
 		case EnumConnectorName.LINEAR_CONNECTOR:
 			return <Image src="/connectors/linear.svg" alt="Linear" {...imgProps} />;
-		case EnumConnectorName.GITHUB_CONNECTOR:
-			return <Image src="/connectors/github.svg" alt="GitHub" {...imgProps} />;
 		case EnumConnectorName.TAVILY_API:
 			return <Image src="/connectors/tavily.svg" alt="Tavily" {...imgProps} />;
 		case EnumConnectorName.SEARXNG_API:
@@ -55,14 +53,8 @@ export const getConnectorIcon = (connectorType: EnumConnectorName | string, clas
 			return <Image src="/connectors/airtable.svg" alt="Airtable" {...imgProps} />;
 		case EnumConnectorName.CONFLUENCE_CONNECTOR:
 			return <Image src="/connectors/confluence.svg" alt="Confluence" {...imgProps} />;
-		case EnumConnectorName.BOOKSTACK_CONNECTOR:
-			return <Image src="/connectors/bookstack.svg" alt="BookStack" {...imgProps} />;
 		case EnumConnectorName.CLICKUP_CONNECTOR:
 			return <Image src="/connectors/clickup.svg" alt="ClickUp" {...imgProps} />;
-		case EnumConnectorName.LUMA_CONNECTOR:
-			return <Image src="/connectors/luma.svg" alt="Luma" {...imgProps} />;
-		case EnumConnectorName.ELASTICSEARCH_CONNECTOR:
-			return <Image src="/connectors/elasticsearch.svg" alt="Elasticsearch" {...imgProps} />;
 		case EnumConnectorName.WEBCRAWLER_CONNECTOR:
 			return <Globe {...iconProps} />;
 		case EnumConnectorName.YOUTUBE_CONNECTOR:

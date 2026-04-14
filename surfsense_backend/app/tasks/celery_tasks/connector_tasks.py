@@ -55,52 +55,6 @@ async def _run_with_session(
         )
 
 
-@celery_app.task(name="index_github_repos", bind=True)
-def index_github_repos_task(
-    self,
-    connector_id: int,
-    search_space_id: int,
-    user_id: str,
-    start_date: str | None,
-    end_date: str | None,
-):
-    from app.routes.search_source_connectors_routes import run_github_indexing
-
-    _run_async(
-        _run_with_session(
-            run_github_indexing,
-            connector_id,
-            search_space_id,
-            user_id,
-            start_date,
-            end_date,
-        )
-    )
-
-
-@celery_app.task(name="index_elasticsearch_documents", bind=True)
-def index_elasticsearch_documents_task(
-    self,
-    connector_id: int,
-    search_space_id: int,
-    user_id: str,
-    start_date: str | None,
-    end_date: str | None,
-):
-    from app.routes.search_source_connectors_routes import run_elasticsearch_indexing
-
-    _run_async(
-        _run_with_session(
-            run_elasticsearch_indexing,
-            connector_id,
-            search_space_id,
-            user_id,
-            start_date,
-            end_date,
-        )
-    )
-
-
 @celery_app.task(name="index_crawled_urls", bind=True)
 def index_crawled_urls_task(
     self,
@@ -126,29 +80,6 @@ def index_crawled_urls_task(
     except Exception as e:
         _handle_greenlet_error(e, "index_crawled_urls", connector_id)
         raise
-
-
-@celery_app.task(name="index_bookstack_pages", bind=True)
-def index_bookstack_pages_task(
-    self,
-    connector_id: int,
-    search_space_id: int,
-    user_id: str,
-    start_date: str | None,
-    end_date: str | None,
-):
-    from app.routes.search_source_connectors_routes import run_bookstack_indexing
-
-    _run_async(
-        _run_with_session(
-            run_bookstack_indexing,
-            connector_id,
-            search_space_id,
-            user_id,
-            start_date,
-            end_date,
-        )
-    )
 
 
 @celery_app.task(name="index_obsidian_vault", bind=True)

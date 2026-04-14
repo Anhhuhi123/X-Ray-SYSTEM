@@ -56,15 +56,11 @@ async def _check_and_trigger_schedules():
             from app.tasks.celery_tasks.connector_tasks import (
                 index_composio_connector_task,
                 index_crawled_urls_task,
-                index_elasticsearch_documents_task,
-                index_github_repos_task,
             )
 
             # Map connector types to their tasks
             task_map = {
-                SearchSourceConnectorType.GITHUB_CONNECTOR: index_github_repos_task,
                 SearchSourceConnectorType.COMPOSIO_GOOGLE_DRIVE_CONNECTOR: index_composio_connector_task,
-                SearchSourceConnectorType.ELASTICSEARCH_CONNECTOR: index_elasticsearch_documents_task,
                 SearchSourceConnectorType.WEBCRAWLER_CONNECTOR: index_crawled_urls_task,
             }
 

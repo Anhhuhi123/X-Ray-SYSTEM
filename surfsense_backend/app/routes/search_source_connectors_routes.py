@@ -26,13 +26,12 @@ from typing import Any
 
 import redis
 from fastapi import APIRouter, Body, Depends, HTTPException, Query
-from pydantic import BaseModel, Field, ValidationError
+from pydantic import ValidationError
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.future import select
 
 from app.config import config
-from app.connectors.github_connector import GitHubConnector
 from app.db import (
     Permission,
     SearchSourceConnector,
@@ -55,8 +54,6 @@ from app.services.composio_service import ComposioService, get_composio_service
 from app.services.notification_service import NotificationService
 from app.tasks.connector_indexers import (
     index_crawled_urls,
-    index_elasticsearch_documents,
-    index_github_repos,
 )
 from app.users import current_active_user
 from app.utils.decommissioned_connectors import DECOMMISSIONED_CONNECTOR_TYPES
@@ -97,38 +94,6 @@ def _get_heartbeat_key(notification_id: int) -> str:
 
 
 router = APIRouter()
-
-
-# Use Pydantic's BaseModel here
-class GitHubPATRequest(BaseModel):
-    github_pat: str = Field(..., description="GitHub Personal Access Token")
-
-
-# --- New Endpoint to list GitHub Repositories ---
-@router.post("/github/repositories", response_model=list[dict[str, Any]])
-async def list_github_repositories(
-    pat_request: GitHubPATRequest,
-    user: User = Depends(current_active_user),  # Ensure the user is logged in
-):
-    """
-    Fetches a list of repositories accessible by the provided GitHub PAT.
-    The PAT is used for this request only and is not stored.
-    """
-    try:
-        # Initialize GitHubConnector with the provided PAT
-        github_client = GitHubConnector(token=pat_request.github_pat)
-        # Fetch repositories
-        repositories = github_client.get_user_repositories()
-        return repositories
-    except ValueError as e:
-        # Handle invalid token error specifically
-        logger.error(f"GitHub PAT validation failed for user {user.id}: {e!s}")
-        raise HTTPException(status_code=400, detail=f"Invalid GitHub PAT: {e!s}") from e
-    except Exception as e:
-        logger.error(f"Failed to fetch GitHub repositories for user {user.id}: {e!s}")
-        raise HTTPException(
-            status_code=500, detail="Failed to fetch GitHub repositories."
-        ) from e
 
 
 @router.post("/search-source-connectors", response_model=SearchSourceConnectorRead)
@@ -709,11 +674,8 @@ async def index_connector_content(
     Requires CONNECTORS_UPDATE permission (to trigger indexing).
 
     Currently supports:
-    - GITHUB_CONNECTOR: Indexes code and documentation from GitHub repositories
     - COMPOSIO_GOOGLE_DRIVE_CONNECTOR: Indexes files from Composio Google Drive
-    - ELASTICSEARCH_CONNECTOR: Indexes documents from Elasticsearch
     - WEBCRAWLER_CONNECTOR: Indexes web pages from crawled websites
-    - BOOKSTACK_CONNECTOR: Indexes pages from BookStack
     - OBSIDIAN_CONNECTOR: Indexes notes from Obsidian vaults
 
     Args:
@@ -788,47 +750,7 @@ async def index_connector_content(
         # For supported connectors, cap end date at today by default.
         indexing_to = end_date if end_date else today_str
 
-        if connector.connector_type == SearchSourceConnectorType.GITHUB_CONNECTOR:
-            from app.tasks.celery_tasks.connector_tasks import index_github_repos_task
-
-            logger.info(
-                f"Triggering GitHub indexing for connector {connector_id} into search space {search_space_id} from {indexing_from} to {indexing_to}"
-            )
-            index_github_repos_task.delay(
-                connector_id, search_space_id, str(user.id), indexing_from, indexing_to
-            )
-            response_message = "GitHub indexing started in the background."
-
-        elif connector.connector_type == SearchSourceConnectorType.BOOKSTACK_CONNECTOR:
-            from app.tasks.celery_tasks.connector_tasks import (
-                index_bookstack_pages_task,
-            )
-
-            logger.info(
-                f"Triggering BookStack indexing for connector {connector_id} into search space {search_space_id} from {indexing_from} to {indexing_to}"
-            )
-            index_bookstack_pages_task.delay(
-                connector_id, search_space_id, str(user.id), indexing_from, indexing_to
-            )
-            response_message = "BookStack indexing started in the background."
-
-        elif (
-            connector.connector_type
-            == SearchSourceConnectorType.ELASTICSEARCH_CONNECTOR
-        ):
-            from app.tasks.celery_tasks.connector_tasks import (
-                index_elasticsearch_documents_task,
-            )
-
-            logger.info(
-                f"Triggering Elasticsearch indexing for connector {connector_id} into search space {search_space_id}"
-            )
-            index_elasticsearch_documents_task.delay(
-                connector_id, search_space_id, str(user.id), indexing_from, indexing_to
-            )
-            response_message = "Elasticsearch indexing started in the background."
-
-        elif connector.connector_type == SearchSourceConnectorType.WEBCRAWLER_CONNECTOR:
+        if connector.connector_type == SearchSourceConnectorType.WEBCRAWLER_CONNECTOR:
             from app.tasks.celery_tasks.connector_tasks import index_crawled_urls_task
             from app.utils.webcrawler_utils import parse_webcrawler_urls
 
@@ -1347,109 +1269,6 @@ async def _run_indexing_with_notifications(
                 release_connector_indexing_lock(connector_id)
 
 
-# Add new helper functions for GitHub indexing
-async def run_github_indexing_with_new_session(
-    connector_id: int,
-    search_space_id: int,
-    user_id: str,
-    start_date: str,
-    end_date: str,
-):
-    """Wrapper to run GitHub indexing with its own database session."""
-    logger.info(
-        f"Background task started: Indexing GitHub connector {connector_id} into space {search_space_id} from {start_date} to {end_date}"
-    )
-    async with async_session_maker() as session:
-        await run_github_indexing(
-            session, connector_id, search_space_id, user_id, start_date, end_date
-        )
-    logger.info(f"Background task finished: Indexing GitHub connector {connector_id}")
-
-
-async def run_github_indexing(
-    session: AsyncSession,
-    connector_id: int,
-    search_space_id: int,
-    user_id: str,
-    start_date: str,
-    end_date: str,
-):
-    """
-    Background task to run GitHub indexing.
-
-    Args:
-        session: Database session
-        connector_id: ID of the GitHub connector
-        search_space_id: ID of the search space
-        user_id: ID of the user
-        start_date: Start date for indexing
-        end_date: End date for indexing
-    """
-    await _run_indexing_with_notifications(
-        session=session,
-        connector_id=connector_id,
-        search_space_id=search_space_id,
-        user_id=user_id,
-        start_date=start_date,
-        end_date=end_date,
-        indexing_function=index_github_repos,
-        update_timestamp_func=_update_connector_timestamp_by_id,
-        supports_heartbeat_callback=True,
-    )
-
-
-async def run_elasticsearch_indexing_with_new_session(
-    connector_id: int,
-    search_space_id: int,
-    user_id: str,
-    start_date: str,
-    end_date: str,
-):
-    """Wrapper to run Elasticsearch indexing with its own database session."""
-    logger.info(
-        f"Background task started: Indexing Elasticsearch connector {connector_id} into space {search_space_id}"
-    )
-    async with async_session_maker() as session:
-        await run_elasticsearch_indexing(
-            session, connector_id, search_space_id, user_id, start_date, end_date
-        )
-    logger.info(
-        f"Background task finished: Indexing Elasticsearch connector {connector_id}"
-    )
-
-
-async def run_elasticsearch_indexing(
-    session: AsyncSession,
-    connector_id: int,
-    search_space_id: int,
-    user_id: str,
-    start_date: str,
-    end_date: str,
-):
-    """
-    Background task to run Elasticsearch indexing.
-
-    Args:
-        session: Database session
-        connector_id: ID of the Elasticsearch connector
-        search_space_id: ID of the search space
-        user_id: ID of the user
-        start_date: Start date for indexing
-        end_date: End date for indexing
-    """
-    await _run_indexing_with_notifications(
-        session=session,
-        connector_id=connector_id,
-        search_space_id=search_space_id,
-        user_id=user_id,
-        start_date=start_date,
-        end_date=end_date,
-        indexing_function=index_elasticsearch_documents,
-        update_timestamp_func=_update_connector_timestamp_by_id,
-        supports_heartbeat_callback=True,
-    )
-
-
 # Add new helper functions for crawled web page indexing
 async def run_web_page_indexing_with_new_session(
     connector_id: int,
@@ -1495,61 +1314,6 @@ async def run_web_page_indexing(
         start_date=start_date,
         end_date=end_date,
         indexing_function=index_crawled_urls,
-        update_timestamp_func=_update_connector_timestamp_by_id,
-        supports_heartbeat_callback=True,
-    )
-
-
-# Add new helper functions for BookStack indexing
-async def run_bookstack_indexing_with_new_session(
-    connector_id: int,
-    search_space_id: int,
-    user_id: str,
-    start_date: str,
-    end_date: str,
-):
-    """Wrapper to run BookStack indexing with its own database session."""
-    logger.info(
-        f"Background task started: Indexing BookStack connector {connector_id} into space {search_space_id} from {start_date} to {end_date}"
-    )
-    async with async_session_maker() as session:
-        await run_bookstack_indexing(
-            session, connector_id, search_space_id, user_id, start_date, end_date
-        )
-    logger.info(
-        f"Background task finished: Indexing BookStack connector {connector_id}"
-    )
-
-
-async def run_bookstack_indexing(
-    session: AsyncSession,
-    connector_id: int,
-    search_space_id: int,
-    user_id: str,
-    start_date: str,
-    end_date: str,
-):
-    """
-    Background task to run BookStack indexing.
-
-    Args:
-        session: Database session
-        connector_id: ID of the BookStack connector
-        search_space_id: ID of the search space
-        user_id: ID of the user
-        start_date: Start date for indexing
-        end_date: End date for indexing
-    """
-    from app.tasks.connector_indexers import index_bookstack_pages
-
-    await _run_indexing_with_notifications(
-        session=session,
-        connector_id=connector_id,
-        search_space_id=search_space_id,
-        user_id=user_id,
-        start_date=start_date,
-        end_date=end_date,
-        indexing_function=index_bookstack_pages,
         update_timestamp_func=_update_connector_timestamp_by_id,
         supports_heartbeat_callback=True,
     )

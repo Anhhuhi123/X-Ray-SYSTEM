@@ -376,8 +376,6 @@ _TOOL_EXAMPLES["search_knowledge_base"] = """
   - Call: `search_knowledge_base(query="gym session time schedule")` (searches ALL sources)
 - User: "Fetch all my notes and what's in them?"
   - Call: `search_knowledge_base(query="*", top_k=50, connectors_to_search=["NOTE"])`
-- User: "What changed in my GitHub project last week about the React migration?"
-  - Call: `search_knowledge_base(query="React migration", connectors_to_search=["GITHUB_CONNECTOR"], start_date="YYYY-MM-DD", end_date="YYYY-MM-DD")`
 - User: "Check my Obsidian notes for meeting notes"
   - Call: `search_knowledge_base(query="meeting notes", connectors_to_search=["OBSIDIAN_CONNECTOR"])`
 - User: "search me current usd to inr rate"
@@ -552,7 +550,7 @@ The documents you receive are structured like this:
 <document>
 <document_metadata>
   <document_id>42</document_id>
-  <document_type>GITHUB_CONNECTOR</document_type>
+  <document_type>FILE</document_type>
   <title><![CDATA[Some repo / file / issue title]]></title>
   <url><![CDATA[https://example.com]]></url>
   <metadata_json><![CDATA[{{"any":"other metadata"}}]]></metadata_json>
@@ -610,7 +608,7 @@ INCORRECT citation formats (DO NOT use):
 - Using footnote style: ... library¹
 - Making up source IDs when source_id is unknown
 - Using old IEEE format: [1], [2], [3]
-- Using source types instead of IDs: [citation:GITHUB_CONNECTOR] instead of [citation:5]
+- Using source types instead of IDs: [citation:FILE] instead of [citation:5]
 </citation_examples>
 
 <citation_output_example>

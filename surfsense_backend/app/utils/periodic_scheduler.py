@@ -18,11 +18,8 @@ logger = logging.getLogger(__name__)
 
 # Mapping of connector types to their corresponding Celery task names
 CONNECTOR_TASK_MAP = {
-    SearchSourceConnectorType.GITHUB_CONNECTOR: "index_github_repos",
     SearchSourceConnectorType.COMPOSIO_GOOGLE_DRIVE_CONNECTOR: "index_composio_connector",
-    SearchSourceConnectorType.ELASTICSEARCH_CONNECTOR: "index_elasticsearch_documents",
     SearchSourceConnectorType.WEBCRAWLER_CONNECTOR: "index_crawled_urls",
-    SearchSourceConnectorType.BOOKSTACK_CONNECTOR: "index_bookstack_pages",
     SearchSourceConnectorType.OBSIDIAN_CONNECTOR: "index_obsidian_vault",
 }
 
@@ -75,21 +72,15 @@ def create_periodic_schedule(
 
         # Import all indexing tasks
         from app.tasks.celery_tasks.connector_tasks import (
-            index_bookstack_pages_task,
             index_composio_connector_task,
             index_crawled_urls_task,
-            index_elasticsearch_documents_task,
-            index_github_repos_task,
             index_obsidian_vault_task,
         )
 
         # Map connector type to task
         task_map = {
-            SearchSourceConnectorType.GITHUB_CONNECTOR: index_github_repos_task,
             SearchSourceConnectorType.COMPOSIO_GOOGLE_DRIVE_CONNECTOR: index_composio_connector_task,
-            SearchSourceConnectorType.ELASTICSEARCH_CONNECTOR: index_elasticsearch_documents_task,
             SearchSourceConnectorType.WEBCRAWLER_CONNECTOR: index_crawled_urls_task,
-            SearchSourceConnectorType.BOOKSTACK_CONNECTOR: index_bookstack_pages_task,
             SearchSourceConnectorType.OBSIDIAN_CONNECTOR: index_obsidian_vault_task,
         }
 

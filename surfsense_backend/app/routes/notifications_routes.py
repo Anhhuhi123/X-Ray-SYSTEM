@@ -323,7 +323,7 @@ async def list_notifications(
     ),
     source_type: str | None = Query(
         None,
-        description="Filter by source type, e.g. 'connector:GITHUB_CONNECTOR' or 'doctype:FILE'",
+        description="Filter by source type, e.g. 'connector:WEBCRAWLER_CONNECTOR' or 'doctype:FILE'",
     ),
     filter: str | None = Query(
         None,

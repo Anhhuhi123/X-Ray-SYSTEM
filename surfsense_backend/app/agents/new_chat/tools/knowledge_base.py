@@ -177,16 +177,12 @@ _ALL_CONNECTORS: list[str] = [
     "EXTENSION",
     "FILE",
     "YOUTUBE_VIDEO",
-    "GITHUB_CONNECTOR",
-    "ELASTICSEARCH_CONNECTOR",
     "GOOGLE_DRIVE_FILE",
     "TAVILY_API",
     "SEARXNG_API",
     "LINKUP_API",
     "BAIDU_SEARCH_API",
-    "LUMA_CONNECTOR",
     "NOTE",
-    "BOOKSTACK_CONNECTOR",
     "CRAWLED_URL",
     "CIRCLEBACK",
     "OBSIDIAN_CONNECTOR",
@@ -203,17 +199,13 @@ CONNECTOR_DESCRIPTIONS: dict[str, str] = {
     "FILE": "User-uploaded documents (PDFs, Word, etc.) (personal files)",
     "NOTE": "SurfSense Notes (notes created inside SurfSense)",
     "YOUTUBE_VIDEO": "YouTube video transcripts and metadata (personally saved videos)",
-    "GITHUB_CONNECTOR": "GitHub repository content and issues (personal repositories and interactions)",
-    "ELASTICSEARCH_CONNECTOR": "Elasticsearch indexed documents and data (personal Elasticsearch instances)",
     "GOOGLE_DRIVE_FILE": "Google Drive files and documents (personal cloud storage)",
     "TAVILY_API": "Tavily web search API results (real-time web search)",
     "SEARXNG_API": "SearxNG search API results (privacy-focused web search)",
     "LINKUP_API": "Linkup search API results (web search)",
     "BAIDU_SEARCH_API": "Baidu search API results (Chinese web search)",
-    "LUMA_CONNECTOR": "Luma events and meetings",
     "WEBCRAWLER_CONNECTOR": "Webpages indexed by SurfSense (personally selected websites)",
     "CRAWLED_URL": "Webpages indexed by SurfSense (personally selected websites)",
-    "BOOKSTACK_CONNECTOR": "BookStack pages (personal documentation)",
     "CIRCLEBACK": "Circleback meeting notes, transcripts, and action items",
     "OBSIDIAN_CONNECTOR": "Obsidian vault notes and markdown files (personal notes)",
     # Composio connectors
@@ -382,7 +374,7 @@ def format_documents_for_context(
     #   {
     #     "document": {...},
     #     "chunks": [{"chunk_id": 123, "content": "..."}, ...],
-    #     "source": "GITHUB_CONNECTOR" | "FILE" | ...
+    #     "source": "FILE" | "NOTE" | ...
     #   }
     #
     # We must preserve chunk_id so citations like [citation:123] are possible.

@@ -529,17 +529,6 @@ def validate_connector_config(
         #     ],
         #     "validators": {},
         # },
-        "GITHUB_CONNECTOR": {
-            # GITHUB_PAT is optional - only required for private repositories
-            # Public repositories can be indexed without authentication
-            "required": ["repo_full_names"],
-            "optional": ["GITHUB_PAT"],  # Optional - only needed for private repos
-            "validators": {
-                "repo_full_names": lambda: validate_list_field(
-                    "repo_full_names", "repo_full_names"
-                )
-            },
-        },
         # "DISCORD_CONNECTOR": {"required": ["DISCORD_BOT_TOKEN"], "validators": {}},
         # "JIRA_CONNECTOR": {
         #     "required": ["JIRA_EMAIL", "JIRA_API_TOKEN", "JIRA_BASE_URL"],
@@ -569,7 +558,6 @@ def validate_connector_config(
         #     "required": ["AIRTABLE_API_KEY", "AIRTABLE_BASE_ID"],
         #     "validators": {}
         # },
-        "LUMA_CONNECTOR": {"required": ["LUMA_API_KEY"], "validators": {}},
         "WEBCRAWLER_CONNECTOR": {
             "required": [],  # No required fields - API key is optional
             "optional": ["FIRECRAWL_API_KEY", "INITIAL_URLS"],

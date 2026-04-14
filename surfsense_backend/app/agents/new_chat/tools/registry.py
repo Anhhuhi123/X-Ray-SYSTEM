@@ -54,7 +54,6 @@ from .google_drive import (
 from .knowledge_base import create_search_knowledge_base_tool
 from .link_preview import create_link_preview_tool
 from .mcp_tool import load_mcp_tools
-from .podcast import create_generate_podcast_tool
 from .report import create_generate_report_tool
 from .scrape_webpage import create_scrape_webpage_tool
 from .search_surfsense_docs import create_search_surfsense_docs_tool
@@ -113,17 +112,6 @@ BUILTIN_TOOLS: list[ToolDefinition] = [
         ),
         requires=["search_space_id", "db_session", "connector_service"],
         # Note: available_connectors and available_document_types are optional
-    ),
-    # Podcast generation tool
-    ToolDefinition(
-        name="generate_podcast",
-        description="Generate an audio podcast from provided content",
-        factory=lambda deps: create_generate_podcast_tool(
-            search_space_id=deps["search_space_id"],
-            db_session=deps["db_session"],
-            thread_id=deps["thread_id"],
-        ),
-        requires=["search_space_id", "db_session", "thread_id"],
     ),
     # Report generation tool (inline, short-lived sessions for DB ops)
     # Supports internal KB search via source_strategy so the agent doesn't
@@ -304,9 +292,6 @@ def build_tools(
 
         # Use only specific tools
         tools = build_tools(deps, enabled_tools=["search_knowledge_base", "link_preview"])
-
-        # Use defaults but disable podcast
-        tools = build_tools(deps, disabled_tools=["generate_podcast"])
 
         # Add custom tools
         tools = build_tools(deps, additional_tools=[my_custom_tool])

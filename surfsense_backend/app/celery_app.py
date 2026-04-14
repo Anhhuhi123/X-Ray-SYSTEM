@@ -76,7 +76,6 @@ celery_app = Celery(
     backend=CELERY_RESULT_BACKEND,
     include=[
         "app.tasks.celery_tasks.document_tasks",
-        "app.tasks.celery_tasks.podcast_tasks",
         "app.tasks.celery_tasks.connector_tasks",
         "app.tasks.celery_tasks.schedule_checker_task",
         "app.tasks.celery_tasks.document_reindex_tasks",

@@ -134,7 +134,6 @@ async def create_surfsense_deep_agent(
 
     The agent comes with built-in tools that can be configured:
     - search_knowledge_base: Search the user's personal knowledge base
-    - generate_podcast: Generate audio podcasts from content
     - generate_image: Generate images from text descriptions using AI models
     - link_preview: Fetch rich previews for URLs
     - display_image: Display images in chat
@@ -194,12 +193,6 @@ async def create_surfsense_deep_agent(
         agent = create_surfsense_deep_agent(
             llm, search_space_id, db_session, ...,
             enabled_tools=["search_knowledge_base", "link_preview"]
-        )
-
-        # Create agent without podcast generation
-        agent = create_surfsense_deep_agent(
-            llm, search_space_id, db_session, ...,
-            disabled_tools=["generate_podcast"]
         )
 
         # Add custom tools

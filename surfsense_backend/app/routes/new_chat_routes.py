@@ -65,44 +65,6 @@ _background_tasks: set[asyncio.Task] = set()
 router = APIRouter()
 
 
-def _try_delete_sandbox(thread_id: int) -> None:
-    """Fire-and-forget sandbox + local file deletion so the HTTP response isn't blocked."""
-    from app.agents.new_chat.sandbox import (
-        delete_local_sandbox_files,
-        delete_sandbox,
-        is_sandbox_enabled,
-    )
-
-    if not is_sandbox_enabled():
-        return
-
-    async def _bg() -> None:
-        try:
-            await delete_sandbox(thread_id)
-        except Exception:
-            _logger.warning(
-                "Background sandbox delete failed for thread %s",
-                thread_id,
-                exc_info=True,
-            )
-        try:
-            delete_local_sandbox_files(thread_id)
-        except Exception:
-            _logger.warning(
-                "Local sandbox file cleanup failed for thread %s",
-                thread_id,
-                exc_info=True,
-            )
-
-    try:
-        loop = asyncio.get_running_loop()
-        task = loop.create_task(_bg())
-        _background_tasks.add(task)
-        task.add_done_callback(_background_tasks.discard)
-    except RuntimeError:
-        pass
-
-
 async def check_thread_access(
     session: AsyncSession,
     thread: NewChatThread,

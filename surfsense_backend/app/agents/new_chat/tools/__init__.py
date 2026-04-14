@@ -7,7 +7,6 @@ To add a new tool, see the documentation in registry.py.
 Available tools:
 - search_knowledge_base: Search the user's personal knowledge base
 - search_surfsense_docs: Search Surfsense documentation for usage help
-- generate_podcast: Generate audio podcasts from content
 - generate_image: Generate images from text descriptions using AI models
 - link_preview: Fetch rich previews for URLs
 - display_image: Display images in chat
@@ -27,7 +26,6 @@ from .knowledge_base import (
     search_knowledge_base_async,
 )
 from .link_preview import create_link_preview_tool
-from .podcast import create_generate_podcast_tool
 from .registry import (
     BUILTIN_TOOLS,
     ToolDefinition,
@@ -50,7 +48,6 @@ __all__ = [
     # Tool factories
     "create_display_image_tool",
     "create_generate_image_tool",
-    "create_generate_podcast_tool",
     "create_link_preview_tool",
     "create_recall_memory_tool",
     "create_save_memory_tool",

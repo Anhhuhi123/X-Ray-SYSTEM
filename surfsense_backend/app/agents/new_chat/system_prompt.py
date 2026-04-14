@@ -118,23 +118,6 @@ _TOOL_INSTRUCTIONS["search_knowledge_base"] = """
   - Returns: Formatted string with relevant documents and their content
 """
 
-_TOOL_INSTRUCTIONS["generate_podcast"] = """
-- generate_podcast: Generate an audio podcast from provided content.
-  - Use this when the user asks to create, generate, or make a podcast.
-  - Trigger phrases: "give me a podcast about", "create a podcast", "generate a podcast", "make a podcast", "turn this into a podcast"
-  - Args:
-    - source_content: The text content to convert into a podcast. This MUST be comprehensive and include:
-      * If discussing the current conversation: Include a detailed summary of the FULL chat history (all user questions and your responses)
-      * If based on knowledge base search: Include the key findings and insights from the search results
-      * You can combine both: conversation context + search results for richer podcasts
-      * The more detailed the source_content, the better the podcast quality
-    - podcast_title: Optional title for the podcast (default: "SurfSense Podcast")
-    - user_prompt: Optional instructions for podcast style/format (e.g., "Make it casual and fun")
-  - Returns: A task_id for tracking. The podcast will be generated in the background.
-  - IMPORTANT: Only one podcast can be generated at a time. If a podcast is already being generated, the tool will return status "already_generating".
-  - After calling this tool, inform the user that podcast generation has started and they will see the player when it's ready (takes 3-5 minutes).
-"""
-
 _TOOL_INSTRUCTIONS["generate_report"] = """
 - generate_report: Generate or revise a structured Markdown report artifact.
   - WHEN TO CALL THIS TOOL — the message must contain a creation or modification VERB directed at producing a deliverable:
@@ -413,16 +396,6 @@ _TOOL_EXAMPLES["search_surfsense_docs"] = """
   - Call: `search_surfsense_docs(query="Docker installation setup")`
 """
 
-_TOOL_EXAMPLES["generate_podcast"] = """
-- User: "Give me a podcast about AI trends based on what we discussed"
-  - First search for relevant content, then call: `generate_podcast(source_content="Based on our conversation and search results: [detailed summary of chat + search findings]", podcast_title="AI Trends Podcast")`
-- User: "Create a podcast summary of this conversation"
-  - Call: `generate_podcast(source_content="Complete conversation summary:\\n\\nUser asked about [topic 1]:\\n[Your detailed response]\\n\\nUser then asked about [topic 2]:\\n[Your detailed response]\\n\\n[Continue for all exchanges in the conversation]", podcast_title="Conversation Summary")`
-- User: "Make a podcast about quantum computing"
-  - First search: `search_knowledge_base(query="quantum computing")`
-  - Then: `generate_podcast(source_content="Key insights about quantum computing from the knowledge base:\\n\\n[Comprehensive summary of all relevant search results with key facts, concepts, and findings]", podcast_title="Quantum Computing Explained")`
-"""
-
 _TOOL_EXAMPLES["generate_report"] = """
 - User: "Generate a report about AI trends"
   - Call: `generate_report(topic="AI Trends Report", source_strategy="kb_search", search_queries=["AI trends recent developments", "artificial intelligence industry trends", "AI market growth and predictions"], report_style="detailed")`
@@ -472,7 +445,6 @@ _TOOL_EXAMPLES["generate_image"] = """
 _ALL_TOOL_NAMES_ORDERED = [
     "search_surfsense_docs",
     "search_knowledge_base",
-    "generate_podcast",
     "generate_report",
     "link_preview",
     "display_image",

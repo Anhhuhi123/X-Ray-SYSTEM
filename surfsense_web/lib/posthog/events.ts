@@ -256,17 +256,6 @@ export function trackSettingsUpdated(searchSpaceId: number, section: string, set
 	});
 }
 
-// ============================================
-// FEATURE USAGE EVENTS
-// ============================================
-
-export function trackPodcastGenerated(searchSpaceId: number, chatId: number) {
-	safeCapture("podcast_generated", {
-		search_space_id: searchSpaceId,
-		chat_id: chatId,
-	});
-}
-
 export function trackSourcesTabViewed(searchSpaceId: number, tab: string) {
 	safeCapture("sources_tab_viewed", {
 		search_space_id: searchSpaceId,

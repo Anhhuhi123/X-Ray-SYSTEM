@@ -123,8 +123,6 @@ celery_app.conf.update(
     task_routes={
         # Connector indexing tasks → connectors queue
         "index_github_repos": {"queue": CONNECTORS_QUEUE},
-        "index_google_drive_files": {"queue": CONNECTORS_QUEUE},
-        "index_luma_events": {"queue": CONNECTORS_QUEUE},
         "index_elasticsearch_documents": {"queue": CONNECTORS_QUEUE},
         "index_crawled_urls": {"queue": CONNECTORS_QUEUE},
         "index_bookstack_pages": {"queue": CONNECTORS_QUEUE},

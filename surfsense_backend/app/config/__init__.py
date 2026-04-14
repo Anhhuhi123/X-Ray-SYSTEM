@@ -248,7 +248,7 @@ class Config:
 
     # Composio Configuration (for managed OAuth integrations)
     # Get your API key from https://app.composio.dev
-    # COMPOSIO_API_KEY = os.getenv("COMPOSIO_API_KEY")
+    COMPOSIO_API_KEY = os.getenv("COMPOSIO_API_KEY")
     # Respect the environment variable: set to "TRUE" to enable Composio, "FALSE" to disable
     COMPOSIO_ENABLED = os.getenv("COMPOSIO_ENABLED", "FALSE").upper() == "TRUE"
     COMPOSIO_REDIRECT_URI = os.getenv("COMPOSIO_REDIRECT_URI")

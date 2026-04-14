@@ -78,52 +78,6 @@ def index_github_repos_task(
     )
 
 
-@celery_app.task(name="index_google_drive_files", bind=True)
-def index_google_drive_files_task(
-    self,
-    connector_id: int,
-    search_space_id: int,
-    user_id: str,
-    items_dict: dict,
-):
-    async def _run() -> None:
-        from app.routes.search_source_connectors_routes import run_google_drive_indexing
-
-        async with get_celery_session_maker()() as session:
-            await run_google_drive_indexing(
-                session,
-                connector_id,
-                search_space_id,
-                user_id,
-                items_dict,
-            )
-
-    _run_async(_run())
-
-
-@celery_app.task(name="index_luma_events", bind=True)
-def index_luma_events_task(
-    self,
-    connector_id: int,
-    search_space_id: int,
-    user_id: str,
-    start_date: str | None,
-    end_date: str | None,
-):
-    from app.routes.search_source_connectors_routes import run_luma_indexing
-
-    _run_async(
-        _run_with_session(
-            run_luma_indexing,
-            connector_id,
-            search_space_id,
-            user_id,
-            start_date,
-            end_date,
-        )
-    )
-
-
 @celery_app.task(name="index_elasticsearch_documents", bind=True)
 def index_elasticsearch_documents_task(
     self,

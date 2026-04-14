@@ -12,7 +12,12 @@ DECOMMISSIONED_CONNECTOR_TYPES: set[SearchSourceConnectorType] = {
     SearchSourceConnectorType.GOOGLE_CALENDAR_CONNECTOR,
     SearchSourceConnectorType.AIRTABLE_CONNECTOR,
     SearchSourceConnectorType.GOOGLE_GMAIL_CONNECTOR,
+    SearchSourceConnectorType.GOOGLE_DRIVE_CONNECTOR,
     SearchSourceConnectorType.DISCORD_CONNECTOR,
+    SearchSourceConnectorType.LUMA_CONNECTOR,
+    SearchSourceConnectorType.CIRCLEBACK_CONNECTOR,
+    SearchSourceConnectorType.COMPOSIO_GMAIL_CONNECTOR,
+    SearchSourceConnectorType.COMPOSIO_GOOGLE_CALENDAR_CONNECTOR,
 }
 
 

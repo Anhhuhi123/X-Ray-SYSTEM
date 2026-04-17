@@ -7,6 +7,8 @@ via NewLLMConfig.
 """
 
 import asyncio
+import contextlib
+import json
 import logging
 import time
 from collections.abc import Sequence
@@ -41,18 +43,11 @@ _perf_log = get_perf_logger()
 # used by the knowledge_base tool. Some connectors map to different document types.
 _CONNECTOR_TYPE_TO_SEARCHABLE: dict[str, str] = {
     # Direct mappings (connector type == searchable type)
-    "TAVILY_API": "TAVILY_API",
-    "SEARXNG_API": "SEARXNG_API",
-    "LINKUP_API": "LINKUP_API",
-    "BAIDU_SEARCH_API": "BAIDU_SEARCH_API",
     "GOOGLE_DRIVE_CONNECTOR": "GOOGLE_DRIVE_FILE",  # Connector type differs from document type
     "WEBCRAWLER_CONNECTOR": "CRAWLED_URL",  # Maps to document type
-    "CIRCLEBACK_CONNECTOR": "CIRCLEBACK",  # Connector type differs from document type
     "OBSIDIAN_CONNECTOR": "OBSIDIAN_CONNECTOR",
     # Composio connectors
     "COMPOSIO_GOOGLE_DRIVE_CONNECTOR": "COMPOSIO_GOOGLE_DRIVE_CONNECTOR",
-    "COMPOSIO_GMAIL_CONNECTOR": "COMPOSIO_GMAIL_CONNECTOR",
-    "COMPOSIO_GOOGLE_CALENDAR_CONNECTOR": "COMPOSIO_GOOGLE_CALENDAR_CONNECTOR",
 }
 
 # Document types that don't come from SearchSourceConnector but should always be searchable
@@ -322,4 +317,64 @@ async def create_surfsense_deep_agent(
         "[create_agent] Total agent creation in %.3fs",
         time.perf_counter() - _t_agent_total,
     )
+
+
+    # Safe agent introspection: avoid accessing properties that may execute
+    # code (descriptors) or trigger Pydantic/model construction.
+    def safe_getattr(obj, name, default=None):
+        try:
+            with contextlib.suppress(Exception):
+                return getattr(obj, name)
+        except Exception:
+            return default
+
+    summary = {
+        "type": type(agent).__name__,
+        "has_astream_events": bool(safe_getattr(agent, "astream_events", False)),
+        "has_aget_state": bool(safe_getattr(agent, "aget_state", False)),
+        "enabled_tools": sorted(list(_enabled_tool_names)),
+        "sandbox_enabled": bool(_sandbox_enabled),
+        "thread_visibility": str(thread_visibility),
+    }
+
+    # Try to read a shallow tools list safely
+    tools_attr = None
+    try:
+        tools_candidate = safe_getattr(agent, "tools", None) or safe_getattr(agent, "_tools", None)
+        if tools_candidate is not None:
+            tools_attr = []
+            for t in list(tools_candidate)[:100]:
+                try:
+                    name = getattr(t, "name", None) or getattr(t, "__class__", type(t)).__name__
+                    tools_attr.append(str(name))
+                except Exception:
+                    tools_attr.append(repr(t))
+    except Exception:
+        tools_attr = None
+
+    summary["tools_sample"] = tools_attr
+
+    # Collect public method names (do not call them)
+    try:
+        method_names = [n for n in dir(agent) if not n.startswith("_")]
+        # Limit and don't access attributes' values to avoid side-effects
+        summary["public_names_sample"] = method_names[:200]
+    except Exception:
+        summary["public_names_sample"] = None
+
+    # Add some environment info
+    summary.update(
+        {
+            "available_connectors": available_connectors,
+            "available_document_types": available_document_types,
+        }
+    )
+
+    try:
+        logging.info("Agent summary: %s", json.dumps(summary, ensure_ascii=False))
+        print(f"Agent summary: {json.dumps(summary, ensure_ascii=False)}")
+    except Exception:
+        logging.info("Agent summary (fallback): %s", repr(summary))
+        print(f"Agent summary (fallback): {summary!r}")
+
     return agent

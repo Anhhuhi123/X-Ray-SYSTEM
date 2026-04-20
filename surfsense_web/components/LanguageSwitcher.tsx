@@ -18,13 +18,10 @@ import { useLocaleContext } from "@/contexts/LocaleContext";
 export function LanguageSwitcher() {
 	const { locale, setLocale } = useLocaleContext();
 
-	// Supported languages configuration
+	// Supported languages configuration (reduced to app-supported locales)
 	const languages = [
 		{ code: "en" as const, name: "English", flag: "🇺🇸" },
-		{ code: "es" as const, name: "Español", flag: "🇪🇸" },
-		{ code: "pt" as const, name: "Português", flag: "🇧🇷" },
-		{ code: "hi" as const, name: "हिन्दी", flag: "🇮🇳" },
-		{ code: "zh" as const, name: "简体中文", flag: "🇨🇳" },
+		{ code: "vn" as const, name: "Tiếng Việt", flag: "🇻🇳" },
 	];
 
 	/**
@@ -32,7 +29,11 @@ export function LanguageSwitcher() {
 	 * Updates locale in context and localStorage
 	 */
 	const handleLanguageChange = (newLocale: string) => {
-		setLocale(newLocale as "en" | "es" | "pt" | "hi" | "zh");
+		// `useLocaleContext` only accepts the app-supported locales ("en" | "vn").
+		// Ensure we only pass those through.
+		if (newLocale === "en" || newLocale === "vn") {
+			setLocale(newLocale);
+		}
 	};
 
 	return (

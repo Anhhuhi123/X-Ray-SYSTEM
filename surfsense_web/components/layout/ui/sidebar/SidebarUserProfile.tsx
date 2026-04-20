@@ -33,13 +33,10 @@ import { APP_VERSION } from "@/lib/env-config";
 import { cn } from "@/lib/utils";
 import type { User } from "../../types/layout.types";
 
-// Supported languages configuration
+// Supported languages configuration (reduced to app-supported locales)
 const LANGUAGES = [
 	{ code: "en" as const, name: "English", flag: "🇺🇸" },
-	{ code: "es" as const, name: "Español", flag: "🇪🇸" },
-	{ code: "pt" as const, name: "Português", flag: "🇧🇷" },
-	{ code: "hi" as const, name: "हिन्दी", flag: "🇮🇳" },
-	{ code: "zh" as const, name: "简体中文", flag: "🇨🇳" },
+	{ code: "vn" as const, name: "Tiếng Việt", flag: "🇻🇳" },
 ];
 
 // Supported themes configuration
@@ -154,7 +151,7 @@ export function SidebarUserProfile({
 	const initials = getInitials(user.email);
 	const displayName = user.name || user.email.split("@")[0];
 
-	const handleLanguageChange = (newLocale: "en" | "es" | "pt" | "hi" | "zh") => {
+	const handleLanguageChange = (newLocale: "en" | "vn") => {
 		setLocale(newLocale);
 	};
 

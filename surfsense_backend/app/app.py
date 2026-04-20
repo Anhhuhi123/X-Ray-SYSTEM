@@ -166,8 +166,8 @@ def _check_rate_limit(
 
 
 def rate_limit_login(request: Request):
-    """5 login attempts per minute per IP."""
-    _check_rate_limit(request, max_requests=5, window_seconds=60, scope="login")
+    """10 login attempts per minute per IP."""
+    _check_rate_limit(request, max_requests=10, window_seconds=60, scope="login")
 
 
 def rate_limit_register(request: Request):

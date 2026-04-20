@@ -67,13 +67,6 @@ _TOOLS_PREAMBLE = """
 <tools>
 You have access to the following tools:
 
-CRITICAL BEHAVIORAL RULE — SEARCH FIRST, ANSWER LATER:
-You are STRONGLY PROHIBITED from answering ANY questions using your own general knowledge without searching first.
-For EVERY SINGLE user query (Except simple greetings like "Hi/Hello"), you MUST call the `search_knowledge_base` tool BEFORE attempting to answer.
-DO NOT assume you know the answer. DO NOT skip the search step. The user's knowledge base is your PRIMARY source of truth.
-Even if you think you know the answer, you MUST use the search tool to find relevant exact matches or chunks first.
-Only fall back to your own general knowledge if the `search_knowledge_base` tool returns NO relevant results at all.
-
 IMPORTANT: You can ONLY use the tools listed below. If a capability is not listed here, you do NOT have it.
 Do NOT claim you can do something if the corresponding tool is not listed.
 
@@ -621,87 +614,6 @@ However, from your video learning, it's important to note that asyncio is not su
 </citation_instructions>
 """
 
-# Sandbox / code execution instructions — appended when sandbox backend is enabled.
-# Inspired by Claude's computer-use prompt, scoped to code execution & data analytics.
-SANDBOX_EXECUTION_INSTRUCTIONS = """
-<code_execution>
-You have access to a secure, isolated Linux sandbox environment for running code and shell commands.
-This gives you the `execute` tool alongside the standard filesystem tools (`ls`, `read_file`, `write_file`, `edit_file`, `glob`, `grep`).
-
-## CRITICAL — CODE-FIRST RULE
-
-ALWAYS prefer executing code over giving a text-only response when the user's request involves ANY of the following:
-- **Creating a chart, plot, graph, or visualization** → Write Python code and generate the actual file. NEVER describe percentages or data in text and offer to "paste into Excel". Just produce the chart.
-- **Data analysis, statistics, or computation** → Write code to compute the answer. Do not do math by hand in text.
-- **Generating or transforming files** (CSV, PDF, images, etc.) → Write code to create the file.
-- **Running, testing, or debugging code** → Execute it in the sandbox.
-
-This applies even when you first retrieve data from the knowledge base. After `search_knowledge_base` returns relevant data, **immediately proceed to write and execute code** if the user's request matches any of the categories above. Do NOT stop at a text summary and wait for the user to ask you to "use Python" — that extra round-trip is a poor experience.
-
-Example (CORRECT):
-  User: "Create a pie chart of my benefits"
-  → 1. search_knowledge_base → retrieve benefits data
-  → 2. Immediately execute Python code (matplotlib) to generate the pie chart
-  → 3. Return the downloadable file + brief description
-
-Example (WRONG):
-  User: "Create a pie chart of my benefits"
-  → 1. search_knowledge_base → retrieve benefits data
-  → 2. Print a text table with percentages and ask the user if they want a chart ← NEVER do this
-
-## When to Use Code Execution
-
-Use the sandbox when the task benefits from actually running code rather than just describing it:
-- **Data analysis**: Load CSVs/JSON, compute statistics, filter/aggregate data, pivot tables
-- **Visualization**: Generate charts and plots (matplotlib, plotly, seaborn)
-- **Calculations**: Math, financial modeling, unit conversions, simulations
-- **Code validation**: Run and test code snippets the user provides or asks about
-- **File processing**: Parse, transform, or convert data files
-- **Quick prototyping**: Demonstrate working code for the user's problem
-- **Package exploration**: Install and test libraries the user is evaluating
-
-## When NOT to Use Code Execution
-
-Do not use the sandbox for:
-- Answering factual questions from your own knowledge
-- Summarizing or explaining concepts
-- Simple formatting or text generation tasks
-- Tasks that don't require running code to answer
-
-## Package Management
-
-- Use `pip install <package>` to install Python packages as needed
-- Common data/analytics packages (pandas, numpy, matplotlib, scipy, scikit-learn) may need to be installed on first use
-- Always verify a package installed successfully before using it
-
-## Working Guidelines
-
-- **Working directory**: The shell starts in the sandbox user's home directory (e.g. `/home/daytona`). Use **relative paths** or `/tmp/` for all files you create. NEVER write directly to `/home/` — that is the parent directory and is not writable. Use `pwd` if you need to discover the current working directory.
-- **Iterative approach**: For complex tasks, break work into steps — write code, run it, check output, refine
-- **Error handling**: If code fails, read the error, fix the issue, and retry. Don't just report the error without attempting a fix.
-- **Show results**: When generating plots or outputs, present the key findings directly in your response. For plots, save to a file and describe the results.
-- **Be efficient**: Install packages once per session. Combine related commands when possible.
-- **Large outputs**: If command output is very large, use `head`, `tail`, or save to a file and read selectively.
-
-## Sharing Generated Files
-
-When your code creates output files (images, CSVs, PDFs, etc.) in the sandbox:
-- **Print the absolute path** at the end of your script so the user can download the file. Example: `print("SANDBOX_FILE: /tmp/chart.png")`
-- **DO NOT call `display_image`** for files created inside the sandbox. Sandbox files are not accessible via public URLs, so `display_image` will always show "Image not available". The frontend automatically renders a download button from the `SANDBOX_FILE:` marker.
-- You can output multiple files, one per line: `print("SANDBOX_FILE: /tmp/report.csv")`, `print("SANDBOX_FILE: /tmp/chart.png")`
-- Always describe what the file contains in your response text so the user knows what they are downloading.
-- IMPORTANT: Every `execute` call that saves a file MUST print the `SANDBOX_FILE: <path>` marker. Without it the user cannot download the file.
-
-## Data Analytics Best Practices
-
-When the user asks you to analyze data:
-1. First, inspect the data structure (`head`, `shape`, `dtypes`, `describe()`)
-2. Clean and validate before computing (handle nulls, check types)
-3. Perform the analysis and present results clearly
-4. Offer follow-up insights or visualizations when appropriate
-</code_execution>
-"""
-
 # Anti-citation prompt - used when citations are disabled
 # This explicitly tells the model NOT to include citations
 SURFSENSE_NO_CITATION_INSTRUCTIONS = """
@@ -727,7 +639,6 @@ Your goal is to provide helpful, informative answers in a clean, readable format
 def build_surfsense_system_prompt(
     today: datetime | None = None,
     thread_visibility: ChatVisibility | None = None,
-    sandbox_enabled: bool = False,
     enabled_tool_names: set[str] | None = None,
     disabled_tool_names: set[str] | None = None,
 ) -> str:
@@ -757,12 +668,10 @@ def build_surfsense_system_prompt(
         visibility, enabled_tool_names, disabled_tool_names
     )
     citation_instructions = SURFSENSE_CITATION_INSTRUCTIONS
-    sandbox_instructions = SANDBOX_EXECUTION_INSTRUCTIONS if sandbox_enabled else ""
     return (
         system_instructions
         + tools_instructions
         + citation_instructions
-        + sandbox_instructions
     )
 
 
@@ -772,7 +681,6 @@ def build_configurable_system_prompt(
     citations_enabled: bool = True,
     today: datetime | None = None,
     thread_visibility: ChatVisibility | None = None,
-    sandbox_enabled: bool = False,
     enabled_tool_names: set[str] | None = None,
     disabled_tool_names: set[str] | None = None,
 ) -> str:
@@ -827,13 +735,10 @@ def build_configurable_system_prompt(
         else SURFSENSE_NO_CITATION_INSTRUCTIONS
     )
 
-    sandbox_instructions = SANDBOX_EXECUTION_INSTRUCTIONS if sandbox_enabled else ""
-
     return (
         system_instructions
         + tools_instructions
         + citation_instructions
-        + sandbox_instructions
     )
 
 

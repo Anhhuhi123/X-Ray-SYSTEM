@@ -659,8 +659,6 @@ async def delete_thread(
         await session.delete(db_thread)
         await session.commit()
 
-        _try_delete_sandbox(thread_id)
-
         return {"message": "Thread deleted successfully"}
 
     except HTTPException:

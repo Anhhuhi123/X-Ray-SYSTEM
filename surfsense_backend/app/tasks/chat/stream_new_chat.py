@@ -36,10 +36,6 @@ from app.agents.new_chat.llm_config import (
     load_agent_config,
     load_llm_config_from_yaml,
 )
-from app.agents.new_chat.sandbox import (
-    get_or_create_sandbox,
-    is_sandbox_enabled,
-)
 from app.db import (
     ChatVisibility,
     Document,
@@ -1085,20 +1081,6 @@ async def stream_new_chat(
         )
 
         sandbox_backend = None
-        _t0 = time.perf_counter()
-        if is_sandbox_enabled():
-            try:
-                sandbox_backend = await get_or_create_sandbox(chat_id)
-            except Exception as sandbox_err:
-                logging.getLogger(__name__).warning(
-                    "Sandbox creation failed, continuing without execute tool: %s",
-                    sandbox_err,
-                )
-        _perf_log.info(
-            "[stream_new_chat] Sandbox provisioning in %.3fs (enabled=%s)",
-            time.perf_counter() - _t0,
-            sandbox_backend is not None,
-        )
 
         visibility = thread_visibility or ChatVisibility.PRIVATE
         _t0 = time.perf_counter()
@@ -1569,20 +1551,6 @@ async def stream_resume_chat(
         )
 
         sandbox_backend = None
-        _t0 = time.perf_counter()
-        if is_sandbox_enabled():
-            try:
-                sandbox_backend = await get_or_create_sandbox(chat_id)
-            except Exception as sandbox_err:
-                logging.getLogger(__name__).warning(
-                    "Sandbox creation failed, continuing without execute tool: %s",
-                    sandbox_err,
-                )
-        _perf_log.info(
-            "[stream_resume] Sandbox provisioning in %.3fs (enabled=%s)",
-            time.perf_counter() - _t0,
-            sandbox_backend is not None,
-        )
 
         visibility = thread_visibility or ChatVisibility.PRIVATE
 

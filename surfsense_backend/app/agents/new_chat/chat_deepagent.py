@@ -326,7 +326,6 @@ async def create_surfsense_deep_agent(
         "has_astream_events": bool(safe_getattr(agent, "astream_events", False)),
         "has_aget_state": bool(safe_getattr(agent, "aget_state", False)),
         "enabled_tools": sorted(list(_enabled_tool_names)),
-        "sandbox_enabled": bool(_sandbox_enabled),
         "thread_visibility": str(thread_visibility),
     }
 

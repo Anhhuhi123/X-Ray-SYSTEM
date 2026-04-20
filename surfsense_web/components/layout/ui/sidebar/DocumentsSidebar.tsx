@@ -28,13 +28,8 @@ import { SidebarSlideOutPanel } from "./SidebarSlideOutPanel";
 
 const SHOWCASE_CONNECTORS = [
 	{ type: "GOOGLE_DRIVE_CONNECTOR", label: "Google Drive" },
-	{ type: "GOOGLE_GMAIL_CONNECTOR", label: "Gmail" },
-	{ type: "NOTION_CONNECTOR", label: "Notion" },
-	{ type: "YOUTUBE_CONNECTOR", label: "YouTube" },
-	{ type: "GOOGLE_CALENDAR_CONNECTOR", label: "Google Calendar" },
-	{ type: "SLACK_CONNECTOR", label: "Slack" },
-	{ type: "LINEAR_CONNECTOR", label: "Linear" },
-	{ type: "JIRA_CONNECTOR", label: "Jira" },
+	{ type: "COMPOSIO_GOOGLE_DRIVE_CONNECTOR", label: "Composio Google Drive" },
+	{ type: "WEBCRAWLER_CONNECTOR", label: "Web Pages" },
 ] as const;
 
 interface DocumentsSidebarProps {

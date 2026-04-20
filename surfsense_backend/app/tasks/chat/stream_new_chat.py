@@ -1080,8 +1080,6 @@ async def stream_new_chat(
             "[stream_new_chat] Checkpointer ready in %.3fs", time.perf_counter() - _t0
         )
 
-        sandbox_backend = None
-
         visibility = thread_visibility or ChatVisibility.PRIVATE
         _t0 = time.perf_counter()
         agent = await create_surfsense_deep_agent(
@@ -1095,7 +1093,6 @@ async def stream_new_chat(
             agent_config=agent_config,
             firecrawl_api_key=firecrawl_api_key,
             thread_visibility=visibility,
-            sandbox_backend=sandbox_backend,
             disabled_tools=disabled_tools,
         )
         _perf_log.info(
@@ -1464,7 +1461,7 @@ async def stream_new_chat(
 
         # Break circular refs held by the agent graph, tools, and LLM
         # wrappers so the GC can reclaim them in a single pass.
-        agent = llm = connector_service = sandbox_backend = None
+        agent = llm = connector_service = None
         input_state = stream_result = None
         session = None
 
@@ -1550,8 +1547,6 @@ async def stream_resume_chat(
             "[stream_resume] Checkpointer ready in %.3fs", time.perf_counter() - _t0
         )
 
-        sandbox_backend = None
-
         visibility = thread_visibility or ChatVisibility.PRIVATE
 
         _t0 = time.perf_counter()
@@ -1566,7 +1561,6 @@ async def stream_resume_chat(
             agent_config=agent_config,
             firecrawl_api_key=firecrawl_api_key,
             thread_visibility=visibility,
-            sandbox_backend=sandbox_backend,
         )
         _perf_log.info(
             "[stream_resume] Agent created in %.3fs", time.perf_counter() - _t0
@@ -1657,7 +1651,7 @@ async def stream_resume_chat(
             with contextlib.suppress(Exception):
                 await session.close()
 
-        agent = llm = connector_service = sandbox_backend = None
+        agent = llm = connector_service = None
         stream_result = None
         session = None
 

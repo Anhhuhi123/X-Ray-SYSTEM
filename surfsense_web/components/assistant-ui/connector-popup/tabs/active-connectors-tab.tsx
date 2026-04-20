@@ -9,7 +9,7 @@ import { TabsContent } from "@/components/ui/tabs";
 import { getConnectorIcon } from "@/contracts/enums/connectorIcons";
 import type { SearchSourceConnector } from "@/contracts/types/connector.types";
 import { cn } from "@/lib/utils";
-import { COMPOSIO_CONNECTORS, OAUTH_CONNECTORS } from "../constants/connector-constants";
+import { COMPOSIO_CONNECTORS, CRAWLERS, OAUTH_CONNECTORS } from "../constants/connector-constants";
 import { getDocumentCountForConnector } from "../utils/connector-document-mapping";
 import { getConnectorDisplayName } from "./all-connectors-tab";
 
@@ -74,10 +74,19 @@ export const ActiveConnectorsTab: FC<ActiveConnectorsTabProps> = ({
 
 	// Get OAuth connector types set for quick lookup
 	const oauthConnectorTypes = new Set<string>(OAUTH_CONNECTORS.map((c) => c.connectorType));
+	const supportedConnectorTypes = new Set<string>([
+		...OAUTH_CONNECTORS.map((c) => c.connectorType),
+		...COMPOSIO_CONNECTORS.map((c) => c.connectorType),
+		...CRAWLERS.filter((c) => Boolean(c.connectorType)).map((c) => c.connectorType as string),
+	]);
+
+	const supportedConnectors = connectors.filter((c) => supportedConnectorTypes.has(c.connector_type));
 
 	// Separate OAuth and non-OAuth connectors
-	const oauthConnectors = connectors.filter((c) => oauthConnectorTypes.has(c.connector_type));
-	const nonOauthConnectors = connectors.filter((c) => !oauthConnectorTypes.has(c.connector_type));
+	const oauthConnectors = supportedConnectors.filter((c) => oauthConnectorTypes.has(c.connector_type));
+	const nonOauthConnectors = supportedConnectors.filter(
+		(c) => !oauthConnectorTypes.has(c.connector_type)
+	);
 
 	// Group OAuth connectors by type
 	const oauthConnectorsByType = oauthConnectors.reduce(

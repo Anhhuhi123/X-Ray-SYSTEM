@@ -30,7 +30,6 @@ export {
 	DisplayImageResultSchema,
 	DisplayImageToolUI,
 } from "./display-image";
-export { GeneratePodcastToolUI } from "./generate-podcast";
 export { GenerateReportToolUI } from "./generate-report";
 export { CreateGoogleDriveFileToolUI, DeleteGoogleDriveFileToolUI } from "./google-drive";
 export {
@@ -83,7 +82,6 @@ export {
 	ExecuteArgsSchema,
 	type ExecuteResult,
 	ExecuteResultSchema,
-	SandboxExecuteToolUI,
 } from "./sandbox-execute";
 export {
 	type ScrapeWebpageArgs,

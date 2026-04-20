@@ -5,7 +5,6 @@ Provides functions for generating unique, user-friendly connector names.
 """
 
 from typing import Any
-from urllib.parse import urlparse
 from uuid import UUID
 
 from sqlalchemy import select
@@ -16,17 +15,7 @@ from app.db import SearchSourceConnector, SearchSourceConnectorType
 
 # Friendly display names for connector types
 BASE_NAME_FOR_TYPE = {
-    SearchSourceConnectorType.GOOGLE_GMAIL_CONNECTOR: "Gmail",
     SearchSourceConnectorType.GOOGLE_DRIVE_CONNECTOR: "Google Drive",
-    SearchSourceConnectorType.GOOGLE_CALENDAR_CONNECTOR: "Google Calendar",
-    SearchSourceConnectorType.SLACK_CONNECTOR: "Slack",
-    SearchSourceConnectorType.TEAMS_CONNECTOR: "Microsoft Teams",
-    SearchSourceConnectorType.NOTION_CONNECTOR: "Notion",
-    SearchSourceConnectorType.LINEAR_CONNECTOR: "Linear",
-    SearchSourceConnectorType.JIRA_CONNECTOR: "Jira",
-    SearchSourceConnectorType.DISCORD_CONNECTOR: "Discord",
-    SearchSourceConnectorType.CONFLUENCE_CONNECTOR: "Confluence",
-    SearchSourceConnectorType.AIRTABLE_CONNECTOR: "Airtable",
     SearchSourceConnectorType.MCP_CONNECTOR: "Model Context Protocol (MCP)",
     SearchSourceConnectorType.COMPOSIO_GMAIL_CONNECTOR: "Gmail",
     SearchSourceConnectorType.COMPOSIO_GOOGLE_DRIVE_CONNECTOR: "Google Drive",
@@ -55,35 +44,7 @@ def extract_identifier_from_credentials(
     Returns:
         Identifier string (workspace name, email, etc.) or None
     """
-    if connector_type == SearchSourceConnectorType.SLACK_CONNECTOR:
-        return credentials.get("team_name")
-
-    if connector_type == SearchSourceConnectorType.TEAMS_CONNECTOR:
-        return credentials.get("tenant_name")
-
-    if connector_type == SearchSourceConnectorType.NOTION_CONNECTOR:
-        return credentials.get("workspace_name")
-
-    if connector_type == SearchSourceConnectorType.DISCORD_CONNECTOR:
-        return credentials.get("guild_name")
-
-    if connector_type in (
-        SearchSourceConnectorType.JIRA_CONNECTOR,
-        SearchSourceConnectorType.CONFLUENCE_CONNECTOR,
-    ):
-        base_url = credentials.get("base_url", "")
-        if base_url:
-            try:
-                parsed = urlparse(base_url)
-                hostname = parsed.netloc or parsed.path
-                if ".atlassian.net" in hostname:
-                    return hostname.replace(".atlassian.net", "")
-                return hostname
-            except (ValueError, TypeError, AttributeError):
-                pass
-        return None
-
-    # Google, Linear, Airtable require API calls - return None
+    # Remaining connectors that need identifiers use API calls - return None
     return None
 
 

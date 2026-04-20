@@ -22,7 +22,14 @@ load_dotenv()
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Run the SurfSense application")
-    parser.add_argument("--reload", action="store_true", help="Enable hot reloading")
+    # Default to enabling reload for developer convenience. Use --no-reload to disable.
+    parser.add_argument(
+        "--reload",
+        dest="reload",
+        action=argparse.BooleanOptionalAction,
+        default=True,
+        help="Enable or disable hot reloading (default: enabled)",
+    )
     args = parser.parse_args()
 
     config_kwargs = load_uvicorn_config(args)

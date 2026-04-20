@@ -26,8 +26,6 @@ from app.db import (
     NewChatMessage,
     NewChatThread,
     Permission,
-    Podcast,
-    PodcastStatus,
     PublicChatSnapshot,
     Report,
     SearchSpaceMembership,
@@ -38,7 +36,6 @@ from app.utils.rbac import check_permission
 UI_TOOLS = {
     "display_image",
     "link_preview",
-    "generate_podcast",
     "generate_report",
     "scrape_webpage",
     "multi_link_preview",
@@ -195,8 +192,6 @@ async def create_snapshot(
     user_cache: dict[UUID, dict] = {}
     messages_data = []
     message_ids = []
-    podcasts_data = []
-    podcast_ids_seen: set[int] = set()
     reports_data = []
     report_ids_seen: set[int] = set()
 
@@ -204,7 +199,7 @@ async def create_snapshot(
         author = await get_author_display(session, msg.author_id, user_cache)
         sanitized_content = sanitize_content_for_public(msg.content)
 
-        # Extract podcast/report references and update status to "ready" for completed ones
+        # Extract report references and update status to "ready" for completed ones
         if isinstance(sanitized_content, list):
             for part in sanitized_content:
                 if not isinstance(part, dict) or part.get("type") != "tool-call":
@@ -212,20 +207,7 @@ async def create_snapshot(
 
                 tool_name = part.get("toolName")
 
-                if tool_name == "generate_podcast":
-                    result_data = part.get("result", {})
-                    podcast_id = result_data.get("podcast_id")
-                    if podcast_id and podcast_id not in podcast_ids_seen:
-                        podcast_info = await _get_podcast_for_snapshot(
-                            session, podcast_id
-                        )
-                        if podcast_info:
-                            podcasts_data.append(podcast_info)
-                            podcast_ids_seen.add(podcast_id)
-                            # Update status to "ready" so frontend renders PodcastPlayer
-                            part["result"] = {**result_data, "status": "ready"}
-
-                elif tool_name == "generate_report":
+                if tool_name == "generate_report":
                     result_data = part.get("result", {})
                     report_id = result_data.get("report_id")
                     if report_id and report_id not in report_ids_seen:
@@ -281,7 +263,6 @@ async def create_snapshot(
         "snapshot_at": datetime.now(UTC).isoformat(),
         "author": thread_author,
         "messages": messages_data,
-        "podcasts": podcasts_data,
         "reports": reports_data,
     }
 
@@ -304,25 +285,6 @@ async def create_snapshot(
         "share_token": snapshot.share_token,
         "public_url": f"{frontend_url}/public/{snapshot.share_token}",
         "is_new": True,
-    }
-
-
-async def _get_podcast_for_snapshot(
-    session: AsyncSession,
-    podcast_id: int,
-) -> dict | None:
-    """Get podcast info for embedding in snapshot_data."""
-    result = await session.execute(select(Podcast).filter(Podcast.id == podcast_id))
-    podcast = result.scalars().first()
-
-    if not podcast or podcast.status != PodcastStatus.READY:
-        return None
-
-    return {
-        "original_id": podcast.id,
-        "title": podcast.title,
-        "transcript": podcast.podcast_transcript,
-        "file_path": podcast.file_location,
     }
 
 
@@ -592,11 +554,9 @@ async def clone_from_snapshot(
     user: User,
 ) -> dict:
     """
-    Copy messages and podcasts from source thread to target thread.
+    Copy messages and reports from source thread to target thread.
 
     Creates thread and copies messages from snapshot_data.
-    When encountering generate_podcast tool-calls, creates cloned podcast records
-    and updates the podcast_id references inline.
     Returns the new thread info.
     """
     import copy
@@ -615,7 +575,6 @@ async def clone_from_snapshot(
 
     data = snapshot.snapshot_data
     messages_data = data.get("messages", [])
-    podcasts_lookup = {p.get("original_id"): p for p in data.get("podcasts", [])}
     reports_lookup = {r.get("original_id"): r for r in data.get("reports", [])}
 
     new_thread = NewChatThread(
@@ -632,7 +591,6 @@ async def clone_from_snapshot(
     session.add(new_thread)
     await session.flush()
 
-    podcast_id_mapping: dict[int, int] = {}
     report_id_mapping: dict[int, int] = {}
 
     # Check which authors from snapshot still exist in DB
@@ -666,35 +624,6 @@ async def clone_from_snapshot(
 
         if isinstance(content, list):
             for part in content:
-                if (
-                    isinstance(part, dict)
-                    and part.get("type") == "tool-call"
-                    and part.get("toolName") == "generate_podcast"
-                ):
-                    result = part.get("result", {})
-                    old_podcast_id = result.get("podcast_id")
-
-                    if old_podcast_id and old_podcast_id not in podcast_id_mapping:
-                        podcast_info = podcasts_lookup.get(old_podcast_id)
-                        if podcast_info:
-                            new_podcast = Podcast(
-                                title=podcast_info.get("title", "Cloned Podcast"),
-                                podcast_transcript=podcast_info.get("transcript"),
-                                file_location=podcast_info.get("file_path"),
-                                status=PodcastStatus.READY,
-                                search_space_id=target_search_space_id,
-                                thread_id=new_thread.id,
-                            )
-                            session.add(new_podcast)
-                            await session.flush()
-                            podcast_id_mapping[old_podcast_id] = new_podcast.id
-
-                    if old_podcast_id and old_podcast_id in podcast_id_mapping:
-                        part["result"] = {
-                            **result,
-                            "podcast_id": podcast_id_mapping[old_podcast_id],
-                        }
-
                 if (
                     isinstance(part, dict)
                     and part.get("type") == "tool-call"
@@ -741,32 +670,6 @@ async def clone_from_snapshot(
         "thread_id": new_thread.id,
         "search_space_id": target_search_space_id,
     }
-
-
-async def get_snapshot_podcast(
-    session: AsyncSession,
-    share_token: str,
-    podcast_id: int,
-) -> dict | None:
-    """
-    Get podcast info from a snapshot by original podcast ID.
-
-    Used for streaming podcast audio from public view.
-    Looks up the podcast by its original_id in the snapshot's podcasts array.
-    """
-    snapshot = await get_snapshot_by_token(session, share_token)
-
-    if not snapshot:
-        return None
-
-    podcasts = snapshot.snapshot_data.get("podcasts", [])
-
-    # Find podcast by original_id
-    for podcast in podcasts:
-        if podcast.get("original_id") == podcast_id:
-            return podcast
-
-    return None
 
 
 async def get_snapshot_report(

@@ -160,11 +160,11 @@ export const IndexingConfigurationView: FC<IndexingConfigurationViewProps> = ({
 								{/* AI Summary toggle */}
 								<SummaryConfig enabled={enableSummary} onEnabledChange={onEnableSummaryChange} />
 
-								{/* Date range selector - not shown for Google Drive (regular and Composio), Webcrawler, or GitHub (indexes full repo snapshots) */}
+								{/* Date range selector - not shown for Google Drive (regular and Composio) or Webcrawler */}
 								{config.connectorType !== "GOOGLE_DRIVE_CONNECTOR" &&
 									config.connectorType !== "COMPOSIO_GOOGLE_DRIVE_CONNECTOR" &&
 									config.connectorType !== "WEBCRAWLER_CONNECTOR" &&
-									config.connectorType !== "GITHUB_CONNECTOR" && (
+									(
 										<DateRangeSelector
 											startDate={startDate}
 											endDate={endDate}
@@ -172,8 +172,7 @@ export const IndexingConfigurationView: FC<IndexingConfigurationViewProps> = ({
 											onEndDateChange={onEndDateChange}
 											allowFutureDates={
 												config.connectorType === "GOOGLE_CALENDAR_CONNECTOR" ||
-												config.connectorType === "COMPOSIO_GOOGLE_CALENDAR_CONNECTOR" ||
-												config.connectorType === "LUMA_CONNECTOR"
+												config.connectorType === "COMPOSIO_GOOGLE_CALENDAR_CONNECTOR"
 											}
 											lastIndexedAt={connector?.last_indexed_at}
 										/>

@@ -35,7 +35,6 @@ const SHOWCASE_CONNECTORS = [
 	{ type: "SLACK_CONNECTOR", label: "Slack" },
 	{ type: "LINEAR_CONNECTOR", label: "Linear" },
 	{ type: "JIRA_CONNECTOR", label: "Jira" },
-	{ type: "GITHUB_CONNECTOR", label: "GitHub" },
 ] as const;
 
 interface DocumentsSidebarProps {

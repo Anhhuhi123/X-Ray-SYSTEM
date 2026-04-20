@@ -36,7 +36,6 @@ import { Thread } from "@/components/assistant-ui/thread";
 import { MobileReportPanel } from "@/components/report-panel/report-panel";
 import type { ThinkingStep } from "@/components/tool-ui/deepagent-thinking";
 import { DisplayImageToolUI } from "@/components/tool-ui/display-image";
-import { GeneratePodcastToolUI } from "@/components/tool-ui/generate-podcast";
 import { GenerateReportToolUI } from "@/components/tool-ui/generate-report";
 import {
 	CreateGoogleDriveFileToolUI,
@@ -53,7 +52,6 @@ import {
 	DeleteNotionPageToolUI,
 	UpdateNotionPageToolUI,
 } from "@/components/tool-ui/notion";
-import { SandboxExecuteToolUI } from "@/components/tool-ui/sandbox-execute";
 import { ScrapeWebpageToolUI } from "@/components/tool-ui/scrape-webpage";
 import { RecallMemoryToolUI, SaveMemoryToolUI } from "@/components/tool-ui/user-memory";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -63,11 +61,6 @@ import { documentsApiService } from "@/lib/apis/documents-api.service";
 // import { WriteTodosToolUI } from "@/components/tool-ui/write-todos";
 import { getBearerToken } from "@/lib/auth-utils";
 import { convertToThreadMessage } from "@/lib/chat/message-utils";
-import {
-	isPodcastGenerating,
-	looksLikePodcastRequest,
-	setActivePodcastTaskId,
-} from "@/lib/chat/podcast-state";
 import {
 	addToolCall,
 	appendText,
@@ -144,7 +137,6 @@ function extractMentionedDocuments(content: unknown): MentionedDocumentInfo[] {
  * Tools that should render custom UI in the chat.
  */
 const TOOLS_WITH_UI = new Set([
-	"generate_podcast",
 	"generate_report",
 	"link_preview",
 	"display_image",
@@ -157,7 +149,6 @@ const TOOLS_WITH_UI = new Set([
 	"delete_linear_issue",
 	"create_google_drive_file",
 	"delete_google_drive_file",
-	"execute",
 	// "write_todos", // Disabled for now
 ]);
 
@@ -452,12 +443,6 @@ export default function NewChatPage() {
 
 			if (!userQuery.trim()) return;
 
-			// Check if podcast is already generating
-			if (isPodcastGenerating() && looksLikePodcastRequest(userQuery)) {
-				toast.warning("A podcast is already being generated.");
-				return;
-			}
-
 			const token = getBearerToken();
 			if (!token) {
 				toast.error("Not authenticated. Please log in again.");
@@ -705,17 +690,6 @@ export default function NewChatPage() {
 						case "tool-output-available": {
 							// Update the tool call with its result
 							updateToolCall(contentPartsState, parsed.toolCallId, { result: parsed.output });
-							// Handle podcast-specific logic
-							if (parsed.output?.status === "pending" && parsed.output?.podcast_id) {
-								// Check if this is a podcast tool by looking at the content part
-								const idx = toolCallIndices.get(parsed.toolCallId);
-								if (idx !== undefined) {
-									const part = contentParts[idx];
-									if (part?.type === "tool-call" && part.toolName === "generate_podcast") {
-										setActivePodcastTaskId(String(parsed.output.podcast_id));
-									}
-								}
-							}
 							setMessages((prev) =>
 								prev.map((m) =>
 									m.id === assistantMsgId
@@ -1434,15 +1408,6 @@ export default function NewChatPage() {
 
 						case "tool-output-available":
 							updateToolCall(contentPartsState, parsed.toolCallId, { result: parsed.output });
-							if (parsed.output?.status === "pending" && parsed.output?.podcast_id) {
-								const idx = toolCallIndices.get(parsed.toolCallId);
-								if (idx !== undefined) {
-									const part = contentParts[idx];
-									if (part?.type === "tool-call" && part.toolName === "generate_podcast") {
-										setActivePodcastTaskId(String(parsed.output.podcast_id));
-									}
-								}
-							}
 							setMessages((prev) =>
 								prev.map((m) =>
 									m.id === assistantMsgId
@@ -1655,7 +1620,6 @@ export default function NewChatPage() {
 
 	return (
 		<AssistantRuntimeProvider runtime={runtime}>
-			<GeneratePodcastToolUI />
 			<GenerateReportToolUI />
 			<LinkPreviewToolUI />
 			<DisplayImageToolUI />
@@ -1670,7 +1634,6 @@ export default function NewChatPage() {
 			<DeleteLinearIssueToolUI />
 			<CreateGoogleDriveFileToolUI />
 			<DeleteGoogleDriveFileToolUI />
-			<SandboxExecuteToolUI />
 			{/* <WriteTodosToolUI /> Disabled for now */}
 			<div key={searchSpaceId} className="flex h-[calc(100dvh-64px)] overflow-hidden">
 				<div className="flex-1 flex flex-col min-w-0 overflow-hidden">

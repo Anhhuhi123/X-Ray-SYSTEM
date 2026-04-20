@@ -7,6 +7,8 @@ via NewLLMConfig.
 """
 
 import asyncio
+import contextlib
+import json
 import logging
 import time
 from collections.abc import Sequence
@@ -28,6 +30,7 @@ from app.agents.new_chat.system_prompt import (
 from app.agents.new_chat.tools.registry import build_tools_async
 from app.db import ChatVisibility
 from app.services.connector_service import ConnectorService
+from app.utils.decommissioned_connectors import DECOMMISSIONED_CONNECTOR_TYPE_VALUES
 from app.utils.perf import get_perf_logger
 
 _perf_log = get_perf_logger()
@@ -40,33 +43,11 @@ _perf_log = get_perf_logger()
 # used by the knowledge_base tool. Some connectors map to different document types.
 _CONNECTOR_TYPE_TO_SEARCHABLE: dict[str, str] = {
     # Direct mappings (connector type == searchable type)
-    "TAVILY_API": "TAVILY_API",
-    "SEARXNG_API": "SEARXNG_API",
-    "LINKUP_API": "LINKUP_API",
-    "BAIDU_SEARCH_API": "BAIDU_SEARCH_API",
-    "SLACK_CONNECTOR": "SLACK_CONNECTOR",
-    "TEAMS_CONNECTOR": "TEAMS_CONNECTOR",
-    "NOTION_CONNECTOR": "NOTION_CONNECTOR",
-    "GITHUB_CONNECTOR": "GITHUB_CONNECTOR",
-    "LINEAR_CONNECTOR": "LINEAR_CONNECTOR",
-    "DISCORD_CONNECTOR": "DISCORD_CONNECTOR",
-    "JIRA_CONNECTOR": "JIRA_CONNECTOR",
-    "CONFLUENCE_CONNECTOR": "CONFLUENCE_CONNECTOR",
-    "CLICKUP_CONNECTOR": "CLICKUP_CONNECTOR",
-    "GOOGLE_CALENDAR_CONNECTOR": "GOOGLE_CALENDAR_CONNECTOR",
-    "GOOGLE_GMAIL_CONNECTOR": "GOOGLE_GMAIL_CONNECTOR",
     "GOOGLE_DRIVE_CONNECTOR": "GOOGLE_DRIVE_FILE",  # Connector type differs from document type
-    "AIRTABLE_CONNECTOR": "AIRTABLE_CONNECTOR",
-    "LUMA_CONNECTOR": "LUMA_CONNECTOR",
-    "ELASTICSEARCH_CONNECTOR": "ELASTICSEARCH_CONNECTOR",
     "WEBCRAWLER_CONNECTOR": "CRAWLED_URL",  # Maps to document type
-    "BOOKSTACK_CONNECTOR": "BOOKSTACK_CONNECTOR",
-    "CIRCLEBACK_CONNECTOR": "CIRCLEBACK",  # Connector type differs from document type
     "OBSIDIAN_CONNECTOR": "OBSIDIAN_CONNECTOR",
     # Composio connectors
     "COMPOSIO_GOOGLE_DRIVE_CONNECTOR": "COMPOSIO_GOOGLE_DRIVE_CONNECTOR",
-    "COMPOSIO_GMAIL_CONNECTOR": "COMPOSIO_GMAIL_CONNECTOR",
-    "COMPOSIO_GOOGLE_CALENDAR_CONNECTOR": "COMPOSIO_GOOGLE_CALENDAR_CONNECTOR",
 }
 
 # Document types that don't come from SearchSourceConnector but should always be searchable
@@ -108,6 +89,8 @@ def _map_connectors_to_searchable_types(
     for ct in connector_types:
         # Handle both enum and string types
         ct_str = ct.value if hasattr(ct, "value") else str(ct)
+        if ct_str in DECOMMISSIONED_CONNECTOR_TYPE_VALUES:
+            continue
         searchable = _CONNECTOR_TYPE_TO_SEARCHABLE.get(ct_str)
         if searchable and searchable not in result_set:
             result_set.add(searchable)
@@ -142,7 +125,6 @@ async def create_surfsense_deep_agent(
 
     The agent comes with built-in tools that can be configured:
     - search_knowledge_base: Search the user's personal knowledge base
-    - generate_podcast: Generate audio podcasts from content
     - generate_image: Generate images from text descriptions using AI models
     - link_preview: Fetch rich previews for URLs
     - display_image: Display images in chat
@@ -204,12 +186,6 @@ async def create_surfsense_deep_agent(
             enabled_tools=["search_knowledge_base", "link_preview"]
         )
 
-        # Create agent without podcast generation
-        agent = create_surfsense_deep_agent(
-            llm, search_space_id, db_session, ...,
-            disabled_tools=["generate_podcast"]
-        )
-
         # Add custom tools
         agent = create_surfsense_deep_agent(
             llm, search_space_id, db_session, ...,
@@ -264,30 +240,18 @@ async def create_surfsense_deep_agent(
         "max_input_tokens": _max_input_tokens,
     }
 
-    # Disable Notion action tools if no Notion connector is configured
     modified_disabled_tools = list(disabled_tools) if disabled_tools else []
-    has_notion_connector = (
-        available_connectors is not None and "NOTION_CONNECTOR" in available_connectors
-    )
-    if not has_notion_connector:
-        notion_tools = [
+    # Notion/Linear connectors are decommissioned; keep action tools disabled.
+    modified_disabled_tools.extend(
+        [
             "create_notion_page",
             "update_notion_page",
             "delete_notion_page",
-        ]
-        modified_disabled_tools.extend(notion_tools)
-
-    # Disable Linear action tools if no Linear connector is configured
-    has_linear_connector = (
-        available_connectors is not None and "LINEAR_CONNECTOR" in available_connectors
-    )
-    if not has_linear_connector:
-        linear_tools = [
             "create_linear_issue",
             "update_linear_issue",
             "delete_linear_issue",
         ]
-        modified_disabled_tools.extend(linear_tools)
+    )
 
     # Build tools using the async registry (includes MCP tools)
     _t0 = time.perf_counter()
@@ -353,4 +317,64 @@ async def create_surfsense_deep_agent(
         "[create_agent] Total agent creation in %.3fs",
         time.perf_counter() - _t_agent_total,
     )
+
+
+    # Safe agent introspection: avoid accessing properties that may execute
+    # code (descriptors) or trigger Pydantic/model construction.
+    def safe_getattr(obj, name, default=None):
+        try:
+            with contextlib.suppress(Exception):
+                return getattr(obj, name)
+        except Exception:
+            return default
+
+    summary = {
+        "type": type(agent).__name__,
+        "has_astream_events": bool(safe_getattr(agent, "astream_events", False)),
+        "has_aget_state": bool(safe_getattr(agent, "aget_state", False)),
+        "enabled_tools": sorted(list(_enabled_tool_names)),
+        "sandbox_enabled": bool(_sandbox_enabled),
+        "thread_visibility": str(thread_visibility),
+    }
+
+    # Try to read a shallow tools list safely
+    tools_attr = None
+    try:
+        tools_candidate = safe_getattr(agent, "tools", None) or safe_getattr(agent, "_tools", None)
+        if tools_candidate is not None:
+            tools_attr = []
+            for t in list(tools_candidate)[:100]:
+                try:
+                    name = getattr(t, "name", None) or getattr(t, "__class__", type(t)).__name__
+                    tools_attr.append(str(name))
+                except Exception:
+                    tools_attr.append(repr(t))
+    except Exception:
+        tools_attr = None
+
+    summary["tools_sample"] = tools_attr
+
+    # Collect public method names (do not call them)
+    try:
+        method_names = [n for n in dir(agent) if not n.startswith("_")]
+        # Limit and don't access attributes' values to avoid side-effects
+        summary["public_names_sample"] = method_names[:200]
+    except Exception:
+        summary["public_names_sample"] = None
+
+    # Add some environment info
+    summary.update(
+        {
+            "available_connectors": available_connectors,
+            "available_document_types": available_document_types,
+        }
+    )
+
+    try:
+        logging.info("Agent summary: %s", json.dumps(summary, ensure_ascii=False))
+        print(f"Agent summary: {json.dumps(summary, ensure_ascii=False)}")
+    except Exception:
+        logging.info("Agent summary (fallback): %s", repr(summary))
+        print(f"Agent summary (fallback): {summary!r}")
+
     return agent

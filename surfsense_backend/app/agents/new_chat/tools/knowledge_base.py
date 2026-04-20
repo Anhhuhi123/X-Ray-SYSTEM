@@ -21,6 +21,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.db import shielded_async_session
 from app.services.connector_service import ConnectorService
+from app.utils.decommissioned_connectors import DECOMMISSIONED_CONNECTOR_TYPE_VALUES
 from app.utils.perf import get_perf_logger
 
 # Connectors that call external live-search APIs (no local DB / embedding needed).
@@ -175,28 +176,13 @@ async def _browse_recent_documents(
 _ALL_CONNECTORS: list[str] = [
     "EXTENSION",
     "FILE",
-    "SLACK_CONNECTOR",
-    "TEAMS_CONNECTOR",
-    "NOTION_CONNECTOR",
     "YOUTUBE_VIDEO",
-    "GITHUB_CONNECTOR",
-    "ELASTICSEARCH_CONNECTOR",
-    "LINEAR_CONNECTOR",
-    "JIRA_CONNECTOR",
-    "CONFLUENCE_CONNECTOR",
-    "CLICKUP_CONNECTOR",
-    "GOOGLE_CALENDAR_CONNECTOR",
-    "GOOGLE_GMAIL_CONNECTOR",
     "GOOGLE_DRIVE_FILE",
-    "DISCORD_CONNECTOR",
-    "AIRTABLE_CONNECTOR",
     "TAVILY_API",
     "SEARXNG_API",
     "LINKUP_API",
     "BAIDU_SEARCH_API",
-    "LUMA_CONNECTOR",
     "NOTE",
-    "BOOKSTACK_CONNECTOR",
     "CRAWLED_URL",
     "CIRCLEBACK",
     "OBSIDIAN_CONNECTOR",
@@ -212,29 +198,14 @@ CONNECTOR_DESCRIPTIONS: dict[str, str] = {
     "EXTENSION": "Web content saved via SurfSense browser extension (personal browsing history)",
     "FILE": "User-uploaded documents (PDFs, Word, etc.) (personal files)",
     "NOTE": "SurfSense Notes (notes created inside SurfSense)",
-    "SLACK_CONNECTOR": "Slack conversations and shared content (personal workspace communications)",
-    "TEAMS_CONNECTOR": "Microsoft Teams messages and conversations (personal Teams communications)",
-    "NOTION_CONNECTOR": "Notion workspace pages and databases (personal knowledge management)",
     "YOUTUBE_VIDEO": "YouTube video transcripts and metadata (personally saved videos)",
-    "GITHUB_CONNECTOR": "GitHub repository content and issues (personal repositories and interactions)",
-    "ELASTICSEARCH_CONNECTOR": "Elasticsearch indexed documents and data (personal Elasticsearch instances)",
-    "LINEAR_CONNECTOR": "Linear project issues and discussions (personal project management)",
-    "JIRA_CONNECTOR": "Jira project issues, tickets, and comments (personal project tracking)",
-    "CONFLUENCE_CONNECTOR": "Confluence pages and comments (personal project documentation)",
-    "CLICKUP_CONNECTOR": "ClickUp tasks and project data (personal task management)",
-    "GOOGLE_CALENDAR_CONNECTOR": "Google Calendar events, meetings, and schedules (personal calendar)",
-    "GOOGLE_GMAIL_CONNECTOR": "Google Gmail emails and conversations (personal emails)",
     "GOOGLE_DRIVE_FILE": "Google Drive files and documents (personal cloud storage)",
-    "DISCORD_CONNECTOR": "Discord server conversations and shared content (personal community)",
-    "AIRTABLE_CONNECTOR": "Airtable records, tables, and database content (personal data)",
     "TAVILY_API": "Tavily web search API results (real-time web search)",
     "SEARXNG_API": "SearxNG search API results (privacy-focused web search)",
     "LINKUP_API": "Linkup search API results (web search)",
     "BAIDU_SEARCH_API": "Baidu search API results (Chinese web search)",
-    "LUMA_CONNECTOR": "Luma events and meetings",
     "WEBCRAWLER_CONNECTOR": "Webpages indexed by SurfSense (personally selected websites)",
     "CRAWLED_URL": "Webpages indexed by SurfSense (personally selected websites)",
-    "BOOKSTACK_CONNECTOR": "BookStack pages (personal documentation)",
     "CIRCLEBACK": "Circleback meeting notes, transcripts, and action items",
     "OBSIDIAN_CONNECTOR": "Obsidian vault notes and markdown files (personal notes)",
     # Composio connectors
@@ -242,6 +213,12 @@ CONNECTOR_DESCRIPTIONS: dict[str, str] = {
     "COMPOSIO_GMAIL_CONNECTOR": "Gmail emails via Composio (personal emails)",
     "COMPOSIO_GOOGLE_CALENDAR_CONNECTOR": "Google Calendar events via Composio (personal calendar)",
 }
+
+_ACTIVE_CONNECTORS: list[str] = [
+    connector
+    for connector in _ALL_CONNECTORS
+    if connector not in DECOMMISSIONED_CONNECTOR_TYPE_VALUES
+]
 
 
 def _normalize_connectors(
@@ -266,7 +243,7 @@ def _normalize_connectors(
     """
     # Determine the set of valid connectors to consider
     valid_set = (
-        set(available_connectors) if available_connectors else set(_ALL_CONNECTORS)
+        set(available_connectors) if available_connectors else set(_ACTIVE_CONNECTORS)
     )
 
     if not connectors_to_search:
@@ -274,7 +251,7 @@ def _normalize_connectors(
         return (
             list(available_connectors)
             if available_connectors
-            else list(_ALL_CONNECTORS)
+            else list(_ACTIVE_CONNECTORS)
         )
 
     normalized: list[str] = []
@@ -294,7 +271,7 @@ def _normalize_connectors(
         if c in seen:
             continue
         # Only include if it's a known connector AND available
-        if c not in _ALL_CONNECTORS:
+        if c not in _ACTIVE_CONNECTORS:
             continue
         if c not in valid_set:
             continue
@@ -308,7 +285,7 @@ def _normalize_connectors(
         else (
             list(available_connectors)
             if available_connectors
-            else list(_ALL_CONNECTORS)
+            else list(_ACTIVE_CONNECTORS)
         )
     )
 
@@ -397,7 +374,7 @@ def format_documents_for_context(
     #   {
     #     "document": {...},
     #     "chunks": [{"chunk_id": 123, "content": "..."}, ...],
-    #     "source": "NOTION_CONNECTOR" | "FILE" | ...
+    #     "source": "FILE" | "NOTE" | ...
     #   }
     #
     # We must preserve chunk_id so citations like [citation:123] are possible.
@@ -874,7 +851,9 @@ def _build_connector_docstring(available_connectors: list[str] | None) -> str:
     Returns:
         Formatted docstring section listing available connectors
     """
-    connectors = available_connectors if available_connectors else list(_ALL_CONNECTORS)
+    connectors = (
+        available_connectors if available_connectors else list(_ACTIVE_CONNECTORS)
+    )
 
     lines = []
     for connector in connectors:

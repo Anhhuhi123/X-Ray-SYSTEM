@@ -49,8 +49,6 @@ router = APIRouter()
 # Map toolkit_id to frontend connector ID
 TOOLKIT_TO_FRONTEND_CONNECTOR_ID = {
     "googledrive": "composio-googledrive",
-    "gmail": "composio-gmail",
-    "googlecalendar": "composio-googlecalendar",
 }
 
 # Initialize security utilities
@@ -168,6 +166,9 @@ async def initiate_composio_auth(
 
     except HTTPException:
         raise
+    except ValueError as e:
+        logger.error(f"Failed to initiate Composio OAuth: {e!s}")
+        raise HTTPException(status_code=503, detail=str(e)) from e
     except Exception as e:
         logger.error(f"Failed to initiate Composio OAuth: {e!s}", exc_info=True)
         raise HTTPException(

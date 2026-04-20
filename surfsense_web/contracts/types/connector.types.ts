@@ -10,7 +10,6 @@ export const searchSourceConnectorTypeEnum = z.enum([
 	"SLACK_CONNECTOR",
 	"TEAMS_CONNECTOR",
 	"NOTION_CONNECTOR",
-	"GITHUB_CONNECTOR",
 	"LINEAR_CONNECTOR",
 	"DISCORD_CONNECTOR",
 	"JIRA_CONNECTOR",
@@ -20,11 +19,8 @@ export const searchSourceConnectorTypeEnum = z.enum([
 	"GOOGLE_GMAIL_CONNECTOR",
 	"GOOGLE_DRIVE_CONNECTOR",
 	"AIRTABLE_CONNECTOR",
-	"LUMA_CONNECTOR",
-	"ELASTICSEARCH_CONNECTOR",
 	"WEBCRAWLER_CONNECTOR",
 	"YOUTUBE_CONNECTOR",
-	"BOOKSTACK_CONNECTOR",
 	"CIRCLEBACK_CONNECTOR",
 	"MCP_CONNECTOR",
 	"OBSIDIAN_CONNECTOR",
@@ -189,15 +185,6 @@ export const indexConnectorResponse = z.object({
 });
 
 /**
- * List GitHub repositories
- */
-export const listGitHubRepositoriesRequest = z.object({
-	github_pat: z.string(),
-});
-
-export const listGitHubRepositoriesResponse = z.array(z.record(z.string(), z.any()));
-
-/**
  * List Google Drive folders
  */
 export const listGoogleDriveFoldersRequest = z.object({
@@ -264,8 +251,6 @@ export type DeleteConnectorRequest = z.infer<typeof deleteConnectorRequest>;
 export type DeleteConnectorResponse = z.infer<typeof deleteConnectorResponse>;
 export type IndexConnectorRequest = z.infer<typeof indexConnectorRequest>;
 export type IndexConnectorResponse = z.infer<typeof indexConnectorResponse>;
-export type ListGitHubRepositoriesRequest = z.infer<typeof listGitHubRepositoriesRequest>;
-export type ListGitHubRepositoriesResponse = z.infer<typeof listGitHubRepositoriesResponse>;
 export type ListGoogleDriveFoldersRequest = z.infer<typeof listGoogleDriveFoldersRequest>;
 export type ListGoogleDriveFoldersResponse = z.infer<typeof listGoogleDriveFoldersResponse>;
 export type GoogleDriveItem = z.infer<typeof googleDriveItem>;

@@ -9,21 +9,22 @@ Two public functions:
 The legacy ``attach_chunks_to_document`` is kept for any callers that have not
 yet been migrated to the section-aware pipeline.
 """
+
 from datetime import UTC, datetime
 from uuid import UUID
 
 from sqlalchemy import delete
 from sqlalchemy.ext.asyncio import AsyncSession
-from sqlalchemy.orm.attributes import set_committed_value
 from sqlalchemy.orm import object_session
+from sqlalchemy.orm.attributes import set_committed_value
 
 from app.db import Chunk, Document, DocumentSection, DocumentStatus
 from app.schemas.document_sections import ParsedSection
 
-
 # ---------------------------------------------------------------------------
 # Failure persistence helper
 # ---------------------------------------------------------------------------
+
 
 async def rollback_and_persist_failure(
     session: AsyncSession, document: Document, message: str
@@ -50,6 +51,7 @@ async def rollback_and_persist_failure(
 # Legacy flat helper — kept for backward-compatible callers
 # ---------------------------------------------------------------------------
 
+
 def attach_chunks_to_document(document: Document, chunks: list) -> None:
     """Assign chunks to a document without triggering SQLAlchemy async lazy loading.
 
@@ -69,6 +71,7 @@ def attach_chunks_to_document(document: Document, chunks: list) -> None:
 # ---------------------------------------------------------------------------
 # New section-aware persistence helper
 # ---------------------------------------------------------------------------
+
 
 async def attach_sections_and_chunks(
     session: AsyncSession,

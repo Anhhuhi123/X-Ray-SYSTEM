@@ -18,28 +18,19 @@ logger = logging.getLogger(__name__)
 # Mapping of toolkit IDs to their display names
 COMPOSIO_TOOLKIT_NAMES = {
     "googledrive": "Google Drive",
-    "gmail": "Gmail",
-    "googlecalendar": "Google Calendar",
-    "slack": "Slack",
-    "notion": "Notion",
-    "github": "GitHub",
 }
 
-# Toolkits that support indexing (Phase 1: Google services only)
-INDEXABLE_TOOLKITS = {"googledrive", "gmail", "googlecalendar"}
+# Toolkits that support indexing.
+INDEXABLE_TOOLKITS = {"googledrive"}
 
 # Mapping of toolkit IDs to connector types
 TOOLKIT_TO_CONNECTOR_TYPE = {
     "googledrive": "COMPOSIO_GOOGLE_DRIVE_CONNECTOR",
-    "gmail": "COMPOSIO_GMAIL_CONNECTOR",
-    "googlecalendar": "COMPOSIO_GOOGLE_CALENDAR_CONNECTOR",
 }
 
 # Mapping of toolkit IDs to document types
 TOOLKIT_TO_DOCUMENT_TYPE = {
     "googledrive": "COMPOSIO_GOOGLE_DRIVE_CONNECTOR",
-    "gmail": "COMPOSIO_GMAIL_CONNECTOR",
-    "googlecalendar": "COMPOSIO_GOOGLE_CALENDAR_CONNECTOR",
 }
 
 # Mapping of toolkit IDs to their indexer functions
@@ -50,16 +41,6 @@ TOOLKIT_TO_INDEXER = {
         "app.connectors.composio_google_drive_connector",
         "index_composio_google_drive",
         False,  # Google Drive doesn't use date filtering
-    ),
-    "gmail": (
-        "app.connectors.composio_gmail_connector",
-        "index_composio_gmail",
-        True,  # Gmail uses date filtering
-    ),
-    "googlecalendar": (
-        "app.connectors.composio_google_calendar_connector",
-        "index_composio_google_calendar",
-        True,  # Calendar uses date filtering
     ),
 }
 
@@ -167,8 +148,23 @@ class ComposioService:
 
             return None
         except Exception as e:
-            logger.error(f"Failed to list auth configs: {e!s}")
-            return None
+            error_text = str(e)
+            logger.error(f"Failed to list auth configs: {error_text}")
+
+            error_text_lower = error_text.lower()
+            if (
+                "invalid api key" in error_text_lower
+                or "unauthorized" in error_text_lower
+                or "401" in error_text_lower
+            ):
+                raise ValueError(
+                    "Invalid COMPOSIO_API_KEY configured on the server. "
+                    "Please set a valid key in backend environment."
+                ) from e
+
+            raise ValueError(
+                f"Failed to list Composio auth configs: {error_text}"
+            ) from e
 
     async def initiate_connection(
         self,

@@ -5,10 +5,7 @@ All public endpoints use share_token for access - no authentication required
 for read operations. Clone requires authentication.
 """
 
-import os
-
 from fastapi import APIRouter, Depends, HTTPException
-from fastapi.responses import StreamingResponse
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.db import User, get_async_session
@@ -19,7 +16,6 @@ from app.schemas.new_chat import (
 from app.services.public_chat_service import (
     clone_from_snapshot,
     get_public_chat,
-    get_snapshot_podcast,
     get_snapshot_report,
 )
 from app.users import current_active_user
@@ -54,67 +50,6 @@ async def clone_public_chat(
     Requires authentication.
     """
     return await clone_from_snapshot(session, share_token, user)
-
-
-@router.get("/{share_token}/podcasts/{podcast_id}")
-async def get_public_podcast(
-    share_token: str,
-    podcast_id: int,
-    session: AsyncSession = Depends(get_async_session),
-):
-    """
-    Get podcast details from a public chat snapshot.
-
-    No authentication required - the share_token provides access.
-    Returns podcast info including transcript.
-    """
-    podcast_info = await get_snapshot_podcast(session, share_token, podcast_id)
-
-    if not podcast_info:
-        raise HTTPException(status_code=404, detail="Podcast not found")
-
-    return {
-        "id": podcast_info.get("original_id"),
-        "title": podcast_info.get("title"),
-        "status": "ready",
-        "podcast_transcript": podcast_info.get("transcript"),
-    }
-
-
-@router.get("/{share_token}/podcasts/{podcast_id}/stream")
-async def stream_public_podcast(
-    share_token: str,
-    podcast_id: int,
-    session: AsyncSession = Depends(get_async_session),
-):
-    """
-    Stream a podcast from a public chat snapshot.
-
-    No authentication required - the share_token provides access.
-    Looks up podcast by original_id in the snapshot's podcasts array.
-    """
-    podcast_info = await get_snapshot_podcast(session, share_token, podcast_id)
-
-    if not podcast_info:
-        raise HTTPException(status_code=404, detail="Podcast not found")
-
-    file_path = podcast_info.get("file_path")
-
-    if not file_path or not os.path.isfile(file_path):
-        raise HTTPException(status_code=404, detail="Podcast audio file not found")
-
-    def iterfile():
-        with open(file_path, mode="rb") as file_like:
-            yield from file_like
-
-    return StreamingResponse(
-        iterfile(),
-        media_type="audio/mpeg",
-        headers={
-            "Accept-Ranges": "bytes",
-            "Content-Disposition": f"inline; filename={os.path.basename(file_path)}",
-        },
-    )
 
 
 @router.get("/{share_token}/reports/{report_id}/content")

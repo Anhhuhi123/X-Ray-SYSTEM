@@ -17,7 +17,7 @@ import logging
 import re
 import time
 from collections.abc import AsyncGenerator
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from typing import Any
 from uuid import UUID
 
@@ -212,7 +212,6 @@ class StreamResult:
     accumulated_text: str = ""
     is_interrupted: bool = False
     interrupt_value: dict[str, Any] | None = None
-    sandbox_files: list[str] = field(default_factory=list)
 
 
 async def _stream_agent_events(
@@ -895,13 +894,6 @@ async def _stream_agent_events(
                     output_text = om.group(1) if om else ""
                 thread_id_str = config.get("configurable", {}).get("thread_id", "")
 
-                for sf_match in re.finditer(
-                    r"^SANDBOX_FILE:\s*(.+)$", output_text, re.MULTILINE
-                ):
-                    fpath = sf_match.group(1).strip()
-                    if fpath and fpath not in result.sandbox_files:
-                        result.sandbox_files.append(fpath)
-
                 yield streaming_service.format_tool_output_available(
                     tool_call_id,
                     {
@@ -976,38 +968,6 @@ async def _stream_agent_events(
         result.is_interrupted = True
         result.interrupt_value = state.tasks[0].interrupts[0].value
         yield streaming_service.format_interrupt_request(result.interrupt_value)
-
-
-def _try_persist_and_delete_sandbox(
-    thread_id: int,
-    sandbox_files: list[str],
-) -> None:
-    """Fire-and-forget: persist sandbox files locally then delete the sandbox."""
-    from app.agents.new_chat.sandbox import (
-        is_sandbox_enabled,
-        persist_and_delete_sandbox,
-    )
-
-    if not is_sandbox_enabled():
-        return
-
-    async def _run() -> None:
-        try:
-            await persist_and_delete_sandbox(thread_id, sandbox_files)
-        except Exception:
-            logging.getLogger(__name__).warning(
-                "persist_and_delete_sandbox failed for thread %s",
-                thread_id,
-                exc_info=True,
-            )
-
-    try:
-        loop = asyncio.get_running_loop()
-        task = loop.create_task(_run())
-        _background_tasks.add(task)
-        task.add_done_callback(_background_tasks.discard)
-    except RuntimeError:
-        pass
 
 
 async def stream_new_chat(
@@ -1514,8 +1474,6 @@ async def stream_new_chat(
                         "Failed to clear AI responding state for thread %s", chat_id
                     )
 
-            _try_persist_and_delete_sandbox(chat_id, stream_result.sandbox_files)
-
             with contextlib.suppress(Exception):
                 session.expunge_all()
 
@@ -1724,8 +1682,6 @@ async def stream_resume_chat(
                     logging.getLogger(__name__).warning(
                         "Failed to clear AI responding state for thread %s", chat_id
                     )
-
-            _try_persist_and_delete_sandbox(chat_id, stream_result.sandbox_files)
 
             with contextlib.suppress(Exception):
                 session.expunge_all()

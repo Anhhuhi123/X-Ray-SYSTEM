@@ -220,11 +220,11 @@ export const ConnectorEditView: FC<ConnectorEditViewProps> = ({
 								{/* AI Summary toggle */}
 								<SummaryConfig enabled={enableSummary} onEnabledChange={onEnableSummaryChange} />
 
-								{/* Date range selector - not shown for Google Drive (regular and Composio), Webcrawler, or GitHub (indexes full repo snapshots) */}
+								{/* Date range selector - not shown for Google Drive (regular and Composio) or Webcrawler */}
 								{connector.connector_type !== "GOOGLE_DRIVE_CONNECTOR" &&
 									connector.connector_type !== "COMPOSIO_GOOGLE_DRIVE_CONNECTOR" &&
 									connector.connector_type !== "WEBCRAWLER_CONNECTOR" &&
-									connector.connector_type !== "GITHUB_CONNECTOR" && (
+									(
 										<DateRangeSelector
 											startDate={startDate}
 											endDate={endDate}
@@ -232,8 +232,7 @@ export const ConnectorEditView: FC<ConnectorEditViewProps> = ({
 											onEndDateChange={onEndDateChange}
 											allowFutureDates={
 												connector.connector_type === "GOOGLE_CALENDAR_CONNECTOR" ||
-												connector.connector_type === "COMPOSIO_GOOGLE_CALENDAR_CONNECTOR" ||
-												connector.connector_type === "LUMA_CONNECTOR"
+												connector.connector_type === "COMPOSIO_GOOGLE_CALENDAR_CONNECTOR"
 											}
 											lastIndexedAt={connector.last_indexed_at}
 										/>

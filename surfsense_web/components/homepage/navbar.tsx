@@ -13,7 +13,6 @@ export const Navbar = () => {
 	const [isScrolled, setIsScrolled] = useState(false);
 
 	const navItems = [
-		{ name: "Pricing", link: "/pricing" },
 		{ name: "Changelog", link: "/changelog" },
 		{ name: "Docs", link: "/docs" },
 		{ name: "Contact\u00A0Us", link: "/contact" },

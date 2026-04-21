@@ -22,10 +22,6 @@ export function FooterNew() {
 		//   href: "#",
 		// },
 		{
-			title: "Pricing",
-			href: "/pricing",
-		},
-		{
 			title: "Docs",
 			href: "/docs",
 		},

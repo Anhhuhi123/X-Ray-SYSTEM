@@ -1,10 +1,10 @@
 "use client";
-import { IconBrandDiscord, IconBrandReddit, IconMenu2, IconX } from "@tabler/icons-react";
+
+import { IconMenu2, IconX } from "@tabler/icons-react";
 import { AnimatePresence, motion } from "motion/react";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { SignInButton } from "@/components/auth/sign-in-button";
-import { NavbarGitHubStars } from "@/components/homepage/github-stars-badge";
 import { Logo } from "@/components/Logo";
 import { ThemeTogglerComponent } from "@/components/theme/theme-toggle";
 import { cn } from "@/lib/utils";
@@ -15,7 +15,7 @@ export const Navbar = () => {
 	const navItems = [
 		{ name: "Changelog", link: "/changelog" },
 		{ name: "Docs", link: "/docs" },
-		{ name: "Contact\u00A0Us", link: "/contact" },
+		{ name: "Contact", link: "/contact" },
 	];
 
 	useEffect(() => {
@@ -40,6 +40,7 @@ export const Navbar = () => {
 
 const DesktopNav = ({ navItems, isScrolled }: any) => {
 	const [hovered, setHovered] = useState<number | null>(null);
+
 	return (
 		<motion.div
 			onMouseLeave={() => {
@@ -57,7 +58,7 @@ const DesktopNav = ({ navItems, isScrolled }: any) => {
 				className="flex flex-1 flex-row items-center gap-0.5 hover:opacity-80 transition-opacity"
 			>
 				<Logo className="h-8 w-8 rounded-md" disableLink />
-				<span className="dark:text-white/90 text-gray-800 text-lg font-bold">SurfSense</span>
+				<span className="dark:text-white/90 text-gray-800 text-lg font-bold">NBDoctor</span>
 			</Link>
 			<div className="hidden flex-1 flex-row items-center justify-center space-x-2 text-sm font-medium text-zinc-600 transition duration-200 hover:text-zinc-800 lg:flex lg:space-x-2">
 				{navItems.map((navItem: any, idx: number) => (
@@ -79,23 +80,6 @@ const DesktopNav = ({ navItems, isScrolled }: any) => {
 				))}
 			</div>
 			<div className="flex flex-1 items-center justify-end gap-2">
-				<Link
-					href="https://discord.gg/ejRNvftDp9"
-					target="_blank"
-					rel="noopener noreferrer"
-					className="hidden rounded-full p-2 hover:bg-gray-100 dark:hover:bg-neutral-800 transition-colors md:flex items-center justify-center"
-				>
-					<IconBrandDiscord className="h-5 w-5 text-neutral-600 dark:text-neutral-300" />
-				</Link>
-				<Link
-					href="https://www.reddit.com/r/SurfSense/"
-					target="_blank"
-					rel="noopener noreferrer"
-					className="hidden rounded-full p-2 hover:bg-gray-100 dark:hover:bg-neutral-800 transition-colors md:flex items-center justify-center"
-				>
-					<IconBrandReddit className="h-5 w-5 text-neutral-600 dark:text-neutral-300" />
-				</Link>
-				<NavbarGitHubStars className="hidden md:flex" />
 				<ThemeTogglerComponent />
 				<SignInButton variant="desktop" />
 			</div>
@@ -142,7 +126,7 @@ const MobileNav = ({ navItems, isScrolled }: any) => {
 					className="flex flex-row items-center gap-2 hover:opacity-80 transition-opacity"
 				>
 					<Logo className="h-8 w-8 rounded-md" disableLink />
-					<span className="dark:text-white/90 text-gray-800 text-lg font-bold">SurfSense</span>
+					<span className="dark:text-white/90 text-gray-800 text-lg font-bold">NBDoctor</span>
 				</Link>
 				<button
 					type="button"
@@ -177,23 +161,6 @@ const MobileNav = ({ navItems, isScrolled }: any) => {
 							</Link>
 						))}
 						<div className="flex w-full items-center gap-2 pt-2">
-							<Link
-								href="https://discord.gg/ejRNvftDp9"
-								target="_blank"
-								rel="noopener noreferrer"
-								className="flex items-center justify-center rounded-lg p-2 hover:bg-gray-100 dark:hover:bg-neutral-800 transition-colors touch-manipulation"
-							>
-								<IconBrandDiscord className="h-5 w-5 text-neutral-600 dark:text-neutral-300" />
-							</Link>
-							<Link
-								href="https://www.reddit.com/r/SurfSense/"
-								target="_blank"
-								rel="noopener noreferrer"
-								className="flex items-center justify-center rounded-lg p-2 hover:bg-gray-100 dark:hover:bg-neutral-800 transition-colors touch-manipulation"
-							>
-								<IconBrandReddit className="h-5 w-5 text-neutral-600 dark:text-neutral-300" />
-							</Link>
-							<NavbarGitHubStars className="rounded-lg" />
 							<ThemeTogglerComponent />
 						</div>
 						<SignInButton variant="mobile" />

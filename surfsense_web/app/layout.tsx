@@ -35,7 +35,7 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-	title: "NoteBook For Docters",
+	title: "NoteBook For Doctors",
 	description:
 		"Connect any LLM to your internal knowledge sources and chat with it in real time alongside your team. SurfSense is an open source alternative to NotebookLM, built for enterprise AI search and knowledge management.",
 	keywords: [
@@ -82,25 +82,25 @@ export const metadata: Metadata = {
 		"SurfSense",
 	],
 	openGraph: {
-		title: "NoteBook For Docters",
+		title: "NoteBook For Doctors",
 		description:
 			"Connect any LLM to your internal knowledge sources and chat with it in real time alongside your team. Open source enterprise AI search and knowledge management.",
 		url: "https://surfsense.com",
-		siteName: "NoteBook For Docters",
+		siteName: "NoteBook For Doctors",
 		type: "website",
 			images: [
 				{
 					url: "https://yeudialy.edu.vn/upload/2025/05/chibi-bac-si13.webp",
 					width: 1200,
 					height: 630,
-					alt: "NoteBook For Docters",
+					alt: "NoteBook For Doctors",
 				},
 			],
 		locale: "en_US",
 	},
 	twitter: {
 		card: "summary_large_image",
-		title: "NoteBook For Docters",
+		title: "NoteBook For Doctors",
 		description:
 			"Connect any LLM to your internal knowledge sources and chat with it in real time alongside your team. Open source enterprise AI search and knowledge management.",
 		creator: "https://surfsense.com",
@@ -110,7 +110,7 @@ export const metadata: Metadata = {
 				url: "https://yeudialy.edu.vn/upload/2025/05/chibi-bac-si13.webp",
 				width: 1200,
 				height: 630,
-				alt: "NoteBook For Docters",
+				alt: "NoteBook For Doctors",
 			},
 		],
 	},
@@ -127,7 +127,6 @@ export default function RootLayout({
 	return (
 		<html lang="en" suppressHydrationWarning>
 			<head>
-				<link rel="preconnect" href="https://api.github.com" />
 			</head>
 			<body className={cn(roboto.className, "bg-white dark:bg-black antialiased h-full w-full ")}>
 				<PostHogProvider>

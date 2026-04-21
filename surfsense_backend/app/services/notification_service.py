@@ -1023,8 +1023,8 @@ class PageLimitNotificationHandler(BaseNotificationHandler):
             "status": "failed",
             "error_type": "page_limit_exceeded",
             # Navigation target for frontend
-            "action_url": f"/dashboard/{search_space_id}/more-pages",
-            "action_label": "Upgrade Plan",
+            "action_url": "/contact",
+            "action_label": "Contact Sales",
         }
 
         notification = Notification(

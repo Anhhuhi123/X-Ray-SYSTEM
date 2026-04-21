@@ -244,57 +244,6 @@ class LogStatus(StrEnum):
     FAILED = "FAILED"
 
 
-class IncentiveTaskType(StrEnum):
-    """
-    Enum for incentive task types that users can complete to earn free pages.
-    Each task can only be completed once per user.
-
-    When adding new tasks:
-    1. Add a new enum value here
-    2. Add the task configuration to INCENTIVE_TASKS_CONFIG below
-    3. Create an Alembic migration to add the enum value to PostgreSQL
-    """
-
-    GITHUB_STAR = "GITHUB_STAR"
-    REDDIT_FOLLOW = "REDDIT_FOLLOW"
-    DISCORD_JOIN = "DISCORD_JOIN"
-    # Future tasks can be added here:
-    # GITHUB_ISSUE = "GITHUB_ISSUE"
-    # SOCIAL_SHARE = "SOCIAL_SHARE"
-    # REFER_FRIEND = "REFER_FRIEND"
-
-
-# Centralized configuration for incentive tasks
-# This makes it easy to add new tasks without changing code in multiple places
-INCENTIVE_TASKS_CONFIG = {
-    IncentiveTaskType.GITHUB_STAR: {
-        "title": "Star our GitHub repository",
-        "description": "Show your support by starring SurfSense on GitHub",
-        "pages_reward": 30,
-        "action_url": "https://github.com/MODSetter/SurfSense",
-    },
-    IncentiveTaskType.REDDIT_FOLLOW: {
-        "title": "Join our Subreddit",
-        "description": "Join the SurfSense community on Reddit",
-        "pages_reward": 30,
-        "action_url": "https://www.reddit.com/r/SurfSense/",
-    },
-    IncentiveTaskType.DISCORD_JOIN: {
-        "title": "Join our Discord",
-        "description": "Join the SurfSense community on Discord",
-        "pages_reward": 40,
-        "action_url": "https://discord.gg/ejRNvftDp9",
-    },
-    # Future tasks can be configured here:
-    # IncentiveTaskType.GITHUB_ISSUE: {
-    #     "title": "Create an issue",
-    #     "description": "Help improve SurfSense by reporting bugs or suggesting features",
-    #     "pages_reward": 50,
-    #     "action_url": "https://github.com/MODSetter/SurfSense/issues/new/choose",
-    # },
-}
-
-
 class Permission(StrEnum):
     """
     Granular permissions for search space resources.
@@ -1572,39 +1521,6 @@ class Notification(BaseModel, TimestampMixin):
     search_space = relationship("SearchSpace", back_populates="notifications")
 
 
-class UserIncentiveTask(BaseModel, TimestampMixin):
-    """
-    Tracks completed incentive tasks for users.
-    Each user can only complete each task type once.
-    When a task is completed, the user's pages_limit is increased.
-    """
-
-    __tablename__ = "user_incentive_tasks"
-    __table_args__ = (
-        UniqueConstraint(
-            "user_id",
-            "task_type",
-            name="uq_user_incentive_task",
-        ),
-    )
-
-    user_id = Column(
-        UUID(as_uuid=True),
-        ForeignKey("user.id", ondelete="CASCADE"),
-        nullable=False,
-        index=True,
-    )
-    task_type = Column(SQLAlchemyEnum(IncentiveTaskType), nullable=False, index=True)
-    pages_awarded = Column(Integer, nullable=False)
-    completed_at = Column(
-        TIMESTAMP(timezone=True),
-        nullable=False,
-        default=lambda: datetime.now(UTC),
-    )
-
-    user = relationship("User", back_populates="incentive_tasks")
-
-
 class SearchSpaceRole(BaseModel, TimestampMixin):
     """
     Custom roles that can be defined per search space.
@@ -1818,13 +1734,6 @@ if config.AUTH_TYPE == "GOOGLE":
             cascade="all, delete-orphan",
         )
 
-        # Incentive tasks completed by this user
-        incentive_tasks = relationship(
-            "UserIncentiveTask",
-            back_populates="user",
-            cascade="all, delete-orphan",
-        )
-
         # Page usage tracking for ETL services
         pages_limit = Column(
             Integer,
@@ -1917,13 +1826,6 @@ else:
             "UserMemory",
             back_populates="user",
             order_by="UserMemory.updated_at.desc()",
-            cascade="all, delete-orphan",
-        )
-
-        # Incentive tasks completed by this user
-        incentive_tasks = relationship(
-            "UserIncentiveTask",
-            back_populates="user",
             cascade="all, delete-orphan",
         )
 

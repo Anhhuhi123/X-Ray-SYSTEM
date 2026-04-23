@@ -26,9 +26,6 @@ from .file_processors import (
 # Markdown processor
 from .markdown_processor import add_received_markdown_file_document
 
-# YouTube processor
-from .youtube_processor import add_youtube_video_document
-
 __all__ = [
     # Extension processing
     "add_extension_received_document",
@@ -38,6 +35,4 @@ __all__ = [
     "add_received_file_document_using_unstructured",
     # Markdown file processing
     "add_received_markdown_file_document",
-    # YouTube video processing
-    "add_youtube_video_document",
 ]

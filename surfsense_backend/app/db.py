@@ -43,7 +43,7 @@ class DocumentType(StrEnum):
     SLACK_CONNECTOR = "SLACK_CONNECTOR"
     TEAMS_CONNECTOR = "TEAMS_CONNECTOR"
     NOTION_CONNECTOR = "NOTION_CONNECTOR"
-    YOUTUBE_VIDEO = "YOUTUBE_VIDEO"
+
     LINEAR_CONNECTOR = "LINEAR_CONNECTOR"
     DISCORD_CONNECTOR = "DISCORD_CONNECTOR"
     JIRA_CONNECTOR = "JIRA_CONNECTOR"
@@ -90,11 +90,7 @@ class SearchSourceConnectorType(StrEnum):
     COMPOSIO_GOOGLE_CALENDAR_CONNECTOR = "COMPOSIO_GOOGLE_CALENDAR_CONNECTOR"
 
 
-class PodcastStatus(StrEnum):
-    PENDING = "pending"
-    GENERATING = "generating"
-    READY = "ready"
-    FAILED = "failed"
+
 
 
 class DocumentStatus:
@@ -273,11 +269,7 @@ class Permission(StrEnum):
     LLM_CONFIGS_UPDATE = "llm_configs:update"
     LLM_CONFIGS_DELETE = "llm_configs:delete"
 
-    # Podcasts
-    PODCASTS_CREATE = "podcasts:create"
-    PODCASTS_READ = "podcasts:read"
-    PODCASTS_UPDATE = "podcasts:update"
-    PODCASTS_DELETE = "podcasts:delete"
+
 
     # Image Generations
     IMAGE_GENERATIONS_CREATE = "image_generations:create"
@@ -341,10 +333,7 @@ DEFAULT_ROLE_PERMISSIONS = {
         Permission.LLM_CONFIGS_CREATE.value,
         Permission.LLM_CONFIGS_READ.value,
         Permission.LLM_CONFIGS_UPDATE.value,
-        # Podcasts (no delete)
-        Permission.PODCASTS_CREATE.value,
-        Permission.PODCASTS_READ.value,
-        Permission.PODCASTS_UPDATE.value,
+
         # Image Generations (create and read, no delete)
         Permission.IMAGE_GENERATIONS_CREATE.value,
         Permission.IMAGE_GENERATIONS_READ.value,
@@ -375,8 +364,7 @@ DEFAULT_ROLE_PERMISSIONS = {
         Permission.COMMENTS_READ.value,
         # LLM Configs (read only)
         Permission.LLM_CONFIGS_READ.value,
-        # Podcasts (read only)
-        Permission.PODCASTS_READ.value,
+
         # Image Generations (read only)
         Permission.IMAGE_GENERATIONS_READ.value,
         # Connectors (read only)
@@ -1050,39 +1038,7 @@ class SurfsenseDocsChunk(BaseModel, TimestampMixin):
     document = relationship("SurfsenseDocsDocument", back_populates="chunks")
 
 
-class Podcast(BaseModel, TimestampMixin):
-    """Podcast model for storing generated podcasts."""
 
-    __tablename__ = "podcasts"
-
-    title = Column(String(500), nullable=False)
-    podcast_transcript = Column(JSONB, nullable=True)
-    file_location = Column(Text, nullable=True)
-    status = Column(
-        SQLAlchemyEnum(
-            PodcastStatus,
-            name="podcast_status",
-            create_type=False,
-            values_callable=lambda x: [e.value for e in x],
-        ),
-        nullable=False,
-        default=PodcastStatus.READY,
-        server_default="ready",
-        index=True,
-    )
-
-    search_space_id = Column(
-        Integer, ForeignKey("searchspaces.id", ondelete="CASCADE"), nullable=False
-    )
-    search_space = relationship("SearchSpace", back_populates="podcasts")
-
-    thread_id = Column(
-        Integer,
-        ForeignKey("new_chat_threads.id", ondelete="SET NULL"),
-        nullable=True,
-        index=True,
-    )
-    thread = relationship("NewChatThread")
 
 
 class Report(BaseModel, TimestampMixin):
@@ -1263,12 +1219,7 @@ class SearchSpace(BaseModel, TimestampMixin):
         order_by="NewChatThread.updated_at.desc()",
         cascade="all, delete-orphan",
     )
-    podcasts = relationship(
-        "Podcast",
-        back_populates="search_space",
-        order_by="Podcast.id.desc()",
-        cascade="all, delete-orphan",
-    )
+
     reports = relationship(
         "Report",
         back_populates="search_space",

@@ -270,6 +270,7 @@ async def _stream_agent_events(
             return event
         return None
 
+    # This is the main loop that streams events from the agent and load checkpoint for agent
     async for event in agent.astream_events(input_data, config=config, version="v2"):
         event_type = event.get("event", "")
 
@@ -381,29 +382,7 @@ async def _stream_agent_events(
                     status="in_progress",
                     items=last_active_step_items,
                 )
-            elif tool_name == "generate_podcast":
-                podcast_title = (
-                    tool_input.get("podcast_title", "SurfSense Podcast")
-                    if isinstance(tool_input, dict)
-                    else "SurfSense Podcast"
-                )
-                content_len = len(
-                    tool_input.get("source_content", "")
-                    if isinstance(tool_input, dict)
-                    else ""
-                )
-                last_active_step_title = "Generating podcast"
-                last_active_step_items = [
-                    f"Title: {podcast_title}",
-                    f"Content: {content_len:,} characters",
-                    "Preparing audio generation...",
-                ]
-                yield streaming_service.format_thinking_step(
-                    step_id=tool_step_id,
-                    title="Generating podcast",
-                    status="in_progress",
-                    items=last_active_step_items,
-                )
+
             elif tool_name == "generate_report":
                 report_topic = (
                     tool_input.get("topic", "Report")
@@ -567,47 +546,7 @@ async def _stream_agent_events(
                     status="completed",
                     items=completed_items,
                 )
-            elif tool_name == "generate_podcast":
-                podcast_status = (
-                    tool_output.get("status", "unknown")
-                    if isinstance(tool_output, dict)
-                    else "unknown"
-                )
-                podcast_title = (
-                    tool_output.get("title", "Podcast")
-                    if isinstance(tool_output, dict)
-                    else "Podcast"
-                )
-                if podcast_status == "processing":
-                    completed_items = [
-                        f"Title: {podcast_title}",
-                        "Audio generation started",
-                        "Processing in background...",
-                    ]
-                elif podcast_status == "already_generating":
-                    completed_items = [
-                        f"Title: {podcast_title}",
-                        "Podcast already in progress",
-                        "Please wait for it to complete",
-                    ]
-                elif podcast_status == "error":
-                    error_msg = (
-                        tool_output.get("error", "Unknown error")
-                        if isinstance(tool_output, dict)
-                        else "Unknown error"
-                    )
-                    completed_items = [
-                        f"Title: {podcast_title}",
-                        f"Error: {error_msg[:50]}",
-                    ]
-                else:
-                    completed_items = last_active_step_items
-                yield streaming_service.format_thinking_step(
-                    step_id=original_step_id,
-                    title="Generating podcast",
-                    status="completed",
-                    items=completed_items,
-                )
+
             elif tool_name == "generate_report":
                 report_status = (
                     tool_output.get("status", "unknown")
@@ -726,32 +665,7 @@ async def _stream_agent_events(
             last_active_step_title = ""
             last_active_step_items = []
 
-            if tool_name == "generate_podcast":
-                yield streaming_service.format_tool_output_available(
-                    tool_call_id,
-                    tool_output
-                    if isinstance(tool_output, dict)
-                    else {"result": tool_output},
-                )
-                if (
-                    isinstance(tool_output, dict)
-                    and tool_output.get("status") == "success"
-                ):
-                    yield streaming_service.format_terminal_info(
-                        f"Podcast generated successfully: {tool_output.get('title', 'Podcast')}",
-                        "success",
-                    )
-                else:
-                    error_msg = (
-                        tool_output.get("error", "Unknown error")
-                        if isinstance(tool_output, dict)
-                        else "Unknown error"
-                    )
-                    yield streaming_service.format_terminal_info(
-                        f"Podcast generation failed: {error_msg}",
-                        "error",
-                    )
-            elif tool_name == "link_preview":
+            if tool_name == "link_preview":
                 yield streaming_service.format_tool_output_available(
                     tool_call_id,
                     tool_output

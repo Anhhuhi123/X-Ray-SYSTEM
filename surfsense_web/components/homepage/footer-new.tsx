@@ -1,5 +1,4 @@
 import {
-	IconBrandDiscord,
 	IconBrandGithub,
 	IconBrandLinkedin,
 	IconBrandTwitter,
@@ -21,10 +20,6 @@ export function FooterNew() {
 		//   title: "Clients",
 		//   href: "#",
 		// },
-		{
-			title: "Pricing",
-			href: "/pricing",
-		},
 		{
 			title: "Docs",
 			href: "/docs",
@@ -54,11 +49,6 @@ export function FooterNew() {
 			title: "GitHub",
 			href: "https://github.com/MODSetter",
 			icon: IconBrandGithub,
-		},
-		{
-			title: "Discord",
-			href: "https://discord.gg/ejRNvftDp9",
-			icon: IconBrandDiscord,
 		},
 	];
 	const legals = [
@@ -96,11 +86,7 @@ export function FooterNew() {
 				<div>
 					<div className="mr-0 md:mr-4  md:flex mb-4">
 						<Logo className="h-6 w-6 rounded-md mr-2" />
-						<span className="dark:text-white/90 text-gray-800 text-lg font-bold">SurfSense</span>
-					</div>
-
-					<div className="mt-2 ml-2">
-						&copy; SurfSense {new Date().getFullYear()}. All rights reserved.
+						<span className="dark:text-white/90 text-gray-800 text-lg font-bold">NFDoctor</span>
 					</div>
 				</div>
 				<div className="grid grid-cols-2 lg:grid-cols-4 gap-10 items-start mt-10 sm:mt-0 md:mt-0">
@@ -177,7 +163,7 @@ export function FooterNew() {
 				</div>
 			</div>
 			<p className="text-center mt-20 text-5xl md:text-9xl lg:text-[12rem] xl:text-[13rem] font-bold bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 dark:from-neutral-950 to-neutral-200 dark:to-neutral-800 inset-x-0">
-				SurfSense
+				NFDoctor
 			</p>
 		</div>
 	);

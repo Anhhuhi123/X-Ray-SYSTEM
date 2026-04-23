@@ -19,7 +19,6 @@ const PUBLIC_ROUTE_PREFIXES = [
 	"/public",
 	"/invite",
 	"/contact",
-	"/pricing",
 	"/privacy",
 	"/terms",
 	"/changelog",

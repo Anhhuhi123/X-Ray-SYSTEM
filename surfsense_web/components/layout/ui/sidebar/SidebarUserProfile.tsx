@@ -3,8 +3,6 @@
 import {
 	Check,
 	ChevronUp,
-	ExternalLink,
-	Info,
 	Languages,
 	Laptop,
 	LogOut,
@@ -29,17 +27,13 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Spinner } from "@/components/ui/spinner";
 import { useLocaleContext } from "@/contexts/LocaleContext";
-import { APP_VERSION } from "@/lib/env-config";
 import { cn } from "@/lib/utils";
 import type { User } from "../../types/layout.types";
 
-// Supported languages configuration
+// Supported languages configuration (reduced to app-supported locales)
 const LANGUAGES = [
 	{ code: "en" as const, name: "English", flag: "🇺🇸" },
-	{ code: "es" as const, name: "Español", flag: "🇪🇸" },
-	{ code: "pt" as const, name: "Português", flag: "🇧🇷" },
-	{ code: "hi" as const, name: "हिन्दी", flag: "🇮🇳" },
-	{ code: "zh" as const, name: "简体中文", flag: "🇨🇳" },
+	{ code: "vn" as const, name: "Tiếng Việt", flag: "🇻🇳" },
 ];
 
 // Supported themes configuration
@@ -47,11 +41,6 @@ const THEMES = [
 	{ value: "light" as const, name: "Light", icon: Sun },
 	{ value: "dark" as const, name: "Dark", icon: Moon },
 	{ value: "system" as const, name: "System", icon: Laptop },
-];
-
-const LEARN_MORE_LINKS = [
-	{ key: "documentation" as const, href: "https://surfsense.com/docs" },
-	{ key: "github" as const, href: "https://github.com/MODSetter/SurfSense" },
 ];
 
 interface SidebarUserProfileProps {
@@ -154,7 +143,7 @@ export function SidebarUserProfile({
 	const initials = getInitials(user.email);
 	const displayName = user.name || user.email.split("@")[0];
 
-	const handleLanguageChange = (newLocale: "en" | "es" | "pt" | "hi" | "zh") => {
+	const handleLanguageChange = (newLocale: "en" | "vn") => {
 		setLocale(newLocale);
 	};
 
@@ -267,29 +256,6 @@ export function SidebarUserProfile({
 											</DropdownMenuItem>
 										);
 									})}
-								</DropdownMenuSubContent>
-							</DropdownMenuPortal>
-						</DropdownMenuSub>
-
-						<DropdownMenuSub>
-							<DropdownMenuSubTrigger>
-								<Info className="h-4 w-4" />
-								{t("learn_more")}
-							</DropdownMenuSubTrigger>
-							<DropdownMenuPortal>
-								<DropdownMenuSubContent className="min-w-[180px] gap-1">
-									{LEARN_MORE_LINKS.map((link) => (
-										<DropdownMenuItem key={link.key} asChild>
-											<a href={link.href} target="_blank" rel="noopener noreferrer">
-												<span className="flex-1">{t(link.key)}</span>
-												<ExternalLink className="h-3.5 w-3.5 shrink-0 text-muted-foreground" />
-											</a>
-										</DropdownMenuItem>
-									))}
-									<DropdownMenuSeparator className="dark:bg-neutral-700" />
-									<p className="select-none px-2 py-1.5 text-xs text-muted-foreground/50">
-										v{APP_VERSION}
-									</p>
 								</DropdownMenuSubContent>
 							</DropdownMenuPortal>
 						</DropdownMenuSub>
@@ -412,29 +378,6 @@ export function SidebarUserProfile({
 										</DropdownMenuItem>
 									);
 								})}
-							</DropdownMenuSubContent>
-						</DropdownMenuPortal>
-					</DropdownMenuSub>
-
-					<DropdownMenuSub>
-						<DropdownMenuSubTrigger>
-							<Info className="h-4 w-4" />
-							{t("learn_more")}
-						</DropdownMenuSubTrigger>
-						<DropdownMenuPortal>
-							<DropdownMenuSubContent className="min-w-[180px] gap-1">
-								{LEARN_MORE_LINKS.map((link) => (
-									<DropdownMenuItem key={link.key} asChild>
-										<a href={link.href} target="_blank" rel="noopener noreferrer">
-											<span className="flex-1">{t(link.key)}</span>
-											<ExternalLink className="h-3.5 w-3.5 shrink-0 text-muted-foreground" />
-										</a>
-									</DropdownMenuItem>
-								))}
-								<DropdownMenuSeparator className="dark:bg-neutral-700" />
-								<p className="select-none px-2 py-1.5 text-xs text-muted-foreground/50">
-									v{APP_VERSION}
-								</p>
 							</DropdownMenuSubContent>
 						</DropdownMenuPortal>
 					</DropdownMenuSub>

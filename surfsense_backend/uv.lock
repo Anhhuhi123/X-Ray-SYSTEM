@@ -3386,23 +3386,6 @@ wheels = [
 ]
 
 [[package]]
-name = "kokoro"
-version = "0.9.4"
-source = { registry = "https://pypi.org/simple" }
-dependencies = [
-    { name = "huggingface-hub" },
-    { name = "loguru" },
-    { name = "misaki", extra = ["en"] },
-    { name = "numpy" },
-    { name = "torch" },
-    { name = "transformers" },
-]
-sdist = { url = "https://files.pythonhosted.org/packages/e8/48/88b8cdf28b068d070195c2817175549dee48e7682e3ab8994bee5f69217e/kokoro-0.9.4.tar.gz", hash = "sha256:fbf633262797f8cf46fdac3315cf9cade67dc8b762c0feccf334892772fb9ac4", size = 26215928, upload-time = "2025-04-05T22:01:35.294Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/ea/cc/75f41633c75224ba820a4533163bc8b070b6bf25416014074c63284c2d4e/kokoro-0.9.4-py3-none-any.whl", hash = "sha256:a129dc6364a286bd6a92c396e9862459d3d3e45f2c15596ed5a94dcee5789efd", size = 32592, upload-time = "2025-04-05T22:01:23.018Z" },
-]
-
-[[package]]
 name = "kombu"
 version = "5.6.2"
 source = { registry = "https://pypi.org/simple" }
@@ -7961,7 +7944,6 @@ dependencies = [
     { name = "gitingest" },
     { name = "google-api-python-client" },
     { name = "google-auth-oauthlib" },
-    { name = "kokoro" },
     { name = "langchain" },
     { name = "langchain-community" },
     { name = "langchain-daytona" },
@@ -8042,7 +8024,6 @@ requires-dist = [
     { name = "gitingest", specifier = ">=0.3.1" },
     { name = "google-api-python-client", specifier = ">=2.156.0" },
     { name = "google-auth-oauthlib", specifier = ">=1.2.1" },
-    { name = "kokoro", specifier = ">=0.9.4" },
     { name = "langchain", specifier = ">=1.2.6" },
     { name = "langchain-community", specifier = ">=0.3.31" },
     { name = "langchain-daytona", specifier = ">=0.0.2" },

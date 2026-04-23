@@ -35,7 +35,7 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-	title: "SurfSense - Open Source NotebookLM Alternative for Teams",
+	title: "NoteBook For Doctors",
 	description:
 		"Connect any LLM to your internal knowledge sources and chat with it in real time alongside your team. SurfSense is an open source alternative to NotebookLM, built for enterprise AI search and knowledge management.",
 	keywords: [
@@ -82,35 +82,35 @@ export const metadata: Metadata = {
 		"SurfSense",
 	],
 	openGraph: {
-		title: "SurfSense - Open Source NotebookLM Alternative for Teams",
+		title: "NoteBook For Doctors",
 		description:
 			"Connect any LLM to your internal knowledge sources and chat with it in real time alongside your team. Open source enterprise AI search and knowledge management.",
 		url: "https://surfsense.com",
-		siteName: "SurfSense",
+		siteName: "NoteBook For Doctors",
 		type: "website",
-		images: [
-			{
-				url: "https://surfsense.com/og-image.png",
-				width: 1200,
-				height: 630,
-				alt: "SurfSense - Open Source NotebookLM Alternative for Teams",
-			},
-		],
+			images: [
+				{
+					url: "https://yeudialy.edu.vn/upload/2025/05/chibi-bac-si13.webp",
+					width: 1200,
+					height: 630,
+					alt: "NoteBook For Doctors",
+				},
+			],
 		locale: "en_US",
 	},
 	twitter: {
 		card: "summary_large_image",
-		title: "SurfSense - Open Source NotebookLM Alternative for Teams",
+		title: "NoteBook For Doctors",
 		description:
 			"Connect any LLM to your internal knowledge sources and chat with it in real time alongside your team. Open source enterprise AI search and knowledge management.",
 		creator: "https://surfsense.com",
 		site: "https://surfsense.com",
 		images: [
 			{
-				url: "https://surfsense.com/og-image-twitter.png",
+				url: "https://yeudialy.edu.vn/upload/2025/05/chibi-bac-si13.webp",
 				width: 1200,
 				height: 630,
-				alt: "SurfSense - Open Source NotebookLM Alternative for Teams",
+				alt: "NoteBook For Doctors",
 			},
 		],
 	},
@@ -127,7 +127,6 @@ export default function RootLayout({
 	return (
 		<html lang="en" suppressHydrationWarning>
 			<head>
-				<link rel="preconnect" href="https://api.github.com" />
 			</head>
 			<body className={cn(roboto.className, "bg-white dark:bg-black antialiased h-full w-full ")}>
 				<PostHogProvider>

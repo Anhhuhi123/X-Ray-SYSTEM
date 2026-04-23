@@ -1,7 +1,6 @@
 "use client";
 
 import type { FC } from "react";
-import { EnumConnectorName } from "@/contracts/enums/connector";
 import type { SearchSourceConnector } from "@/contracts/types/connector.types";
 import { isSelfHosted } from "@/lib/env-config";
 import { ConnectorCard } from "../components/connector-card";
@@ -9,7 +8,6 @@ import {
 	COMPOSIO_CONNECTORS,
 	CRAWLERS,
 	OAUTH_CONNECTORS,
-	OTHER_CONNECTORS,
 } from "../constants/connector-constants";
 import { getDocumentCountForConnector } from "../utils/connector-document-mapping";
 
@@ -54,7 +52,7 @@ export const AllConnectorsTab: FC<AllConnectorsTabProps> = ({
 	onConnectOAuth,
 	onConnectNonOAuth,
 	onCreateWebcrawler,
-	onCreateYouTubeCrawler,
+	onCreateYouTubeCrawler: _onCreateYouTubeCrawler,
 	onManage,
 	onViewAccountsList,
 }) => {
@@ -72,13 +70,6 @@ export const AllConnectorsTab: FC<AllConnectorsTabProps> = ({
 	);
 
 	const filteredCrawlers = CRAWLERS.filter(
-		(c) =>
-			(c.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-				c.description.toLowerCase().includes(searchQuery.toLowerCase())) &&
-			(!("selfHostedOnly" in c) || !c.selfHostedOnly || selfHosted)
-	);
-
-	const filteredOther = OTHER_CONNECTORS.filter(
 		(c) =>
 			(c.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
 				c.description.toLowerCase().includes(searchQuery.toLowerCase())) &&
@@ -204,68 +195,6 @@ export const AllConnectorsTab: FC<AllConnectorsTabProps> = ({
 				</section>
 			)}
 
-			{/* More Integrations */}
-			{filteredOther.length > 0 && (
-				<section>
-					<div className="flex items-center gap-2 mb-4">
-						<h3 className="text-sm font-semibold text-muted-foreground">More Integrations</h3>
-					</div>
-					<div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-						{filteredOther.map((connector) => {
-							const isConnected = connectedTypes.has(connector.connectorType);
-							const isConnecting = connectingId === connector.id;
-
-							// Find the actual connector object if connected
-							const actualConnector =
-								isConnected && allConnectors
-									? allConnectors.find(
-											(c: SearchSourceConnector) => c.connector_type === connector.connectorType
-										)
-									: undefined;
-
-							const documentCount = getDocumentCountForConnector(
-								connector.connectorType,
-								documentTypeCounts
-							);
-							const isIndexing = actualConnector && indexingConnectorIds?.has(actualConnector.id);
-
-							// For MCP connectors, count total MCP connectors instead of document count
-							const isMCP = connector.connectorType === EnumConnectorName.MCP_CONNECTOR;
-							const mcpConnectorCount =
-								isMCP && allConnectors
-									? allConnectors.filter(
-											(c: SearchSourceConnector) =>
-												c.connector_type === EnumConnectorName.MCP_CONNECTOR
-										).length
-									: undefined;
-
-							const handleConnect = onConnectNonOAuth
-								? () => onConnectNonOAuth(connector.connectorType)
-								: () => {}; // Fallback - connector popup should handle all connector types
-
-							return (
-								<ConnectorCard
-									key={connector.id}
-									id={connector.id}
-									title={connector.title}
-									description={connector.description}
-									connectorType={connector.connectorType}
-									isConnected={isConnected}
-									isConnecting={isConnecting}
-									documentCount={documentCount}
-									connectorCount={mcpConnectorCount}
-									isIndexing={isIndexing}
-									onConnect={handleConnect}
-									onManage={
-										actualConnector && onManage ? () => onManage(actualConnector) : undefined
-									}
-								/>
-							);
-						})}
-					</div>
-				</section>
-			)}
-
 			{/* Content Sources */}
 			{filteredCrawlers.length > 0 && (
 				<section>
@@ -274,7 +203,6 @@ export const AllConnectorsTab: FC<AllConnectorsTabProps> = ({
 					</div>
 					<div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
 						{filteredCrawlers.map((crawler) => {
-							const isYouTube = crawler.id === "youtube-crawler";
 							const isWebcrawler = crawler.id === "webcrawler-connector";
 
 							// For crawlers that are actual connectors, check connection status
@@ -297,9 +225,7 @@ export const AllConnectorsTab: FC<AllConnectorsTabProps> = ({
 							const isIndexing = actualConnector && indexingConnectorIds?.has(actualConnector.id);
 
 							const handleConnect =
-								isYouTube && onCreateYouTubeCrawler
-									? onCreateYouTubeCrawler
-									: isWebcrawler && onCreateWebcrawler
+								isWebcrawler && onCreateWebcrawler
 										? onCreateWebcrawler
 										: crawler.connectorType && onConnectNonOAuth
 											? () => {

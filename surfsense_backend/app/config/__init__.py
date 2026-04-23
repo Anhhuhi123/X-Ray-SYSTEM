@@ -340,15 +340,7 @@ class Config:
     RESIDENTIAL_PROXY_LOCATION = os.getenv("RESIDENTIAL_PROXY_LOCATION", "")
     RESIDENTIAL_PROXY_TYPE = int(os.getenv("RESIDENTIAL_PROXY_TYPE", "1"))
 
-    # Litellm TTS Configuration
-    TTS_SERVICE = os.getenv("TTS_SERVICE")
-    TTS_SERVICE_API_BASE = os.getenv("TTS_SERVICE_API_BASE")
-    TTS_SERVICE_API_KEY = os.getenv("TTS_SERVICE_API_KEY")
 
-    # STT Configuration
-    STT_SERVICE = os.getenv("STT_SERVICE")
-    STT_SERVICE_API_BASE = os.getenv("STT_SERVICE_API_BASE")
-    STT_SERVICE_API_KEY = os.getenv("STT_SERVICE_API_KEY")
 
     # Validation Checks
     # Check embedding dimension

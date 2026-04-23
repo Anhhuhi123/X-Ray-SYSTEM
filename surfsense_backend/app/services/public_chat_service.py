@@ -4,7 +4,7 @@ Service layer for public chat sharing via immutable snapshots.
 Key concepts:
 - Snapshots are frozen copies of a chat at a specific point in time
 - Content hash enables deduplication (same content = same URL)
-- Podcasts are embedded in snapshot_data for self-contained public views
+
 - Single-phase clone reads directly from snapshot_data
 """
 

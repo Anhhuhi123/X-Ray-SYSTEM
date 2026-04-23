@@ -43,7 +43,7 @@ class DocumentType(StrEnum):
     SLACK_CONNECTOR = "SLACK_CONNECTOR"
     TEAMS_CONNECTOR = "TEAMS_CONNECTOR"
     NOTION_CONNECTOR = "NOTION_CONNECTOR"
-    YOUTUBE_VIDEO = "YOUTUBE_VIDEO"
+
     LINEAR_CONNECTOR = "LINEAR_CONNECTOR"
     DISCORD_CONNECTOR = "DISCORD_CONNECTOR"
     JIRA_CONNECTOR = "JIRA_CONNECTOR"
@@ -90,11 +90,7 @@ class SearchSourceConnectorType(StrEnum):
     COMPOSIO_GOOGLE_CALENDAR_CONNECTOR = "COMPOSIO_GOOGLE_CALENDAR_CONNECTOR"
 
 
-class PodcastStatus(StrEnum):
-    PENDING = "pending"
-    GENERATING = "generating"
-    READY = "ready"
-    FAILED = "failed"
+
 
 
 class DocumentStatus:
@@ -244,57 +240,6 @@ class LogStatus(StrEnum):
     FAILED = "FAILED"
 
 
-class IncentiveTaskType(StrEnum):
-    """
-    Enum for incentive task types that users can complete to earn free pages.
-    Each task can only be completed once per user.
-
-    When adding new tasks:
-    1. Add a new enum value here
-    2. Add the task configuration to INCENTIVE_TASKS_CONFIG below
-    3. Create an Alembic migration to add the enum value to PostgreSQL
-    """
-
-    GITHUB_STAR = "GITHUB_STAR"
-    REDDIT_FOLLOW = "REDDIT_FOLLOW"
-    DISCORD_JOIN = "DISCORD_JOIN"
-    # Future tasks can be added here:
-    # GITHUB_ISSUE = "GITHUB_ISSUE"
-    # SOCIAL_SHARE = "SOCIAL_SHARE"
-    # REFER_FRIEND = "REFER_FRIEND"
-
-
-# Centralized configuration for incentive tasks
-# This makes it easy to add new tasks without changing code in multiple places
-INCENTIVE_TASKS_CONFIG = {
-    IncentiveTaskType.GITHUB_STAR: {
-        "title": "Star our GitHub repository",
-        "description": "Show your support by starring SurfSense on GitHub",
-        "pages_reward": 30,
-        "action_url": "https://github.com/MODSetter/SurfSense",
-    },
-    IncentiveTaskType.REDDIT_FOLLOW: {
-        "title": "Join our Subreddit",
-        "description": "Join the SurfSense community on Reddit",
-        "pages_reward": 30,
-        "action_url": "https://www.reddit.com/r/SurfSense/",
-    },
-    IncentiveTaskType.DISCORD_JOIN: {
-        "title": "Join our Discord",
-        "description": "Join the SurfSense community on Discord",
-        "pages_reward": 40,
-        "action_url": "https://discord.gg/ejRNvftDp9",
-    },
-    # Future tasks can be configured here:
-    # IncentiveTaskType.GITHUB_ISSUE: {
-    #     "title": "Create an issue",
-    #     "description": "Help improve SurfSense by reporting bugs or suggesting features",
-    #     "pages_reward": 50,
-    #     "action_url": "https://github.com/MODSetter/SurfSense/issues/new/choose",
-    # },
-}
-
-
 class Permission(StrEnum):
     """
     Granular permissions for search space resources.
@@ -324,11 +269,7 @@ class Permission(StrEnum):
     LLM_CONFIGS_UPDATE = "llm_configs:update"
     LLM_CONFIGS_DELETE = "llm_configs:delete"
 
-    # Podcasts
-    PODCASTS_CREATE = "podcasts:create"
-    PODCASTS_READ = "podcasts:read"
-    PODCASTS_UPDATE = "podcasts:update"
-    PODCASTS_DELETE = "podcasts:delete"
+
 
     # Image Generations
     IMAGE_GENERATIONS_CREATE = "image_generations:create"
@@ -392,10 +333,7 @@ DEFAULT_ROLE_PERMISSIONS = {
         Permission.LLM_CONFIGS_CREATE.value,
         Permission.LLM_CONFIGS_READ.value,
         Permission.LLM_CONFIGS_UPDATE.value,
-        # Podcasts (no delete)
-        Permission.PODCASTS_CREATE.value,
-        Permission.PODCASTS_READ.value,
-        Permission.PODCASTS_UPDATE.value,
+
         # Image Generations (create and read, no delete)
         Permission.IMAGE_GENERATIONS_CREATE.value,
         Permission.IMAGE_GENERATIONS_READ.value,
@@ -426,8 +364,7 @@ DEFAULT_ROLE_PERMISSIONS = {
         Permission.COMMENTS_READ.value,
         # LLM Configs (read only)
         Permission.LLM_CONFIGS_READ.value,
-        # Podcasts (read only)
-        Permission.PODCASTS_READ.value,
+
         # Image Generations (read only)
         Permission.IMAGE_GENERATIONS_READ.value,
         # Connectors (read only)
@@ -1101,39 +1038,7 @@ class SurfsenseDocsChunk(BaseModel, TimestampMixin):
     document = relationship("SurfsenseDocsDocument", back_populates="chunks")
 
 
-class Podcast(BaseModel, TimestampMixin):
-    """Podcast model for storing generated podcasts."""
 
-    __tablename__ = "podcasts"
-
-    title = Column(String(500), nullable=False)
-    podcast_transcript = Column(JSONB, nullable=True)
-    file_location = Column(Text, nullable=True)
-    status = Column(
-        SQLAlchemyEnum(
-            PodcastStatus,
-            name="podcast_status",
-            create_type=False,
-            values_callable=lambda x: [e.value for e in x],
-        ),
-        nullable=False,
-        default=PodcastStatus.READY,
-        server_default="ready",
-        index=True,
-    )
-
-    search_space_id = Column(
-        Integer, ForeignKey("searchspaces.id", ondelete="CASCADE"), nullable=False
-    )
-    search_space = relationship("SearchSpace", back_populates="podcasts")
-
-    thread_id = Column(
-        Integer,
-        ForeignKey("new_chat_threads.id", ondelete="SET NULL"),
-        nullable=True,
-        index=True,
-    )
-    thread = relationship("NewChatThread")
 
 
 class Report(BaseModel, TimestampMixin):
@@ -1314,12 +1219,7 @@ class SearchSpace(BaseModel, TimestampMixin):
         order_by="NewChatThread.updated_at.desc()",
         cascade="all, delete-orphan",
     )
-    podcasts = relationship(
-        "Podcast",
-        back_populates="search_space",
-        order_by="Podcast.id.desc()",
-        cascade="all, delete-orphan",
-    )
+
     reports = relationship(
         "Report",
         back_populates="search_space",
@@ -1572,39 +1472,6 @@ class Notification(BaseModel, TimestampMixin):
     search_space = relationship("SearchSpace", back_populates="notifications")
 
 
-class UserIncentiveTask(BaseModel, TimestampMixin):
-    """
-    Tracks completed incentive tasks for users.
-    Each user can only complete each task type once.
-    When a task is completed, the user's pages_limit is increased.
-    """
-
-    __tablename__ = "user_incentive_tasks"
-    __table_args__ = (
-        UniqueConstraint(
-            "user_id",
-            "task_type",
-            name="uq_user_incentive_task",
-        ),
-    )
-
-    user_id = Column(
-        UUID(as_uuid=True),
-        ForeignKey("user.id", ondelete="CASCADE"),
-        nullable=False,
-        index=True,
-    )
-    task_type = Column(SQLAlchemyEnum(IncentiveTaskType), nullable=False, index=True)
-    pages_awarded = Column(Integer, nullable=False)
-    completed_at = Column(
-        TIMESTAMP(timezone=True),
-        nullable=False,
-        default=lambda: datetime.now(UTC),
-    )
-
-    user = relationship("User", back_populates="incentive_tasks")
-
-
 class SearchSpaceRole(BaseModel, TimestampMixin):
     """
     Custom roles that can be defined per search space.
@@ -1818,13 +1685,6 @@ if config.AUTH_TYPE == "GOOGLE":
             cascade="all, delete-orphan",
         )
 
-        # Incentive tasks completed by this user
-        incentive_tasks = relationship(
-            "UserIncentiveTask",
-            back_populates="user",
-            cascade="all, delete-orphan",
-        )
-
         # Page usage tracking for ETL services
         pages_limit = Column(
             Integer,
@@ -1917,13 +1777,6 @@ else:
             "UserMemory",
             back_populates="user",
             order_by="UserMemory.updated_at.desc()",
-            cascade="all, delete-orphan",
-        )
-
-        # Incentive tasks completed by this user
-        incentive_tasks = relationship(
-            "UserIncentiveTask",
-            back_populates="user",
             cascade="all, delete-orphan",
         )
 

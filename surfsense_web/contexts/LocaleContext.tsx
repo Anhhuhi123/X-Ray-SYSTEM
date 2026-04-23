@@ -3,19 +3,14 @@
 import type React from "react";
 import { createContext, useContext, useEffect, useState } from "react";
 import enMessages from "../messages/en.json";
-import esMessages from "../messages/es.json";
-import hiMessages from "../messages/hi.json";
-import ptMessages from "../messages/pt.json";
-import zhMessages from "../messages/zh.json";
+import vnMessages from "../messages/vn.json";
 
-type Locale = "en" | "es" | "pt" | "hi" | "zh";
+
+type Locale = "en" | "vn" ;
 
 const messagesMap: Record<Locale, typeof enMessages> = {
 	en: enMessages,
-	es: esMessages as typeof enMessages,
-	pt: ptMessages as typeof enMessages,
-	hi: hiMessages as typeof enMessages,
-	zh: zhMessages as typeof enMessages,
+	vn: vnMessages as typeof enMessages,
 };
 
 interface LocaleContextType {
@@ -42,7 +37,7 @@ export function LocaleProvider({ children }: { children: React.ReactNode }) {
 		setMounted(true);
 		if (typeof window !== "undefined") {
 			const stored = localStorage.getItem(LOCALE_STORAGE_KEY);
-			if (stored && (["en", "es", "pt", "hi", "zh"] as const).includes(stored as Locale)) {
+			if (stored && (["en", "vn"] as const).includes(stored as Locale)) {
 				setLocaleState(stored as Locale);
 			}
 		}

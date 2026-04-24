@@ -179,17 +179,11 @@ class LLMPreferencesRead(BaseModel):
     document_summary_llm_id: int | None = Field(
         None, description="ID of the LLM config to use for document summarization"
     )
-    image_generation_config_id: int | None = Field(
-        None, description="ID of the image generation config to use"
-    )
     agent_llm: dict[str, Any] | None = Field(
         None, description="Full config for agent LLM"
     )
     document_summary_llm: dict[str, Any] | None = Field(
         None, description="Full config for document summary LLM"
-    )
-    image_generation_config: dict[str, Any] | None = Field(
-        None, description="Full config for image generation"
     )
 
     model_config = ConfigDict(from_attributes=True)
@@ -203,7 +197,4 @@ class LLMPreferencesUpdate(BaseModel):
     )
     document_summary_llm_id: int | None = Field(
         None, description="ID of the LLM config to use for document summarization"
-    )
-    image_generation_config_id: int | None = Field(
-        None, description="ID of the image generation config to use"
     )

@@ -7,7 +7,6 @@ import {
 	CheckCircle,
 	CircleDashed,
 	FileText,
-	ImageIcon,
 	RefreshCw,
 	RotateCcw,
 	Save,
@@ -16,10 +15,6 @@ import {
 import { AnimatePresence, motion } from "motion/react";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
-import {
-	globalImageGenConfigsAtom,
-	imageGenConfigsAtom,
-} from "@/atoms/image-gen-config/image-gen-config-query.atoms";
 import { updateLLMPreferencesMutationAtom } from "@/atoms/new-llm-config/new-llm-config-mutation.atoms";
 import {
 	globalNewLLMConfigsAtom,
@@ -63,15 +58,6 @@ const ROLE_DESCRIPTIONS = {
 		prefKey: "document_summary_llm_id" as const,
 		configType: "llm" as const,
 	},
-	image_generation: {
-		icon: ImageIcon,
-		title: "Image Generation Model",
-		description: "Model used for AI image generation (DALL-E, GPT Image, etc.)",
-		color: "text-teal-600 dark:text-teal-400",
-		bgColor: "bg-teal-500/10",
-		prefKey: "image_generation_config_id" as const,
-		configType: "image" as const,
-	},
 };
 
 interface LLMRoleManagerProps {
@@ -92,18 +78,6 @@ export function LLMRoleManager({ searchSpaceId }: LLMRoleManagerProps) {
 		error: globalConfigsError,
 	} = useAtomValue(globalNewLLMConfigsAtom);
 
-	// Image gen configs
-	const {
-		data: userImageConfigs = [],
-		isFetching: imageConfigsLoading,
-		error: imageConfigsError,
-	} = useAtomValue(imageGenConfigsAtom);
-	const {
-		data: globalImageConfigs = [],
-		isFetching: globalImageConfigsLoading,
-		error: globalImageConfigsError,
-	} = useAtomValue(globalImageGenConfigsAtom);
-
 	// Preferences
 	const {
 		data: preferences = {},
@@ -116,7 +90,6 @@ export function LLMRoleManager({ searchSpaceId }: LLMRoleManagerProps) {
 	const [assignments, setAssignments] = useState({
 		agent_llm_id: preferences.agent_llm_id ?? "",
 		document_summary_llm_id: preferences.document_summary_llm_id ?? "",
-		image_generation_config_id: preferences.image_generation_config_id ?? "",
 	});
 
 	const [hasChanges, setHasChanges] = useState(false);
@@ -126,7 +99,6 @@ export function LLMRoleManager({ searchSpaceId }: LLMRoleManagerProps) {
 		const newAssignments = {
 			agent_llm_id: preferences.agent_llm_id ?? "",
 			document_summary_llm_id: preferences.document_summary_llm_id ?? "",
-			image_generation_config_id: preferences.image_generation_config_id ?? "",
 		};
 		setAssignments(newAssignments);
 		setHasChanges(false);
@@ -143,7 +115,6 @@ export function LLMRoleManager({ searchSpaceId }: LLMRoleManagerProps) {
 		const currentPrefs = {
 			agent_llm_id: preferences.agent_llm_id ?? "",
 			document_summary_llm_id: preferences.document_summary_llm_id ?? "",
-			image_generation_config_id: preferences.image_generation_config_id ?? "",
 		};
 
 		const hasChangesNow = Object.keys(newAssignments).some(
@@ -164,7 +135,6 @@ export function LLMRoleManager({ searchSpaceId }: LLMRoleManagerProps) {
 		const numericAssignments = {
 			agent_llm_id: toNumericOrUndefined(assignments.agent_llm_id),
 			document_summary_llm_id: toNumericOrUndefined(assignments.document_summary_llm_id),
-			image_generation_config_id: toNumericOrUndefined(assignments.image_generation_config_id),
 		};
 
 		await updatePreferences({
@@ -182,7 +152,6 @@ export function LLMRoleManager({ searchSpaceId }: LLMRoleManagerProps) {
 		setAssignments({
 			agent_llm_id: preferences.agent_llm_id ?? "",
 			document_summary_llm_id: preferences.document_summary_llm_id ?? "",
-			image_generation_config_id: preferences.image_generation_config_id ?? "",
 		});
 		setHasChanges(false);
 	};
@@ -193,10 +162,7 @@ export function LLMRoleManager({ searchSpaceId }: LLMRoleManagerProps) {
 		assignments.agent_llm_id !== undefined &&
 		assignments.document_summary_llm_id !== "" &&
 		assignments.document_summary_llm_id !== null &&
-		assignments.document_summary_llm_id !== undefined &&
-		assignments.image_generation_config_id !== "" &&
-		assignments.image_generation_config_id !== null &&
-		assignments.image_generation_config_id !== undefined;
+		assignments.document_summary_llm_id !== undefined;
 
 	// Combine global and custom LLM configs
 	const allLLMConfigs = [
@@ -204,25 +170,15 @@ export function LLMRoleManager({ searchSpaceId }: LLMRoleManagerProps) {
 		...newLLMConfigs.filter((config) => config.id && config.id.toString().trim() !== ""),
 	];
 
-	// Combine global and custom image gen configs
-	const allImageConfigs = [
-		...globalImageConfigs.map((config) => ({ ...config, is_global: true })),
-		...(userImageConfigs ?? []).filter((config) => config.id && config.id.toString().trim() !== ""),
-	];
-
 	const isLoading =
 		configsLoading ||
 		preferencesLoading ||
-		globalConfigsLoading ||
-		imageConfigsLoading ||
-		globalImageConfigsLoading;
+		globalConfigsLoading;
 	const hasError =
 		configsError ||
 		preferencesError ||
-		globalConfigsError ||
-		imageConfigsError ||
-		globalImageConfigsError;
-	const hasAnyConfigs = allLLMConfigs.length > 0 || allImageConfigs.length > 0;
+		globalConfigsError;
+	const hasAnyConfigs = allLLMConfigs.length > 0;
 
 	return (
 		<div className="space-y-5 md:space-y-6">
@@ -314,8 +270,7 @@ export function LLMRoleManager({ searchSpaceId }: LLMRoleManagerProps) {
 				<Alert variant="destructive" className="py-3 md:py-4">
 					<AlertCircle className="h-3 w-3 md:h-4 md:w-4 shrink-0" />
 					<AlertDescription className="text-xs md:text-sm">
-						No configurations found. Please add at least one LLM provider or image model in the
-						respective settings tabs before assigning roles.
+						No configurations found. Please add at least one LLM provider before assigning roles.
 					</AlertDescription>
 				</Alert>
 			)}
@@ -330,15 +285,13 @@ export function LLMRoleManager({ searchSpaceId }: LLMRoleManagerProps) {
 				>
 					{Object.entries(ROLE_DESCRIPTIONS).map(([key, role], index) => {
 						const IconComponent = role.icon;
-						const isImageRole = role.configType === "image";
 						const currentAssignment = assignments[role.prefKey as keyof typeof assignments];
 
-						// Pick the right config lists based on role type
-						const roleGlobalConfigs = isImageRole ? globalImageConfigs : globalConfigs;
-						const roleUserConfigs = isImageRole
-							? (userImageConfigs ?? []).filter((c) => c.id && c.id.toString().trim() !== "")
-							: newLLMConfigs.filter((c) => c.id && c.id.toString().trim() !== "");
-						const roleAllConfigs = isImageRole ? allImageConfigs : allLLMConfigs;
+						const roleGlobalConfigs = globalConfigs;
+						const roleUserConfigs = newLLMConfigs.filter(
+							(c) => c.id && c.id.toString().trim() !== ""
+						);
+						const roleAllConfigs = allLLMConfigs;
 
 						const assignedConfig = roleAllConfigs.find((config) => config.id === currentAssignment);
 						const isAssigned =

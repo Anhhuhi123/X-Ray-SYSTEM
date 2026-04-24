@@ -35,7 +35,6 @@ import { currentUserAtom } from "@/atoms/user/user-query.atoms";
 import { Thread } from "@/components/assistant-ui/thread";
 import { MobileReportPanel } from "@/components/report-panel/report-panel";
 import type { ThinkingStep } from "@/components/tool-ui/deepagent-thinking";
-import { DisplayImageToolUI } from "@/components/tool-ui/display-image";
 import { GenerateReportToolUI } from "@/components/tool-ui/generate-report";
 import {
 	CreateGoogleDriveFileToolUI,
@@ -139,7 +138,6 @@ function extractMentionedDocuments(content: unknown): MentionedDocumentInfo[] {
 const TOOLS_WITH_UI = new Set([
 	"generate_report",
 	"link_preview",
-	"display_image",
 	"delete_notion_page",
 	"scrape_webpage",
 	"create_notion_page",
@@ -1622,7 +1620,6 @@ export default function NewChatPage() {
 		<AssistantRuntimeProvider runtime={runtime}>
 			<GenerateReportToolUI />
 			<LinkPreviewToolUI />
-			<DisplayImageToolUI />
 			<ScrapeWebpageToolUI />
 			<SaveMemoryToolUI />
 			<RecallMemoryToolUI />

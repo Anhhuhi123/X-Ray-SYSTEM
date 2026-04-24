@@ -1,12 +1,11 @@
 "use client";
 
-import { Bot, Brain, FileText, Globe, ImageIcon, MessageSquare, Shield } from "lucide-react";
+import { Bot, Brain, FileText, Globe, MessageSquare, Shield } from "lucide-react";
 import { useParams, useRouter, useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { useCallback, useEffect } from "react";
 import { PublicChatSnapshotsManager } from "@/components/public-chat-snapshots/public-chat-snapshots-manager";
 import { GeneralSettingsManager } from "@/components/settings/general-settings-manager";
-import { ImageModelManager } from "@/components/settings/image-model-manager";
 import { LLMRoleManager } from "@/components/settings/llm-role-manager";
 import { ModelConfigManager } from "@/components/settings/model-config-manager";
 import { PromptConfigManager } from "@/components/settings/prompt-config-manager";
@@ -18,7 +17,6 @@ const VALID_TABS = [
 	"general",
 	"models",
 	"roles",
-	"image-models",
 	"prompts",
 	"public-links",
 	"team-roles",
@@ -68,10 +66,6 @@ export default function SettingsPage() {
 							<Brain className="mr-2 h-4 w-4" />
 							{t("nav_role_assignments")}
 						</TabsTrigger>
-						<TabsTrigger value="image-models">
-							<ImageIcon className="mr-2 h-4 w-4" />
-							{t("nav_image_models")}
-						</TabsTrigger>
 						<TabsTrigger value="team-roles">
 							<Shield className="mr-2 h-4 w-4" />
 							{t("nav_team_roles")}
@@ -93,9 +87,6 @@ export default function SettingsPage() {
 					</TabsContent>
 					<TabsContent value="roles" className="mt-6">
 						<LLMRoleManager searchSpaceId={searchSpaceId} />
-					</TabsContent>
-					<TabsContent value="image-models" className="mt-6">
-						<ImageModelManager searchSpaceId={searchSpaceId} />
 					</TabsContent>
 					<TabsContent value="prompts" className="mt-6">
 						<PromptConfigManager searchSpaceId={searchSpaceId} />

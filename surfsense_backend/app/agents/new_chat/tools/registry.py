@@ -45,8 +45,6 @@ from langchain_core.tools import BaseTool
 
 from app.db import ChatVisibility
 
-from .display_image import create_display_image_tool
-from .generate_image import create_generate_image_tool
 from .google_drive import (
     create_create_google_drive_file_tool,
     create_delete_google_drive_file_tool,
@@ -137,23 +135,6 @@ BUILTIN_TOOLS: list[ToolDefinition] = [
         description="Fetch metadata for a URL to display a rich preview card",
         factory=lambda deps: create_link_preview_tool(),
         requires=[],
-    ),
-    # Display image tool - shows images in the chat
-    ToolDefinition(
-        name="display_image",
-        description="Display an image in the chat with metadata",
-        factory=lambda deps: create_display_image_tool(),
-        requires=[],
-    ),
-    # Generate image tool - creates images using AI models (DALL-E, GPT Image, etc.)
-    ToolDefinition(
-        name="generate_image",
-        description="Generate images from text descriptions using AI image models",
-        factory=lambda deps: create_generate_image_tool(
-            search_space_id=deps["search_space_id"],
-            db_session=deps["db_session"],
-        ),
-        requires=["search_space_id", "db_session"],
     ),
     # Web scraping tool - extracts content from webpages
     ToolDefinition(

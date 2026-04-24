@@ -24,16 +24,6 @@ from .documents import (
     PaginatedResponse,
 )
 from .google_drive import DriveItem, GoogleDriveIndexingOptions, GoogleDriveIndexRequest
-from .image_generation import (
-    GlobalImageGenConfigRead,
-    ImageGenerationConfigCreate,
-    ImageGenerationConfigPublic,
-    ImageGenerationConfigRead,
-    ImageGenerationConfigUpdate,
-    ImageGenerationCreate,
-    ImageGenerationListRead,
-    ImageGenerationRead,
-)
 from .logs import LogBase, LogCreate, LogFilter, LogRead, LogUpdate
 from .new_chat import (
     ChatMessage,
@@ -123,18 +113,10 @@ __all__ = [
     "DriveItem",
     "ExtensionDocumentContent",
     "ExtensionDocumentMetadata",
-    "GlobalImageGenConfigRead",
     "GlobalNewLLMConfigRead",
     "GoogleDriveIndexRequest",
     "GoogleDriveIndexingOptions",
     "IDModel",
-    "ImageGenerationConfigCreate",
-    "ImageGenerationConfigPublic",
-    "ImageGenerationConfigRead",
-    "ImageGenerationConfigUpdate",
-    "ImageGenerationCreate",
-    "ImageGenerationListRead",
-    "ImageGenerationRead",
     "InviteAcceptRequest",
     "InviteAcceptResponse",
     "InviteCreate",

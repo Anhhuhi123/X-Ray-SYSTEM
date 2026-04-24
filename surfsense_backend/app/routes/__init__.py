@@ -4,7 +4,6 @@ from .chat_comments_routes import router as chat_comments_router
 from .composio_routes import router as composio_router
 from .documents_routes import router as documents_router
 from .editor_routes import router as editor_router
-from .image_generation_routes import router as image_generation_router
 from .logs_routes import router as logs_router
 from .model_list_routes import router as model_list_router
 from .new_chat_routes import router as new_chat_router
@@ -28,7 +27,6 @@ router.include_router(notes_router)
 router.include_router(new_chat_router)  # Chat with assistant-ui persistence
 router.include_router(chat_comments_router)
 router.include_router(reports_router)  # Report CRUD and multi-format export
-router.include_router(image_generation_router)  # Image generation via litellm
 router.include_router(search_source_connectors_router)
 router.include_router(new_llm_config_router)  # LLM configs with prompt configuration
 router.include_router(model_list_router)  # Dynamic LLM model catalogue from OpenRouter

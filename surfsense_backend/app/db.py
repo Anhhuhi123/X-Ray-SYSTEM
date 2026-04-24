@@ -208,24 +208,6 @@ class LiteLLMProvider(StrEnum):
     CUSTOM = "CUSTOM"
 
 
-class ImageGenProvider(StrEnum):
-    """
-    Enum for image generation providers supported by LiteLLM.
-    This is a subset of LLM providers — only those that support image generation.
-    See: https://docs.litellm.ai/docs/image_generation#supported-providers
-    """
-
-    OPENAI = "OPENAI"
-    AZURE_OPENAI = "AZURE_OPENAI"
-    GOOGLE = "GOOGLE"  # Google AI Studio
-    VERTEX_AI = "VERTEX_AI"
-    BEDROCK = "BEDROCK"  # AWS Bedrock
-    RECRAFT = "RECRAFT"
-    OPENROUTER = "OPENROUTER"
-    XINFERENCE = "XINFERENCE"
-    NSCALE = "NSCALE"
-
-
 class LogLevel(StrEnum):
     DEBUG = "DEBUG"
     INFO = "INFO"
@@ -268,13 +250,6 @@ class Permission(StrEnum):
     LLM_CONFIGS_READ = "llm_configs:read"
     LLM_CONFIGS_UPDATE = "llm_configs:update"
     LLM_CONFIGS_DELETE = "llm_configs:delete"
-
-
-
-    # Image Generations
-    IMAGE_GENERATIONS_CREATE = "image_generations:create"
-    IMAGE_GENERATIONS_READ = "image_generations:read"
-    IMAGE_GENERATIONS_DELETE = "image_generations:delete"
 
     # Connectors
     CONNECTORS_CREATE = "connectors:create"
@@ -333,10 +308,6 @@ DEFAULT_ROLE_PERMISSIONS = {
         Permission.LLM_CONFIGS_CREATE.value,
         Permission.LLM_CONFIGS_READ.value,
         Permission.LLM_CONFIGS_UPDATE.value,
-
-        # Image Generations (create and read, no delete)
-        Permission.IMAGE_GENERATIONS_CREATE.value,
-        Permission.IMAGE_GENERATIONS_READ.value,
         # Connectors (no delete)
         Permission.CONNECTORS_CREATE.value,
         Permission.CONNECTORS_READ.value,
@@ -364,9 +335,6 @@ DEFAULT_ROLE_PERMISSIONS = {
         Permission.COMMENTS_READ.value,
         # LLM Configs (read only)
         Permission.LLM_CONFIGS_READ.value,
-
-        # Image Generations (read only)
-        Permission.IMAGE_GENERATIONS_READ.value,
         # Connectors (read only)
         Permission.CONNECTORS_READ.value,
         # Logs (read only)
@@ -1071,109 +1039,6 @@ class Report(BaseModel, TimestampMixin):
     thread = relationship("NewChatThread")
 
 
-class ImageGenerationConfig(BaseModel, TimestampMixin):
-    """
-    Dedicated configuration table for image generation models.
-
-    Separate from NewLLMConfig because image generation models don't need
-    system_instructions, citations_enabled, or use_default_system_instructions.
-    They only need provider credentials and model parameters.
-    """
-
-    __tablename__ = "image_generation_configs"
-
-    name = Column(String(100), nullable=False, index=True)
-    description = Column(String(500), nullable=True)
-
-    # Provider & model (uses ImageGenProvider, NOT LiteLLMProvider)
-    provider = Column(SQLAlchemyEnum(ImageGenProvider), nullable=False)
-    custom_provider = Column(String(100), nullable=True)
-    model_name = Column(String(100), nullable=False)
-
-    # Credentials
-    api_key = Column(String, nullable=False)
-    api_base = Column(String(500), nullable=True)
-    api_version = Column(String(50), nullable=True)  # Azure-specific
-
-    # Additional litellm parameters
-    litellm_params = Column(JSON, nullable=True, default={})
-
-    # Relationships
-    search_space_id = Column(
-        Integer, ForeignKey("searchspaces.id", ondelete="CASCADE"), nullable=False
-    )
-    search_space = relationship(
-        "SearchSpace", back_populates="image_generation_configs"
-    )
-
-    # User who created this config
-    user_id = Column(
-        UUID(as_uuid=True), ForeignKey("user.id", ondelete="CASCADE"), nullable=False
-    )
-    user = relationship("User", back_populates="image_generation_configs")
-
-
-class ImageGeneration(BaseModel, TimestampMixin):
-    """
-    Stores image generation requests and results using litellm.aimage_generation().
-
-    Since aimage_generation is a single async call (not a background job),
-    there is no status enum. A row with response_data means success;
-    a row with error_message means failure.
-
-    Response data is stored as JSONB matching the litellm output format:
-    {
-        "created": int,
-        "data": [{"b64_json": str|None, "revised_prompt": str|None, "url": str|None}],
-        "usage": {"prompt_tokens": int, "completion_tokens": int, "total_tokens": int}
-    }
-    """
-
-    __tablename__ = "image_generations"
-
-    # Request parameters (matching litellm.aimage_generation() params)
-    prompt = Column(Text, nullable=False)
-    model = Column(String(200), nullable=True)  # e.g., "dall-e-3", "gpt-image-1"
-    n = Column(Integer, nullable=True, default=1)
-    quality = Column(
-        String(50), nullable=True
-    )  # "auto", "high", "medium", "low", "hd", "standard"
-    size = Column(
-        String(50), nullable=True
-    )  # "1024x1024", "1536x1024", "1024x1536", etc.
-    style = Column(String(50), nullable=True)  # Model-specific style parameter
-    response_format = Column(String(50), nullable=True)  # "url" or "b64_json"
-
-    # Image generation config reference
-    # 0 = Auto mode (router), negative IDs = global configs from YAML,
-    # positive IDs = ImageGenerationConfig records in DB
-    image_generation_config_id = Column(Integer, nullable=True)
-
-    # Response data (full litellm response as JSONB) — present on success
-    response_data = Column(JSONB, nullable=True)
-    # Error message — present on failure
-    error_message = Column(Text, nullable=True)
-
-    # Signed access token for serving images via <img> tags.
-    # Stored in DB so it survives SECRET_KEY rotation.
-    access_token = Column(String(64), nullable=True, index=True)
-
-    # Foreign keys
-    search_space_id = Column(
-        Integer, ForeignKey("searchspaces.id", ondelete="CASCADE"), nullable=False
-    )
-    created_by_id = Column(
-        UUID(as_uuid=True),
-        ForeignKey("user.id", ondelete="SET NULL"),
-        nullable=True,
-        index=True,
-    )
-
-    # Relationships
-    search_space = relationship("SearchSpace", back_populates="image_generations")
-    created_by = relationship("User", back_populates="image_generations")
-
-
 class SearchSpace(BaseModel, TimestampMixin):
     __tablename__ = "searchspaces"
 
@@ -1198,9 +1063,6 @@ class SearchSpace(BaseModel, TimestampMixin):
     document_summary_llm_id = Column(
         Integer, nullable=True, default=0
     )  # For document summarization, defaults to Auto mode
-    image_generation_config_id = Column(
-        Integer, nullable=True, default=0
-    )  # For image generation, defaults to Auto mode
 
     user_id = Column(
         UUID(as_uuid=True), ForeignKey("user.id", ondelete="CASCADE"), nullable=False
@@ -1226,12 +1088,6 @@ class SearchSpace(BaseModel, TimestampMixin):
         order_by="Report.id.desc()",
         cascade="all, delete-orphan",
     )
-    image_generations = relationship(
-        "ImageGeneration",
-        back_populates="search_space",
-        order_by="ImageGeneration.id.desc()",
-        cascade="all, delete-orphan",
-    )
     logs = relationship(
         "Log",
         back_populates="search_space",
@@ -1254,12 +1110,6 @@ class SearchSpace(BaseModel, TimestampMixin):
         "NewLLMConfig",
         back_populates="search_space",
         order_by="NewLLMConfig.id",
-        cascade="all, delete-orphan",
-    )
-    image_generation_configs = relationship(
-        "ImageGenerationConfig",
-        back_populates="search_space",
-        order_by="ImageGenerationConfig.id",
         cascade="all, delete-orphan",
     )
 
@@ -1649,13 +1499,6 @@ if config.AUTH_TYPE == "GOOGLE":
             passive_deletes=True,
         )
 
-        # Image generations created by this user
-        image_generations = relationship(
-            "ImageGeneration",
-            back_populates="created_by",
-            passive_deletes=True,
-        )
-
         # Connectors created by this user
         search_source_connectors = relationship(
             "SearchSourceConnector",
@@ -1666,13 +1509,6 @@ if config.AUTH_TYPE == "GOOGLE":
         # LLM configs created by this user
         new_llm_configs = relationship(
             "NewLLMConfig",
-            back_populates="user",
-            passive_deletes=True,
-        )
-
-        # Image generation configs created by this user
-        image_generation_configs = relationship(
-            "ImageGenerationConfig",
             back_populates="user",
             passive_deletes=True,
         )
@@ -1744,13 +1580,6 @@ else:
             passive_deletes=True,
         )
 
-        # Image generations created by this user
-        image_generations = relationship(
-            "ImageGeneration",
-            back_populates="created_by",
-            passive_deletes=True,
-        )
-
         # Connectors created by this user
         search_source_connectors = relationship(
             "SearchSourceConnector",
@@ -1761,13 +1590,6 @@ else:
         # LLM configs created by this user
         new_llm_configs = relationship(
             "NewLLMConfig",
-            back_populates="user",
-            passive_deletes=True,
-        )
-
-        # Image generation configs created by this user
-        image_generation_configs = relationship(
-            "ImageGenerationConfig",
             back_populates="user",
             passive_deletes=True,
         )

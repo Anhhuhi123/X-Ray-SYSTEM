@@ -2,14 +2,11 @@
 
 import { useCallback, useState } from "react";
 import type {
-	GlobalImageGenConfig,
 	GlobalNewLLMConfig,
-	ImageGenerationConfig,
 	NewLLMConfigPublic,
 } from "@/contracts/types/new-llm-config.types";
-import { ImageConfigDialog } from "./image-config-dialog";
+import { ModelSelector } from "@/components/new-chat/model-selector";
 import { ModelConfigDialog } from "./model-config-dialog";
-import { ModelSelector } from "./model-selector";
 
 interface ChatHeaderProps {
 	searchSpaceId: number;
@@ -24,14 +21,6 @@ export function ChatHeader({ searchSpaceId, className }: ChatHeaderProps) {
 	>(null);
 	const [isGlobal, setIsGlobal] = useState(false);
 	const [dialogMode, setDialogMode] = useState<"create" | "edit" | "view">("view");
-
-	// Image config dialog state
-	const [imageDialogOpen, setImageDialogOpen] = useState(false);
-	const [selectedImageConfig, setSelectedImageConfig] = useState<
-		ImageGenerationConfig | GlobalImageGenConfig | null
-	>(null);
-	const [isImageGlobal, setIsImageGlobal] = useState(false);
-	const [imageDialogMode, setImageDialogMode] = useState<"create" | "edit" | "view">("view");
 
 	// LLM handlers
 	const handleEditLLMConfig = useCallback(
@@ -56,36 +45,11 @@ export function ChatHeader({ searchSpaceId, className }: ChatHeaderProps) {
 		if (!open) setSelectedConfig(null);
 	}, []);
 
-	// Image model handlers
-	const handleAddImageModel = useCallback(() => {
-		setSelectedImageConfig(null);
-		setIsImageGlobal(false);
-		setImageDialogMode("create");
-		setImageDialogOpen(true);
-	}, []);
-
-	const handleEditImageConfig = useCallback(
-		(config: ImageGenerationConfig | GlobalImageGenConfig, global: boolean) => {
-			setSelectedImageConfig(config);
-			setIsImageGlobal(global);
-			setImageDialogMode(global ? "view" : "edit");
-			setImageDialogOpen(true);
-		},
-		[]
-	);
-
-	const handleImageDialogClose = useCallback((open: boolean) => {
-		setImageDialogOpen(open);
-		if (!open) setSelectedImageConfig(null);
-	}, []);
-
 	return (
 		<div className="flex items-center gap-2">
 			<ModelSelector
 				onEditLLM={handleEditLLMConfig}
 				onAddNewLLM={handleAddNewLLM}
-				onEditImage={handleEditImageConfig}
-				onAddNewImage={handleAddImageModel}
 				className={className}
 			/>
 			<ModelConfigDialog
@@ -95,14 +59,6 @@ export function ChatHeader({ searchSpaceId, className }: ChatHeaderProps) {
 				isGlobal={isGlobal}
 				searchSpaceId={searchSpaceId}
 				mode={dialogMode}
-			/>
-			<ImageConfigDialog
-				open={imageDialogOpen}
-				onOpenChange={handleImageDialogClose}
-				config={selectedImageConfig}
-				isGlobal={isImageGlobal}
-				searchSpaceId={searchSpaceId}
-				mode={imageDialogMode}
 			/>
 		</div>
 	);

@@ -24,13 +24,8 @@ export {
 	type ThinkingStep,
 } from "./deepagent-thinking";
 export {
-	type DisplayImageArgs,
-	DisplayImageArgsSchema,
-	type DisplayImageResult,
-	DisplayImageResultSchema,
-	DisplayImageToolUI,
-} from "./display-image";
-export { GenerateReportToolUI } from "./generate-report";
+	GenerateReportToolUI,
+} from "./generate-report";
 export { CreateGoogleDriveFileToolUI, DeleteGoogleDriveFileToolUI } from "./google-drive";
 export {
 	Image,

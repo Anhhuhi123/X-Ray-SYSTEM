@@ -4,8 +4,6 @@ from app.db import SearchSourceConnectorType
 DECOMMISSIONED_CONNECTOR_TYPES: set[SearchSourceConnectorType] = {
     SearchSourceConnectorType.SLACK_CONNECTOR,
     SearchSourceConnectorType.TEAMS_CONNECTOR,
-    SearchSourceConnectorType.NOTION_CONNECTOR,
-    SearchSourceConnectorType.LINEAR_CONNECTOR,
     SearchSourceConnectorType.JIRA_CONNECTOR,
     SearchSourceConnectorType.CONFLUENCE_CONNECTOR,
     SearchSourceConnectorType.CLICKUP_CONNECTOR,

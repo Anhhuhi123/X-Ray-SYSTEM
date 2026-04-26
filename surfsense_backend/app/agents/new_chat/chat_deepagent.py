@@ -237,17 +237,6 @@ async def create_surfsense_deep_agent(
     }
 
     modified_disabled_tools = list(disabled_tools) if disabled_tools else []
-    # Notion/Linear connectors are decommissioned; keep action tools disabled.
-    modified_disabled_tools.extend(
-        [
-            "create_notion_page",
-            "update_notion_page",
-            "delete_notion_page",
-            "create_linear_issue",
-            "update_linear_issue",
-            "delete_linear_issue",
-        ]
-    )
 
     # Build tools using the async registry (includes MCP tools)
     _t0 = time.perf_counter()

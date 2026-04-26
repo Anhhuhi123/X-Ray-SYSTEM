@@ -362,10 +362,10 @@ def generate_unique_identifier_hash(
 
     This function creates a consistent hash based on the document type, its unique
     identifier from the source system, and the search space ID. This helps prevent
-    duplicate documents when syncing from various connectors like Slack, Notion, Jira, etc.
+    duplicate documents when syncing from various connectors like Slack, Jira, Discord, etc.
 
     Args:
-        document_type: The type of document (e.g., SLACK_CONNECTOR, NOTION_CONNECTOR)
+        document_type: The type of document (e.g., SLACK_CONNECTOR, JIRA_CONNECTOR)
         unique_identifier: The unique ID from the source system (e.g., message ID, page ID)
         search_space_id: The search space this document belongs to
 

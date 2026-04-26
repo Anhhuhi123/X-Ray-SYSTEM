@@ -725,12 +725,6 @@ async def _stream_agent_events(
                         "error",
                     )
             elif tool_name in (
-                "create_notion_page",
-                "update_notion_page",
-                "delete_notion_page",
-                "create_linear_issue",
-                "update_linear_issue",
-                "delete_linear_issue",
                 "create_google_drive_file",
                 "delete_google_drive_file",
             ):

@@ -34,7 +34,7 @@ def test_different_document_type_produces_different_identifier_hash(
 ):
     """Same unique_id with different document types produces different identifier hashes."""
     doc_a = make_connector_document(document_type=DocumentType.CLICKUP_CONNECTOR)
-    doc_b = make_connector_document(document_type=DocumentType.NOTION_CONNECTOR)
+    doc_b = make_connector_document(document_type=DocumentType.JIRA_CONNECTOR)
     assert compute_unique_identifier_hash(doc_a) != compute_unique_identifier_hash(
         doc_b
     )

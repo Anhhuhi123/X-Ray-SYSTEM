@@ -40,17 +40,7 @@ import {
 	CreateGoogleDriveFileToolUI,
 	DeleteGoogleDriveFileToolUI,
 } from "@/components/tool-ui/google-drive";
-import {
-	CreateLinearIssueToolUI,
-	DeleteLinearIssueToolUI,
-	UpdateLinearIssueToolUI,
-} from "@/components/tool-ui/linear";
 import { LinkPreviewToolUI } from "@/components/tool-ui/link-preview";
-import {
-	CreateNotionPageToolUI,
-	DeleteNotionPageToolUI,
-	UpdateNotionPageToolUI,
-} from "@/components/tool-ui/notion";
 import { ScrapeWebpageToolUI } from "@/components/tool-ui/scrape-webpage";
 import { RecallMemoryToolUI, SaveMemoryToolUI } from "@/components/tool-ui/user-memory";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -138,13 +128,7 @@ function extractMentionedDocuments(content: unknown): MentionedDocumentInfo[] {
 const TOOLS_WITH_UI = new Set([
 	"generate_report",
 	"link_preview",
-	"delete_notion_page",
 	"scrape_webpage",
-	"create_notion_page",
-	"update_notion_page",
-	"create_linear_issue",
-	"update_linear_issue",
-	"delete_linear_issue",
 	"create_google_drive_file",
 	"delete_google_drive_file",
 	// "write_todos", // Disabled for now
@@ -1623,12 +1607,6 @@ export default function NewChatPage() {
 			<ScrapeWebpageToolUI />
 			<SaveMemoryToolUI />
 			<RecallMemoryToolUI />
-			<CreateNotionPageToolUI />
-			<UpdateNotionPageToolUI />
-			<DeleteNotionPageToolUI />
-			<CreateLinearIssueToolUI />
-			<UpdateLinearIssueToolUI />
-			<DeleteLinearIssueToolUI />
 			<CreateGoogleDriveFileToolUI />
 			<DeleteGoogleDriveFileToolUI />
 			{/* <WriteTodosToolUI /> Disabled for now */}

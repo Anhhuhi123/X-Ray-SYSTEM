@@ -164,12 +164,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
 			priority: 0.8,
 		},
 		{
-			url: "https://www.surfsense.com/docs/connectors/linear",
-			lastModified,
-			changeFrequency: "daily",
-			priority: 0.8,
-		},
-		{
 			url: "https://www.surfsense.com/docs/connectors/luma",
 			lastModified,
 			changeFrequency: "daily",
@@ -177,12 +171,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
 		},
 		{
 			url: "https://www.surfsense.com/docs/connectors/microsoft-teams",
-			lastModified,
-			changeFrequency: "daily",
-			priority: 0.8,
-		},
-		{
-			url: "https://www.surfsense.com/docs/connectors/notion",
 			lastModified,
 			changeFrequency: "daily",
 			priority: 0.8,

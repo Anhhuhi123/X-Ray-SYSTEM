@@ -93,8 +93,6 @@ function getConnectorTypeDisplayName(connectorType: string): string {
 		COMPOSIO_GOOGLE_DRIVE_CONNECTOR: "Composio Google Drive",
 		COMPOSIO_GMAIL_CONNECTOR: "Composio Gmail",
 		COMPOSIO_GOOGLE_CALENDAR_CONNECTOR: "Composio Google Calendar",
-		LINEAR_CONNECTOR: "Linear",
-		NOTION_CONNECTOR: "Notion",
 		SLACK_CONNECTOR: "Slack",
 		TEAMS_CONNECTOR: "Microsoft Teams",
 		DISCORD_CONNECTOR: "Discord",

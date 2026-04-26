@@ -4,13 +4,6 @@
  */
 export function getConnectorBenefits(connectorType: string): string[] | null {
 	const benefits: Record<string, string[]> = {
-		LINEAR_CONNECTOR: [
-			"Search through all your Linear issues and comments",
-			"Access issue titles, descriptions, and full discussion threads",
-			"Connect your team's project management directly to your search space",
-			"Keep your search results up-to-date with latest Linear content",
-			"Index your Linear issues for enhanced search capabilities",
-		],
 		TAVILY_API: [
 			"AI-powered search results tailored to your queries",
 			"Real-time information from the web",
@@ -44,13 +37,6 @@ export function getConnectorBenefits(connectorType: string): string[] | null {
 			"Connect your community's communications directly to your search space",
 			"Keep your search results up-to-date with latest Discord content",
 			"Index your Discord conversations for enhanced search capabilities",
-		],
-		NOTION_CONNECTOR: [
-			"Search through all your Notion pages and databases",
-			"Access page content, properties, and metadata",
-			"Connect your knowledge base directly to your search space",
-			"Keep your search results up-to-date with latest Notion content",
-			"Index your Notion workspace for enhanced search capabilities",
 		],
 		CONFLUENCE_CONNECTOR: [
 			"Search through all your Confluence pages and spaces",

@@ -235,7 +235,6 @@ const ThreadWelcome: FC = () => {
 const BANNER_CONNECTORS = [
 	{ type: "GOOGLE_DRIVE_CONNECTOR", label: "Google Drive" },
 	{ type: "GOOGLE_GMAIL_CONNECTOR", label: "Gmail" },
-	{ type: "NOTION_CONNECTOR", label: "Notion" },
 	{ type: "YOUTUBE_CONNECTOR", label: "YouTube" },
 	{ type: "SLACK_CONNECTOR", label: "Slack" },
 ] as const;

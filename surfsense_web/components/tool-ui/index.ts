@@ -37,11 +37,6 @@ export {
 	type SerializableImage,
 } from "./image";
 export {
-	CreateLinearIssueToolUI,
-	DeleteLinearIssueToolUI,
-	UpdateLinearIssueToolUI,
-} from "./linear";
-export {
 	type LinkPreviewArgs,
 	LinkPreviewArgsSchema,
 	type LinkPreviewResult,
@@ -62,7 +57,6 @@ export {
 	parseSerializableMediaCard,
 	type SerializableMediaCard,
 } from "./media-card";
-export { CreateNotionPageToolUI, DeleteNotionPageToolUI, UpdateNotionPageToolUI } from "./notion";
 export {
 	Plan,
 	PlanErrorBoundary,

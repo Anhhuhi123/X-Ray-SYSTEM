@@ -30,7 +30,7 @@ from app.db import User, create_db_and_tables, get_async_session
 from app.routes import router as crud_router
 from app.routes.auth_routes import router as auth_router
 from app.schemas import UserCreate, UserRead, UserUpdate
-from app.tasks.surfsense_docs_indexer import seed_surfsense_docs
+from app.tasks.nfd_docs_indexer import seed_surfsense_docs
 from app.users import SECRET, auth_backend, current_active_user, fastapi_users
 from app.utils.perf import get_perf_logger, log_system_snapshot
 

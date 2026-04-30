@@ -18,7 +18,7 @@ from app.db import (
     get_async_session,
 )
 from app.schemas import PaginatedResponse
-from app.schemas.surfsense_docs import (
+from app.schemas.nfd_docs import (
     NFDDocsChunkRead,
     NFDDocsDocumentRead,
     NFDDocsDocumentWithChunksRead,

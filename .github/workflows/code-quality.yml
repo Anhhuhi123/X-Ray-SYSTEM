@@ -238,7 +238,7 @@ jobs:
             web:
               - 'surfsense_web/**'
             extension:
-              - 'surfsense_browser_extension/**'
+              - 'nbd_browser_extension/**'
 
       - name: Install dependencies for web
         if: steps.frontend-changes.outputs.web == 'true'
@@ -247,7 +247,7 @@ jobs:
 
       - name: Install dependencies for extension
         if: steps.frontend-changes.outputs.extension == 'true'
-        working-directory: surfsense_browser_extension
+        working-directory: nbd_browser_extension
         run: pnpm install --frozen-lockfile
 
       - name: Install pre-commit

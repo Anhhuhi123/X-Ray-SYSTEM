@@ -72,7 +72,7 @@ SurfSense consists of three main components:
 
 - **`nbd_backend/`** - Python/FastAPI backend service
 - **`surfsense_web/`** - Next.js web application
-- **`surfsense_browser_extension/`** - Browser extension for data collection
+- **`nbd_browser_extension/`** - Browser extension for data collection
 
 ## 🧪 Development Guidelines
 

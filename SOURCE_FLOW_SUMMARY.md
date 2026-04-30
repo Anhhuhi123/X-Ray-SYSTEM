@@ -207,7 +207,7 @@ Trang này:
 
 Extension package:
 
-- surfsense_browser_extension
+- nbd_browser_extension
 
 Luồng tổng quát:
 
@@ -238,4 +238,4 @@ Luồng tổng quát:
 - Document tasks: nbd_backend/app/tasks/celery_tasks/document_tasks.py
 - Frontend chat page: surfsense_web/app/dashboard/[search_space_id]/new-chat/[[...chat_id]]/page.tsx
 - Frontend API base: surfsense_web/lib/apis/base-api.service.ts
-- Extension backend URL config: surfsense_browser_extension/utils/backend-url.ts
+- Extension backend URL config: nbd_browser_extension/utils/backend-url.ts

@@ -74,8 +74,8 @@ Do NOT claim you can do something if the corresponding tool is not listed.
 
 _TOOL_INSTRUCTIONS: dict[str, str] = {}
 
-_TOOL_INSTRUCTIONS["search_surfsense_docs"] = """
-- search_surfsense_docs: Search the official SurfSense documentation.
+_TOOL_INSTRUCTIONS["search_nfd_docs"] = """
+- search_nfd_docs: Search the official SurfSense documentation.
   - Use this tool when the user asks anything about SurfSense itself (the application they are using).
   - Args:
     - query: The search query about SurfSense
@@ -328,15 +328,15 @@ _TOOL_EXAMPLES["search_knowledge_base"] = """
   - Then answer using the returned live web results with citations.
 """
 
-_TOOL_EXAMPLES["search_surfsense_docs"] = """
+_TOOL_EXAMPLES["search_nfd_docs"] = """
 - User: "How do I install SurfSense?"
-  - Call: `search_surfsense_docs(query="installation setup")`
+  - Call: `search_nfd_docs(query="installation setup")`
 - User: "What connectors does SurfSense support?"
-  - Call: `search_surfsense_docs(query="available connectors integrations")`
+  - Call: `search_nfd_docs(query="available connectors integrations")`
 - User: "How do I set up the Notion connector?"
-  - Call: `search_surfsense_docs(query="Notion connector setup configuration")`
+  - Call: `search_nfd_docs(query="Notion connector setup configuration")`
 - User: "How do I use Docker to run SurfSense?"
-  - Call: `search_surfsense_docs(query="Docker installation setup")`
+  - Call: `search_nfd_docs(query="Docker installation setup")`
 """
 
 _TOOL_EXAMPLES["generate_report"] = """
@@ -369,7 +369,7 @@ _TOOL_EXAMPLES["scrape_webpage"] = """
 
 # All tool names that have prompt instructions (order matters for prompt readability)
 _ALL_TOOL_NAMES_ORDERED = [
-    "search_surfsense_docs",
+    "search_nfd_docs",
     "search_knowledge_base",
     "generate_report",
     "link_preview",

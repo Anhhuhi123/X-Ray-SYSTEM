@@ -84,7 +84,7 @@ def format_surfsense_docs_results(results: list[tuple]) -> str:
     return "\n".join(parts).strip()
 
 
-async def search_surfsense_docs_async(
+async def search_nfd_docs_async(
     query: str,
     db_session: AsyncSession,
     top_k: int = 10,
@@ -120,9 +120,9 @@ async def search_surfsense_docs_async(
     return format_surfsense_docs_results(rows)
 
 
-def create_search_surfsense_docs_tool(db_session: AsyncSession):
+def create_search_nfd_docs_tool(db_session: AsyncSession):
     """
-    Factory function to create the search_surfsense_docs tool.
+    Factory function to create the search_nfd_docs tool.
 
     Args:
         db_session: Database session for executing queries
@@ -132,7 +132,7 @@ def create_search_surfsense_docs_tool(db_session: AsyncSession):
     """
 
     @tool
-    async def search_surfsense_docs(query: str, top_k: int = 10) -> str:
+    async def search_nfd_docs(query: str, top_k: int = 10) -> str:
         """
         Search Surfsense documentation for help with using the application.
 
@@ -155,10 +155,10 @@ def create_search_surfsense_docs_tool(db_session: AsyncSession):
         Returns:
             Relevant documentation content formatted with chunk IDs for citations
         """
-        return await search_surfsense_docs_async(
+        return await search_nfd_docs_async(
             query=query,
             db_session=db_session,
             top_k=top_k,
         )
 
-    return search_surfsense_docs
+    return search_nfd_docs

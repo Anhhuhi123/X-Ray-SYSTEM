@@ -54,7 +54,7 @@ from .link_preview import create_link_preview_tool
 from .mcp_tool import load_mcp_tools
 from .report import create_generate_report_tool
 from .scrape_webpage import create_scrape_webpage_tool
-from .search_surfsense_docs import create_search_surfsense_docs_tool
+from .search_nfd_docs import create_search_nfd_docs_tool
 from .shared_memory import (
     create_recall_shared_memory_tool,
     create_save_shared_memory_tool,
@@ -148,9 +148,9 @@ BUILTIN_TOOLS: list[ToolDefinition] = [
     # Note: write_todos is now provided by TodoListMiddleware from deepagents
     # Surfsense documentation search tool
     ToolDefinition(
-        name="search_surfsense_docs",
+        name="search_nfd_docs",
         description="Search Surfsense documentation for help with using the application",
-        factory=lambda deps: create_search_surfsense_docs_tool(
+        factory=lambda deps: create_search_nfd_docs_tool(
             db_session=deps["db_session"],
         ),
         requires=["db_session"],

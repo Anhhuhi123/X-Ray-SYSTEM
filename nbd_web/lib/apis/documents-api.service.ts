@@ -10,7 +10,7 @@ import {
 	type GetDocumentsRequest,
 	type GetDocumentsStatusRequest,
 	type GetDocumentTypeCountsRequest,
-	type GetSurfsenseDocsRequest,
+	type GetNFDDocsRequest,
 	getDocumentByChunkRequest,
 	getDocumentByChunkResponse,
 	getDocumentRequest,
@@ -21,9 +21,9 @@ import {
 	getDocumentsStatusResponse,
 	getDocumentTypeCountsRequest,
 	getDocumentTypeCountsResponse,
-	getSurfsenseDocsByChunkResponse,
-	getSurfsenseDocsRequest,
-	getSurfsenseDocsResponse,
+	getNFDDocsByChunkResponse,
+	getNFDDocsRequest,
+	getNFDDocsResponse,
 	type SearchDocumentsRequest,
 	type SearchDocumentTitlesRequest,
 	searchDocumentsRequest,
@@ -322,7 +322,7 @@ class DocumentsApiService {
 	getSurfsenseDocByChunk = async (chunkId: number) => {
 		return baseApiService.get(
 			`/api/v1/surfsense-docs/by-chunk/${chunkId}`,
-			getSurfsenseDocsByChunkResponse
+			getNFDDocsByChunkResponse
 		);
 	};
 
@@ -331,8 +331,8 @@ class DocumentsApiService {
 	 * @param request - The request with query params
 	 * @param signal - Optional AbortSignal for request cancellation
 	 */
-	getSurfsenseDocs = async (request: GetSurfsenseDocsRequest, signal?: AbortSignal) => {
-		const parsedRequest = getSurfsenseDocsRequest.safeParse(request);
+	getSurfsenseDocs = async (request: GetNFDDocsRequest, signal?: AbortSignal) => {
+		const parsedRequest = getNFDDocsRequest.safeParse(request);
 
 		if (!parsedRequest.success) {
 			console.error("Invalid request:", parsedRequest.error);
@@ -354,7 +354,7 @@ class DocumentsApiService {
 
 		const url = `/api/v1/surfsense-docs?${queryParams}`;
 
-		return baseApiService.get(url, getSurfsenseDocsResponse, { signal });
+		return baseApiService.get(url, getNFDDocsResponse, { signal });
 	};
 
 	/**

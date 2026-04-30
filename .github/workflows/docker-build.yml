@@ -6,7 +6,7 @@ on:
       - main
       - dev
     paths:
-      - 'surfsense_backend/**'
+      - 'nbd_backend/**'
       - 'surfsense_web/**'
   workflow_dispatch:
     inputs:
@@ -40,11 +40,11 @@ jobs:
       - name: Read app version and calculate next Docker build version
         id: tag_version
         run: |
-          APP_VERSION=$(grep -E '^version = ' surfsense_backend/pyproject.toml | sed 's/version = "\(.*\)"/\1/')
+          APP_VERSION=$(grep -E '^version = ' nbd_backend/pyproject.toml | sed 's/version = "\(.*\)"/\1/')
           echo "App version from pyproject.toml: $APP_VERSION"
 
           if [ -z "$APP_VERSION" ]; then
-            echo "Error: Could not read version from surfsense_backend/pyproject.toml"
+            echo "Error: Could not read version from nbd_backend/pyproject.toml"
             exit 1
           fi
 
@@ -106,8 +106,8 @@ jobs:
             os: ubuntu-24.04-arm
           - image: backend
             name: surfsense-backend
-            context: ./surfsense_backend
-            file: ./surfsense_backend/Dockerfile
+            context: ./nbd_backend
+            file: ./nbd_backend/Dockerfile
           - image: web
             name: surfsense-web
             context: ./surfsense_web

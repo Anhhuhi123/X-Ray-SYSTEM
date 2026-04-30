@@ -44,21 +44,21 @@ First, create and configure your environment variables by copying the example fi
 **Linux/macOS:**
 
 ```bash
-cd surfsense_backend
+cd nbd_backend
 cp .env.example .env
 ```
 
 **Windows (Command Prompt):**
 
 ```cmd
-cd surfsense_backend
+cd nbd_backend
 copy .env.example .env
 ```
 
 **Windows (PowerShell):**
 
 ```powershell
-cd surfsense_backend
+cd nbd_backend
 Copy-Item -Path .env.example -Destination .env
 ```
 
@@ -276,8 +276,8 @@ In a new terminal window, start the Celery worker to handle background tasks:
 **If using uv:**
 
 ```bash
-# Make sure you're in the surfsense_backend directory
-cd surfsense_backend
+# Make sure you're in the nbd_backend directory
+cd nbd_backend
 
 # Start Celery worker (consume both default and connectors queues)
 DEFAULT_Q="${CELERY_TASK_DEFAULT_QUEUE:-surfsense}"
@@ -287,8 +287,8 @@ uv run celery -A celery_worker.celery_app worker --loglevel=info --concurrency=1
 **If using pip/venv:**
 
 ```bash
-# Make sure you're in the surfsense_backend directory
-cd surfsense_backend
+# Make sure you're in the nbd_backend directory
+cd nbd_backend
 
 # Activate virtual environment
 source .venv/bin/activate  # Linux/macOS
@@ -321,8 +321,8 @@ In another new terminal window, start Celery Beat to enable periodic tasks (like
 **If using uv:**
 
 ```bash
-# Make sure you're in the surfsense_backend directory
-cd surfsense_backend
+# Make sure you're in the nbd_backend directory
+cd nbd_backend
 
 # Start Celery Beat
 uv run celery -A celery_worker.celery_app beat --loglevel=info
@@ -331,8 +331,8 @@ uv run celery -A celery_worker.celery_app beat --loglevel=info
 **If using pip/venv:**
 
 ```bash
-# Make sure you're in the surfsense_backend directory
-cd surfsense_backend
+# Make sure you're in the nbd_backend directory
+cd nbd_backend
 
 # Activate virtual environment
 source .venv/bin/activate  # Linux/macOS

@@ -149,7 +149,7 @@ jobs:
         with:
           filters: |
             backend:
-              - 'surfsense_backend/**'
+              - 'nbd_backend/**'
 
       - name: Cache dependencies
         if: steps.backend-changes.outputs.backend == 'true'
@@ -157,12 +157,12 @@ jobs:
         with:
           path: |
             ~/.cache/uv
-            surfsense_backend/.venv
-          key: python-deps-${{ hashFiles('surfsense_backend/uv.lock') }}
+            nbd_backend/.venv
+          key: python-deps-${{ hashFiles('nbd_backend/uv.lock') }}
 
       - name: Install dependencies
         if: steps.backend-changes.outputs.backend == 'true'
-        working-directory: surfsense_backend
+        working-directory: nbd_backend
         run: uv sync
 
       - name: Install pre-commit for backend checks

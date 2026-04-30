@@ -20,8 +20,8 @@ Hạ tầng runtime đi kèm (trong local/dev compose):
 
 Backend:
 
-- Entry script: surfsense_backend/main.py
-- App factory/lifespan: surfsense_backend/app/app.py
+- Entry script: nbd_backend/main.py
+- App factory/lifespan: nbd_backend/app/app.py
 
 Khi backend khởi động, lifespan chạy các bước chính:
 
@@ -33,8 +33,8 @@ Khi backend khởi động, lifespan chạy các bước chính:
 
 Celery:
 
-- Entry: surfsense_backend/celery_worker.py
-- Config: surfsense_backend/app/celery_app.py
+- Entry: nbd_backend/celery_worker.py
+- Config: nbd_backend/app/celery_app.py
 
 Celery tách queue:
 
@@ -71,7 +71,7 @@ Phân quyền nghiệp vụ:
 
 Flow quản lý connector nằm ở:
 
-- surfsense_backend/app/routes/search_source_connectors_routes.py
+- nbd_backend/app/routes/search_source_connectors_routes.py
 
 Luồng cơ bản:
 
@@ -87,8 +87,8 @@ Luồng cơ bản:
 
 Flow documents ở:
 
-- surfsense_backend/app/routes/documents_routes.py
-- surfsense_backend/app/tasks/celery_tasks/document_tasks.py
+- nbd_backend/app/routes/documents_routes.py
+- nbd_backend/app/tasks/celery_tasks/document_tasks.py
 
 Luồng upload file:
 
@@ -105,8 +105,8 @@ Flow extension/youtube tương tự: enqueue task riêng theo loại dữ liệu
 
 Route chat chính:
 
-- surfsense_backend/app/routes/new_chat_routes.py
-- stream engine: surfsense_backend/app/tasks/chat/stream_new_chat.py
+- nbd_backend/app/routes/new_chat_routes.py
+- stream engine: nbd_backend/app/tasks/chat/stream_new_chat.py
 
 ### 5.1 Thread lifecycle
 
@@ -149,7 +149,7 @@ Các loại stream event chính:
 
 Service chính:
 
-- surfsense_backend/app/services/connector_service.py
+- nbd_backend/app/services/connector_service.py
 
 Cách retrieval:
 
@@ -164,7 +164,7 @@ Mục tiêu: cân bằng semantic match + keyword match + chất lượng citati
 
 Factory agent:
 
-- surfsense_backend/app/agents/new_chat/chat_deepagent.py
+- nbd_backend/app/agents/new_chat/chat_deepagent.py
 
 Agent được dựng từ:
 
@@ -229,13 +229,13 @@ Luồng tổng quát:
 
 ## 11) File quan trọng nên đọc tiếp
 
-- Backend entry/lifecycle: surfsense_backend/main.py, surfsense_backend/app/app.py
-- Chat routes: surfsense_backend/app/routes/new_chat_routes.py
-- Chat stream core: surfsense_backend/app/tasks/chat/stream_new_chat.py
-- Connectors routes: surfsense_backend/app/routes/search_source_connectors_routes.py
-- Connector retrieval service: surfsense_backend/app/services/connector_service.py
-- Celery config: surfsense_backend/app/celery_app.py
-- Document tasks: surfsense_backend/app/tasks/celery_tasks/document_tasks.py
+- Backend entry/lifecycle: nbd_backend/main.py, nbd_backend/app/app.py
+- Chat routes: nbd_backend/app/routes/new_chat_routes.py
+- Chat stream core: nbd_backend/app/tasks/chat/stream_new_chat.py
+- Connectors routes: nbd_backend/app/routes/search_source_connectors_routes.py
+- Connector retrieval service: nbd_backend/app/services/connector_service.py
+- Celery config: nbd_backend/app/celery_app.py
+- Document tasks: nbd_backend/app/tasks/celery_tasks/document_tasks.py
 - Frontend chat page: surfsense_web/app/dashboard/[search_space_id]/new-chat/[[...chat_id]]/page.tsx
 - Frontend API base: surfsense_web/lib/apis/base-api.service.ts
 - Extension backend URL config: surfsense_browser_extension/utils/backend-url.ts

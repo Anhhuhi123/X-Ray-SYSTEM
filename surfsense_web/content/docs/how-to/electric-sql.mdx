@@ -36,7 +36,7 @@ Ensure your environment files are configured. If you haven't set up SurfSense ye
 
 For Electric SQL, verify these variables are set:
 
-**Backend (`surfsense_backend/.env`):**
+**Backend (`nbd_backend/.env`):**
 
 ```bash
 ELECTRIC_DB_USER=electric
@@ -65,7 +65,7 @@ docker compose -f docker-compose.dev.yml up -d db electric
 Then run the database migration, start the backend, and launch the frontend:
 
 ```bash
-cd surfsense_backend
+cd nbd_backend
 uv run alembic upgrade head
 uv run main.py
 ```
@@ -144,7 +144,7 @@ The `--no-deps` flag starts only the `electric` service without starting the Doc
 **5. Run database migration and start the backend:**
 
 ```bash
-cd surfsense_backend
+cd nbd_backend
 uv run alembic upgrade head
 uv run main.py
 ```
@@ -164,8 +164,8 @@ Electric SQL is now configured and connected to your local PostgreSQL database.
 
 | Variable | Location | Description | Default |
 |----------|----------|-------------|---------|
-| `ELECTRIC_DB_USER` | `surfsense_backend/.env` | Database user for Electric replication | `electric` |
-| `ELECTRIC_DB_PASSWORD` | `surfsense_backend/.env` | Database password for Electric replication | `electric_password` |
+| `ELECTRIC_DB_USER` | `nbd_backend/.env` | Database user for Electric replication | `electric` |
+| `ELECTRIC_DB_PASSWORD` | `nbd_backend/.env` | Database password for Electric replication | `electric_password` |
 | `NEXT_PUBLIC_ELECTRIC_URL` | `surfsense_web/.env` | Electric SQL server URL (PGlite connects to this) | `http://localhost:5133` |
 | `NEXT_PUBLIC_ELECTRIC_AUTH_MODE` | `surfsense_web/.env` | Authentication mode (`insecure` for dev, `secure` for production) | `insecure` |
 

@@ -70,7 +70,7 @@ For detailed setup instructions, refer to our [Installation Guide](https://www.s
 
 SurfSense consists of three main components:
 
-- **`surfsense_backend/`** - Python/FastAPI backend service
+- **`nbd_backend/`** - Python/FastAPI backend service
 - **`surfsense_web/`** - Next.js web application
 - **`surfsense_browser_extension/`** - Browser extension for data collection
 

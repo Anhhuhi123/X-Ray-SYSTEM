@@ -41,9 +41,9 @@ from app.db import (
     Document,
     NewChatMessage,
     NewChatThread,
+    NFDDocsDocument,
     Report,
     SearchSourceConnectorType,
-    SurfsenseDocsDocument,
     async_session_maker,
     shielded_async_session,
 )
@@ -131,7 +131,7 @@ def format_mentioned_documents_as_context(documents: list[Document]) -> str:
 
 
 def format_mentioned_surfsense_docs_as_context(
-    documents: list[SurfsenseDocsDocument],
+    documents: list[NFDDocsDocument],
 ) -> str:
     """Format mentioned SurfSense documentation as context for the agent."""
     if not documents:
@@ -990,13 +990,13 @@ async def stream_new_chat(
             mentioned_documents = list(result.scalars().all())
 
         # Fetch mentioned SurfSense docs if any
-        mentioned_surfsense_docs: list[SurfsenseDocsDocument] = []
+        mentioned_surfsense_docs: list[NFDDocsDocument] = []
         if mentioned_surfsense_doc_ids:
             result = await session.execute(
-                select(SurfsenseDocsDocument)
-                .options(selectinload(SurfsenseDocsDocument.chunks))
+                select(NFDDocsDocument)
+                .options(selectinload(NFDDocsDocument.chunks))
                 .filter(
-                    SurfsenseDocsDocument.id.in_(mentioned_surfsense_doc_ids),
+                    NFDDocsDocument.id.in_(mentioned_surfsense_doc_ids),
                 )
             )
             mentioned_surfsense_docs = list(result.scalars().all())

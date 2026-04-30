@@ -14,7 +14,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import selectinload
 
 from app.config import config
-from app.db import SurfsenseDocsChunk, SurfsenseDocsDocument, async_session_maker
+from app.db import NFDDocsChunks, NFDDocsDocument, async_session_maker
 from app.utils.document_converters import embed_text
 
 logger = logging.getLogger(__name__)
@@ -77,7 +77,7 @@ def generate_surfsense_docs_content_hash(content: str) -> str:
     return hashlib.sha256(content.encode("utf-8")).hexdigest()
 
 
-def create_surfsense_docs_chunks(content: str) -> list[SurfsenseDocsChunk]:
+def create_surfsense_docs_chunks(content: str) -> list[NFDDocsChunks]:
     """
     Create chunks from Surfsense documentation content.
 
@@ -85,10 +85,10 @@ def create_surfsense_docs_chunks(content: str) -> list[SurfsenseDocsChunk]:
         content: Document content to chunk
 
     Returns:
-        List of SurfsenseDocsChunk objects with embeddings
+        List of NFDDocsChunks objects with embeddings
     """
     return [
-        SurfsenseDocsChunk(
+        NFDDocsChunks(
             content=chunk.text,
             embedding=embed_text(chunk.text),
         )
@@ -113,8 +113,8 @@ async def index_surfsense_docs(session: AsyncSession) -> tuple[int, int, int, in
 
     # Get all existing docs from database
     existing_docs_result = await session.execute(
-        select(SurfsenseDocsDocument).options(
-            selectinload(SurfsenseDocsDocument.chunks)
+        select(NFDDocsDocument).options(
+            selectinload(NFDDocsDocument.chunks)
         )
     )
     existing_docs = {doc.source: doc for doc in existing_docs_result.scalars().all()}
@@ -166,7 +166,7 @@ async def index_surfsense_docs(session: AsyncSession) -> tuple[int, int, int, in
 
                 chunks = create_surfsense_docs_chunks(content)
 
-                document = SurfsenseDocsDocument(
+                document = NFDDocsDocument(
                     source=source,
                     title=title,
                     content=content,

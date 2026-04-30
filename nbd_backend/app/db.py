@@ -961,13 +961,13 @@ class DocumentSection(BaseModel, TimestampMixin):
     )
 
 
-class SurfsenseDocsDocument(BaseModel, TimestampMixin):
+class NFDDocsDocument(BaseModel, TimestampMixin):
     """
     Surfsense documentation storage.
     Indexed at migration time from MDX files.
     """
 
-    __tablename__ = "surfsense_docs_documents"
+    __tablename__ = "nfd_docs_documents"
 
     source = Column(
         String, nullable=False, unique=True, index=True
@@ -979,30 +979,26 @@ class SurfsenseDocsDocument(BaseModel, TimestampMixin):
     updated_at = Column(TIMESTAMP(timezone=True), nullable=True, index=True)
 
     chunks = relationship(
-        "SurfsenseDocsChunk",
+        "NFDDocsChunks",
         back_populates="document",
         cascade="all, delete-orphan",
     )
 
 
-class SurfsenseDocsChunk(BaseModel, TimestampMixin):
+class NFDDocsChunks(BaseModel, TimestampMixin):
     """Chunk storage for Surfsense documentation."""
 
-    __tablename__ = "surfsense_docs_chunks"
+    __tablename__ = "nfd_docs_chunks"
 
     content = Column(Text, nullable=False)
     embedding = Column(Vector(config.embedding_model_instance.dimension))
 
     document_id = Column(
         Integer,
-        ForeignKey("surfsense_docs_documents.id", ondelete="CASCADE"),
+        ForeignKey("nfd_docs_documents.id", ondelete="CASCADE"),
         nullable=False,
     )
-    document = relationship("SurfsenseDocsDocument", back_populates="chunks")
-
-
-
-
+    document = relationship("NFDDocsDocument", back_populates="chunks")
 
 class Report(BaseModel, TimestampMixin):
     """Report model for storing generated Markdown reports."""
@@ -1727,7 +1723,7 @@ async def setup_indexes():
         )
         await conn.execute(
             text(
-                "CREATE INDEX IF NOT EXISTS idx_surfsense_docs_title_trgm ON surfsense_docs_documents USING gin (title gin_trgm_ops)"
+                "CREATE INDEX IF NOT EXISTS idx_nfd_docs_title_trgm ON nfd_docs_documents USING gin (title gin_trgm_ops)"
             )
         )
 

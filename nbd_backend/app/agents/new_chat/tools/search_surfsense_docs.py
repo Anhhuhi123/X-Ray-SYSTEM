@@ -15,7 +15,7 @@ from langchain_core.tools import tool
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.db import SurfsenseDocsChunk, SurfsenseDocsDocument
+from app.db import NFDDocsChunks, NFDDocsDocument
 from app.utils.document_converters import embed_text
 
 
@@ -105,12 +105,12 @@ async def search_surfsense_docs_async(
 
     # Vector similarity search on chunks, joining with documents
     stmt = (
-        select(SurfsenseDocsChunk, SurfsenseDocsDocument)
+        select(NFDDocsChunks, NFDDocsDocument)
         .join(
-            SurfsenseDocsDocument,
-            SurfsenseDocsChunk.document_id == SurfsenseDocsDocument.id,
+            NFDDocsDocument,
+            NFDDocsChunks.document_id == NFDDocsDocument.id,
         )
-        .order_by(SurfsenseDocsChunk.embedding.op("<=>")(query_embedding))
+        .order_by(NFDDocsChunks.embedding.op("<=>")(query_embedding))
         .limit(top_k)
     )
 

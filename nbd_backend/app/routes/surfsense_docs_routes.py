@@ -12,16 +12,16 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import selectinload
 
 from app.db import (
-    SurfsenseDocsChunk,
-    SurfsenseDocsDocument,
+    NFDDocsChunks,
+    NFDDocsDocument,
     User,
     get_async_session,
 )
 from app.schemas import PaginatedResponse
 from app.schemas.surfsense_docs import (
-    SurfsenseDocsChunkRead,
-    SurfsenseDocsDocumentRead,
-    SurfsenseDocsDocumentWithChunksRead,
+    NFDDocsChunkRead,
+    NFDDocsDocumentRead,
+    NFDDocsDocumentWithChunksRead,
 )
 from app.users import current_active_user
 
@@ -30,7 +30,7 @@ router = APIRouter()
 
 @router.get(
     "/surfsense-docs/by-chunk/{chunk_id}",
-    response_model=SurfsenseDocsDocumentWithChunksRead,
+    response_model=NFDDocsDocumentWithChunksRead,
 )
 async def get_surfsense_doc_by_chunk_id(
     chunk_id: int,
@@ -45,7 +45,7 @@ async def get_surfsense_doc_by_chunk_id(
     try:
         # Get the chunk
         chunk_result = await session.execute(
-            select(SurfsenseDocsChunk).filter(SurfsenseDocsChunk.id == chunk_id)
+            select(NFDDocsChunks).filter(NFDDocsChunks.id == chunk_id)
         )
         chunk = chunk_result.scalars().first()
 
@@ -57,9 +57,9 @@ async def get_surfsense_doc_by_chunk_id(
 
         # Get the associated document with all its chunks
         document_result = await session.execute(
-            select(SurfsenseDocsDocument)
-            .options(selectinload(SurfsenseDocsDocument.chunks))
-            .filter(SurfsenseDocsDocument.id == chunk.document_id)
+            select(NFDDocsDocument)
+            .options(selectinload(NFDDocsDocument.chunks))
+            .filter(NFDDocsDocument.id == chunk.document_id)
         )
         document = document_result.scalars().first()
 
@@ -72,13 +72,13 @@ async def get_surfsense_doc_by_chunk_id(
         # Sort chunks by ID
         sorted_chunks = sorted(document.chunks, key=lambda x: x.id)
 
-        return SurfsenseDocsDocumentWithChunksRead(
+        return NFDDocsDocumentWithChunksRead(
             id=document.id,
             title=document.title,
             source=document.source,
             content=document.content,
             chunks=[
-                SurfsenseDocsChunkRead(id=c.id, content=c.content)
+                NFDDocsChunkRead(id=c.id, content=c.content)
                 for c in sorted_chunks
             ],
         )
@@ -93,7 +93,7 @@ async def get_surfsense_doc_by_chunk_id(
 
 @router.get(
     "/surfsense-docs",
-    response_model=PaginatedResponse[SurfsenseDocsDocumentRead],
+    response_model=PaginatedResponse[NFDDocsDocumentRead],
 )
 async def list_surfsense_docs(
     page: int = 0,
@@ -113,18 +113,18 @@ async def list_surfsense_docs(
         user: Current authenticated user (injected).
 
     Returns:
-        PaginatedResponse[SurfsenseDocsDocumentRead]: Paginated list of Surfsense docs.
+        PaginatedResponse[NFDDocsDocumentRead]: Paginated list of Surfsense docs.
     """
     try:
         # Base query
-        query = select(SurfsenseDocsDocument)
-        count_query = select(func.count()).select_from(SurfsenseDocsDocument)
+        query = select(NFDDocsDocument)
+        count_query = select(func.count()).select_from(NFDDocsDocument)
 
         # Filter by title if provided
         if title and title.strip():
-            query = query.filter(SurfsenseDocsDocument.title.ilike(f"%{title}%"))
+            query = query.filter(NFDDocsDocument.title.ilike(f"%{title}%"))
             count_query = count_query.filter(
-                SurfsenseDocsDocument.title.ilike(f"%{title}%")
+                NFDDocsDocument.title.ilike(f"%{title}%")
             )
 
         # Get total count
@@ -136,13 +136,13 @@ async def list_surfsense_docs(
 
         # Get paginated results
         result = await session.execute(
-            query.order_by(SurfsenseDocsDocument.title).offset(offset).limit(page_size)
+            query.order_by(NFDDocsDocument.title).offset(offset).limit(page_size)
         )
         docs = result.scalars().all()
 
         # Convert to response format
         items = [
-            SurfsenseDocsDocumentRead(
+            NFDDocsDocumentRead(
                 id=doc.id,
                 title=doc.title,
                 source=doc.source,

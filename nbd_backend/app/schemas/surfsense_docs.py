@@ -7,7 +7,7 @@ from datetime import datetime
 from pydantic import BaseModel, ConfigDict
 
 
-class SurfsenseDocsChunkRead(BaseModel):
+class NFDDocsChunkRead(BaseModel):
     """Schema for a Surfsense docs chunk."""
 
     id: int
@@ -16,7 +16,7 @@ class SurfsenseDocsChunkRead(BaseModel):
     model_config = ConfigDict(from_attributes=True)
 
 
-class SurfsenseDocsDocumentRead(BaseModel):
+class NFDDocsDocumentRead(BaseModel):
     """Schema for a Surfsense docs document (without chunks)."""
 
     id: int
@@ -29,13 +29,13 @@ class SurfsenseDocsDocumentRead(BaseModel):
     model_config = ConfigDict(from_attributes=True)
 
 
-class SurfsenseDocsDocumentWithChunksRead(BaseModel):
+class NFDDocsDocumentWithChunksRead(BaseModel):
     """Schema for a Surfsense docs document with its chunks."""
 
     id: int
     title: str
     source: str
     content: str
-    chunks: list[SurfsenseDocsChunkRead]
+    chunks: list[NFDDocsChunkRead]
 
     model_config = ConfigDict(from_attributes=True)

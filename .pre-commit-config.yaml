@@ -64,12 +64,12 @@ repos:
   # Biome hooks for TypeScript/JavaScript projects
   - repo: local
     hooks:
-      # Biome check for surfsense_web
+      # Biome check for nbd_web
       - id: biome-check-web
         name: biome-check-web
-        entry: bash -c 'cd surfsense_web && npx @biomejs/biome check --diagnostic-level=error .'
+        entry: bash -c 'cd nbd_web && npx @biomejs/biome check --diagnostic-level=error .'
         language: system
-        files: ^surfsense_web/
+        files: ^nbd_web/
         pass_filenames: false
         always_run: true
         stages: [pre-commit]

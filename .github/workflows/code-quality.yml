@@ -236,13 +236,13 @@ jobs:
         with:
           filters: |
             web:
-              - 'surfsense_web/**'
+              - 'nbd_web/**'
             extension:
               - 'nbd_browser_extension/**'
 
       - name: Install dependencies for web
         if: steps.frontend-changes.outputs.web == 'true'
-        working-directory: surfsense_web
+        working-directory: nbd_web
         run: pnpm install --frozen-lockfile
 
       - name: Install dependencies for extension

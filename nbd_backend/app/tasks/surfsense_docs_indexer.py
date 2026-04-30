@@ -22,7 +22,7 @@ logger = logging.getLogger(__name__)
 # Path to docs relative to project root
 DOCS_DIR = (
     Path(__file__).resolve().parent.parent.parent.parent
-    / "surfsense_web"
+    / "nbd_web"
     / "content"
     / "docs"
 )

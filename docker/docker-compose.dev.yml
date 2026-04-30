@@ -178,7 +178,7 @@ services:
 
   frontend:
     build:
-      context: ../surfsense_web
+      context: ../nbd_web
       args:
         NEXT_PUBLIC_FASTAPI_BACKEND_URL: ${NEXT_PUBLIC_FASTAPI_BACKEND_URL:-http://localhost:8000}
         NEXT_PUBLIC_FASTAPI_BACKEND_AUTH_TYPE: ${NEXT_PUBLIC_FASTAPI_BACKEND_AUTH_TYPE:-LOCAL}
@@ -189,7 +189,7 @@ services:
     ports:
       - "${FRONTEND_PORT:-3000}:3000"
     env_file:
-      - ../surfsense_web/.env
+      - ../nbd_web/.env
     depends_on:
       backend:
         condition: service_healthy

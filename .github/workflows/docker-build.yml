@@ -7,7 +7,7 @@ on:
       - dev
     paths:
       - 'nbd_backend/**'
-      - 'surfsense_web/**'
+      - 'nbd_web/**'
   workflow_dispatch:
     inputs:
       branch:
@@ -110,8 +110,8 @@ jobs:
             file: ./nbd_backend/Dockerfile
           - image: web
             name: surfsense-web
-            context: ./surfsense_web
-            file: ./surfsense_web/Dockerfile
+            context: ./nbd_web
+            file: ./nbd_web/Dockerfile
     env:
       REGISTRY_IMAGE: ghcr.io/${{ github.repository_owner }}/${{ matrix.name }}
 

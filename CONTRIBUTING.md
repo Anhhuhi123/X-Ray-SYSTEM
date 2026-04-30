@@ -71,7 +71,7 @@ For detailed setup instructions, refer to our [Installation Guide](https://www.s
 SurfSense consists of three main components:
 
 - **`nbd_backend/`** - Python/FastAPI backend service
-- **`surfsense_web/`** - Next.js web application
+- **`nbd_web/`** - Next.js web application
 - **`nbd_browser_extension/`** - Browser extension for data collection
 
 ## 🧪 Development Guidelines

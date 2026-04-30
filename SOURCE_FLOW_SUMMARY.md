@@ -48,8 +48,8 @@ Beat chạy định kỳ:
 
 Web:
 
-- Next layout/root providers: surfsense_web/app/layout.tsx
-- API client wrapper: surfsense_web/lib/apis/base-api.service.ts
+- Next layout/root providers: nbd_web/app/layout.tsx
+- API client wrapper: nbd_web/lib/apis/base-api.service.ts
 
 ## 3) Luồng Auth và phân quyền
 
@@ -182,8 +182,8 @@ Tool availability phụ thuộc:
 
 API layer:
 
-- surfsense_web/lib/apis/base-api.service.ts
-- nhiều service con trong surfsense_web/lib/apis/
+- nbd_web/lib/apis/base-api.service.ts
+- nhiều service con trong nbd_web/lib/apis/
 
 Mẫu chung:
 
@@ -194,7 +194,7 @@ Mẫu chung:
 
 Màn hình chat mới:
 
-- surfsense_web/app/dashboard/[search_space_id]/new-chat/[[...chat_id]]/page.tsx
+- nbd_web/app/dashboard/[search_space_id]/new-chat/[[...chat_id]]/page.tsx
 
 Trang này:
 
@@ -236,6 +236,6 @@ Luồng tổng quát:
 - Connector retrieval service: nbd_backend/app/services/connector_service.py
 - Celery config: nbd_backend/app/celery_app.py
 - Document tasks: nbd_backend/app/tasks/celery_tasks/document_tasks.py
-- Frontend chat page: surfsense_web/app/dashboard/[search_space_id]/new-chat/[[...chat_id]]/page.tsx
-- Frontend API base: surfsense_web/lib/apis/base-api.service.ts
+- Frontend chat page: nbd_web/app/dashboard/[search_space_id]/new-chat/[[...chat_id]]/page.tsx
+- Frontend API base: nbd_web/lib/apis/base-api.service.ts
 - Extension backend URL config: nbd_browser_extension/utils/backend-url.ts

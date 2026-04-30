@@ -1,0 +1,23 @@
+{
+	"connectorStatuses": {
+		"SLACK_CONNECTOR": {
+			"enabled": false,
+			"status": "disabled",
+			"statusMessage": "Unavailable due to API changes"
+		},
+		"TEAMS_CONNECTOR": {
+			"enabled": false,
+			"status": "maintenance",
+			"statusMessage": "Temporarily unavailable for maintenance"
+		},
+		"JIRA_CONNECTOR": {
+			"enabled": false,
+			"status": "deprecated",
+			"statusMessage": "Deprecated"
+		}
+	},
+	"globalSettings": {
+		"showWarnings": true,
+		"allowManualOverride": false
+	}
+}

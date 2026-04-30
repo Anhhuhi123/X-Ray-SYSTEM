@@ -27,7 +27,7 @@ jobs:
         with:
           filters: |
             backend:
-              - 'surfsense_backend/**'
+              - 'nbd_backend/**'
 
       - name: Set up Python
         if: steps.backend-changes.outputs.backend == 'true'
@@ -45,8 +45,8 @@ jobs:
         with:
           path: |
             ~/.cache/uv
-            surfsense_backend/.venv
-          key: python-deps-${{ hashFiles('surfsense_backend/uv.lock') }}
+            nbd_backend/.venv
+          key: python-deps-${{ hashFiles('nbd_backend/uv.lock') }}
           restore-keys: |
             python-deps-
 
@@ -59,12 +59,12 @@ jobs:
 
       - name: Install dependencies
         if: steps.backend-changes.outputs.backend == 'true'
-        working-directory: surfsense_backend
+        working-directory: nbd_backend
         run: uv sync
 
       - name: Run unit tests
         if: steps.backend-changes.outputs.backend == 'true'
-        working-directory: surfsense_backend
+        working-directory: nbd_backend
         run: uv run pytest -m unit
 
   integration-tests:
@@ -99,7 +99,7 @@ jobs:
         with:
           filters: |
             backend:
-              - 'surfsense_backend/**'
+              - 'nbd_backend/**'
 
       - name: Set up Python
         if: steps.backend-changes.outputs.backend == 'true'
@@ -117,8 +117,8 @@ jobs:
         with:
           path: |
             ~/.cache/uv
-            surfsense_backend/.venv
-          key: python-deps-${{ hashFiles('surfsense_backend/uv.lock') }}
+            nbd_backend/.venv
+          key: python-deps-${{ hashFiles('nbd_backend/uv.lock') }}
           restore-keys: |
             python-deps-
 
@@ -131,12 +131,12 @@ jobs:
 
       - name: Install dependencies
         if: steps.backend-changes.outputs.backend == 'true'
-        working-directory: surfsense_backend
+        working-directory: nbd_backend
         run: uv sync
 
       - name: Run integration tests
         if: steps.backend-changes.outputs.backend == 'true'
-        working-directory: surfsense_backend
+        working-directory: nbd_backend
         env:
           TEST_DATABASE_URL: postgresql+asyncpg://postgres:postgres@localhost:5432/surfsense_test
           SECRET_KEY: ci-test-secret-key-not-for-production

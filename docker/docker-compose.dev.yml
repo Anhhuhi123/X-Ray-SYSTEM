@@ -58,14 +58,14 @@ services:
       retries: 5
 
   backend:
-    build: ../surfsense_backend
+    build: ../nbd_backend
     ports:
       - "${BACKEND_PORT:-8000}:8000"
     volumes:
-      - ../surfsense_backend/app:/app/app
+      - ../nbd_backend/app:/app/app
       - shared_temp:/shared_tmp
     env_file:
-      - ../surfsense_backend/.env
+      - ../nbd_backend/.env
     environment:
       - DATABASE_URL=${DATABASE_URL:-postgresql+asyncpg://${DB_USER:-postgres}:${DB_PASSWORD:-postgres}@${DB_HOST:-db}:${DB_PORT:-5432}/${DB_NAME:-surfsense}}
       - CELERY_BROKER_URL=${REDIS_URL:-redis://redis:6379/0}
@@ -100,12 +100,12 @@ services:
       start_period: 200s
 
   celery_worker:
-    build: ../surfsense_backend
+    build: ../nbd_backend
     volumes:
-      - ../surfsense_backend/app:/app/app
+      - ../nbd_backend/app:/app/app
       - shared_temp:/shared_tmp
     env_file:
-      - ../surfsense_backend/.env
+      - ../nbd_backend/.env
     environment:
       - DATABASE_URL=${DATABASE_URL:-postgresql+asyncpg://${DB_USER:-postgres}:${DB_PASSWORD:-postgres}@${DB_HOST:-db}:${DB_PORT:-5432}/${DB_NAME:-surfsense}}
       - CELERY_BROKER_URL=${REDIS_URL:-redis://redis:6379/0}
@@ -125,9 +125,9 @@ services:
         condition: service_healthy
 
   celery_beat:
-    build: ../surfsense_backend
+    build: ../nbd_backend
     env_file:
-      - ../surfsense_backend/.env
+      - ../nbd_backend/.env
     environment:
       - DATABASE_URL=${DATABASE_URL:-postgresql+asyncpg://${DB_USER:-postgres}:${DB_PASSWORD:-postgres}@${DB_HOST:-db}:${DB_PORT:-5432}/${DB_NAME:-surfsense}}
       - CELERY_BROKER_URL=${REDIS_URL:-redis://redis:6379/0}
@@ -144,11 +144,11 @@ services:
         condition: service_started
 
   # flower:
-  #   build: ../surfsense_backend
+  #   build: ../nbd_backend
   #   ports:
   #     - "${FLOWER_PORT:-5555}:5555"
   #   env_file:
-  #     - ../surfsense_backend/.env
+  #     - ../nbd_backend/.env
   #   environment:
   #     - CELERY_BROKER_URL=${REDIS_URL:-redis://redis:6379/0}
   #     - CELERY_RESULT_BACKEND=${REDIS_URL:-redis://redis:6379/0}
@@ -178,7 +178,7 @@ services:
 
   frontend:
     build:
-      context: ../surfsense_web
+      context: ../nbd_web
       args:
         NEXT_PUBLIC_FASTAPI_BACKEND_URL: ${NEXT_PUBLIC_FASTAPI_BACKEND_URL:-http://localhost:8000}
         NEXT_PUBLIC_FASTAPI_BACKEND_AUTH_TYPE: ${NEXT_PUBLIC_FASTAPI_BACKEND_AUTH_TYPE:-LOCAL}
@@ -189,7 +189,7 @@ services:
     ports:
       - "${FRONTEND_PORT:-3000}:3000"
     env_file:
-      - ../surfsense_web/.env
+      - ../nbd_web/.env
     depends_on:
       backend:
         condition: service_healthy

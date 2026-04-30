@@ -149,7 +149,7 @@ jobs:
         with:
           filters: |
             backend:
-              - 'surfsense_backend/**'
+              - 'nbd_backend/**'
 
       - name: Cache dependencies
         if: steps.backend-changes.outputs.backend == 'true'
@@ -157,12 +157,12 @@ jobs:
         with:
           path: |
             ~/.cache/uv
-            surfsense_backend/.venv
-          key: python-deps-${{ hashFiles('surfsense_backend/uv.lock') }}
+            nbd_backend/.venv
+          key: python-deps-${{ hashFiles('nbd_backend/uv.lock') }}
 
       - name: Install dependencies
         if: steps.backend-changes.outputs.backend == 'true'
-        working-directory: surfsense_backend
+        working-directory: nbd_backend
         run: uv sync
 
       - name: Install pre-commit for backend checks
@@ -236,18 +236,18 @@ jobs:
         with:
           filters: |
             web:
-              - 'surfsense_web/**'
+              - 'nbd_web/**'
             extension:
-              - 'surfsense_browser_extension/**'
+              - 'nbd_browser_extension/**'
 
       - name: Install dependencies for web
         if: steps.frontend-changes.outputs.web == 'true'
-        working-directory: surfsense_web
+        working-directory: nbd_web
         run: pnpm install --frozen-lockfile
 
       - name: Install dependencies for extension
         if: steps.frontend-changes.outputs.extension == 'true'
-        working-directory: surfsense_browser_extension
+        working-directory: nbd_browser_extension
         run: pnpm install --frozen-lockfile
 
       - name: Install pre-commit

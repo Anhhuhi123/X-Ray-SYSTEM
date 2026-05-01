@@ -18,7 +18,7 @@ export const documentTypeEnum = z.enum([
 	"AIRTABLE_CONNECTOR",
 	"CIRCLEBACK",
 	"OBSIDIAN_CONNECTOR",
-	"SURFSENSE_DOCS",
+	"NFD_DOCS",
 	"NOTE",
 	"COMPOSIO_GOOGLE_DRIVE_CONNECTOR",
 	"COMPOSIO_GMAIL_CONNECTOR",
@@ -64,23 +64,23 @@ export const documentWithChunks = document.extend({
 });
 
 /**
- * Surfsense documentation schemas
+ * NFD documentation schemas
  * Follows the same pattern as document/documentWithChunks
  */
-export const surfsenseDocsChunk = z.object({
+export const nfdDocsChunk = z.object({
 	id: z.number(),
 	content: z.string(),
 });
 
-export const surfsenseDocsDocument = z.object({
+export const nfdDocsDocument = z.object({
 	id: z.number(),
 	title: z.string(),
 	source: z.string(),
 	content: z.string(),
 });
 
-export const surfsenseDocsDocumentWithChunks = surfsenseDocsDocument.extend({
-	chunks: z.array(surfsenseDocsChunk),
+export const nfdDocsDocumentWithChunks = nfdDocsDocument.extend({
+	chunks: z.array(nfdDocsChunk),
 });
 
 /**
@@ -240,25 +240,25 @@ export const getDocumentByChunkRequest = z.object({
 export const getDocumentByChunkResponse = documentWithChunks;
 
 /**
- * Get Surfsense docs by chunk
+ * Get NFD docs by chunk
  */
-export const getSurfsenseDocsByChunkRequest = z.object({
+export const getNFDDocsByChunkRequest = z.object({
 	chunk_id: z.number(),
 });
 
-export const getSurfsenseDocsByChunkResponse = surfsenseDocsDocumentWithChunks;
+export const getNFDDocsByChunkResponse = nfdDocsDocumentWithChunks;
 
 /**
- * List Surfsense docs
+ * List NFD docs
  */
-export const getSurfsenseDocsRequest = z.object({
+export const getNFDDocsRequest = z.object({
 	queryParams: paginationQueryParams.extend({
 		title: z.string().optional(),
 	}),
 });
 
-export const getSurfsenseDocsResponse = z.object({
-	items: z.array(surfsenseDocsDocument),
+export const getNFDDocsResponse = z.object({
+	items: z.array(nfdDocsDocument),
 	total: z.number(),
 	page: z.number(),
 	page_size: z.number(),
@@ -313,10 +313,10 @@ export type DeleteDocumentResponse = z.infer<typeof deleteDocumentResponse>;
 export type DocumentTypeEnum = z.infer<typeof documentTypeEnum>;
 export type DocumentSortBy = z.infer<typeof documentSortByEnum>;
 export type SortOrder = z.infer<typeof sortOrderEnum>;
-export type SurfsenseDocsChunk = z.infer<typeof surfsenseDocsChunk>;
-export type SurfsenseDocsDocument = z.infer<typeof surfsenseDocsDocument>;
-export type SurfsenseDocsDocumentWithChunks = z.infer<typeof surfsenseDocsDocumentWithChunks>;
-export type GetSurfsenseDocsByChunkRequest = z.infer<typeof getSurfsenseDocsByChunkRequest>;
-export type GetSurfsenseDocsByChunkResponse = z.infer<typeof getSurfsenseDocsByChunkResponse>;
-export type GetSurfsenseDocsRequest = z.infer<typeof getSurfsenseDocsRequest>;
-export type GetSurfsenseDocsResponse = z.infer<typeof getSurfsenseDocsResponse>;
+export type NFDDocsChunk = z.infer<typeof nfdDocsChunk>;
+export type NFDDocsDocument = z.infer<typeof nfdDocsDocument>;
+export type NFDDocsDocumentWithChunks = z.infer<typeof nfdDocsDocumentWithChunks>;
+export type GetNFDDocsByChunkRequest = z.infer<typeof getNFDDocsByChunkRequest>;
+export type GetNFDDocsByChunkResponse = z.infer<typeof getNFDDocsByChunkResponse>;
+export type GetNFDDocsRequest = z.infer<typeof getNFDDocsRequest>;
+export type GetNFDDocsResponse = z.infer<typeof getNFDDocsResponse>;

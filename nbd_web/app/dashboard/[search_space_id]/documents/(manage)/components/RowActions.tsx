@@ -26,8 +26,8 @@ import type { Document } from "./types";
 // Only FILE and NOTE document types can be edited
 const EDITABLE_DOCUMENT_TYPES = ["FILE", "NOTE"] as const;
 
-// SURFSENSE_DOCS are system-managed and cannot be deleted
-const NON_DELETABLE_DOCUMENT_TYPES = ["SURFSENSE_DOCS"] as const;
+// NFD_DOCS are system-managed and cannot be deleted
+const NON_DELETABLE_DOCUMENT_TYPES = ["NFD_DOCS"] as const;
 
 export function RowActions({
 	document,
@@ -53,7 +53,7 @@ export function RowActions({
 	// FILE documents that failed processing cannot be edited
 	const isFileFailed = document.document_type === "FILE" && document.status?.state === "failed";
 
-	// SURFSENSE_DOCS are system-managed and should not show delete at all
+	// NFD_DOCS are system-managed and should not show delete at all
 	const shouldShowDelete = !NON_DELETABLE_DOCUMENT_TYPES.includes(
 		document.document_type as (typeof NON_DELETABLE_DOCUMENT_TYPES)[number]
 	);

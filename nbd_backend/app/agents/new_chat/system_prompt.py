@@ -1,7 +1,7 @@
 """
-System prompt building for SurfSense agents.
+System prompt building for NFD agents.
 
-This module provides functions and constants for building the SurfSense system prompt
+This module provides functions and constants for building the NFD system prompt
 with configurable user instructions and citation support.
 
 The prompt is composed of three parts:
@@ -15,9 +15,9 @@ from datetime import UTC, datetime
 from app.db import ChatVisibility
 
 # Default system instructions - can be overridden via NewLLMConfig.system_instructions
-SURFSENSE_SYSTEM_INSTRUCTIONS = """
+NFD_SYSTEM_INSTRUCTIONS = """
 <system_instruction>
-You are SurfSense, a reasoning and acting AI agent designed to answer user questions using the user's personal knowledge base.
+You are NFD, a reasoning and acting AI agent designed to answer user questions using the user's personal knowledge base.
 
 Today's date (UTC): {resolved_today}
 
@@ -31,7 +31,7 @@ NEVER expose internal tool parameter names, backend IDs, or implementation detai
 # Default system instructions for shared (team) threads: team context + message format for attribution
 _SYSTEM_INSTRUCTIONS_SHARED = """
 <system_instruction>
-You are SurfSense, a reasoning and acting AI agent designed to answer questions in this team space using the team's shared knowledge base.
+You are NFD, a reasoning and acting AI agent designed to answer questions in this team space using the team's shared knowledge base.
 
 In this team thread, each message is prefixed with **[DisplayName of the author]**. Use this to attribute and reference the author of anything in the discussion (who asked a question, made a suggestion, or contributed an idea) and to cite who said what in your answers.
 
@@ -55,7 +55,7 @@ def _get_system_instructions(
     if visibility == ChatVisibility.SEARCH_SPACE:
         return _SYSTEM_INSTRUCTIONS_SHARED.format(resolved_today=resolved_today)
     else:
-        return SURFSENSE_SYSTEM_INSTRUCTIONS.format(resolved_today=resolved_today)
+        return NFD_SYSTEM_INSTRUCTIONS.format(resolved_today=resolved_today)
 
 
 # =============================================================================
@@ -74,11 +74,11 @@ Do NOT claim you can do something if the corresponding tool is not listed.
 
 _TOOL_INSTRUCTIONS: dict[str, str] = {}
 
-_TOOL_INSTRUCTIONS["search_surfsense_docs"] = """
-- search_surfsense_docs: Search the official SurfSense documentation.
-  - Use this tool when the user asks anything about SurfSense itself (the application they are using).
+_TOOL_INSTRUCTIONS["search_nfd_docs"] = """
+- search_nfd_docs: Search the official NFD documentation.
+  - Use this tool when the user asks anything about NFD itself (the application they are using).
   - Args:
-    - query: The search query about SurfSense
+    - query: The search query about NFD
     - top_k: Number of documentation chunks to retrieve (default: 10)
   - Returns: Documentation content with chunk IDs for citations (prefixed with 'doc-', e.g., [citation:doc-123])
 """
@@ -328,15 +328,15 @@ _TOOL_EXAMPLES["search_knowledge_base"] = """
   - Then answer using the returned live web results with citations.
 """
 
-_TOOL_EXAMPLES["search_surfsense_docs"] = """
-- User: "How do I install SurfSense?"
-  - Call: `search_surfsense_docs(query="installation setup")`
-- User: "What connectors does SurfSense support?"
-  - Call: `search_surfsense_docs(query="available connectors integrations")`
+_TOOL_EXAMPLES["search_nfd_docs"] = """
+- User: "How do I install NFD?"
+  - Call: `search_nfd_docs(query="installation setup")`
+- User: "What connectors does NFD support?"
+  - Call: `search_nfd_docs(query="available connectors integrations")`
 - User: "How do I set up the Notion connector?"
-  - Call: `search_surfsense_docs(query="Notion connector setup configuration")`
-- User: "How do I use Docker to run SurfSense?"
-  - Call: `search_surfsense_docs(query="Docker installation setup")`
+  - Call: `search_nfd_docs(query="Notion connector setup configuration")`
+- User: "How do I use Docker to run NFD?"
+  - Call: `search_nfd_docs(query="Docker installation setup")`
 """
 
 _TOOL_EXAMPLES["generate_report"] = """
@@ -369,7 +369,7 @@ _TOOL_EXAMPLES["scrape_webpage"] = """
 
 # All tool names that have prompt instructions (order matters for prompt readability)
 _ALL_TOOL_NAMES_ORDERED = [
-    "search_surfsense_docs",
+    "search_nfd_docs",
     "search_knowledge_base",
     "generate_report",
     "link_preview",
@@ -433,7 +433,7 @@ def _get_tools_instructions(
         )
         parts.append(f"""
 DISABLED TOOLS (by user):
-The following tools are available in SurfSense but have been disabled by the user for this session: {disabled_list}.
+The following tools are available in NFD but have been disabled by the user for this session: {disabled_list}.
 You do NOT have access to these tools and MUST NOT claim you can use them.
 If the user asks about a capability provided by a disabled tool, let them know the relevant tool
 is currently disabled and they can re-enable it from the tools menu (wrench icon) in the composer toolbar.
@@ -450,10 +450,10 @@ is currently disabled and they can re-enable it from the tools menu (wrench icon
 
 
 # Backward-compatible constant: all tools included (private memory variant)
-SURFSENSE_TOOLS_INSTRUCTIONS = _get_tools_instructions()
+NFD_TOOLS_INSTRUCTIONS = _get_tools_instructions()
 
 
-SURFSENSE_CITATION_INSTRUCTIONS = """
+NFD_CITATION_INSTRUCTIONS = """
 <citation_instructions>
 CRITICAL CITATION REQUIREMENTS:
 
@@ -523,12 +523,12 @@ Do NOT cite document_id. Always use the chunk id.
 <citation_examples>
 CORRECT citation formats:
 - [citation:5] (numeric chunk ID from knowledge base)
-- [citation:doc-123] (for Surfsense documentation chunks)
+- [citation:doc-123] (for NFD documentation chunks)
 - [citation:https://example.com/article] (URL chunk ID from web search results)
 - [citation:chunk_id1], [citation:chunk_id2], [citation:chunk_id3] (multiple citations)
 
 INCORRECT citation formats (DO NOT use):
-- Using parentheses and markdown links: ([citation:5](https://github.com/MODSetter/SurfSense))
+- Using parentheses and markdown links: ([citation:5](https://github.com/MODSetter/NFD))
 - Using parentheses around brackets: ([citation:5])
 - Using hyperlinked text: [link to source 5](https://example.com)
 - Using footnote style: ... library¹
@@ -549,7 +549,7 @@ However, from your video learning, it's important to note that asyncio is not su
 
 # Anti-citation prompt - used when citations are disabled
 # This explicitly tells the model NOT to include citations
-SURFSENSE_NO_CITATION_INSTRUCTIONS = """
+NFD_NO_CITATION_INSTRUCTIONS = """
 <citation_instructions>
 IMPORTANT: Citations are DISABLED for this configuration.
 
@@ -569,14 +569,14 @@ Your goal is to provide helpful, informative answers in a clean, readable format
 """
 
 
-def build_surfsense_system_prompt(
+def build_nfd_system_prompt(
     today: datetime | None = None,
     thread_visibility: ChatVisibility | None = None,
     enabled_tool_names: set[str] | None = None,
     disabled_tool_names: set[str] | None = None,
 ) -> str:
     """
-    Build the SurfSense system prompt with default settings.
+    Build the NFD system prompt with default settings.
 
     This is a convenience function that builds the prompt with:
     - Default system instructions
@@ -600,7 +600,7 @@ def build_surfsense_system_prompt(
     tools_instructions = _get_tools_instructions(
         visibility, enabled_tool_names, disabled_tool_names
     )
-    citation_instructions = SURFSENSE_CITATION_INSTRUCTIONS
+    citation_instructions = NFD_CITATION_INSTRUCTIONS
     return (
         system_instructions
         + tools_instructions
@@ -618,18 +618,18 @@ def build_configurable_system_prompt(
     disabled_tool_names: set[str] | None = None,
 ) -> str:
     """
-    Build a configurable SurfSense system prompt based on NewLLMConfig settings.
+    Build a configurable NFD system prompt based on NewLLMConfig settings.
 
     The prompt is composed of up to four parts:
-    1. System Instructions - either custom or default SURFSENSE_SYSTEM_INSTRUCTIONS
+    1. System Instructions - either custom or default NFD_SYSTEM_INSTRUCTIONS
     2. Tools Instructions - only for enabled tools, with a note about disabled ones
-    3. Citation Instructions - either SURFSENSE_CITATION_INSTRUCTIONS or SURFSENSE_NO_CITATION_INSTRUCTIONS
+    3. Citation Instructions - either NFD_CITATION_INSTRUCTIONS or NFD_NO_CITATION_INSTRUCTIONS
     4. Sandbox Execution Instructions - when sandbox_enabled=True
 
     Args:
         custom_system_instructions: Custom system instructions to use. If empty/None and
                                    use_default_system_instructions is True, defaults to
-                                   SURFSENSE_SYSTEM_INSTRUCTIONS.
+                                   NFD_SYSTEM_INSTRUCTIONS.
         use_default_system_instructions: Whether to use default instructions when
                                         custom_system_instructions is empty/None.
         citations_enabled: Whether to include citation instructions (True) or
@@ -663,9 +663,9 @@ def build_configurable_system_prompt(
 
     # Citation instructions based on toggle
     citation_instructions = (
-        SURFSENSE_CITATION_INSTRUCTIONS
+        NFD_CITATION_INSTRUCTIONS
         if citations_enabled
-        else SURFSENSE_NO_CITATION_INSTRUCTIONS
+        else NFD_NO_CITATION_INSTRUCTIONS
     )
 
     return (
@@ -685,7 +685,7 @@ def get_default_system_instructions() -> str:
     Returns:
         Default system instructions string (with {resolved_today} placeholder)
     """
-    return SURFSENSE_SYSTEM_INSTRUCTIONS.strip()
+    return NFD_SYSTEM_INSTRUCTIONS.strip()
 
 
-SURFSENSE_SYSTEM_PROMPT = build_surfsense_system_prompt()
+NFD_SYSTEM_PROMPT = build_nfd_system_prompt()

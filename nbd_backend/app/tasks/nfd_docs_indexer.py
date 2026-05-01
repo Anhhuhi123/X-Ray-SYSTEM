@@ -1,5 +1,5 @@
 """
-Surfsense documentation indexer.
+NFD documentation indexer.
 Indexes MDX documentation files at startup.
 """
 
@@ -14,7 +14,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import selectinload
 
 from app.config import config
-from app.db import SurfsenseDocsChunk, SurfsenseDocsDocument, async_session_maker
+from app.db import NFDDocsChunks, NFDDocsDocument, async_session_maker
 from app.utils.document_converters import embed_text
 
 logger = logging.getLogger(__name__)
@@ -72,23 +72,23 @@ def get_all_mdx_files() -> list[Path]:
     return list(DOCS_DIR.rglob("*.mdx"))
 
 
-def generate_surfsense_docs_content_hash(content: str) -> str:
-    """Generate SHA-256 hash for Surfsense docs content."""
+def generate_nfd_docs_content_hash(content: str) -> str:
+    """Generate SHA-256 hash for NFD docs content."""
     return hashlib.sha256(content.encode("utf-8")).hexdigest()
 
 
-def create_surfsense_docs_chunks(content: str) -> list[SurfsenseDocsChunk]:
+def create_nfd_docs_chunks(content: str) -> list[NFDDocsChunks]:
     """
-    Create chunks from Surfsense documentation content.
+    Create chunks from NFD documentation content.
 
     Args:
         content: Document content to chunk
 
     Returns:
-        List of SurfsenseDocsChunk objects with embeddings
+        List of NFDDocsChunks objects with embeddings
     """
     return [
-        SurfsenseDocsChunk(
+        NFDDocsChunks(
             content=chunk.text,
             embedding=embed_text(chunk.text),
         )
@@ -96,9 +96,9 @@ def create_surfsense_docs_chunks(content: str) -> list[SurfsenseDocsChunk]:
     ]
 
 
-async def index_surfsense_docs(session: AsyncSession) -> tuple[int, int, int, int]:
+async def index_nfd_docs(session: AsyncSession) -> tuple[int, int, int, int]:
     """
-    Index all Surfsense documentation files.
+    Index all NFD documentation files.
 
     Args:
         session: SQLAlchemy async session
@@ -113,8 +113,8 @@ async def index_surfsense_docs(session: AsyncSession) -> tuple[int, int, int, in
 
     # Get all existing docs from database
     existing_docs_result = await session.execute(
-        select(SurfsenseDocsDocument).options(
-            selectinload(SurfsenseDocsDocument.chunks)
+        select(NFDDocsDocument).options(
+            selectinload(NFDDocsDocument.chunks)
         )
     )
     existing_docs = {doc.source: doc for doc in existing_docs_result.scalars().all()}
@@ -134,7 +134,7 @@ async def index_surfsense_docs(session: AsyncSession) -> tuple[int, int, int, in
             # Read file content
             raw_content = mdx_file.read_text(encoding="utf-8")
             title, content = parse_mdx_frontmatter(raw_content)
-            content_hash = generate_surfsense_docs_content_hash(raw_content)
+            content_hash = generate_nfd_docs_content_hash(raw_content)
 
             if source in existing_docs:
                 existing_doc = existing_docs[source]
@@ -149,7 +149,7 @@ async def index_surfsense_docs(session: AsyncSession) -> tuple[int, int, int, in
                 logger.info(f"Updating changed document: {source}")
 
                 # Create new chunks
-                chunks = create_surfsense_docs_chunks(content)
+                chunks = create_nfd_docs_chunks(content)
 
                 # Update document fields
                 existing_doc.title = title
@@ -164,9 +164,9 @@ async def index_surfsense_docs(session: AsyncSession) -> tuple[int, int, int, in
                 # New document - create it
                 logger.info(f"Creating new document: {source}")
 
-                chunks = create_surfsense_docs_chunks(content)
+                chunks = create_nfd_docs_chunks(content)
 
-                document = SurfsenseDocsDocument(
+                document = NFDDocsDocument(
                     source=source,
                     title=title,
                     content=content,
@@ -201,9 +201,9 @@ async def index_surfsense_docs(session: AsyncSession) -> tuple[int, int, int, in
     return created, updated, skipped, deleted
 
 
-async def seed_surfsense_docs() -> tuple[int, int, int, int]:
+async def seed_nfd_docs() -> tuple[int, int, int, int]:
     """
-    Seed Surfsense documentation into the database.
+    Seed NFD documentation into the database.
 
     This function indexes all MDX files from the docs directory.
     It handles creating, updating, and deleting docs based on content changes.
@@ -212,19 +212,19 @@ async def seed_surfsense_docs() -> tuple[int, int, int, int]:
         Tuple of (created, updated, skipped, deleted) counts
         Returns (0, 0, 0, 0) if an error occurs
     """
-    logger.info("Starting Surfsense docs indexing...")
+    logger.info("Starting NFD docs indexing...")
 
     try:
         async with async_session_maker() as session:
-            created, updated, skipped, deleted = await index_surfsense_docs(session)
+            created, updated, skipped, deleted = await index_nfd_docs(session)
 
         logger.info(
-            f"Surfsense docs indexing complete: "
+            f"NFD docs indexing complete: "
             f"created={created}, updated={updated}, skipped={skipped}, deleted={deleted}"
         )
 
         return created, updated, skipped, deleted
 
     except Exception as e:
-        logger.error(f"Failed to seed Surfsense docs: {e}", exc_info=True)
+        logger.error(f"Failed to seed NFD docs: {e}", exc_info=True)
         return 0, 0, 0, 0

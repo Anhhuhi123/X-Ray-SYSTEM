@@ -169,8 +169,8 @@ class NewChatRequest(BaseModel):
     mentioned_document_ids: list[int] | None = (
         None  # Optional document IDs mentioned with @ in the chat
     )
-    mentioned_surfsense_doc_ids: list[int] | None = (
-        None  # Optional SurfSense documentation IDs mentioned with @ in the chat
+    mentioned_nfd_doc_ids: list[int] | None = (
+        None  # Optional NFD documentation IDs mentioned with @ in the chat
     )
     disabled_tools: list[str] | None = (
         None  # Optional list of tool names the user has disabled from the UI
@@ -193,7 +193,7 @@ class RegenerateRequest(BaseModel):
         None  # New user query (for edit). None = reload with same query
     )
     mentioned_document_ids: list[int] | None = None
-    mentioned_surfsense_doc_ids: list[int] | None = None
+    mentioned_nfd_doc_ids: list[int] | None = None
     disabled_tools: list[str] | None = None
 
 

@@ -65,7 +65,7 @@ import { getDocumentTypeIcon, getDocumentTypeLabel } from "./DocumentTypeIcon";
 import type { Document, DocumentStatus } from "./types";
 
 const EDITABLE_DOCUMENT_TYPES = ["FILE", "NOTE"] as const;
-const NON_DELETABLE_DOCUMENT_TYPES = ["SURFSENSE_DOCS"] as const;
+const NON_DELETABLE_DOCUMENT_TYPES = ["NFD_DOCS"] as const;
 
 function StatusIndicator({ status }: { status?: DocumentStatus }) {
 	const state = status?.state ?? "ready";

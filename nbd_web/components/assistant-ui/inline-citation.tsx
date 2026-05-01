@@ -22,8 +22,8 @@ export const InlineCitation: FC<InlineCitationProps> = ({ chunkId, isDocsChunk =
 			open={isOpen}
 			onOpenChange={setIsOpen}
 			chunkId={chunkId}
-			sourceType={isDocsChunk ? "SURFSENSE_DOCS" : ""}
-			title={isDocsChunk ? "Surfsense Documentation" : "Source"}
+			sourceType={isDocsChunk ? "NFD_DOCS" : ""}
+			title={isDocsChunk ? "NFD Documentation" : "Source"}
 			description=""
 			url=""
 			isDocsChunk={isDocsChunk}

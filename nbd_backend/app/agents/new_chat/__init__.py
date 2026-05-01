@@ -1,7 +1,7 @@
 """
-SurfSense New Chat Agent Module.
+NFD New Chat Agent Module.
 
-This module provides the SurfSense deep agent with configurable tools
+This module provides the NFD deep agent with configurable tools
 for knowledge base search and more.
 
 Directory Structure:
@@ -15,19 +15,19 @@ Directory Structure:
 """
 
 # Agent factory
-from .chat_deepagent import create_surfsense_deep_agent
+from .chat_deepagent import create_nfd_deep_agent
 
 # Context
-from .context import SurfSenseContextSchema
+from .context import NFDContextSchema
 
 # LLM config
 from .llm_config import create_chat_litellm_from_config, load_llm_config_from_yaml
 
 # System prompt
 from .system_prompt import (
-    SURFSENSE_CITATION_INSTRUCTIONS,
-    SURFSENSE_SYSTEM_PROMPT,
-    build_surfsense_system_prompt,
+    NFD_CITATION_INSTRUCTIONS,
+    NFD_SYSTEM_PROMPT,
+    build_nfd_system_prompt,
 )
 
 # Tools - registry exports
@@ -51,12 +51,12 @@ __all__ = [
     # Tools registry
     "BUILTIN_TOOLS",
     # System prompt
-    "SURFSENSE_CITATION_INSTRUCTIONS",
-    "SURFSENSE_SYSTEM_PROMPT",
+    "NFD_CITATION_INSTRUCTIONS",
+    "NFD_SYSTEM_PROMPT",
     # Context
-    "SurfSenseContextSchema",
+    "NFDContextSchema",
     "ToolDefinition",
-    "build_surfsense_system_prompt",
+    "build_nfd_system_prompt",
     "build_tools",
     # LLM config
     "create_chat_litellm_from_config",
@@ -65,7 +65,7 @@ __all__ = [
     "create_scrape_webpage_tool",
     "create_search_knowledge_base_tool",
     # Agent factory
-    "create_surfsense_deep_agent",
+    "create_nfd_deep_agent",
     # Knowledge base utilities
     "format_documents_for_context",
     "get_all_tool_names",

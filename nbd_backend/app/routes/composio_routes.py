@@ -145,7 +145,7 @@ async def initiate_composio_auth(
         # Initiate Composio OAuth
         service = ComposioService()
         # Use user.id as the entity ID in Composio (converted to string for Composio)
-        entity_id = f"surfsense_{user.id}"
+        entity_id = f"nfd_{user.id}"
 
         connection_result = await service.initiate_connection(
             user_id=entity_id,
@@ -266,7 +266,7 @@ async def composio_callback(
             )
 
         # Build entity_id for Composio API calls (same format as used in initiate)
-        entity_id = f"surfsense_{user_id}"
+        entity_id = f"nfd_{user_id}"
 
         # Build connector config
         connector_config = {
@@ -487,7 +487,7 @@ async def list_composio_drive_folders(
 
         # Initialize Composio service and fetch files
         service = ComposioService()
-        entity_id = f"surfsense_{user.id}"
+        entity_id = f"nfd_{user.id}"
 
         # Fetch files/folders from Composio Google Drive
         files, _next_token, error = await service.get_drive_files(

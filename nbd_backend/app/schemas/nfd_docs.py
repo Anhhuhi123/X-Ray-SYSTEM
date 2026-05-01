@@ -1,5 +1,5 @@
 """
-Schemas for Surfsense documentation.
+Schemas for NFD documentation.
 """
 
 from datetime import datetime
@@ -7,8 +7,8 @@ from datetime import datetime
 from pydantic import BaseModel, ConfigDict
 
 
-class SurfsenseDocsChunkRead(BaseModel):
-    """Schema for a Surfsense docs chunk."""
+class NFDDocsChunkRead(BaseModel):
+    """Schema for a NFD docs chunk."""
 
     id: int
     content: str
@@ -16,8 +16,8 @@ class SurfsenseDocsChunkRead(BaseModel):
     model_config = ConfigDict(from_attributes=True)
 
 
-class SurfsenseDocsDocumentRead(BaseModel):
-    """Schema for a Surfsense docs document (without chunks)."""
+class NFDDocsDocumentRead(BaseModel):
+    """Schema for a NFD docs document (without chunks)."""
 
     id: int
     title: str
@@ -29,13 +29,13 @@ class SurfsenseDocsDocumentRead(BaseModel):
     model_config = ConfigDict(from_attributes=True)
 
 
-class SurfsenseDocsDocumentWithChunksRead(BaseModel):
-    """Schema for a Surfsense docs document with its chunks."""
+class NFDDocsDocumentWithChunksRead(BaseModel):
+    """Schema for a NFD docs document with its chunks."""
 
     id: int
     title: str
     source: str
     content: str
-    chunks: list[SurfsenseDocsChunkRead]
+    chunks: list[NFDDocsChunkRead]
 
     model_config = ConfigDict(from_attributes=True)

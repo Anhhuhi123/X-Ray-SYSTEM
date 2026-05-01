@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # =============================================================================
-# SurfSense — One-line Install Script
+# NFD — One-line Install Script
 #
 #
 # Usage: curl -fsSL https://raw.githubusercontent.com/MODSetter/SurfSense/main/docker/scripts/install.sh | bash
@@ -10,7 +10,7 @@
 #   --watchtower-interval=SECS   Check interval in seconds (default: 86400 = 24h)
 #
 # Handles two cases automatically:
-#   1. Fresh install        — no prior SurfSense data detected
+#   1. Fresh install        — no prior NFD data detected
 #   2. Migration from the legacy all-in-one container (surfsense-data volume)
 #      Downloads and runs migrate-database.sh --yes, then restores the dump
 #      into the new PostgreSQL 17 stack. The user runs one command for both.
@@ -51,10 +51,10 @@ RED='\033[0;31m'
 BOLD='\033[1m'
 NC='\033[0m'
 
-info()    { printf "${CYAN}[SurfSense]${NC} %s\n"        "$1"; }
-success() { printf "${GREEN}[SurfSense]${NC} %s\n"       "$1"; }
-warn()    { printf "${YELLOW}[SurfSense]${NC} %s\n"      "$1"; }
-error()   { printf "${RED}[SurfSense]${NC} ERROR: %s\n"  "$1" >&2; exit 1; }
+info()    { printf "${CYAN}[NFD]${NC} %s\n"        "$1"; }
+success() { printf "${GREEN}[NFD]${NC} %s\n"       "$1"; }
+warn()    { printf "${YELLOW}[NFD]${NC} %s\n"      "$1"; }
+error()   { printf "${RED}[NFD]${NC} ERROR: %s\n"  "$1" >&2; exit 1; }
 step()    { printf "\n${BOLD}${CYAN}── %s${NC}\n"        "$1"; }
 
 # ── Pre-flight checks ────────────────────────────────────────────────────────
@@ -99,7 +99,7 @@ wait_for_pg() {
 
 # ── Download files ───────────────────────────────────────────────────────────
 
-step "Downloading SurfSense files"
+step "Downloading NFD files"
 info "Installation directory: ${INSTALL_DIR}"
 mkdir -p "${INSTALL_DIR}/scripts"
 
@@ -190,9 +190,9 @@ if $MIGRATION_MODE; then
     DB_USER=$(grep '^DB_USER=' "${INSTALL_DIR}/.env" 2>/dev/null | cut -d= -f2 | tr -d '"' | head -1 || true)
     DB_PASS=$(grep '^DB_PASSWORD=' "${INSTALL_DIR}/.env" 2>/dev/null | cut -d= -f2 | tr -d '"' | head -1 || true)
     DB_NAME=$(grep '^DB_NAME=' "${INSTALL_DIR}/.env" 2>/dev/null | cut -d= -f2 | tr -d '"' | head -1 || true)
-    DB_USER="${DB_USER:-surfsense}"
-    DB_PASS="${DB_PASS:-surfsense}"
-    DB_NAME="${DB_NAME:-surfsense}"
+    DB_USER="${DB_USER:-nfd}"
+    DB_PASS="${DB_PASS:-nfd}"
+    DB_NAME="${DB_NAME:-nfd}"
 
     step "Starting PostgreSQL 17"
     (cd "${INSTALL_DIR}" && ${DC} up -d db) < /dev/null
@@ -218,7 +218,7 @@ if $MIGRATION_MODE; then
     if [[ -n "${FATAL_ERRORS}" ]]; then
         warn "Restore completed with errors (may be harmless pg_dump header noise):"
         printf "%s\n" "${FATAL_ERRORS}"
-        warn "If SurfSense behaves incorrectly, inspect manually:"
+        warn "If NFD behaves incorrectly, inspect manually:"
         warn "  cd ${INSTALL_DIR} && ${DC} exec db psql -U ${DB_USER} -d ${DB_NAME} < ${DUMP_FILE}"
     else
         success "Database restored with no fatal errors."
@@ -240,7 +240,7 @@ if $MIGRATION_MODE; then
         touch "${MIGRATION_DONE_FILE}"
     fi
 
-    step "Starting all SurfSense services"
+    step "Starting all NFD services"
     (cd "${INSTALL_DIR}" && ${DC} up -d) < /dev/null
     success "All services started."
 
@@ -248,7 +248,7 @@ if $MIGRATION_MODE; then
     rm -f "${KEY_FILE}"
 
 else
-    step "Starting SurfSense"
+    step "Starting NFD"
     (cd "${INSTALL_DIR}" && ${DC} up -d) < /dev/null
     success "All services started."
 fi
@@ -274,7 +274,7 @@ if $SETUP_WATCHTOWER; then
             nickfedor/watchtower \
             --label-enable \
             --interval "${WATCHTOWER_INTERVAL}" >/dev/null 2>&1 < /dev/null \
-            && success "Watchtower started — labeled SurfSense containers will auto-update." \
+            && success "Watchtower started — labeled NFD containers will auto-update." \
             || warn "Could not start Watchtower. You can set it up manually or use: docker compose pull && docker compose up -d"
     fi
 else

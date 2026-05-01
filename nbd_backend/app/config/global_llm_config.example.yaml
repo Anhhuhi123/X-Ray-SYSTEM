@@ -59,7 +59,7 @@ global_llm_configs:
       temperature: 0.7
       max_tokens: 4000
     # Prompt Configuration
-    system_instructions: ""  # Empty = use default SURFSENSE_SYSTEM_INSTRUCTIONS
+    system_instructions: ""  # Empty = use default NFD_SYSTEM_INSTRUCTIONS
     use_default_system_instructions: true
     citations_enabled: true
 
@@ -113,7 +113,7 @@ global_llm_configs:
     # Custom system instructions for Chinese responses
     system_instructions: |
       <system_instruction>
-      You are SurfSense, a reasoning and acting AI agent designed to answer user questions using the user's personal knowledge base.
+      You are NFD, a reasoning and acting AI agent designed to answer user questions using the user's personal knowledge base.
       
       Today's date (UTC): {resolved_today}
       
@@ -252,7 +252,7 @@ global_image_generation_configs:
 # - IDs should be unique and sequential (e.g., -1, -2, -3, etc.)
 # - The 'api_key' field will not be exposed to users via API
 # - system_instructions: Custom prompt or empty string to use defaults
-# - use_default_system_instructions: true = use SURFSENSE_SYSTEM_INSTRUCTIONS when system_instructions is empty
+# - use_default_system_instructions: true = use NFD_SYSTEM_INSTRUCTIONS when system_instructions is empty
 # - citations_enabled: true = include citation instructions, false = include anti-citation instructions
 # - All standard LiteLLM providers are supported
 # - rpm/tpm: Optional rate limits for load balancing (requests/tokens per minute)

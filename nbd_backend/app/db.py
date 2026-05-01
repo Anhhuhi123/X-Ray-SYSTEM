@@ -961,13 +961,13 @@ class DocumentSection(BaseModel, TimestampMixin):
     )
 
 
-class SurfsenseDocsDocument(BaseModel, TimestampMixin):
+class NFDDocsDocument(BaseModel, TimestampMixin):
     """
-    Surfsense documentation storage.
+    NFD documentation storage.
     Indexed at migration time from MDX files.
     """
 
-    __tablename__ = "surfsense_docs_documents"
+    __tablename__ = "nfd_docs_documents"
 
     source = Column(
         String, nullable=False, unique=True, index=True
@@ -979,30 +979,26 @@ class SurfsenseDocsDocument(BaseModel, TimestampMixin):
     updated_at = Column(TIMESTAMP(timezone=True), nullable=True, index=True)
 
     chunks = relationship(
-        "SurfsenseDocsChunk",
+        "NFDDocsChunks",
         back_populates="document",
         cascade="all, delete-orphan",
     )
 
 
-class SurfsenseDocsChunk(BaseModel, TimestampMixin):
-    """Chunk storage for Surfsense documentation."""
+class NFDDocsChunks(BaseModel, TimestampMixin):
+    """Chunk storage for NFD documentation."""
 
-    __tablename__ = "surfsense_docs_chunks"
+    __tablename__ = "nfd_docs_chunks"
 
     content = Column(Text, nullable=False)
     embedding = Column(Vector(config.embedding_model_instance.dimension))
 
     document_id = Column(
         Integer,
-        ForeignKey("surfsense_docs_documents.id", ondelete="CASCADE"),
+        ForeignKey("nfd_docs_documents.id", ondelete="CASCADE"),
         nullable=False,
     )
-    document = relationship("SurfsenseDocsDocument", back_populates="chunks")
-
-
-
-
+    document = relationship("NFDDocsDocument", back_populates="chunks")
 
 class Report(BaseModel, TimestampMixin):
     """Report model for storing generated Markdown reports."""
@@ -1194,7 +1190,7 @@ class NewLLMConfig(BaseModel, TimestampMixin):
 
     This table provides:
     - LLM model configuration (provider, model_name, api_key, etc.)
-    - Configurable system instructions (defaults to SURFSENSE_SYSTEM_INSTRUCTIONS)
+    - Configurable system instructions (defaults to NFD_SYSTEM_INSTRUCTIONS)
     - Citation toggle (enable/disable citation instructions)
 
     Note: Tools instructions are built by get_tools_instructions(thread_visibility) (personal vs shared memory).
@@ -1219,17 +1215,17 @@ class NewLLMConfig(BaseModel, TimestampMixin):
     litellm_params = Column(JSON, nullable=True, default={})
 
     # === Prompt Configuration ===
-    # Configurable system instructions (defaults to SURFSENSE_SYSTEM_INSTRUCTIONS)
+    # Configurable system instructions (defaults to NFD_SYSTEM_INSTRUCTIONS)
     # Users can customize this from the UI
     system_instructions = Column(
         Text,
         nullable=False,
-        default="",  # Empty string means use default SURFSENSE_SYSTEM_INSTRUCTIONS
+        default="",  # Empty string means use default NFD_SYSTEM_INSTRUCTIONS
     )
     # Whether to use the default system instructions when system_instructions is empty
     use_default_system_instructions = Column(Boolean, nullable=False, default=True)
 
-    # Citation toggle - when enabled, SURFSENSE_CITATION_INSTRUCTIONS is injected
+    # Citation toggle - when enabled, NFD_CITATION_INSTRUCTIONS is injected
     # When disabled, an anti-citation prompt is injected instead
     citations_enabled = Column(Boolean, nullable=False, default=True)
 
@@ -1727,7 +1723,7 @@ async def setup_indexes():
         )
         await conn.execute(
             text(
-                "CREATE INDEX IF NOT EXISTS idx_surfsense_docs_title_trgm ON surfsense_docs_documents USING gin (title gin_trgm_ops)"
+                "CREATE INDEX IF NOT EXISTS idx_nfd_docs_title_trgm ON nfd_docs_documents USING gin (title gin_trgm_ops)"
             )
         )
 

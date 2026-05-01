@@ -1,5 +1,5 @@
 """
-Knowledge base search tool for the SurfSense agent.
+Knowledge base search tool for the NFD agent.
 
 This module provides:
 - Connector constants and normalization
@@ -195,17 +195,17 @@ _ALL_CONNECTORS: list[str] = [
 # Human-readable descriptions for each connector type
 # Used for generating dynamic docstrings and informing the LLM
 CONNECTOR_DESCRIPTIONS: dict[str, str] = {
-    "EXTENSION": "Web content saved via SurfSense browser extension (personal browsing history)",
+    "EXTENSION": "Web content saved via NFD browser extension (personal browsing history)",
     "FILE": "User-uploaded documents (PDFs, Word, etc.) (personal files)",
-    "NOTE": "SurfSense Notes (notes created inside SurfSense)",
+    "NOTE": "NFD Notes (notes created inside NFD)",
     "YOUTUBE_VIDEO": "YouTube video transcripts and metadata (personally saved videos)",
     "GOOGLE_DRIVE_FILE": "Google Drive files and documents (personal cloud storage)",
     "TAVILY_API": "Tavily web search API results (real-time web search)",
     "SEARXNG_API": "SearxNG search API results (privacy-focused web search)",
     "LINKUP_API": "Linkup search API results (web search)",
     "BAIDU_SEARCH_API": "Baidu search API results (Chinese web search)",
-    "WEBCRAWLER_CONNECTOR": "Webpages indexed by SurfSense (personally selected websites)",
-    "CRAWLED_URL": "Webpages indexed by SurfSense (personally selected websites)",
+    "WEBCRAWLER_CONNECTOR": "Webpages indexed by NFD (personally selected websites)",
+    "CRAWLED_URL": "Webpages indexed by NFD (personally selected websites)",
     "CIRCLEBACK": "Circleback meeting notes, transcripts, and action items",
     "OBSIDIAN_CONNECTOR": "Obsidian vault notes and markdown files (personal notes)",
     # Composio connectors

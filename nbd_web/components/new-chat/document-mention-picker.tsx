@@ -125,7 +125,7 @@ export const DocumentMentionPicker = forwardRef<
 		[searchSpaceId, debouncedSearch, isSearchValid]
 	);
 
-	const surfsenseDocsQueryParams = useMemo(() => {
+	const nfdDocsQueryParams = useMemo(() => {
 		const params: { page: number; page_size: number; title?: string } = {
 			page: 0,
 			page_size: PAGE_SIZE,
@@ -152,14 +152,14 @@ export const DocumentMentionPicker = forwardRef<
 	});
 
 	/**
-	 * TanStack Query for SurfSense documentation.
+	 * TanStack Query for NFD documentation.
 	 * - Uses AbortSignal for automatic request cancellation
 	 * - placeholderData: keepPreviousData prevents UI flicker during refetches
 	 */
-	const { data: surfsenseDocs, isLoading: isSurfsenseDocsLoading } = useQuery({
-		queryKey: ["surfsense-docs-mention", debouncedSearch, isSearchValid],
+	const { data: nfdDocs, isLoading: isNfdDocsLoading } = useQuery({
+		queryKey: ["nfd-docs-mention", debouncedSearch, isSearchValid],
 		queryFn: ({ signal }) =>
-			documentsApiService.getSurfsenseDocs({ queryParams: surfsenseDocsQueryParams }, signal),
+			documentsApiService.getNFDDocs({ queryParams: nfdDocsQueryParams }, signal),
 		staleTime: 3 * 60 * 1000,
 		enabled: !shouldSearch || isSearchValid,
 		placeholderData: keepPreviousData,
@@ -180,13 +180,13 @@ export const DocumentMentionPicker = forwardRef<
 		if (currentPage === 0) {
 			const combinedDocs: Pick<Document, "id" | "title" | "document_type">[] = [];
 
-			// SurfSense docs displayed first in the list
-			if (surfsenseDocs?.items) {
-				for (const doc of surfsenseDocs.items) {
+			// NFD docs displayed first in the list
+			if (nfdDocs?.items) {
+				for (const doc of nfdDocs.items) {
 					combinedDocs.push({
 						id: doc.id,
 						title: doc.title,
-						document_type: "SURFSENSE_DOCS",
+						document_type: "NFD_DOCS",
 					});
 				}
 			}
@@ -198,7 +198,7 @@ export const DocumentMentionPicker = forwardRef<
 
 			setAccumulatedDocuments(filterBySearchTerm(combinedDocs));
 		}
-	}, [titleSearchResults, surfsenseDocs, currentPage, filterBySearchTerm]);
+	}, [titleSearchResults, nfdDocs, currentPage, filterBySearchTerm]);
 
 	// Load next page for infinite scroll pagination
 	const loadNextPage = useCallback(async () => {
@@ -256,17 +256,17 @@ export const DocumentMentionPicker = forwardRef<
 	const actualDocuments = isSingleCharSearch ? (clientFilteredDocs ?? []) : accumulatedDocuments;
 	// Only show loading spinner on initial load (no documents yet), not during subsequent searches
 	const actualLoading =
-		(isTitleSearchLoading || isSurfsenseDocsLoading) &&
+		(isTitleSearchLoading || isNfdDocsLoading) &&
 		currentPage === 0 &&
 		!isSingleCharSearch &&
 		accumulatedDocuments.length === 0;
 	// Partition documents by type for grouped UI rendering
-	const surfsenseDocsList = useMemo(
-		() => actualDocuments.filter((doc) => doc.document_type === "SURFSENSE_DOCS"),
+	const nfdDocsList = useMemo(
+		() => actualDocuments.filter((doc) => doc.document_type === "NFD_DOCS"),
 		[actualDocuments]
 	);
 	const userDocsList = useMemo(
-		() => actualDocuments.filter((doc) => doc.document_type !== "SURFSENSE_DOCS"),
+		() => actualDocuments.filter((doc) => doc.document_type !== "NFD_DOCS"),
 		[actualDocuments]
 	);
 
@@ -435,13 +435,13 @@ export const DocumentMentionPicker = forwardRef<
 					</div>
 				) : actualDocuments.length > 0 ? (
 					<div className="py-1 px-2">
-						{/* SurfSense Documentation */}
-						{surfsenseDocsList.length > 0 && (
+						{/* NFD Documentation */}
+						{nfdDocsList.length > 0 && (
 							<>
 								<div className="px-3 py-2 text-xs font-bold text-muted-foreground/55">
-									SurfSense Docs
+									NFD Docs
 								</div>
-								{surfsenseDocsList.map((doc) => {
+								{nfdDocsList.map((doc) => {
 									const docKey = `${doc.document_type}:${doc.id}`;
 									const isAlreadySelected = selectedKeys.has(docKey);
 									const selectableIndex = selectableDocuments.findIndex(
@@ -486,7 +486,7 @@ export const DocumentMentionPicker = forwardRef<
 						{/* User Documents */}
 						{userDocsList.length > 0 && (
 							<>
-								{surfsenseDocsList.length > 0 && (
+								{nfdDocsList.length > 0 && (
 									<div className="mx-2 my-4 border-t border-border dark:border-white/5" />
 								)}
 								<div className="px-3 py-2 text-xs font-bold text-muted-foreground/55">

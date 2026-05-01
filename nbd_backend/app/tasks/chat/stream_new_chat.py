@@ -1,5 +1,5 @@
 """
-Streaming task for the new SurfSense deep agent chat.
+Streaming task for the new NFD deep agent chat.
 
 This module streams responses from the deep agent using the Vercel AI SDK
 Data Stream Protocol (SSE format).
@@ -27,7 +27,7 @@ from sqlalchemy import func
 from sqlalchemy.future import select
 from sqlalchemy.orm import selectinload
 
-from app.agents.new_chat.chat_deepagent import create_surfsense_deep_agent
+from app.agents.new_chat.chat_deepagent import create_nfd_deep_agent
 from app.agents.new_chat.checkpointer import get_checkpointer
 from app.agents.new_chat.llm_config import (
     AgentConfig,
@@ -41,9 +41,9 @@ from app.db import (
     Document,
     NewChatMessage,
     NewChatThread,
+    NFDDocsDocument,
     Report,
     SearchSourceConnectorType,
-    SurfsenseDocsDocument,
     async_session_maker,
     shielded_async_session,
 )
@@ -130,17 +130,17 @@ def format_mentioned_documents_as_context(documents: list[Document]) -> str:
     return "\n".join(context_parts)
 
 
-def format_mentioned_surfsense_docs_as_context(
-    documents: list[SurfsenseDocsDocument],
+def format_mentioned_nfd_docs_as_context(
+    documents: list[NFDDocsDocument],
 ) -> str:
-    """Format mentioned SurfSense documentation as context for the agent."""
+    """Format mentioned NFD documentation as context for the agent."""
     if not documents:
         return ""
 
-    context_parts = ["<mentioned_surfsense_docs>"]
+    context_parts = ["<mentioned_nfd_docs>"]
     context_parts.append(
-        "The user has explicitly mentioned the following SurfSense documentation pages. "
-        "These are official documentation about how to use SurfSense and should be used to answer questions about the application. "
+        "The user has explicitly mentioned the following NFD documentation pages. "
+        "These are official documentation about how to use NFD and should be used to answer questions about the application. "
         "Use [citation:CHUNK_ID] format for citations (e.g., [citation:doc-123])."
     )
 
@@ -150,7 +150,7 @@ def format_mentioned_surfsense_docs_as_context(
         context_parts.append("<document>")
         context_parts.append("<document_metadata>")
         context_parts.append(f"  <document_id>doc-{doc.id}</document_id>")
-        context_parts.append("  <document_type>SURFSENSE_DOCS</document_type>")
+        context_parts.append("  <document_type>NFD_DOCS</document_type>")
         context_parts.append(f"  <title><![CDATA[{doc.title}]]></title>")
         context_parts.append(f"  <url><![CDATA[{doc.source}]]></url>")
         context_parts.append(
@@ -174,7 +174,7 @@ def format_mentioned_surfsense_docs_as_context(
         context_parts.append("</document>")
         context_parts.append("")
 
-    context_parts.append("</mentioned_surfsense_docs>")
+    context_parts.append("</mentioned_nfd_docs>")
 
     return "\n".join(context_parts)
 
@@ -832,7 +832,7 @@ async def stream_new_chat(
     user_id: str | None = None,
     llm_config_id: int = -1,
     mentioned_document_ids: list[int] | None = None,
-    mentioned_surfsense_doc_ids: list[int] | None = None,
+    mentioned_nfd_doc_ids: list[int] | None = None,
     checkpoint_id: str | None = None,
     needs_history_bootstrap: bool = False,
     thread_visibility: ChatVisibility | None = None,
@@ -840,7 +840,7 @@ async def stream_new_chat(
     disabled_tools: list[str] | None = None,
 ) -> AsyncGenerator[str, None]:
     """
-    Stream chat responses from the new SurfSense deep agent.
+    Stream chat responses from the new NFD deep agent.
 
     This uses the Vercel AI SDK Data Stream Protocol (SSE format) for streaming.
     The chat_id is used as LangGraph's thread_id for memory/checkpointing.
@@ -856,7 +856,7 @@ async def stream_new_chat(
         llm_config_id: The LLM configuration ID (default: -1 for first global config)
         needs_history_bootstrap: If True, load message history from DB (for cloned chats)
         mentioned_document_ids: Optional list of document IDs mentioned with @ in the chat
-        mentioned_surfsense_doc_ids: Optional list of SurfSense doc IDs mentioned with @ in the chat
+        mentioned_nfd_doc_ids: Optional list of NFD doc IDs mentioned with @ in the chat
         checkpoint_id: Optional checkpoint ID to rewind/fork from (for edit/reload operations)
 
     Yields:
@@ -941,7 +941,7 @@ async def stream_new_chat(
 
         visibility = thread_visibility or ChatVisibility.PRIVATE
         _t0 = time.perf_counter()
-        agent = await create_surfsense_deep_agent(
+        agent = await create_nfd_deep_agent(
             llm=llm,
             search_space_id=search_space_id,
             db_session=session,
@@ -989,17 +989,17 @@ async def stream_new_chat(
             )
             mentioned_documents = list(result.scalars().all())
 
-        # Fetch mentioned SurfSense docs if any
-        mentioned_surfsense_docs: list[SurfsenseDocsDocument] = []
-        if mentioned_surfsense_doc_ids:
+        # Fetch mentioned NFD docs if any
+        mentioned_nfd_docs: list[NFDDocsDocument] = []
+        if mentioned_nfd_doc_ids:
             result = await session.execute(
-                select(SurfsenseDocsDocument)
-                .options(selectinload(SurfsenseDocsDocument.chunks))
+                select(NFDDocsDocument)
+                .options(selectinload(NFDDocsDocument.chunks))
                 .filter(
-                    SurfsenseDocsDocument.id.in_(mentioned_surfsense_doc_ids),
+                    NFDDocsDocument.id.in_(mentioned_nfd_doc_ids),
                 )
             )
-            mentioned_surfsense_docs = list(result.scalars().all())
+            mentioned_nfd_docs = list(result.scalars().all())
 
         # Fetch the most recent report(s) in this thread so the LLM can
         # easily find report_id for versioning decisions, instead of
@@ -1015,7 +1015,7 @@ async def stream_new_chat(
         )
         recent_reports = list(recent_reports_result.scalars().all())
 
-        # Format the user query with context (mentioned documents + SurfSense docs)
+        # Format the user query with context (mentioned documents + NFD docs)
         final_query = user_query
         context_parts = []
 
@@ -1024,9 +1024,9 @@ async def stream_new_chat(
                 format_mentioned_documents_as_context(mentioned_documents)
             )
 
-        if mentioned_surfsense_docs:
+        if mentioned_nfd_docs:
             context_parts.append(
-                format_mentioned_surfsense_docs_as_context(mentioned_surfsense_docs)
+                format_mentioned_nfd_docs_as_context(mentioned_nfd_docs)
             )
 
         # Surface report IDs prominently so the LLM doesn't have to
@@ -1115,7 +1115,7 @@ async def stream_new_chat(
         yield streaming_service.format_start_step()
 
         # Initial thinking step - analyzing the request
-        if mentioned_documents or mentioned_surfsense_docs:
+        if mentioned_documents or mentioned_nfd_docs:
             initial_title = "Analyzing referenced content"
             action_verb = "Analyzing"
         else:
@@ -1138,9 +1138,9 @@ async def stream_new_chat(
             else:
                 processing_parts.append(f"[{len(doc_names)} documents]")
 
-        if mentioned_surfsense_docs:
+        if mentioned_nfd_docs:
             doc_names = []
-            for doc in mentioned_surfsense_docs:
+            for doc in mentioned_nfd_docs:
                 title = doc.title
                 if len(title) > 30:
                     title = title[:27] + "..."
@@ -1163,7 +1163,7 @@ async def stream_new_chat(
         # These ORM objects (with eagerly-loaded chunks) can be very large.
         # They're only needed to build context strings already copied into
         # final_query / langchain_messages — release them before streaming.
-        del mentioned_documents, mentioned_surfsense_docs, recent_reports
+        del mentioned_documents, mentioned_nfd_docs, recent_reports
         del langchain_messages, final_query
 
         # Check if this is the first assistant response so we can generate
@@ -1409,7 +1409,7 @@ async def stream_resume_chat(
         visibility = thread_visibility or ChatVisibility.PRIVATE
 
         _t0 = time.perf_counter()
-        agent = await create_surfsense_deep_agent(
+        agent = await create_nfd_deep_agent(
             llm=llm,
             search_space_id=search_space_id,
             db_session=session,

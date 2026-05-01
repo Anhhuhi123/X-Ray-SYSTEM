@@ -1,11 +1,11 @@
 """
-Surfsense documentation search tool.
+NFD documentation search tool.
 
-This tool allows the agent to search the pre-indexed Surfsense documentation
+This tool allows the agent to search the pre-indexed NFD documentation
 to help users with questions about how to use the application.
 
 The documentation is indexed at deployment time from MDX files and stored
-in dedicated tables (surfsense_docs_documents, surfsense_docs_chunks).
+in dedicated tables (nfd_docs_documents, nfd_docs_chunks).
 """
 
 import asyncio
@@ -15,18 +15,18 @@ from langchain_core.tools import tool
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.db import SurfsenseDocsChunk, SurfsenseDocsDocument
+from app.db import NFDDocsChunks, NFDDocsDocument
 from app.utils.document_converters import embed_text
 
 
-def format_surfsense_docs_results(results: list[tuple]) -> str:
+def format_nfd_docs_results(results: list[tuple]) -> str:
     """
     Format search results into XML structure for the LLM context.
 
     Uses the same XML structure as format_documents_for_context from knowledge_base.py
     but with 'doc-' prefix on chunk IDs. This allows:
     - LLM to use consistent [citation:doc-XXX] format
-    - Frontend to detect 'doc-' prefix and route to surfsense docs endpoint
+    - Frontend to detect 'doc-' prefix and route to nfd docs endpoint
 
     Args:
         results: List of (chunk, document) tuples from the database query
@@ -35,7 +35,7 @@ def format_surfsense_docs_results(results: list[tuple]) -> str:
         Formatted XML string with documentation content and citation-ready chunks
     """
     if not results:
-        return "No relevant Surfsense documentation found for your query."
+        return "No relevant NFD documentation found for your query."
 
     # Group chunks by document
     grouped: dict[int, dict] = {}
@@ -43,7 +43,7 @@ def format_surfsense_docs_results(results: list[tuple]) -> str:
         if doc.id not in grouped:
             grouped[doc.id] = {
                 "document_id": f"doc-{doc.id}",
-                "document_type": "SURFSENSE_DOCS",
+                "document_type": "NFD_DOCS",
                 "title": doc.title,
                 "url": doc.source,
                 "metadata": {"source": doc.source},
@@ -84,16 +84,16 @@ def format_surfsense_docs_results(results: list[tuple]) -> str:
     return "\n".join(parts).strip()
 
 
-async def search_surfsense_docs_async(
+async def search_nfd_docs_async(
     query: str,
     db_session: AsyncSession,
     top_k: int = 10,
 ) -> str:
     """
-    Search Surfsense documentation using vector similarity.
+    Search NFD documentation using vector similarity.
 
     Args:
-        query: The search query about Surfsense usage
+        query: The search query about NFD usage
         db_session: Database session for executing queries
         top_k: Number of results to return
 
@@ -105,39 +105,39 @@ async def search_surfsense_docs_async(
 
     # Vector similarity search on chunks, joining with documents
     stmt = (
-        select(SurfsenseDocsChunk, SurfsenseDocsDocument)
+        select(NFDDocsChunks, NFDDocsDocument)
         .join(
-            SurfsenseDocsDocument,
-            SurfsenseDocsChunk.document_id == SurfsenseDocsDocument.id,
+            NFDDocsDocument,
+            NFDDocsChunks.document_id == NFDDocsDocument.id,
         )
-        .order_by(SurfsenseDocsChunk.embedding.op("<=>")(query_embedding))
+        .order_by(NFDDocsChunks.embedding.op("<=>")(query_embedding))
         .limit(top_k)
     )
 
     result = await db_session.execute(stmt)
     rows = result.all()
 
-    return format_surfsense_docs_results(rows)
+    return format_nfd_docs_results(rows)
 
 
-def create_search_surfsense_docs_tool(db_session: AsyncSession):
+def create_search_nfd_docs_tool(db_session: AsyncSession):
     """
-    Factory function to create the search_surfsense_docs tool.
+    Factory function to create the search_nfd_docs tool.
 
     Args:
         db_session: Database session for executing queries
 
     Returns:
-        A configured tool function for searching Surfsense documentation
+        A configured tool function for searching NFD documentation
     """
 
     @tool
-    async def search_surfsense_docs(query: str, top_k: int = 10) -> str:
+    async def search_nfd_docs(query: str, top_k: int = 10) -> str:
         """
-        Search Surfsense documentation for help with using the application.
+        Search NFD documentation for help with using the application.
 
         Use this tool when the user asks questions about:
-        - How to use Surfsense features
+        - How to use NFD features
         - Installation and setup instructions
         - Configuration options and settings
         - Troubleshooting common issues
@@ -145,20 +145,20 @@ def create_search_surfsense_docs_tool(db_session: AsyncSession):
         - Browser extension usage
         - API documentation
 
-        This searches the official Surfsense documentation that was indexed
+        This searches the official NFD documentation that was indexed
         at deployment time. It does NOT search the user's personal knowledge base.
 
         Args:
-            query: The search query about Surfsense usage or features
+            query: The search query about NFD usage or features
             top_k: Number of documentation chunks to retrieve (default: 10)
 
         Returns:
             Relevant documentation content formatted with chunk IDs for citations
         """
-        return await search_surfsense_docs_async(
+        return await search_nfd_docs_async(
             query=query,
             db_session=db_session,
             top_k=top_k,
         )
 
-    return search_surfsense_docs
+    return search_nfd_docs

@@ -1,7 +1,7 @@
 """
-Routes for Surfsense documentation.
+Routes for NFD documentation.
 
-These endpoints support the citation system for Surfsense docs,
+These endpoints support the citation system for NFD docs,
 allowing the frontend to fetch document details when a user clicks
 on a [citation:doc-XXX] link.
 """
@@ -12,16 +12,16 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import selectinload
 
 from app.db import (
-    SurfsenseDocsChunk,
-    SurfsenseDocsDocument,
+    NFDDocsChunks,
+    NFDDocsDocument,
     User,
     get_async_session,
 )
 from app.schemas import PaginatedResponse
-from app.schemas.surfsense_docs import (
-    SurfsenseDocsChunkRead,
-    SurfsenseDocsDocumentRead,
-    SurfsenseDocsDocumentWithChunksRead,
+from app.schemas.nfd_docs import (
+    NFDDocsChunkRead,
+    NFDDocsDocumentRead,
+    NFDDocsDocumentWithChunksRead,
 )
 from app.users import current_active_user
 
@@ -29,56 +29,56 @@ router = APIRouter()
 
 
 @router.get(
-    "/surfsense-docs/by-chunk/{chunk_id}",
-    response_model=SurfsenseDocsDocumentWithChunksRead,
+    "/nfd-docs/by-chunk/{chunk_id}",
+    response_model=NFDDocsDocumentWithChunksRead,
 )
-async def get_surfsense_doc_by_chunk_id(
+async def get_nfd_doc_by_chunk_id(
     chunk_id: int,
     session: AsyncSession = Depends(get_async_session),
     user: User = Depends(current_active_user),
 ):
     """
-    Retrieves a Surfsense documentation document based on a chunk ID.
+    Retrieves a NFD documentation document based on a chunk ID.
 
     This endpoint is used by the frontend to resolve [citation:doc-XXX] links.
     """
     try:
         # Get the chunk
         chunk_result = await session.execute(
-            select(SurfsenseDocsChunk).filter(SurfsenseDocsChunk.id == chunk_id)
+            select(NFDDocsChunks).filter(NFDDocsChunks.id == chunk_id)
         )
         chunk = chunk_result.scalars().first()
 
         if not chunk:
             raise HTTPException(
                 status_code=404,
-                detail=f"Surfsense docs chunk with id {chunk_id} not found",
+                detail=f"NFD docs chunk with id {chunk_id} not found",
             )
 
         # Get the associated document with all its chunks
         document_result = await session.execute(
-            select(SurfsenseDocsDocument)
-            .options(selectinload(SurfsenseDocsDocument.chunks))
-            .filter(SurfsenseDocsDocument.id == chunk.document_id)
+            select(NFDDocsDocument)
+            .options(selectinload(NFDDocsDocument.chunks))
+            .filter(NFDDocsDocument.id == chunk.document_id)
         )
         document = document_result.scalars().first()
 
         if not document:
             raise HTTPException(
                 status_code=404,
-                detail="Surfsense docs document not found",
+                detail="NFD docs document not found",
             )
 
         # Sort chunks by ID
         sorted_chunks = sorted(document.chunks, key=lambda x: x.id)
 
-        return SurfsenseDocsDocumentWithChunksRead(
+        return NFDDocsDocumentWithChunksRead(
             id=document.id,
             title=document.title,
             source=document.source,
             content=document.content,
             chunks=[
-                SurfsenseDocsChunkRead(id=c.id, content=c.content)
+                NFDDocsChunkRead(id=c.id, content=c.content)
                 for c in sorted_chunks
             ],
         )
@@ -87,15 +87,15 @@ async def get_surfsense_doc_by_chunk_id(
     except Exception as e:
         raise HTTPException(
             status_code=500,
-            detail=f"Failed to retrieve Surfsense documentation: {e!s}",
+            detail=f"Failed to retrieve NFD documentation: {e!s}",
         ) from e
 
 
 @router.get(
-    "/surfsense-docs",
-    response_model=PaginatedResponse[SurfsenseDocsDocumentRead],
+    "/nfd-docs",
+    response_model=PaginatedResponse[NFDDocsDocumentRead],
 )
-async def list_surfsense_docs(
+async def list_nfd_docs(
     page: int = 0,
     page_size: int = 50,
     title: str | None = None,
@@ -103,7 +103,7 @@ async def list_surfsense_docs(
     user: User = Depends(current_active_user),
 ):
     """
-    List all Surfsense documentation documents.
+    List all NFD documentation documents.
 
     Args:
         page: Zero-based page index.
@@ -113,18 +113,18 @@ async def list_surfsense_docs(
         user: Current authenticated user (injected).
 
     Returns:
-        PaginatedResponse[SurfsenseDocsDocumentRead]: Paginated list of Surfsense docs.
+        PaginatedResponse[NFDDocsDocumentRead]: Paginated list of NFD docs.
     """
     try:
         # Base query
-        query = select(SurfsenseDocsDocument)
-        count_query = select(func.count()).select_from(SurfsenseDocsDocument)
+        query = select(NFDDocsDocument)
+        count_query = select(func.count()).select_from(NFDDocsDocument)
 
         # Filter by title if provided
         if title and title.strip():
-            query = query.filter(SurfsenseDocsDocument.title.ilike(f"%{title}%"))
+            query = query.filter(NFDDocsDocument.title.ilike(f"%{title}%"))
             count_query = count_query.filter(
-                SurfsenseDocsDocument.title.ilike(f"%{title}%")
+                NFDDocsDocument.title.ilike(f"%{title}%")
             )
 
         # Get total count
@@ -136,13 +136,13 @@ async def list_surfsense_docs(
 
         # Get paginated results
         result = await session.execute(
-            query.order_by(SurfsenseDocsDocument.title).offset(offset).limit(page_size)
+            query.order_by(NFDDocsDocument.title).offset(offset).limit(page_size)
         )
         docs = result.scalars().all()
 
         # Convert to response format
         items = [
-            SurfsenseDocsDocumentRead(
+            NFDDocsDocumentRead(
                 id=doc.id,
                 title=doc.title,
                 source=doc.source,
@@ -165,5 +165,5 @@ async def list_surfsense_docs(
     except Exception as e:
         raise HTTPException(
             status_code=500,
-            detail=f"Failed to list Surfsense documentation: {e!s}",
+            detail=f"Failed to list NFD documentation: {e!s}",
         ) from e

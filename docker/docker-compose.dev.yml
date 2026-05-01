@@ -8,7 +8,7 @@
 # For production with prebuilt images, use docker/docker-compose.yml instead.
 # =============================================================================
 
-name: surfsense-dev
+name: nfd-dev
 
 services:
   db:
@@ -22,12 +22,12 @@ services:
     environment:
       - POSTGRES_USER=${DB_USER:-postgres}
       - POSTGRES_PASSWORD=${DB_PASSWORD:-postgres}
-      - POSTGRES_DB=${DB_NAME:-surfsense}
+      - POSTGRES_DB=${DB_NAME:-nfd}
       - ELECTRIC_DB_USER=${ELECTRIC_DB_USER:-electric}
       - ELECTRIC_DB_PASSWORD=${ELECTRIC_DB_PASSWORD:-electric_password}
     command: postgres -c config_file=/etc/postgresql/postgresql.conf
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-postgres} -d ${DB_NAME:-surfsense}"]
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-postgres} -d ${DB_NAME:-nfd}"]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -37,8 +37,8 @@ services:
     ports:
       - "${PGADMIN_PORT:-5050}:80"
     environment:
-      - PGADMIN_DEFAULT_EMAIL=${PGADMIN_DEFAULT_EMAIL:-admin@surfsense.com}
-      - PGADMIN_DEFAULT_PASSWORD=${PGADMIN_DEFAULT_PASSWORD:-surfsense}
+      - PGADMIN_DEFAULT_EMAIL=${PGADMIN_DEFAULT_EMAIL:-admin@nfd.com}
+      - PGADMIN_DEFAULT_PASSWORD=${PGADMIN_DEFAULT_PASSWORD:-nfd}
     volumes:
       - pgadmin_data:/var/lib/pgadmin
     depends_on:
@@ -67,11 +67,11 @@ services:
     env_file:
       - ../nbd_backend/.env
     environment:
-      - DATABASE_URL=${DATABASE_URL:-postgresql+asyncpg://${DB_USER:-postgres}:${DB_PASSWORD:-postgres}@${DB_HOST:-db}:${DB_PORT:-5432}/${DB_NAME:-surfsense}}
+      - DATABASE_URL=${DATABASE_URL:-postgresql+asyncpg://${DB_USER:-postgres}:${DB_PASSWORD:-postgres}@${DB_HOST:-db}:${DB_PORT:-5432}/${DB_NAME:-nfd}}
       - CELERY_BROKER_URL=${REDIS_URL:-redis://redis:6379/0}
       - CELERY_RESULT_BACKEND=${REDIS_URL:-redis://redis:6379/0}
       - REDIS_APP_URL=${REDIS_URL:-redis://redis:6379/0}
-      - CELERY_TASK_DEFAULT_QUEUE=surfsense
+      - CELERY_TASK_DEFAULT_QUEUE=nfd
       - PYTHONPATH=/app
       - UVICORN_LOOP=asyncio
       - UNSTRUCTURED_HAS_PATCHED_LOOP=1
@@ -107,11 +107,11 @@ services:
     env_file:
       - ../nbd_backend/.env
     environment:
-      - DATABASE_URL=${DATABASE_URL:-postgresql+asyncpg://${DB_USER:-postgres}:${DB_PASSWORD:-postgres}@${DB_HOST:-db}:${DB_PORT:-5432}/${DB_NAME:-surfsense}}
+      - DATABASE_URL=${DATABASE_URL:-postgresql+asyncpg://${DB_USER:-postgres}:${DB_PASSWORD:-postgres}@${DB_HOST:-db}:${DB_PORT:-5432}/${DB_NAME:-nfd}}
       - CELERY_BROKER_URL=${REDIS_URL:-redis://redis:6379/0}
       - CELERY_RESULT_BACKEND=${REDIS_URL:-redis://redis:6379/0}
       - REDIS_APP_URL=${REDIS_URL:-redis://redis:6379/0}
-      - CELERY_TASK_DEFAULT_QUEUE=surfsense
+      - CELERY_TASK_DEFAULT_QUEUE=nfd
       - PYTHONPATH=/app
       - ELECTRIC_DB_USER=${ELECTRIC_DB_USER:-electric}
       - ELECTRIC_DB_PASSWORD=${ELECTRIC_DB_PASSWORD:-electric_password}
@@ -129,10 +129,10 @@ services:
     env_file:
       - ../nbd_backend/.env
     environment:
-      - DATABASE_URL=${DATABASE_URL:-postgresql+asyncpg://${DB_USER:-postgres}:${DB_PASSWORD:-postgres}@${DB_HOST:-db}:${DB_PORT:-5432}/${DB_NAME:-surfsense}}
+      - DATABASE_URL=${DATABASE_URL:-postgresql+asyncpg://${DB_USER:-postgres}:${DB_PASSWORD:-postgres}@${DB_HOST:-db}:${DB_PORT:-5432}/${DB_NAME:-nfd}}
       - CELERY_BROKER_URL=${REDIS_URL:-redis://redis:6379/0}
       - CELERY_RESULT_BACKEND=${REDIS_URL:-redis://redis:6379/0}
-      - CELERY_TASK_DEFAULT_QUEUE=surfsense
+      - CELERY_TASK_DEFAULT_QUEUE=nfd
       - PYTHONPATH=/app
       - SERVICE_ROLE=beat
     depends_on:
@@ -166,7 +166,7 @@ services:
       db:
         condition: service_healthy
     environment:
-      - DATABASE_URL=${ELECTRIC_DATABASE_URL:-postgresql://${ELECTRIC_DB_USER:-electric}:${ELECTRIC_DB_PASSWORD:-electric_password}@${DB_HOST:-db}:${DB_PORT:-5432}/${DB_NAME:-surfsense}?sslmode=${DB_SSLMODE:-disable}}
+      - DATABASE_URL=${ELECTRIC_DATABASE_URL:-postgresql://${ELECTRIC_DB_USER:-electric}:${ELECTRIC_DB_PASSWORD:-electric_password}@${DB_HOST:-db}:${DB_PORT:-5432}/${DB_NAME:-nfd}?sslmode=${DB_SSLMODE:-disable}}
       - ELECTRIC_INSECURE=true
       - ELECTRIC_WRITE_TO_PG_MODE=direct
     restart: unless-stopped
@@ -198,10 +198,10 @@ services:
 
 volumes:
   postgres_data:
-    name: surfsense-dev-postgres
+    name: nfd-dev-postgres
   pgadmin_data:
-    name: surfsense-dev-pgadmin
+    name: nfd-dev-pgadmin
   redis_data:
-    name: surfsense-dev-redis
+    name: nfd-dev-redis
   shared_temp:
-    name: surfsense-dev-shared-temp
+    name: nfd-dev-shared-temp

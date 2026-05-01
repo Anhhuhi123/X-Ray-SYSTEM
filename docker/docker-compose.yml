@@ -7,7 +7,7 @@
 #   2. docker compose up -d
 # =============================================================================
 
-name: surfsense
+name: nfd
 
 services:
   db:
@@ -17,15 +17,15 @@ services:
       - ./postgresql.conf:/etc/postgresql/postgresql.conf:ro
       - ./scripts/init-electric-user.sh:/docker-entrypoint-initdb.d/init-electric-user.sh:ro
     environment:
-      POSTGRES_USER: ${DB_USER:-surfsense}
-      POSTGRES_PASSWORD: ${DB_PASSWORD:-surfsense}
-      POSTGRES_DB: ${DB_NAME:-surfsense}
+      POSTGRES_USER: ${DB_USER:-nfd}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-nfd}
+      POSTGRES_DB: ${DB_NAME:-nfd}
       ELECTRIC_DB_USER: ${ELECTRIC_DB_USER:-electric}
       ELECTRIC_DB_PASSWORD: ${ELECTRIC_DB_PASSWORD:-electric_password}
     command: postgres -c config_file=/etc/postgresql/postgresql.conf
     restart: unless-stopped
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-surfsense} -d ${DB_NAME:-surfsense}"]
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-nfd} -d ${DB_NAME:-nfd}"]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -51,11 +51,11 @@ services:
     env_file:
       - .env
     environment:
-      DATABASE_URL: ${DATABASE_URL:-postgresql+asyncpg://${DB_USER:-surfsense}:${DB_PASSWORD:-surfsense}@${DB_HOST:-db}:${DB_PORT:-5432}/${DB_NAME:-surfsense}}
+      DATABASE_URL: ${DATABASE_URL:-postgresql+asyncpg://${DB_USER:-nfd}:${DB_PASSWORD:-nfd}@${DB_HOST:-db}:${DB_PORT:-5432}/${DB_NAME:-nfd}}
       CELERY_BROKER_URL: ${REDIS_URL:-redis://redis:6379/0}
       CELERY_RESULT_BACKEND: ${REDIS_URL:-redis://redis:6379/0}
       REDIS_APP_URL: ${REDIS_URL:-redis://redis:6379/0}
-      CELERY_TASK_DEFAULT_QUEUE: surfsense
+      CELERY_TASK_DEFAULT_QUEUE: nfd
       PYTHONPATH: /app
       UVICORN_LOOP: asyncio
       UNSTRUCTURED_HAS_PATCHED_LOOP: "1"
@@ -90,11 +90,11 @@ services:
     env_file:
       - .env
     environment:
-      DATABASE_URL: ${DATABASE_URL:-postgresql+asyncpg://${DB_USER:-surfsense}:${DB_PASSWORD:-surfsense}@${DB_HOST:-db}:${DB_PORT:-5432}/${DB_NAME:-surfsense}}
+      DATABASE_URL: ${DATABASE_URL:-postgresql+asyncpg://${DB_USER:-nfd}:${DB_PASSWORD:-nfd}@${DB_HOST:-db}:${DB_PORT:-5432}/${DB_NAME:-nfd}}
       CELERY_BROKER_URL: ${REDIS_URL:-redis://redis:6379/0}
       CELERY_RESULT_BACKEND: ${REDIS_URL:-redis://redis:6379/0}
       REDIS_APP_URL: ${REDIS_URL:-redis://redis:6379/0}
-      CELERY_TASK_DEFAULT_QUEUE: surfsense
+      CELERY_TASK_DEFAULT_QUEUE: nfd
       PYTHONPATH: /app
       ELECTRIC_DB_USER: ${ELECTRIC_DB_USER:-electric}
       ELECTRIC_DB_PASSWORD: ${ELECTRIC_DB_PASSWORD:-electric_password}
@@ -115,10 +115,10 @@ services:
     env_file:
       - .env
     environment:
-      DATABASE_URL: ${DATABASE_URL:-postgresql+asyncpg://${DB_USER:-surfsense}:${DB_PASSWORD:-surfsense}@${DB_HOST:-db}:${DB_PORT:-5432}/${DB_NAME:-surfsense}}
+      DATABASE_URL: ${DATABASE_URL:-postgresql+asyncpg://${DB_USER:-nfd}:${DB_PASSWORD:-nfd}@${DB_HOST:-db}:${DB_PORT:-5432}/${DB_NAME:-nfd}}
       CELERY_BROKER_URL: ${REDIS_URL:-redis://redis:6379/0}
       CELERY_RESULT_BACKEND: ${REDIS_URL:-redis://redis:6379/0}
-      CELERY_TASK_DEFAULT_QUEUE: surfsense
+      CELERY_TASK_DEFAULT_QUEUE: nfd
       PYTHONPATH: /app
       SERVICE_ROLE: beat
     depends_on:
@@ -153,7 +153,7 @@ services:
     ports:
       - "${ELECTRIC_PORT:-5929}:3000"
     environment:
-      DATABASE_URL: ${ELECTRIC_DATABASE_URL:-postgresql://${ELECTRIC_DB_USER:-electric}:${ELECTRIC_DB_PASSWORD:-electric_password}@${DB_HOST:-db}:${DB_PORT:-5432}/${DB_NAME:-surfsense}?sslmode=${DB_SSLMODE:-disable}}
+      DATABASE_URL: ${ELECTRIC_DATABASE_URL:-postgresql://${ELECTRIC_DB_USER:-electric}:${ELECTRIC_DB_PASSWORD:-electric_password}@${DB_HOST:-db}:${DB_PORT:-5432}/${DB_NAME:-nfd}?sslmode=${DB_SSLMODE:-disable}}
       ELECTRIC_INSECURE: "true"
       ELECTRIC_WRITE_TO_PG_MODE: direct
     restart: unless-stopped
@@ -188,8 +188,8 @@ services:
 
 volumes:
   postgres_data:
-    name: surfsense-postgres
+    name: nfd-postgres
   redis_data:
-    name: surfsense-redis
+    name: nfd-redis
   shared_temp:
-    name: surfsense-shared-temp
+    name: nfd-shared-temp

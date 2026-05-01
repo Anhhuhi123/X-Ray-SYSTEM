@@ -82,7 +82,7 @@ class ComposioConnector:
         """Get the Composio entity ID (user identifier)."""
         await self._load_connector()
         # Entity ID is constructed from the connector's user_id
-        return f"surfsense_{self._connector.user_id}"
+        return f"nfd_{self._connector.user_id}"
 
     async def is_indexable(self) -> bool:
         """Check if this connector's toolkit supports indexing."""

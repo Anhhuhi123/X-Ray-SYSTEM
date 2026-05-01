@@ -963,7 +963,7 @@ class DocumentSection(BaseModel, TimestampMixin):
 
 class NFDDocsDocument(BaseModel, TimestampMixin):
     """
-    Surfsense documentation storage.
+    NFD documentation storage.
     Indexed at migration time from MDX files.
     """
 
@@ -986,7 +986,7 @@ class NFDDocsDocument(BaseModel, TimestampMixin):
 
 
 class NFDDocsChunks(BaseModel, TimestampMixin):
-    """Chunk storage for Surfsense documentation."""
+    """Chunk storage for NFD documentation."""
 
     __tablename__ = "nfd_docs_chunks"
 
@@ -1190,7 +1190,7 @@ class NewLLMConfig(BaseModel, TimestampMixin):
 
     This table provides:
     - LLM model configuration (provider, model_name, api_key, etc.)
-    - Configurable system instructions (defaults to SURFSENSE_SYSTEM_INSTRUCTIONS)
+    - Configurable system instructions (defaults to NFD_SYSTEM_INSTRUCTIONS)
     - Citation toggle (enable/disable citation instructions)
 
     Note: Tools instructions are built by get_tools_instructions(thread_visibility) (personal vs shared memory).
@@ -1215,17 +1215,17 @@ class NewLLMConfig(BaseModel, TimestampMixin):
     litellm_params = Column(JSON, nullable=True, default={})
 
     # === Prompt Configuration ===
-    # Configurable system instructions (defaults to SURFSENSE_SYSTEM_INSTRUCTIONS)
+    # Configurable system instructions (defaults to NFD_SYSTEM_INSTRUCTIONS)
     # Users can customize this from the UI
     system_instructions = Column(
         Text,
         nullable=False,
-        default="",  # Empty string means use default SURFSENSE_SYSTEM_INSTRUCTIONS
+        default="",  # Empty string means use default NFD_SYSTEM_INSTRUCTIONS
     )
     # Whether to use the default system instructions when system_instructions is empty
     use_default_system_instructions = Column(Boolean, nullable=False, default=True)
 
-    # Citation toggle - when enabled, SURFSENSE_CITATION_INSTRUCTIONS is injected
+    # Citation toggle - when enabled, NFD_CITATION_INSTRUCTIONS is injected
     # When disabled, an anti-citation prompt is injected instead
     citations_enabled = Column(Boolean, nullable=False, default=True)
 

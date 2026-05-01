@@ -1,15 +1,15 @@
 """
-Context schema definitions for SurfSense agents.
+Context schema definitions for NFD agents.
 
-This module defines the custom state schema used by the SurfSense deep agent.
+This module defines the custom state schema used by the NFD deep agent.
 """
 
 from typing import TypedDict
 
 
-class SurfSenseContextSchema(TypedDict):
+class NFDContextSchema(TypedDict):
     """
-    Custom state schema for the SurfSense deep agent.
+    Custom state schema for the NFD deep agent.
 
     This extends the default agent state with custom fields.
     The default state already includes:

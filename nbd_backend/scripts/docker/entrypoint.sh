@@ -13,7 +13,7 @@ set -e
 # each service deployment.
 # ─────────────────────────────────────────────────────────────
 SERVICE_ROLE="${SERVICE_ROLE:-all}"
-echo "Starting SurfSense with SERVICE_ROLE=${SERVICE_ROLE}"
+echo "Starting NFD with SERVICE_ROLE=${SERVICE_ROLE}"
 
 # ── Autoscale defaults (override via env) ────────────────────
 #   CELERY_MAX_WORKERS  – max concurrent worker processes
@@ -77,7 +77,7 @@ start_worker() {
         # When no queues specified, consume from BOTH the default queue and
         # the connectors queue. Without --queues, Celery only consumes from
         # the default queue, leaving connector indexing tasks stuck.
-        DEFAULT_Q="${CELERY_TASK_DEFAULT_QUEUE:-surfsense}"
+        DEFAULT_Q="${CELERY_TASK_DEFAULT_QUEUE:-nfd}"
         QUEUE_ARGS="--queues=${DEFAULT_Q},${DEFAULT_Q}.connectors"
     fi
 

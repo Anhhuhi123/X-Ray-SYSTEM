@@ -107,8 +107,8 @@ ENV CELERY_MAX_WORKERS=10
 ENV CELERY_MIN_WORKERS=2
 ENV CELERY_MAX_TASKS_PER_CHILD=50
 # CELERY_QUEUES: comma-separated queues to consume (empty = all queues)
-#   "surfsense"              – fast tasks only (file uploads, podcasts, etc.)
-#   "surfsense.connectors"   – slow connector indexing tasks only
+#   "nfd"              – fast tasks only (file uploads, podcasts, etc.)
+#   "nfd.connectors"   – slow connector indexing tasks only
 #   ""                       – both queues (default, for single-worker setups)
 ENV CELERY_QUEUES=""
 

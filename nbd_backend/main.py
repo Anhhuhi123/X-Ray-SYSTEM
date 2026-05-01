@@ -21,7 +21,7 @@ logging.basicConfig(
 load_dotenv()
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Run the SurfSense application")
+    parser = argparse.ArgumentParser(description="Run the NFD application")
     # Default to enabling reload for developer convenience. Use --no-reload to disable.
     parser.add_argument(
         "--reload",

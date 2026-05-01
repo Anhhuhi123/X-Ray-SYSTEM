@@ -8,6 +8,7 @@ from .logs_routes import router as logs_router
 from .model_list_routes import router as model_list_router
 from .new_chat_routes import router as new_chat_router
 from .new_llm_config_routes import router as new_llm_config_router
+from .nfd_docs_routes import router as nfd_docs_router
 from .notes_routes import router as notes_router
 from .notifications_routes import router as notifications_router
 from .public_chat_routes import router as public_chat_router
@@ -15,7 +16,6 @@ from .rbac_routes import router as rbac_router
 from .reports_routes import router as reports_router
 from .search_source_connectors_routes import router as search_source_connectors_router
 from .search_spaces_routes import router as search_spaces_router
-from .nfd_docs_routes import router as nfd_docs_router
 
 router = APIRouter()
 
@@ -31,7 +31,7 @@ router.include_router(search_source_connectors_router)
 router.include_router(new_llm_config_router)  # LLM configs with prompt configuration
 router.include_router(model_list_router)  # Dynamic LLM model catalogue from OpenRouter
 router.include_router(logs_router)
-router.include_router(nfd_docs_router)  # Surfsense documentation for citations
+router.include_router(nfd_docs_router)  # NFD documentation for citations
 router.include_router(notifications_router)  # Notifications with Electric SQL sync
 router.include_router(composio_router)  # Composio OAuth and toolkit management
 router.include_router(public_chat_router)  # Public chat sharing and cloning

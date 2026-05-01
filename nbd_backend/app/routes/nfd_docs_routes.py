@@ -1,7 +1,7 @@
 """
-Routes for Surfsense documentation.
+Routes for NFD documentation.
 
-These endpoints support the citation system for Surfsense docs,
+These endpoints support the citation system for NFD docs,
 allowing the frontend to fetch document details when a user clicks
 on a [citation:doc-XXX] link.
 """
@@ -29,16 +29,16 @@ router = APIRouter()
 
 
 @router.get(
-    "/surfsense-docs/by-chunk/{chunk_id}",
+    "/nfd-docs/by-chunk/{chunk_id}",
     response_model=NFDDocsDocumentWithChunksRead,
 )
-async def get_surfsense_doc_by_chunk_id(
+async def get_nfd_doc_by_chunk_id(
     chunk_id: int,
     session: AsyncSession = Depends(get_async_session),
     user: User = Depends(current_active_user),
 ):
     """
-    Retrieves a Surfsense documentation document based on a chunk ID.
+    Retrieves a NFD documentation document based on a chunk ID.
 
     This endpoint is used by the frontend to resolve [citation:doc-XXX] links.
     """
@@ -52,7 +52,7 @@ async def get_surfsense_doc_by_chunk_id(
         if not chunk:
             raise HTTPException(
                 status_code=404,
-                detail=f"Surfsense docs chunk with id {chunk_id} not found",
+                detail=f"NFD docs chunk with id {chunk_id} not found",
             )
 
         # Get the associated document with all its chunks
@@ -66,7 +66,7 @@ async def get_surfsense_doc_by_chunk_id(
         if not document:
             raise HTTPException(
                 status_code=404,
-                detail="Surfsense docs document not found",
+                detail="NFD docs document not found",
             )
 
         # Sort chunks by ID
@@ -87,15 +87,15 @@ async def get_surfsense_doc_by_chunk_id(
     except Exception as e:
         raise HTTPException(
             status_code=500,
-            detail=f"Failed to retrieve Surfsense documentation: {e!s}",
+            detail=f"Failed to retrieve NFD documentation: {e!s}",
         ) from e
 
 
 @router.get(
-    "/surfsense-docs",
+    "/nfd-docs",
     response_model=PaginatedResponse[NFDDocsDocumentRead],
 )
-async def list_surfsense_docs(
+async def list_nfd_docs(
     page: int = 0,
     page_size: int = 50,
     title: str | None = None,
@@ -103,7 +103,7 @@ async def list_surfsense_docs(
     user: User = Depends(current_active_user),
 ):
     """
-    List all Surfsense documentation documents.
+    List all NFD documentation documents.
 
     Args:
         page: Zero-based page index.
@@ -113,7 +113,7 @@ async def list_surfsense_docs(
         user: Current authenticated user (injected).
 
     Returns:
-        PaginatedResponse[NFDDocsDocumentRead]: Paginated list of Surfsense docs.
+        PaginatedResponse[NFDDocsDocumentRead]: Paginated list of NFD docs.
     """
     try:
         # Base query
@@ -165,5 +165,5 @@ async def list_surfsense_docs(
     except Exception as e:
         raise HTTPException(
             status_code=500,
-            detail=f"Failed to list Surfsense documentation: {e!s}",
+            detail=f"Failed to list NFD documentation: {e!s}",
         ) from e

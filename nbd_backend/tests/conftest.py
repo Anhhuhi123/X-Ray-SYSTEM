@@ -5,7 +5,7 @@ from __future__ import annotations
 import os
 
 _DEFAULT_TEST_DB = (
-    "postgresql+asyncpg://postgres:postgres@localhost:5432/surfsense_test"
+    "postgresql+asyncpg://postgres:postgres@localhost:5432/nfd_test"
 )
 TEST_DATABASE_URL = os.environ.get("TEST_DATABASE_URL", _DEFAULT_TEST_DB)
 

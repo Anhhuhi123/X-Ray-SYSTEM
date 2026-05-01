@@ -23,8 +23,23 @@ branch_labels: str | Sequence[str] | None = None
 depends_on: str | Sequence[str] | None = None
 
 
+def table_exists(table_name: str) -> bool:
+    """Check if a table exists in the database."""
+    conn = op.get_bind()
+    result = conn.execute(
+        sa.text(
+            "SELECT EXISTS (SELECT 1 FROM information_schema.tables WHERE table_name = :table_name)"
+        ),
+        {"table_name": table_name},
+    )
+    return result.scalar()
+
+
 def upgrade() -> None:
     """Upgrade schema - Remove chat_id and chat_state_version from podcasts."""
+    if not table_exists("podcasts"):
+        return
+
     conn = op.get_bind()
     inspector = inspect(conn)
     columns = [col["name"] for col in inspector.get_columns("podcasts")]
@@ -38,6 +53,9 @@ def upgrade() -> None:
 
 def downgrade() -> None:
     """Downgrade schema - Re-add chat_id and chat_state_version to podcasts."""
+    if not table_exists("podcasts"):
+        return
+
     op.add_column(
         "podcasts",
         sa.Column("chat_id", sa.Integer(), nullable=True),

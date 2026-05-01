@@ -19,7 +19,22 @@ branch_labels: str | Sequence[str] | None = None
 depends_on: str | Sequence[str] | None = None
 
 
+def table_exists(table_name: str) -> bool:
+    """Check if a table exists in the database."""
+    conn = op.get_bind()
+    result = conn.execute(
+        sa.text(
+            "SELECT EXISTS (SELECT 1 FROM information_schema.tables WHERE table_name = :table_name)"
+        ),
+        {"table_name": table_name},
+    )
+    return result.scalar()
+
+
 def upgrade() -> None:
+    if not table_exists("podcasts"):
+        return
+
     # Get the current database connection
     bind = op.get_bind()
     inspector = inspect(bind)
@@ -31,6 +46,9 @@ def upgrade() -> None:
 
 
 def downgrade() -> None:
+    if not table_exists("podcasts"):
+        return
+
     # Add back the is_generated column with its original constraints
     op.add_column(
         "podcasts",

@@ -45,7 +45,7 @@ class NewLLMConfigBase(BaseModel):
     # Prompt Configuration
     system_instructions: str = Field(
         default="",
-        description="Custom system instructions. Empty string uses default SURFSENSE_SYSTEM_INSTRUCTIONS.",
+        description="Custom system instructions. Empty string uses default NFD_SYSTEM_INSTRUCTIONS.",
     )
     use_default_system_instructions: bool = Field(
         default=True,
@@ -129,7 +129,7 @@ class DefaultSystemInstructionsResponse(BaseModel):
     """Response schema for getting default system instructions."""
 
     default_system_instructions: str = Field(
-        ..., description="The default SURFSENSE_SYSTEM_INSTRUCTIONS template"
+        ..., description="The default NFD_SYSTEM_INSTRUCTIONS template"
     )
 
 

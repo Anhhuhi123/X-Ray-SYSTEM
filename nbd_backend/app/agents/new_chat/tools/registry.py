@@ -1,6 +1,6 @@
-"""Tools registry for SurfSense deep agent.
+"""Tools registry for NFD deep agent.
 
-This module provides a registry pattern for managing tools in the SurfSense agent.
+This module provides a registry pattern for managing tools in the NFD agent.
 It makes it easy for OSS contributors to add new tools by:
 1. Creating a tool factory function in a new file in this directory
 2. Registering the tool in the BUILTIN_TOOLS list below
@@ -146,10 +146,10 @@ BUILTIN_TOOLS: list[ToolDefinition] = [
         requires=[],  # firecrawl_api_key is optional
     ),
     # Note: write_todos is now provided by TodoListMiddleware from deepagents
-    # Surfsense documentation search tool
+    # NFD documentation search tool
     ToolDefinition(
         name="search_nfd_docs",
-        description="Search Surfsense documentation for help with using the application",
+        description="Search NFD documentation for help with using the application",
         factory=lambda deps: create_search_nfd_docs_tool(
             db_session=deps["db_session"],
         ),
@@ -344,7 +344,7 @@ async def build_tools_async(
     """
     import time
 
-    _perf_log = logging.getLogger("surfsense.perf")
+    _perf_log = logging.getLogger("nfd.perf")
     _perf_log.setLevel(logging.DEBUG)
 
     _t0 = time.perf_counter()

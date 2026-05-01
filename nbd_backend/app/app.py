@@ -30,11 +30,11 @@ from app.db import User, create_db_and_tables, get_async_session
 from app.routes import router as crud_router
 from app.routes.auth_routes import router as auth_router
 from app.schemas import UserCreate, UserRead, UserUpdate
-from app.tasks.nfd_docs_indexer import seed_surfsense_docs
+from app.tasks.nfd_docs_indexer import seed_nfd_docs
 from app.users import SECRET, auth_backend, current_active_user, fastapi_users
 from app.utils.perf import get_perf_logger, log_system_snapshot
 
-rate_limit_logger = logging.getLogger("surfsense.rate_limit")
+rate_limit_logger = logging.getLogger("nfd.rate_limit")
 
 
 # ============================================================================
@@ -133,7 +133,7 @@ def _check_rate_limit(
     Falls back to in-memory sliding window if Redis is unavailable.
     """
     client_ip = get_remote_address(request)
-    key = f"surfsense:auth_rate_limit:{scope}:{client_ip}"
+    key = f"nfd:auth_rate_limit:{scope}:{client_ip}"
 
     try:
         r = _get_rate_limit_redis()
@@ -193,7 +193,7 @@ def _enable_slow_callback_logging(threshold_sec: float = 0.5) -> None:
     if not os.environ.get("PERF_DEBUG"):
         return
 
-    _slow_log = logging.getLogger("surfsense.perf.slow")
+    _slow_log = logging.getLogger("nfd.perf.slow")
     _slow_log.setLevel(logging.WARNING)
     if not _slow_log.handlers:
         _h = logging.StreamHandler()
@@ -223,10 +223,10 @@ async def lifespan(app: FastAPI):
     await setup_checkpointer_tables()
     initialize_llm_router()
     try:
-        await asyncio.wait_for(seed_surfsense_docs(), timeout=120)
+        await asyncio.wait_for(seed_nfd_docs(), timeout=120)
     except TimeoutError:
         logging.getLogger(__name__).warning(
-            "Surfsense docs seeding timed out after 120s — skipping. "
+            "NFD docs seeding timed out after 120s — skipping. "
             "Docs will be indexed on the next restart."
         )
 

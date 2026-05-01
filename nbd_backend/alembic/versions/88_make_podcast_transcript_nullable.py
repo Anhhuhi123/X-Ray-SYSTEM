@@ -19,7 +19,25 @@ branch_labels: str | Sequence[str] | None = None
 depends_on: str | Sequence[str] | None = None
 
 
+import sqlalchemy as sa
+
+
+def table_exists(table_name: str) -> bool:
+    """Check if a table exists in the database."""
+    conn = op.get_bind()
+    result = conn.execute(
+        sa.text(
+            "SELECT EXISTS (SELECT 1 FROM information_schema.tables WHERE table_name = :table_name)"
+        ),
+        {"table_name": table_name},
+    )
+    return result.scalar()
+
+
 def upgrade() -> None:
+    if not table_exists("podcasts"):
+        return
+
     # Make podcast_transcript nullable and remove the server default
     op.execute(
         """
@@ -36,6 +54,9 @@ def upgrade() -> None:
 
 
 def downgrade() -> None:
+    if not table_exists("podcasts"):
+        return
+
     # Set empty JSON for any NULL values before adding NOT NULL constraint
     op.execute(
         """

@@ -112,15 +112,15 @@ def upgrade() -> None:
                 SELECT ssc.id 
                 FROM search_source_connectors ssc
                 WHERE ssc.search_space_id = d.search_space_id
-                AND ssc.connector_type = '{connector_type}'
+                AND ssc.connector_type::varchar = '{connector_type}'
                 LIMIT 1
             )
-            WHERE d.document_type = '{doc_type}'
+            WHERE d.document_type::varchar = '{doc_type}'
             AND d.connector_id IS NULL
             AND EXISTS (
                 SELECT 1 FROM search_source_connectors ssc
                 WHERE ssc.search_space_id = d.search_space_id
-                AND ssc.connector_type = '{connector_type}'
+                AND ssc.connector_type::varchar = '{connector_type}'
             );
             """
         )

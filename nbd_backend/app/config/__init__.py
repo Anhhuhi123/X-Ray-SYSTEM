@@ -121,7 +121,7 @@ class Config:
     # Deployment Mode (self-hosted or cloud)
     # self-hosted: Full access to local file system connectors (Obsidian, etc.)
     # cloud: Only cloud-based connectors available
-    DEPLOYMENT_MODE = os.getenv("SURFSENSE_DEPLOYMENT_MODE", "self-hosted")
+    DEPLOYMENT_MODE = os.getenv("NFD_DEPLOYMENT_MODE", "self-hosted")
 
     @classmethod
     def is_self_hosted(cls) -> bool:
@@ -144,7 +144,7 @@ class Config:
     CELERY_RESULT_BACKEND = os.getenv(
         "CELERY_RESULT_BACKEND", "redis://localhost:6379/0"
     )
-    CELERY_TASK_DEFAULT_QUEUE = os.getenv("CELERY_TASK_DEFAULT_QUEUE", "surfsense")
+    CELERY_TASK_DEFAULT_QUEUE = os.getenv("CELERY_TASK_DEFAULT_QUEUE", "nfd")
     REDIS_APP_URL = os.getenv("REDIS_APP_URL", CELERY_BROKER_URL)
     CONNECTOR_INDEXING_LOCK_TTL_SECONDS = int(
         os.getenv("CONNECTOR_INDEXING_LOCK_TTL_SECONDS", str(8 * 60 * 60))

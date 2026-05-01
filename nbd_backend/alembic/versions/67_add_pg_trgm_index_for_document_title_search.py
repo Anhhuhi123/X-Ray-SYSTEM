@@ -10,7 +10,7 @@ Indexes added:
 1. idx_documents_title_trgm - GIN trigram on title for ILIKE '%term%'
 2. idx_documents_search_space_id - B-tree on search_space_id for filtering
 3. idx_documents_search_space_updated - Composite for recent docs query (covering index)
-4. idx_surfsense_docs_title_trgm - GIN trigram on surfsense docs title
+4. idx_nfd_docs_title_trgm - GIN trigram on nfd docs title
 
 """
 
@@ -59,18 +59,18 @@ def upgrade() -> None:
         """
     )
 
-    # 4. GIN trigram index on surfsense_docs_documents.title
+    # 4. GIN trigram index on nfd_docs_documents.title
     op.execute(
         """
-        CREATE INDEX IF NOT EXISTS idx_surfsense_docs_title_trgm 
-        ON surfsense_docs_documents USING gin (title gin_trgm_ops);
+        CREATE INDEX IF NOT EXISTS idx_nfd_docs_title_trgm 
+        ON nfd_docs_documents USING gin (title gin_trgm_ops);
         """
     )
 
 
 def downgrade() -> None:
     """Remove all document search indexes (extension is left in place)."""
-    op.execute("DROP INDEX IF EXISTS idx_surfsense_docs_title_trgm;")
+    op.execute("DROP INDEX IF EXISTS idx_nfd_docs_title_trgm;")
     op.execute("DROP INDEX IF EXISTS idx_documents_search_space_updated;")
     op.execute("DROP INDEX IF EXISTS idx_documents_search_space_id;")
     op.execute("DROP INDEX IF EXISTS idx_documents_title_trgm;")

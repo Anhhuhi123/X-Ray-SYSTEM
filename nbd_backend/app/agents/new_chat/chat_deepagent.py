@@ -1,7 +1,7 @@
 """
-SurfSense deep agent implementation.
+NFD deep agent implementation.
 
-This module provides the factory function for creating SurfSense deep agents
+This module provides the factory function for creating NFD deep agents
 with configurable tools via the tools registry and configurable prompts
 via NewLLMConfig.
 """
@@ -20,11 +20,11 @@ from langchain_core.tools import BaseTool
 from langgraph.types import Checkpointer
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.agents.new_chat.context import SurfSenseContextSchema
+from app.agents.new_chat.context import NFDContextSchema
 from app.agents.new_chat.llm_config import AgentConfig
 from app.agents.new_chat.system_prompt import (
     build_configurable_system_prompt,
-    build_surfsense_system_prompt,
+    build_nfd_system_prompt,
 )
 from app.agents.new_chat.tools.registry import build_tools_async
 from app.db import ChatVisibility
@@ -103,7 +103,7 @@ def _map_connectors_to_searchable_types(
 # =============================================================================
 
 
-async def create_surfsense_deep_agent(
+async def create_nfd_deep_agent(
     llm: BaseChatModel,
     search_space_id: int,
     db_session: AsyncSession,
@@ -119,7 +119,7 @@ async def create_surfsense_deep_agent(
     thread_visibility: ChatVisibility | None = None,
 ):
     """
-    Create a SurfSense deep agent with configurable tools and prompts.
+    Create a NFD deep agent with configurable tools and prompts.
 
     The agent comes with built-in tools that can be configured:
     - search_knowledge_base: Search the user's personal knowledge base
@@ -162,10 +162,10 @@ async def create_surfsense_deep_agent(
 
     Examples:
         # Create agent with all default tools and default prompt
-        agent = create_surfsense_deep_agent(llm, search_space_id, db_session, ...)
+        agent = create_nfd_deep_agent(llm, search_space_id, db_session, ...)
 
         # Create agent with custom prompt configuration
-        agent = create_surfsense_deep_agent(
+        agent = create_nfd_deep_agent(
             llm, search_space_id, db_session, ...,
             agent_config=AgentConfig(
                 provider="OPENAI",
@@ -177,13 +177,13 @@ async def create_surfsense_deep_agent(
         )
 
         # Create agent with only specific tools
-        agent = create_surfsense_deep_agent(
+        agent = create_nfd_deep_agent(
             llm, search_space_id, db_session, ...,
             enabled_tools=["search_knowledge_base", "link_preview"]
         )
 
         # Add custom tools
-        agent = create_surfsense_deep_agent(
+        agent = create_nfd_deep_agent(
             llm, search_space_id, db_session, ...,
             additional_tools=[my_custom_tool]
         )
@@ -266,7 +266,7 @@ async def create_surfsense_deep_agent(
             disabled_tool_names=_user_disabled_tool_names,
         )
     else:
-        system_prompt = build_surfsense_system_prompt(
+        system_prompt = build_nfd_system_prompt(
             thread_visibility=thread_visibility,
             enabled_tool_names=_enabled_tool_names,
             disabled_tool_names=_user_disabled_tool_names,
@@ -284,7 +284,7 @@ async def create_surfsense_deep_agent(
         model=llm,
         tools=tools,
         system_prompt=system_prompt,
-        context_schema=SurfSenseContextSchema,
+        context_schema=NFDContextSchema,
         checkpointer=checkpointer,
         **deep_agent_kwargs,
     )

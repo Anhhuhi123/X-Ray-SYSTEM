@@ -1,5 +1,5 @@
 # =============================================================================
-# SurfSense — Database Migration Script (Windows / PowerShell)
+# NFD — Database Migration Script (Windows / PowerShell)
 #
 # Extracts data from the legacy all-in-one surfsense-data volume (PostgreSQL 14)
 # and saves it as a SQL dump + SECRET_KEY file ready for install.ps1 to restore.
@@ -27,7 +27,7 @@
 #
 # What this script does NOT do:
 #   - Delete the original surfsense-data volume (do this manually after verifying)
-#   - Install the new SurfSense stack (install.ps1 handles that automatically)
+#   - Install the new NFD stack (install.ps1 handles that automatically)
 #
 # Note:
 #   install.ps1 downloads and runs this script automatically when it detects the
@@ -56,11 +56,11 @@ $LogFile        = ".\surfsense-migration.log"
 
 # ── Output helpers ───────────────────────────────────────────────────────────
 
-function Write-Info    { param([string]$Msg) Write-Host "[SurfSense] " -ForegroundColor Cyan -NoNewline; Write-Host $Msg }
-function Write-Ok      { param([string]$Msg) Write-Host "[SurfSense] " -ForegroundColor Green -NoNewline; Write-Host $Msg }
-function Write-Warn    { param([string]$Msg) Write-Host "[SurfSense] " -ForegroundColor Yellow -NoNewline; Write-Host $Msg }
+function Write-Info    { param([string]$Msg) Write-Host "[NFD] " -ForegroundColor Cyan -NoNewline; Write-Host $Msg }
+function Write-Ok      { param([string]$Msg) Write-Host "[NFD] " -ForegroundColor Green -NoNewline; Write-Host $Msg }
+function Write-Warn    { param([string]$Msg) Write-Host "[NFD] " -ForegroundColor Yellow -NoNewline; Write-Host $Msg }
 function Write-Step    { param([string]$Step, [string]$Msg) Write-Host "`n-- Step ${Step}: $Msg" -ForegroundColor Cyan }
-function Write-Err     { param([string]$Msg) Write-Host "[SurfSense] ERROR: $Msg" -ForegroundColor Red; exit 1 }
+function Write-Err     { param([string]$Msg) Write-Host "[NFD] ERROR: $Msg" -ForegroundColor Red; exit 1 }
 
 function Log { param([string]$Msg) Add-Content -Path $LogFile -Value $Msg }
 
@@ -78,7 +78,7 @@ function Invoke-NativeSafe {
 function Confirm-Action {
     param([string]$Prompt)
     if ($Yes) { return }
-    $reply = Read-Host "[SurfSense] $Prompt [y/N]"
+    $reply = Read-Host "[NFD] $Prompt [y/N]"
     if ($reply -notmatch '^[Yy]$') {
         Write-Warn "Aborted."
         exit 0
@@ -147,7 +147,7 @@ if ($LASTEXITCODE -ne 0) {
 
 $volumeList = Invoke-NativeSafe { docker volume ls --format '{{.Name}}' 2>$null }
 if (-not (($volumeList -split "`n") -contains $OldVolume)) {
-    Write-Err "Legacy volume '$OldVolume' not found. Are you sure you ran the old all-in-one SurfSense container?"
+    Write-Err "Legacy volume '$OldVolume' not found. Are you sure you ran the old all-in-one NFD container?"
 }
 Write-Ok "Found legacy volume: $OldVolume"
 
@@ -301,7 +301,7 @@ if ($LASTEXITCODE -eq 0 -and $keyCheck) {
         Write-Warn "To restore your original key, update SECRET_KEY in .\surfsense\.env afterwards."
     } else {
         Write-Warn "Enter the SECRET_KEY from your old container's environment"
-        $recoveredKey = Read-Host "[SurfSense] (press Enter to generate a new one - existing sessions will be invalidated)"
+        $recoveredKey = Read-Host "[NFD] (press Enter to generate a new one - existing sessions will be invalidated)"
         if (-not $recoveredKey) {
             $bytes = New-Object byte[] 32
             $rng = [System.Security.Cryptography.RNGCryptoServiceProvider]::new()
@@ -332,7 +332,7 @@ Write-Host ""
 Write-Host "  irm https://raw.githubusercontent.com/MODSetter/SurfSense/main/docker/scripts/install.ps1 | iex" -ForegroundColor Cyan
 Write-Host ""
 Write-Info "install.ps1 will detect the dump, restore your data into PostgreSQL 17,"
-Write-Info "and start the full SurfSense stack automatically."
+Write-Info "and start the full NFD stack automatically."
 Write-Host ""
 Write-Warn "Keep both files until you have verified the migration:"
 Write-Warn "  $DumpFile"

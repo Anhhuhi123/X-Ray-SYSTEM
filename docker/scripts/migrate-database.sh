@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # =============================================================================
-# SurfSense — Database Migration Script
+# NFD — Database Migration Script
 #
 # Extracts data from the legacy all-in-one surfsense-data volume (PostgreSQL 14)
 # and saves it as a SQL dump + SECRET_KEY file ready for install.sh to restore.
@@ -29,7 +29,7 @@
 #
 # What this script does NOT do:
 #   - Delete the original surfsense-data volume (do this manually after verifying)
-#   - Install the new SurfSense stack (install.sh handles that automatically)
+#   - Install the new NFD stack (install.sh handles that automatically)
 #
 # Note:
 #   install.sh downloads and runs this script automatically when it detects the
@@ -53,10 +53,10 @@ LOG_FILE="./surfsense-migration.log"
 exec > >(tee -a "${LOG_FILE}") 2>&1
 
 # ── Output helpers ────────────────────────────────────────────────────────────
-info()    { printf "${CYAN}[SurfSense]${NC} %s\n"        "$1"; }
-success() { printf "${GREEN}[SurfSense]${NC} %s\n"       "$1"; }
-warn()    { printf "${YELLOW}[SurfSense]${NC} %s\n"      "$1"; }
-error()   { printf "${RED}[SurfSense]${NC} ERROR: %s\n"  "$1" >&2; exit 1; }
+info()    { printf "${CYAN}[NFD]${NC} %s\n"        "$1"; }
+success() { printf "${GREEN}[NFD]${NC} %s\n"       "$1"; }
+warn()    { printf "${YELLOW}[NFD]${NC} %s\n"      "$1"; }
+error()   { printf "${RED}[NFD]${NC} ERROR: %s\n"  "$1" >&2; exit 1; }
 step()    { printf "\n${BOLD}${CYAN}── Step %s: %s${NC}\n" "$1" "$2"; }
 
 # ── Constants ─────────────────────────────────────────────────────────────────
@@ -90,7 +90,7 @@ done
 # ── Confirmation helper ───────────────────────────────────────────────────────
 confirm() {
     if $AUTO_YES; then return 0; fi
-    printf "${YELLOW}[SurfSense]${NC} %s [y/N] " "$1"
+    printf "${YELLOW}[NFD]${NC} %s [y/N] " "$1"
     read -r reply
     [[ "$reply" =~ ^[Yy]$ ]] || { warn "Aborted."; exit 0; }
 }
@@ -104,9 +104,9 @@ cleanup() {
         docker rm   "${TEMP_CONTAINER}" >/dev/null 2>&1 < /dev/null || true
     fi
     if [[ $exit_code -ne 0 ]]; then
-        printf "\n${RED}[SurfSense]${NC} Migration data extraction failed (exit code %s).\n" "${exit_code}" >&2
-        printf "${RED}[SurfSense]${NC} Full log: %s\n" "${LOG_FILE}" >&2
-        printf "${YELLOW}[SurfSense]${NC} Your original data in '${OLD_VOLUME}' is untouched.\n" >&2
+        printf "\n${RED}[NFD]${NC} Migration data extraction failed (exit code %s).\n" "${exit_code}" >&2
+        printf "${RED}[NFD]${NC} Full log: %s\n" "${LOG_FILE}" >&2
+        printf "${YELLOW}[NFD]${NC} Your original data in '${OLD_VOLUME}' is untouched.\n" >&2
     fi
 }
 trap cleanup EXIT
@@ -147,7 +147,7 @@ docker info >/dev/null 2>&1 < /dev/null \
 
 # Old volume must exist
 docker volume ls --format '{{.Name}}' < /dev/null | grep -q "^${OLD_VOLUME}$" \
-    || error "Legacy volume '${OLD_VOLUME}' not found.\n       Are you sure you ran the old all-in-one SurfSense container?"
+    || error "Legacy volume '${OLD_VOLUME}' not found.\n       Are you sure you ran the old all-in-one NFD container?"
 success "Found legacy volume: ${OLD_VOLUME}"
 
 # Detect and stop any container currently using the old volume
@@ -296,8 +296,8 @@ else
         warn "All active browser sessions will be logged out after migration."
         warn "To restore your original key, update SECRET_KEY in ./surfsense/.env afterwards."
     else
-        printf "${YELLOW}[SurfSense]${NC} Enter the SECRET_KEY from your old container's environment\n"
-        printf "${YELLOW}[SurfSense]${NC} (press Enter to generate a new one — existing sessions will be invalidated): "
+        printf "${YELLOW}[NFD]${NC} Enter the SECRET_KEY from your old container's environment\n"
+        printf "${YELLOW}[NFD]${NC} (press Enter to generate a new one — existing sessions will be invalidated): "
         read -r RECOVERED_KEY
         if [[ -z "${RECOVERED_KEY}" ]]; then
             RECOVERED_KEY=$(openssl rand -base64 32 2>/dev/null \
@@ -326,7 +326,7 @@ printf "\n"
 printf "${CYAN}  curl -fsSL https://raw.githubusercontent.com/MODSetter/SurfSense/main/docker/scripts/install.sh | bash${NC}\n"
 printf "\n"
 info "install.sh will detect the dump, restore your data into PostgreSQL 17,"
-info "and start the full SurfSense stack automatically."
+info "and start the full NFD stack automatically."
 printf "\n"
 warn "Keep both files until you have verified the migration:"
 warn "  ${DUMP_FILE}"

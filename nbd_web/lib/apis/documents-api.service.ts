@@ -319,9 +319,9 @@ class DocumentsApiService {
 	 * Get Surfsense documentation by chunk ID
 	 * Used for resolving [citation:doc-XXX] citations
 	 */
-	getSurfsenseDocByChunk = async (chunkId: number) => {
+	getNFDDocByChunk = async (chunkId: number) => {
 		return baseApiService.get(
-			`/api/v1/surfsense-docs/by-chunk/${chunkId}`,
+			`/api/v1/nfd-docs/by-chunk/${chunkId}`,
 			getNFDDocsByChunkResponse
 		);
 	};
@@ -331,7 +331,7 @@ class DocumentsApiService {
 	 * @param request - The request with query params
 	 * @param signal - Optional AbortSignal for request cancellation
 	 */
-	getSurfsenseDocs = async (request: GetNFDDocsRequest, signal?: AbortSignal) => {
+	getNFDDocs = async (request: GetNFDDocsRequest, signal?: AbortSignal) => {
 		const parsedRequest = getNFDDocsRequest.safeParse(request);
 
 		if (!parsedRequest.success) {
@@ -352,7 +352,7 @@ class DocumentsApiService {
 			? new URLSearchParams(transformedQueryParams).toString()
 			: "";
 
-		const url = `/api/v1/surfsense-docs?${queryParams}`;
+		const url = `/api/v1/nfd-docs?${queryParams}`;
 
 		return baseApiService.get(url, getNFDDocsResponse, { signal });
 	};

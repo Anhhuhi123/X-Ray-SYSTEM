@@ -18,7 +18,7 @@ export const documentTypeEnum = z.enum([
 	"AIRTABLE_CONNECTOR",
 	"CIRCLEBACK",
 	"OBSIDIAN_CONNECTOR",
-	"SURFSENSE_DOCS",
+	"NFD_DOCS",
 	"NOTE",
 	"COMPOSIO_GOOGLE_DRIVE_CONNECTOR",
 	"COMPOSIO_GMAIL_CONNECTOR",
@@ -64,7 +64,7 @@ export const documentWithChunks = document.extend({
 });
 
 /**
- * Surfsense documentation schemas
+ * NFD documentation schemas
  * Follows the same pattern as document/documentWithChunks
  */
 export const nfdDocsChunk = z.object({
@@ -240,7 +240,7 @@ export const getDocumentByChunkRequest = z.object({
 export const getDocumentByChunkResponse = documentWithChunks;
 
 /**
- * Get Surfsense docs by chunk
+ * Get NFD docs by chunk
  */
 export const getNFDDocsByChunkRequest = z.object({
 	chunk_id: z.number(),
@@ -249,7 +249,7 @@ export const getNFDDocsByChunkRequest = z.object({
 export const getNFDDocsByChunkResponse = nfdDocsDocumentWithChunks;
 
 /**
- * List Surfsense docs
+ * List NFD docs
  */
 export const getNFDDocsRequest = z.object({
 	queryParams: paginationQueryParams.extend({

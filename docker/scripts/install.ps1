@@ -1,5 +1,5 @@
 # =============================================================================
-# SurfSense — One-line Install Script (Windows / PowerShell)
+# NFD — One-line Install Script (Windows / PowerShell)
 #
 #
 # Usage: irm https://raw.githubusercontent.com/MODSetter/SurfSense/main/docker/scripts/install.ps1 | iex
@@ -9,7 +9,7 @@
 #   .\install.ps1 -WatchtowerInterval 3600
 #
 # Handles two cases automatically:
-#   1. Fresh install        — no prior SurfSense data detected
+#   1. Fresh install        — no prior NFD data detected
 #   2. Migration from the legacy all-in-one container (surfsense-data volume)
 #      Downloads and runs migrate-database.sh --yes, then restores the dump
 #      into the new PostgreSQL 17 stack. The user runs one command for both.
@@ -36,11 +36,11 @@ $WatchtowerContainer = "watchtower"
 
 # ── Output helpers ──────────────────────────────────────────────────────────
 
-function Write-Info    { param([string]$Msg) Write-Host "[SurfSense] " -ForegroundColor Cyan -NoNewline; Write-Host $Msg }
-function Write-Ok      { param([string]$Msg) Write-Host "[SurfSense] " -ForegroundColor Green -NoNewline; Write-Host $Msg }
-function Write-Warn    { param([string]$Msg) Write-Host "[SurfSense] " -ForegroundColor Yellow -NoNewline; Write-Host $Msg }
+function Write-Info    { param([string]$Msg) Write-Host "[NFD] " -ForegroundColor Cyan -NoNewline; Write-Host $Msg }
+function Write-Ok      { param([string]$Msg) Write-Host "[NFD] " -ForegroundColor Green -NoNewline; Write-Host $Msg }
+function Write-Warn    { param([string]$Msg) Write-Host "[NFD] " -ForegroundColor Yellow -NoNewline; Write-Host $Msg }
 function Write-Step    { param([string]$Msg) Write-Host "`n-- $Msg" -ForegroundColor Cyan }
-function Write-Err     { param([string]$Msg) Write-Host "[SurfSense] ERROR: $Msg" -ForegroundColor Red; exit 1 }
+function Write-Err     { param([string]$Msg) Write-Host "[NFD] ERROR: $Msg" -ForegroundColor Red; exit 1 }
 
 function Invoke-NativeSafe {
     param([scriptblock]$Command)
@@ -99,7 +99,7 @@ function Wait-ForPostgres {
 
 # ── Download files ──────────────────────────────────────────────────────────
 
-Write-Step "Downloading SurfSense files"
+Write-Step "Downloading NFD files"
 Write-Info "Installation directory: $InstallDir"
 
 New-Item -ItemType Directory -Path "$InstallDir\scripts" -Force | Out-Null
@@ -194,9 +194,9 @@ if ($MigrationMode) {
     $DbUser = ($envContent | Select-String '^DB_USER=' | ForEach-Object { ($_ -split '=',2)[1].Trim('"') }) | Select-Object -First 1
     $DbPass = ($envContent | Select-String '^DB_PASSWORD=' | ForEach-Object { ($_ -split '=',2)[1].Trim('"') }) | Select-Object -First 1
     $DbName = ($envContent | Select-String '^DB_NAME=' | ForEach-Object { ($_ -split '=',2)[1].Trim('"') }) | Select-Object -First 1
-    if (-not $DbUser) { $DbUser = "surfsense" }
-    if (-not $DbPass) { $DbPass = "surfsense" }
-    if (-not $DbName) { $DbName = "surfsense" }
+    if (-not $DbUser) { $DbUser = "nfd" }
+    if (-not $DbPass) { $DbPass = "nfd" }
+    if (-not $DbName) { $DbName = "nfd" }
 
     Write-Step "Starting PostgreSQL 17"
     Push-Location $InstallDir
@@ -227,7 +227,7 @@ if ($MigrationMode) {
     if ($fatalErrors.Count -gt 0) {
         Write-Warn "Restore completed with errors (may be harmless pg_dump header noise):"
         $fatalErrors | ForEach-Object { Write-Host $_ }
-        Write-Warn "If SurfSense behaves incorrectly, inspect manually."
+        Write-Warn "If NFD behaves incorrectly, inspect manually."
     } else {
         Write-Ok "Database restored with no fatal errors."
     }
@@ -245,7 +245,7 @@ if ($MigrationMode) {
         New-Item -Path $MigrationDoneFile -ItemType File -Force | Out-Null
     }
 
-    Write-Step "Starting all SurfSense services"
+    Write-Step "Starting all NFD services"
     Push-Location $InstallDir
     Invoke-NativeSafe { docker compose up -d }
     Pop-Location
@@ -254,7 +254,7 @@ if ($MigrationMode) {
     Remove-Item $KeyFile -ErrorAction SilentlyContinue
 
 } else {
-    Write-Step "Starting SurfSense"
+    Write-Step "Starting NFD"
     Push-Location $InstallDir
     Invoke-NativeSafe { docker compose up -d }
     Pop-Location
@@ -288,7 +288,7 @@ if ($SetupWatchtower) {
         } | Out-Null
 
         if ($LASTEXITCODE -eq 0) {
-            Write-Ok "Watchtower started - labeled SurfSense containers will auto-update."
+            Write-Ok "Watchtower started - labeled NFD containers will auto-update."
         } else {
             Write-Warn "Could not start Watchtower. You can set it up manually or use: docker compose pull; docker compose up -d"
         }

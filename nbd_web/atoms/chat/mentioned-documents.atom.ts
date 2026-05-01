@@ -33,11 +33,11 @@ export const mentionedDocumentIdsAtom = atom((get) => {
 		return true;
 	});
 	return {
-		surfsense_doc_ids: deduped
-			.filter((doc) => doc.document_type === "SURFSENSE_DOCS")
+		nfd_doc_ids: deduped
+			.filter((doc) => doc.document_type === "NFD_DOCS")
 			.map((doc) => doc.id),
 		document_ids: deduped
-			.filter((doc) => doc.document_type !== "SURFSENSE_DOCS")
+			.filter((doc) => doc.document_type !== "NFD_DOCS")
 			.map((doc) => doc.id),
 	};
 });

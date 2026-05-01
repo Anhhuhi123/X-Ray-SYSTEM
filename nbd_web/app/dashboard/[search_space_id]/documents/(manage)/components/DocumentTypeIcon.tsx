@@ -27,7 +27,7 @@ export function getDocumentTypeLabel(type: string): string {
 		AIRTABLE_CONNECTOR: "Airtable",
 		CIRCLEBACK: "Circleback",
 		OBSIDIAN_CONNECTOR: "Obsidian",
-		SURFSENSE_DOCS: "SurfSense Docs",
+		NFD_DOCS: "NFD Docs",
 		NOTE: "Note",
 		COMPOSIO_GOOGLE_DRIVE_CONNECTOR: "Composio Google Drive",
 		COMPOSIO_GMAIL_CONNECTOR: "Composio Gmail",

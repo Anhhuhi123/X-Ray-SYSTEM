@@ -349,9 +349,9 @@ export default function NewChatPage() {
 		});
 
 		queryClient.prefetchQuery({
-			queryKey: ["surfsense-docs-mention", "", false],
+			queryKey: ["nfd-docs-mention", "", false],
 			queryFn: () =>
-				documentsApiService.getSurfsenseDocs({
+				documentsApiService.getNFDDocs({
 					queryParams: { page: 0, page_size: 20 },
 				}),
 			staleTime: 3 * 60 * 1000,
@@ -489,7 +489,7 @@ export default function NewChatPage() {
 			trackChatMessageSent(searchSpaceId, currentThreadId, {
 				hasAttachments: false,
 				hasMentionedDocuments:
-					mentionedDocumentIds.surfsense_doc_ids.length > 0 ||
+					mentionedDocumentIds.nfd_doc_ids.length > 0 ||
 					mentionedDocumentIds.document_ids.length > 0,
 				messageLength: userQuery.length,
 			});
@@ -589,10 +589,10 @@ export default function NewChatPage() {
 
 				// Get mentioned document IDs for context (separate fields for backend)
 				const hasDocumentIds = mentionedDocumentIds.document_ids.length > 0;
-				const hasSurfsenseDocIds = mentionedDocumentIds.surfsense_doc_ids.length > 0;
+				const hasNfdDocIds = mentionedDocumentIds.nfd_doc_ids.length > 0;
 
 				// Clear mentioned documents after capturing them
-				if (hasDocumentIds || hasSurfsenseDocIds) {
+				if (hasDocumentIds || hasNfdDocIds) {
 					setMentionedDocuments([]);
 					setSidebarDocuments([]);
 				}
@@ -609,8 +609,8 @@ export default function NewChatPage() {
 						search_space_id: searchSpaceId,
 						messages: messageHistory,
 						mentioned_document_ids: hasDocumentIds ? mentionedDocumentIds.document_ids : undefined,
-						mentioned_surfsense_doc_ids: hasSurfsenseDocIds
-							? mentionedDocumentIds.surfsense_doc_ids
+						mentioned_nfd_doc_ids: hasNfdDocIds
+							? mentionedDocumentIds.nfd_doc_ids
 							: undefined,
 						disabled_tools: disabledTools.length > 0 ? disabledTools : undefined,
 					}),

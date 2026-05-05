@@ -25,7 +25,7 @@ from app.agents.new_chat.checkpointer import (
     close_checkpointer,
     setup_checkpointer_tables,
 )
-from app.config import config, initialize_llm_router
+from app.config import config, initialize_langsmith, initialize_llm_router
 from app.db import User, create_db_and_tables, get_async_session
 from app.routes import router as crud_router
 from app.routes.auth_routes import router as auth_router
@@ -219,6 +219,7 @@ async def lifespan(app: FastAPI):
     gc.set_threshold(700, 10, 5)
 
     _enable_slow_callback_logging(threshold_sec=0.5)
+    initialize_langsmith()
     await create_db_and_tables()
     await setup_checkpointer_tables()
     initialize_llm_router()

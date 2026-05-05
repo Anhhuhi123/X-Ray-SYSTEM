@@ -1,6 +1,7 @@
 import os
 import shutil
 from pathlib import Path
+from typing import Final
 
 import yaml
 from chonkie import AutoEmbeddings, CodeChunker, RecursiveChunker
@@ -12,6 +13,27 @@ BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
 env_file = BASE_DIR / ".env"
 load_dotenv(env_file)
+
+_LANGSMITH_DEFAULT_ENDPOINT: Final[str] = "https://api.smith.langchain.com"
+
+
+def initialize_langsmith() -> bool:
+    """Normalize LangSmith-related environment variables when tracing is enabled.
+
+    Returns True when tracing is enabled and the environment is ready for LangSmith,
+    otherwise returns False and leaves runtime behavior unchanged.
+    """
+    tracing_enabled = os.getenv("LANGSMITH_TRACING", "false").lower() == "true"
+    api_key = os.getenv("LANGSMITH_API_KEY", "").strip()
+
+    if not tracing_enabled or not api_key:
+        return False
+
+    os.environ.setdefault("LANGSMITH_TRACING", "true")
+    os.environ.setdefault("LANGCHAIN_TRACING_V2", "true")
+    os.environ.setdefault("LANGSMITH_ENDPOINT", _LANGSMITH_DEFAULT_ENDPOINT)
+    os.environ.setdefault("LANGSMITH_PROJECT", "nfd")
+    return True
 
 
 def is_ffmpeg_installed():
@@ -162,6 +184,14 @@ class Config:
     GOOGLE_OAUTH_CLIENT_ID = os.getenv("GOOGLE_OAUTH_CLIENT_ID")
     GOOGLE_OAUTH_CLIENT_SECRET = os.getenv("GOOGLE_OAUTH_CLIENT_SECRET")
     GOOGLE_PICKER_API_KEY = os.getenv("GOOGLE_PICKER_API_KEY")
+
+    # LangSmith observability (opt-in)
+    LANGSMITH_TRACING = os.getenv("LANGSMITH_TRACING", "false").lower() == "true"
+    LANGSMITH_ENDPOINT = os.getenv(
+        "LANGSMITH_ENDPOINT", _LANGSMITH_DEFAULT_ENDPOINT
+    )
+    LANGSMITH_API_KEY = os.getenv("LANGSMITH_API_KEY")
+    LANGSMITH_PROJECT = os.getenv("LANGSMITH_PROJECT", "nfd")
 
     # Google Drive redirect URI
     GOOGLE_DRIVE_REDIRECT_URI = os.getenv("GOOGLE_DRIVE_REDIRECT_URI")

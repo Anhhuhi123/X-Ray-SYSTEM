@@ -17,8 +17,9 @@ def init_worker(**kwargs):
 
     This ensures the Auto mode (LiteLLM Router) is available for background tasks.
     """
-    from app.config import initialize_llm_router
+    from app.config import initialize_langsmith, initialize_llm_router
 
+    initialize_langsmith()
     initialize_llm_router()
 
 

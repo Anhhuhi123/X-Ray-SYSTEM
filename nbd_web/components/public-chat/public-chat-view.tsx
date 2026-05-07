@@ -4,8 +4,6 @@ import { AssistantRuntimeProvider } from "@assistant-ui/react";
 import { Navbar } from "@/components/homepage/navbar";
 import { ReportPanel } from "@/components/report-panel/report-panel";
 import { GenerateReportToolUI } from "@/components/tool-ui/generate-report";
-import { LinkPreviewToolUI } from "@/components/tool-ui/link-preview";
-import { ScrapeWebpageToolUI } from "@/components/tool-ui/scrape-webpage";
 import { Spinner } from "@/components/ui/spinner";
 import { usePublicChat } from "@/hooks/use-public-chat";
 import { usePublicChatRuntime } from "@/hooks/use-public-chat-runtime";
@@ -42,8 +40,6 @@ export function PublicChatView({ shareToken }: PublicChatViewProps) {
 			<AssistantRuntimeProvider runtime={runtime}>
 				{/* Tool UIs for rendering tool results */}
 				<GenerateReportToolUI />
-				<LinkPreviewToolUI />
-				<ScrapeWebpageToolUI />
 
 				<div className="flex h-screen pt-16 overflow-hidden">
 					<div className="flex-1 flex flex-col min-w-0 overflow-hidden">

@@ -40,8 +40,6 @@ import {
 	CreateGoogleDriveFileToolUI,
 	DeleteGoogleDriveFileToolUI,
 } from "@/components/tool-ui/google-drive";
-import { LinkPreviewToolUI } from "@/components/tool-ui/link-preview";
-import { ScrapeWebpageToolUI } from "@/components/tool-ui/scrape-webpage";
 import { RecallMemoryToolUI, SaveMemoryToolUI } from "@/components/tool-ui/user-memory";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useChatSessionStateSync } from "@/hooks/use-chat-session-state";
@@ -127,11 +125,10 @@ function extractMentionedDocuments(content: unknown): MentionedDocumentInfo[] {
  */
 const TOOLS_WITH_UI = new Set([
 	"generate_report",
-	"link_preview",
-	"scrape_webpage",
 	"create_google_drive_file",
 	"delete_google_drive_file",
 	// "write_todos", // Disabled for now
+	// REMOVED: "link_preview", "scrape_webpage" (phase 1 deprecation)
 ]);
 
 export default function NewChatPage() {
@@ -1603,8 +1600,6 @@ export default function NewChatPage() {
 	return (
 		<AssistantRuntimeProvider runtime={runtime}>
 			<GenerateReportToolUI />
-			<LinkPreviewToolUI />
-			<ScrapeWebpageToolUI />
 			<SaveMemoryToolUI />
 			<RecallMemoryToolUI />
 			<CreateGoogleDriveFileToolUI />

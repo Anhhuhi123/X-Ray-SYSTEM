@@ -100,7 +100,25 @@ export function buildContentForPersistence(
 		if (part.type === "text" && part.text.length > 0) {
 			parts.push(part);
 		} else if (part.type === "tool-call" && toolsWithUI.has(part.toolName)) {
-			parts.push(part);
+			// Redact large fields from tool results to prevent bloating DB messages
+			const toolCall = { ...part };
+			if (toolCall.result && typeof toolCall.result === "object") {
+				const result = toolCall.result as Record<string, unknown>;
+				// Remove large content fields from scrape_webpage and link_preview
+				// (now disabled, but defensive for other clients)
+				const redacted = { ...result };
+				if ("content" in redacted && typeof redacted.content === "string") {
+					delete redacted.content;
+				}
+				if ("word_count" in redacted) {
+					delete redacted.word_count;
+				}
+				if ("crawler_type" in redacted) {
+					delete redacted.crawler_type;
+				}
+				toolCall.result = redacted;
+			}
+			parts.push(toolCall);
 		}
 	}
 

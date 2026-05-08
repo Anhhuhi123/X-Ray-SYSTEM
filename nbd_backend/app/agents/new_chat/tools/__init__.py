@@ -7,8 +7,6 @@ To add a new tool, see the documentation in registry.py.
 Available tools:
 - search_knowledge_base: Search the user's personal knowledge base
 - search_nfd_docs: Search NFD documentation for usage help
-- link_preview: Fetch rich previews for URLs
-- scrape_webpage: Extract content from webpages
 - save_memory: Store facts/preferences about the user
 - recall_memory: Retrieve relevant user memories
 """
@@ -21,7 +19,6 @@ from .knowledge_base import (
     format_documents_for_context,
     search_knowledge_base_async,
 )
-from .link_preview import create_link_preview_tool
 from .registry import (
     BUILTIN_TOOLS,
     ToolDefinition,
@@ -30,7 +27,6 @@ from .registry import (
     get_default_enabled_tools,
     get_tool_by_name,
 )
-from .scrape_webpage import create_scrape_webpage_tool
 from .search_nfd_docs import create_search_nfd_docs_tool
 from .user_memory import create_recall_memory_tool, create_save_memory_tool
 
@@ -42,10 +38,8 @@ __all__ = [
     "ToolDefinition",
     "build_tools",
     # Tool factories
-    "create_link_preview_tool",
     "create_recall_memory_tool",
     "create_save_memory_tool",
-    "create_scrape_webpage_tool",
     "create_search_knowledge_base_tool",
     "create_search_nfd_docs_tool",
     "format_documents_for_context",

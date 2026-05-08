@@ -250,15 +250,15 @@ async def create_document_chunks(content: str) -> list[Chunk]:
 
     # 3. Create ORM objects with transient tree linkages
     for parsed_section in parsed_sections:
-        parent_id = None
+        parent_section = None
         if parsed_section.parent_temp_id:
-            parent_id = temp_to_db[parsed_section.parent_temp_id].id
+            parent_section = temp_to_db[parsed_section.parent_temp_id]
 
         db_section = DocumentSection(
             id=uuid4(),
             heading_text=parsed_section.heading_text,
             heading_level=parsed_section.heading_level,
-            parent_section_id=parent_id,
+            parent=parent_section,
             section_order=parsed_section.section_order,
             raw_markdown=parsed_section.raw_markdown,
             plain_text=parsed_section.plain_text,
@@ -270,10 +270,9 @@ async def create_document_chunks(content: str) -> list[Chunk]:
         for p_chunk in parsed_section.chunks:
             emb = next(emb_iter)
             db_chunk = Chunk(
-                id=uuid4(),
                 content=p_chunk.content,
                 embedding=emb,
-                chunk_order_in_section=p_chunk.chunk_order,
+                chunk_order_in_section=p_chunk.chunk_order_in_section,
                 heading_text=parsed_section.heading_text,
                 heading_level=parsed_section.heading_level,
                 section_type=parsed_section.section_type,

@@ -53,6 +53,7 @@ def safe_set_chunks(document: Document, chunks: list) -> None:
             for chunk in chunks:
                 chunk.document_id = document.id
                 if getattr(chunk, "section", None) is not None:
+                    chunk.section.document = document
                     chunk.section.document_id = document.id
 
         # Add sections first to establish FK properly if needed (though SQLAlchemy handles order)

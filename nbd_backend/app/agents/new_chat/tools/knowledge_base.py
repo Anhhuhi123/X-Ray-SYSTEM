@@ -36,6 +36,15 @@ _DEGENERATE_QUERY_RE = re.compile(
 # a real search.  We want breadth (many docs) over depth (many chunks).
 _BROWSE_MAX_CHUNKS_PER_DOC = 5
 
+# Live search connectors whose results should be cited by URL rather than
+# a numeric chunk_id (the numeric IDs are meaningless auto-incremented counters).
+_LIVE_SEARCH_CONNECTORS = {
+    "TAVILY_API",
+    "SEARXNG_API",
+    "LINKUP_API",
+    "BAIDU_SEARCH_API",
+}
+
 
 def _is_degenerate_query(query: str) -> bool:
     """Return True when the query carries no meaningful search signal.
@@ -429,15 +438,6 @@ def format_documents_for_context(
             continue
         grouped[doc_key]["chunks"].append({"chunk_id": chunk_id, "content": content})
 
-    # Live search connectors whose results should be cited by URL rather than
-    # a numeric chunk_id (the numeric IDs are meaningless auto-incremented counters).
-    live_search_connectors = {
-        "TAVILY_API",
-        "SEARXNG_API",
-        "LINKUP_API",
-        "BAIDU_SEARCH_API",
-    }
-
     # Render XML expected by citation instructions, respecting the char budget.
     parts: list[str] = []
     total_chars = 0
@@ -445,7 +445,7 @@ def format_documents_for_context(
 
     for doc_idx, g in enumerate(grouped.values()):
         metadata_json = json.dumps(g["metadata"], ensure_ascii=False)
-        is_live_search = g["document_type"] in live_search_connectors
+        is_live_search = g["document_type"] in _LIVE_SEARCH_CONNECTORS
 
         doc_lines: list[str] = [
             "<document>",

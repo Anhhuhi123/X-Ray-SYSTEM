@@ -396,6 +396,34 @@ class ComposioService:
             Tuple of (file content bytes, error message).
         """
         from pathlib import Path
+        from urllib.request import urlopen
+
+        def _extract_file_ref(value: Any) -> str | None:
+            if isinstance(value, str):
+                return value
+
+            if isinstance(value, dict):
+                for key in (
+                    "file_path",
+                    "downloaded_file_content",
+                    "path",
+                    "uri",
+                    "s3url",
+                    "url",
+                ):
+                    nested_value = value.get(key)
+                    if isinstance(nested_value, str):
+                        return nested_value
+                    if isinstance(nested_value, dict):
+                        extracted = _extract_file_ref(nested_value)
+                        if extracted:
+                            return extracted
+
+            return None
+
+        def _download_from_url(file_url: str) -> bytes:
+            with urlopen(file_url, timeout=60) as response:
+                return response.read()
 
         try:
             params = {"file_id": file_id}
@@ -439,41 +467,8 @@ class ComposioService:
                     # Standard Composio response wrapper
                     inner_data = data["data"] if data["data"] else data
 
-                # Try documented fields: file_path, downloaded_file_content, path, uri
-                file_path = (
-                    inner_data.get("file_path")
-                    or inner_data.get("downloaded_file_content")
-                    or inner_data.get("path")
-                    or inner_data.get("uri")
-                )
-
-                # Handle nested dict case where downloaded_file_content contains the path
-                if isinstance(file_path, dict):
-                    file_path = (
-                        file_path.get("file_path")
-                        or file_path.get("downloaded_file_content")
-                        or file_path.get("path")
-                        or file_path.get("uri")
-                    )
-
-                # If still no path, check if inner_data itself has the nested structure
-                if not file_path and isinstance(inner_data, dict):
-                    for key in ["downloaded_file_content", "file_path", "path", "uri"]:
-                        if key in inner_data:
-                            val = inner_data[key]
-                            if isinstance(val, str):
-                                file_path = val
-                                break
-                            elif isinstance(val, dict):
-                                # One more level of nesting
-                                file_path = (
-                                    val.get("file_path")
-                                    or val.get("downloaded_file_content")
-                                    or val.get("path")
-                                    or val.get("uri")
-                                )
-                                if file_path:
-                                    break
+                # Try documented fields: file_path, downloaded_file_content, path, uri, s3url.
+                file_path = _extract_file_ref(inner_data)
 
                 logger.debug(
                     f"Composio response keys: {list(data.keys())}, inner keys: {list(inner_data.keys()) if isinstance(inner_data, dict) else 'N/A'}, extracted path: {file_path}"
@@ -509,6 +504,19 @@ class ComposioService:
                         )
                         return None, f"Failed to read file: {e!s}"
                 else:
+                    if file_path.startswith(("http://", "https://")):
+                        try:
+                            content = _download_from_url(file_path)
+                            logger.info(
+                                f"Successfully downloaded {len(content)} bytes from Composio URL: {file_path}"
+                            )
+                            return content, None
+                        except Exception as e:
+                            logger.error(
+                                f"Failed to download file from Composio URL {file_path}: {e!s}"
+                            )
+                            return None, f"Failed to download file: {e!s}"
+
                     # Not a file path - might be base64 encoded content
                     try:
                         import base64

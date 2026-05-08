@@ -37,8 +37,6 @@ from .tools import (
     BUILTIN_TOOLS,
     ToolDefinition,
     build_tools,
-    create_link_preview_tool,
-    create_scrape_webpage_tool,
     create_search_knowledge_base_tool,
     format_documents_for_context,
     get_all_tool_names,
@@ -61,8 +59,6 @@ __all__ = [
     # LLM config
     "create_chat_litellm_from_config",
     # Tool factories
-    "create_link_preview_tool",
-    "create_scrape_webpage_tool",
     "create_search_knowledge_base_tool",
     # Agent factory
     "create_nfd_deep_agent",

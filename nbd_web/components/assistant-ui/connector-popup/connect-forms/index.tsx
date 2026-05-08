@@ -1,11 +1,6 @@
 import type { FC } from "react";
-import { BaiduSearchApiConnectForm } from "./components/baidu-search-api-connect-form";
-import { CirclebackConnectForm } from "./components/circleback-connect-form";
-import { LinkupApiConnectForm } from "./components/linkup-api-connect-form";
 import { MCPConnectForm } from "./components/mcp-connect-form";
 import { ObsidianConnectForm } from "./components/obsidian-connect-form";
-import { SearxngConnectForm } from "./components/searxng-connect-form";
-import { TavilyApiConnectForm } from "./components/tavily-api-connect-form";
 
 export interface ConnectFormProps {
 	onSubmit: (data: {
@@ -35,16 +30,6 @@ export type ConnectFormComponent = FC<ConnectFormProps>;
  */
 export function getConnectFormComponent(connectorType: string): ConnectFormComponent | null {
 	switch (connectorType) {
-		case "TAVILY_API":
-			return TavilyApiConnectForm;
-		case "SEARXNG_API":
-			return SearxngConnectForm;
-		case "LINKUP_API":
-			return LinkupApiConnectForm;
-		case "BAIDU_SEARCH_API":
-			return BaiduSearchApiConnectForm;
-		case "CIRCLEBACK_CONNECTOR":
-			return CirclebackConnectForm;
 		case "MCP_CONNECTOR":
 			return MCPConnectForm;
 		case "OBSIDIAN_CONNECTOR":

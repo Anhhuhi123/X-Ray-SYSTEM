@@ -152,50 +152,6 @@ _TOOL_INSTRUCTIONS["generate_report"] = """
   - AFTER CALLING THIS TOOL: Do NOT repeat, summarize, or reproduce the report content in the chat. The report is already displayed as an interactive card that the user can open, read, copy, and export. Simply confirm that the report was generated (e.g., "I've generated your report on [topic]. You can view the Markdown report now, and export it in various formats from the card."). NEVER write out the report text in the chat.
 """
 
-_TOOL_INSTRUCTIONS["link_preview"] = """
-- link_preview: Fetch metadata for a URL to display a rich preview card.
-  - IMPORTANT: Use this tool WHENEVER the user shares or mentions a URL/link in their message.
-  - This fetches the page's Open Graph metadata (title, description, thumbnail) to show a preview card.
-  - NOTE: This tool only fetches metadata, NOT the full page content. It cannot read the article text.
-  - Trigger scenarios:
-    * User shares a URL (e.g., "Check out https://example.com")
-    * User pastes a link in their message
-    * User asks about a URL or link
-  - Args:
-    - url: The URL to fetch metadata for (must be a valid HTTP/HTTPS URL)
-  - Returns: A rich preview card with title, description, thumbnail, and domain
-  - The preview card will automatically be displayed in the chat.
-"""
-
-_TOOL_INSTRUCTIONS["scrape_webpage"] = """
-- scrape_webpage: Scrape and extract the main content from a webpage.
-  - Use this when the user wants you to READ and UNDERSTAND the actual content of a webpage.
-  - IMPORTANT: This is different from link_preview:
-    * link_preview: Only fetches metadata (title, description, thumbnail) for display
-    * scrape_webpage: Actually reads the FULL page content so you can analyze/summarize it
-  - CRITICAL — WHEN TO USE (always attempt scraping, never refuse before trying):
-    * When a user asks to "get", "fetch", "pull", "grab", "scrape", or "read" content from a URL
-    * When the user wants live/dynamic data from a specific webpage (e.g., tables, scores, stats, prices)
-    * When a URL was mentioned earlier in the conversation and the user asks for its actual content
-    * When link_preview or search_knowledge_base returned insufficient data and the user wants more
-  - Trigger scenarios:
-    * "Read this article and summarize it"
-    * "What does this page say about X?"
-    * "Summarize this blog post for me"
-    * "Tell me the key points from this article"
-    * "What's in this webpage?"
-    * "Can you analyze this article?"
-    * "Can you get the live table/data from [URL]?"
-    * "Scrape it" / "Can you scrape that?" (referring to a previously mentioned URL)
-    * "Fetch the content from [URL]"
-    * "Pull the data from that page"
-  - Args:
-    - url: The URL of the webpage to scrape (must be HTTP/HTTPS)
-    - max_length: Maximum content length to return (default: 50000 chars)
-  - Returns: The page title, description, full content (in markdown), word count, and metadata
-  - After scraping, you will have the full article text and can analyze, summarize, or answer questions about it.
-"""
-
 # Memory tool instructions have private and shared variants.
 # We store them keyed as "save_memory" / "recall_memory" with sub-keys.
 _MEMORY_TOOL_INSTRUCTIONS: dict[str, dict[str, str]] = {
@@ -624,7 +580,6 @@ def build_configurable_system_prompt(
     1. System Instructions - either custom or default NFD_SYSTEM_INSTRUCTIONS
     2. Tools Instructions - only for enabled tools, with a note about disabled ones
     3. Citation Instructions - either NFD_CITATION_INSTRUCTIONS or NFD_NO_CITATION_INSTRUCTIONS
-    4. Sandbox Execution Instructions - when sandbox_enabled=True
 
     Args:
         custom_system_instructions: Custom system instructions to use. If empty/None and

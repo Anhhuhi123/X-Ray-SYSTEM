@@ -24,15 +24,6 @@ from app.services.connector_service import ConnectorService
 from app.utils.decommissioned_connectors import DECOMMISSIONED_CONNECTOR_TYPE_VALUES
 from app.utils.perf import get_perf_logger
 
-# Connectors that call external live-search APIs (no local DB / embedding needed).
-# These are never filtered by available_document_types.
-_LIVE_SEARCH_CONNECTORS: set[str] = {
-    "TAVILY_API",
-    "SEARXNG_API",
-    "LINKUP_API",
-    "BAIDU_SEARCH_API",
-}
-
 # Patterns that indicate the query has no meaningful search signal.
 # plainto_tsquery('english', '*') produces an empty tsquery and an embedding
 # of '*' is random noise, so both keyword and semantic search degrade to
@@ -44,6 +35,15 @@ _DEGENERATE_QUERY_RE = re.compile(
 # Max chunks per document when doing a recency-based browse instead of
 # a real search.  We want breadth (many docs) over depth (many chunks).
 _BROWSE_MAX_CHUNKS_PER_DOC = 5
+
+# Live search connectors whose results should be cited by URL rather than
+# a numeric chunk_id (the numeric IDs are meaningless auto-incremented counters).
+_LIVE_SEARCH_CONNECTORS = {
+    "TAVILY_API",
+    "SEARXNG_API",
+    "LINKUP_API",
+    "BAIDU_SEARCH_API",
+}
 
 
 def _is_degenerate_query(query: str) -> bool:
@@ -178,18 +178,11 @@ _ALL_CONNECTORS: list[str] = [
     "FILE",
     "YOUTUBE_VIDEO",
     "GOOGLE_DRIVE_FILE",
-    "TAVILY_API",
-    "SEARXNG_API",
-    "LINKUP_API",
-    "BAIDU_SEARCH_API",
     "NOTE",
     "CRAWLED_URL",
-    "CIRCLEBACK",
     "OBSIDIAN_CONNECTOR",
     # Composio connectors
     "COMPOSIO_GOOGLE_DRIVE_CONNECTOR",
-    "COMPOSIO_GMAIL_CONNECTOR",
-    "COMPOSIO_GOOGLE_CALENDAR_CONNECTOR",
 ]
 
 # Human-readable descriptions for each connector type
@@ -200,18 +193,11 @@ CONNECTOR_DESCRIPTIONS: dict[str, str] = {
     "NOTE": "NFD Notes (notes created inside NFD)",
     "YOUTUBE_VIDEO": "YouTube video transcripts and metadata (personally saved videos)",
     "GOOGLE_DRIVE_FILE": "Google Drive files and documents (personal cloud storage)",
-    "TAVILY_API": "Tavily web search API results (real-time web search)",
-    "SEARXNG_API": "SearxNG search API results (privacy-focused web search)",
-    "LINKUP_API": "Linkup search API results (web search)",
-    "BAIDU_SEARCH_API": "Baidu search API results (Chinese web search)",
     "WEBCRAWLER_CONNECTOR": "Webpages indexed by NFD (personally selected websites)",
     "CRAWLED_URL": "Webpages indexed by NFD (personally selected websites)",
-    "CIRCLEBACK": "Circleback meeting notes, transcripts, and action items",
     "OBSIDIAN_CONNECTOR": "Obsidian vault notes and markdown files (personal notes)",
     # Composio connectors
     "COMPOSIO_GOOGLE_DRIVE_CONNECTOR": "Google Drive files via Composio (personal cloud storage)",
-    "COMPOSIO_GMAIL_CONNECTOR": "Gmail emails via Composio (personal emails)",
-    "COMPOSIO_GOOGLE_CALENDAR_CONNECTOR": "Google Calendar events via Composio (personal calendar)",
 }
 
 _ACTIVE_CONNECTORS: list[str] = [
@@ -452,15 +438,6 @@ def format_documents_for_context(
             continue
         grouped[doc_key]["chunks"].append({"chunk_id": chunk_id, "content": content})
 
-    # Live search connectors whose results should be cited by URL rather than
-    # a numeric chunk_id (the numeric IDs are meaningless auto-incremented counters).
-    live_search_connectors = {
-        "TAVILY_API",
-        "SEARXNG_API",
-        "LINKUP_API",
-        "BAIDU_SEARCH_API",
-    }
-
     # Render XML expected by citation instructions, respecting the char budget.
     parts: list[str] = []
     total_chars = 0
@@ -468,7 +445,7 @@ def format_documents_for_context(
 
     for doc_idx, g in enumerate(grouped.values()):
         metadata_json = json.dumps(g["metadata"], ensure_ascii=False)
-        is_live_search = g["document_type"] in live_search_connectors
+        is_live_search = g["document_type"] in _LIVE_SEARCH_CONNECTORS
 
         doc_lines: list[str] = [
             "<document>",
@@ -679,17 +656,9 @@ async def search_knowledge_base_async(
         )
         return result
 
-    # Specs for live-search connectors (external APIs, no local DB/embedding).
-    live_connector_specs: dict[str, tuple[str, bool, bool, dict[str, Any]]] = {
-        "TAVILY_API": ("search_tavily", False, True, {}),
-        "SEARXNG_API": ("search_searxng", False, True, {}),
-        "LINKUP_API": ("search_linkup", False, False, {"mode": "standard"}),
-        "BAIDU_SEARCH_API": ("search_baidu", False, True, {}),
-    }
-
     # --- Optimization 2: compute the query embedding once, share across all local searches ---
     precomputed_embedding: list[float] | None = None
-    has_local_connectors = any(c not in _LIVE_SEARCH_CONNECTORS for c in connectors)
+    has_local_connectors = bool(connectors)
     if has_local_connectors:
         from app.config import config as app_config
 
@@ -704,40 +673,6 @@ async def search_knowledge_base_async(
     semaphore = asyncio.Semaphore(max_parallel_searches)
 
     async def _search_one_connector(connector: str) -> list[dict[str, Any]]:
-        is_live = connector in _LIVE_SEARCH_CONNECTORS
-
-        if is_live:
-            spec = live_connector_specs.get(connector)
-            if spec is None:
-                return []
-            method_name, includes_date_range, includes_top_k, extra_kwargs = spec
-            kwargs: dict[str, Any] = {
-                "user_query": query,
-                "search_space_id": search_space_id,
-                **extra_kwargs,
-            }
-            if includes_top_k:
-                kwargs["top_k"] = top_k
-            if includes_date_range:
-                kwargs["start_date"] = resolved_start_date
-                kwargs["end_date"] = resolved_end_date
-
-            try:
-                t_conn = time.perf_counter()
-                async with semaphore, shielded_async_session() as isolated_session:
-                    svc = ConnectorService(isolated_session, search_space_id)
-                    _, chunks = await getattr(svc, method_name)(**kwargs)
-                    perf.info(
-                        "[kb_search] connector=%s results=%d in %.3fs",
-                        connector,
-                        len(chunks),
-                        time.perf_counter() - t_conn,
-                    )
-                    return chunks
-            except Exception as e:
-                perf.warning("[kb_search] connector=%s FAILED: %s", connector, e)
-                return []
-
         # --- Optimization 3: call _combined_rrf_search directly with shared embedding ---
         try:
             t_conn = time.perf_counter()

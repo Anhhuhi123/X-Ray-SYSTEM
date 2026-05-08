@@ -45,15 +45,9 @@ from langchain_core.tools import BaseTool
 
 from app.db import ChatVisibility
 
-from .google_drive import (
-    create_create_google_drive_file_tool,
-    create_delete_google_drive_file_tool,
-)
 from .knowledge_base import create_search_knowledge_base_tool
-from .link_preview import create_link_preview_tool
 from .mcp_tool import load_mcp_tools
 from .report import create_generate_report_tool
-from .scrape_webpage import create_scrape_webpage_tool
 from .search_nfd_docs import create_search_nfd_docs_tool
 from .shared_memory import (
     create_recall_shared_memory_tool,
@@ -129,22 +123,7 @@ BUILTIN_TOOLS: list[ToolDefinition] = [
         # are optional — when missing, source_strategy="kb_search" degrades
         # gracefully to "provided"
     ),
-    # Link preview tool - fetches Open Graph metadata for URLs
-    ToolDefinition(
-        name="link_preview",
-        description="Fetch metadata for a URL to display a rich preview card",
-        factory=lambda deps: create_link_preview_tool(),
-        requires=[],
-    ),
-    # Web scraping tool - extracts content from webpages
-    ToolDefinition(
-        name="scrape_webpage",
-        description="Scrape and extract the main content from a webpage",
-        factory=lambda deps: create_scrape_webpage_tool(
-            firecrawl_api_key=deps.get("firecrawl_api_key"),
-        ),
-        requires=[],  # firecrawl_api_key is optional
-    ),
+    # REMOVED: link_preview and scrape_webpage (Phase 1 deprecation - 2026-05-07)
     # Note: write_todos is now provided by TodoListMiddleware from deepagents
     # NFD documentation search tool
     ToolDefinition(

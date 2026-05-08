@@ -15,11 +15,8 @@ from app.db import SearchSourceConnector, SearchSourceConnectorType
 
 # Friendly display names for connector types
 BASE_NAME_FOR_TYPE = {
-    SearchSourceConnectorType.GOOGLE_DRIVE_CONNECTOR: "Google Drive",
     SearchSourceConnectorType.MCP_CONNECTOR: "Model Context Protocol (MCP)",
-    SearchSourceConnectorType.COMPOSIO_GMAIL_CONNECTOR: "Gmail",
     SearchSourceConnectorType.COMPOSIO_GOOGLE_DRIVE_CONNECTOR: "Google Drive",
-    SearchSourceConnectorType.COMPOSIO_GOOGLE_CALENDAR_CONNECTOR: "Google Calendar",
 }
 
 

@@ -756,8 +756,10 @@ async def index_composio_google_drive(
         # Get new page token for next sync (always update after successful sync)
         new_token, token_error = await composio_connector.get_drive_start_page_token()
         if new_token and not token_error:
-            # Refresh connector to avoid stale state
-            await session.refresh(connector)
+            # Refresh connector to avoid autoflush while pending section/chunk
+            # objects are still attached to the session.
+            with session.no_autoflush:
+                await session.refresh(connector)
 
             if not connector.config:
                 connector.config = {}

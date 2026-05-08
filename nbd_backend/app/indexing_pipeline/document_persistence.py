@@ -127,8 +127,7 @@ async def attach_sections_and_chunks(
             heading_text=parsed_section.heading_text,
             normalized_heading=parsed_section.heading_text.lower().strip(),
             heading_level=parsed_section.heading_level,
-            # SQLAlchemy resolves the FK from the related object automatically
-            parent_section_id=parent_db_section.id if parent_db_section else None,
+            parent=parent_db_section,
             section_order=parsed_section.section_order,
             raw_markdown=parsed_section.raw_markdown,
             plain_text=parsed_section.plain_text,

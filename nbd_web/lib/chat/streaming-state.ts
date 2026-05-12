@@ -15,6 +15,10 @@ export type ContentPart =
 			toolName: string;
 			args: Record<string, unknown>;
 			result?: unknown;
+	  }
+	| {
+			type: "inference-output";
+			outputs: unknown[];
 	  };
 
 export interface ContentPartsState {
@@ -75,6 +79,7 @@ export function buildContentForUI(
 	const filtered = state.contentParts.filter((part) => {
 		if (part.type === "text") return part.text.length > 0;
 		if (part.type === "tool-call") return toolsWithUI.has(part.toolName);
+		if (part.type === "inference-output") return false;
 		return false;
 	});
 	return filtered.length > 0
@@ -119,6 +124,8 @@ export function buildContentForPersistence(
 				toolCall.result = redacted;
 			}
 			parts.push(toolCall);
+		} else if (part.type === "inference-output") {
+			parts.push(part);
 		}
 	}
 

@@ -697,6 +697,8 @@ async def stream_new_chat(
     thread_visibility: ChatVisibility | None = None,
     current_user_display_name: str | None = None,
     disabled_tools: list[str] | None = None,
+    image_payloads: list[dict[str, Any]] | None = None,
+    inference_results: list[dict[str, Any]] | None = None,
 ) -> AsyncGenerator[str, None]:
     """
     Stream chat responses from the new NFD deep agent.
@@ -717,6 +719,8 @@ async def stream_new_chat(
         mentioned_document_ids: Optional list of document IDs mentioned with @ in the chat
         mentioned_nfd_doc_ids: Optional list of NFD doc IDs mentioned with @ in the chat
         checkpoint_id: Optional checkpoint ID to rewind/fork from (for edit/reload operations)
+        image_payloads: Optional normalized image metadata passed from the chat route
+        inference_results: Optional inference payload emitted to the frontend as SSE data
 
     Yields:
         str: SSE formatted response strings
@@ -972,6 +976,9 @@ async def stream_new_chat(
         # Start the message stream
         yield streaming_service.format_message_start()
         yield streaming_service.format_start_step()
+
+        if inference_results:
+            yield streaming_service.format_data("inference-output", {"outputs": inference_results})
 
         # Initial thinking step - analyzing the request
         if mentioned_documents or mentioned_nfd_docs:

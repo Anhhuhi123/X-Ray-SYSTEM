@@ -1,6 +1,6 @@
 """
 NFD documentation indexer.
-Indexes MDX documentation files at startup.
+Indexes documentation files at startup.
 """
 
 import hashlib
@@ -15,17 +15,20 @@ from sqlalchemy.orm import selectinload
 
 from app.config import config
 from app.db import NFDDocsChunks, NFDDocsDocument, async_session_maker
+from app.tasks.document_processors.file_parsing import parse_file_to_markdown
 from app.utils.document_converters import embed_text
 
 logger = logging.getLogger(__name__)
 
-# Path to docs relative to project root
-DOCS_DIR = (
+# Path to content root relative to project root
+CONTENT_DIR = (
     Path(__file__).resolve().parent.parent.parent.parent
     / "nbd_web"
     / "content"
-    / "docs"
 )
+LEGACY_DOCS_DIR = CONTENT_DIR / "docs"
+
+SUPPORTED_EXTENSIONS = {".mdx", ".pdf", ".doc", ".docx"}
 
 
 def parse_mdx_frontmatter(content: str) -> tuple[str, str]:
@@ -58,23 +61,39 @@ def parse_mdx_frontmatter(content: str) -> tuple[str, str]:
     return "Untitled", content.strip()
 
 
-def get_all_mdx_files() -> list[Path]:
+def get_all_indexable_files() -> list[Path]:
     """
-    Get all MDX files from the docs directory.
+    Get all supported documentation files from the content directory.
 
     Returns:
-        List of Path objects for each MDX file
+        List of Path objects for each supported file
     """
-    if not DOCS_DIR.exists():
-        logger.warning(f"Docs directory not found: {DOCS_DIR}")
+    if not CONTENT_DIR.exists():
+        logger.warning(f"Content directory not found: {CONTENT_DIR}")
         return []
 
-    return list(DOCS_DIR.rglob("*.mdx"))
+    files: list[Path] = []
+    for ext in SUPPORTED_EXTENSIONS:
+        files.extend(CONTENT_DIR.rglob(f"*{ext}"))
+
+    return sorted(set(files))
 
 
-def generate_nfd_docs_content_hash(content: str) -> str:
-    """Generate SHA-256 hash for NFD docs content."""
-    return hashlib.sha256(content.encode("utf-8")).hexdigest()
+def generate_nfd_docs_content_hash(content: bytes) -> str:
+    """Generate SHA-256 hash for source file bytes."""
+    return hashlib.sha256(content).hexdigest()
+
+
+def get_title_from_path(file_path: Path) -> str:
+    """Generate a readable title from filename for non-MDX files."""
+    return file_path.stem.replace("_", " ").strip() or file_path.name
+
+
+def get_source_key(file_path: Path) -> str:
+    """Build a stable source key, preserving legacy docs/* relative paths."""
+    if file_path.is_relative_to(LEGACY_DOCS_DIR):
+        return str(file_path.relative_to(LEGACY_DOCS_DIR))
+    return str(file_path.relative_to(CONTENT_DIR))
 
 
 def create_nfd_docs_chunks(content: str) -> list[NFDDocsChunks]:
@@ -122,28 +141,46 @@ async def index_nfd_docs(session: AsyncSession) -> tuple[int, int, int, int]:
     # Track which sources we've processed
     processed_sources = set()
 
-    # Get all MDX files
-    mdx_files = get_all_mdx_files()
-    logger.info(f"Found {len(mdx_files)} MDX files to index")
+    # Get all supported docs files
+    docs_files = get_all_indexable_files()
+    logger.info(f"Found {len(docs_files)} supported docs files to index")
 
-    for mdx_file in mdx_files:
+    for docs_file in docs_files:
         try:
-            source = str(mdx_file.relative_to(DOCS_DIR))
+            source = get_source_key(docs_file)
             processed_sources.add(source)
 
-            # Read file content
-            raw_content = mdx_file.read_text(encoding="utf-8")
-            title, content = parse_mdx_frontmatter(raw_content)
-            content_hash = generate_nfd_docs_content_hash(raw_content)
+            file_bytes = docs_file.read_bytes()
+            content_hash = generate_nfd_docs_content_hash(file_bytes)
+
+            if source in existing_docs and existing_docs[source].content_hash == content_hash:
+                logger.debug(f"Skipping unchanged: {source}")
+                skipped += 1
+                continue
+
+            if docs_file.suffix.lower() == ".mdx":
+                raw_content = docs_file.read_text(encoding="utf-8")
+                title, content = parse_mdx_frontmatter(raw_content)
+            else:
+                title = get_title_from_path(docs_file)
+                content, parser_name = await parse_file_to_markdown(
+                    str(docs_file),
+                    docs_file.name,
+                )
+                content = content.strip()
+                logger.info(
+                    "Parsed %s with %s parser for NFD docs startup index",
+                    source,
+                    parser_name,
+                )
+
+            if not content:
+                logger.warning(f"Skipping empty parsed content: {source}")
+                skipped += 1
+                continue
 
             if source in existing_docs:
                 existing_doc = existing_docs[source]
-
-                # Check if content changed
-                if existing_doc.content_hash == content_hash:
-                    logger.debug(f"Skipping unchanged: {source}")
-                    skipped += 1
-                    continue
 
                 # Content changed - update document
                 logger.info(f"Updating changed document: {source}")
@@ -180,7 +217,7 @@ async def index_nfd_docs(session: AsyncSession) -> tuple[int, int, int, int]:
                 created += 1
 
         except Exception as e:
-            logger.error(f"Error processing {mdx_file}: {e}", exc_info=True)
+            logger.error(f"Error processing {docs_file}: {e}", exc_info=True)
             continue
 
     # Delete documents for removed files
@@ -205,7 +242,7 @@ async def seed_nfd_docs() -> tuple[int, int, int, int]:
     """
     Seed NFD documentation into the database.
 
-    This function indexes all MDX files from the docs directory.
+    This function indexes supported documentation files from nbd_web/content.
     It handles creating, updating, and deleting docs based on content changes.
 
     Returns:

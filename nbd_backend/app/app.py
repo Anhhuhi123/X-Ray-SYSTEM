@@ -1,6 +1,7 @@
 import asyncio
 import gc
 import logging
+import os
 import time
 from collections import defaultdict
 from contextlib import asynccontextmanager
@@ -35,6 +36,8 @@ from app.users import SECRET, auth_backend, current_active_user, fastapi_users
 from app.utils.perf import get_perf_logger, log_system_snapshot
 
 rate_limit_logger = logging.getLogger("nfd.rate_limit")
+
+_NFD_DOCS_SEED_TIMEOUT_SEC = float(os.environ.get("NFD_DOCS_SEED_TIMEOUT_SEC", "120"))
 
 
 # ============================================================================
@@ -224,11 +227,12 @@ async def lifespan(app: FastAPI):
     await setup_checkpointer_tables()
     initialize_llm_router()
     try:
-        await asyncio.wait_for(seed_nfd_docs(), timeout=120)
+        await asyncio.wait_for(seed_nfd_docs(), timeout=_NFD_DOCS_SEED_TIMEOUT_SEC)
     except TimeoutError:
         logging.getLogger(__name__).warning(
-            "NFD docs seeding timed out after 120s — skipping. "
+            "NFD docs seeding timed out after %.0fs — skipping. "
             "Docs will be indexed on the next restart."
+            % _NFD_DOCS_SEED_TIMEOUT_SEC
         )
 
     log_system_snapshot("startup_complete")

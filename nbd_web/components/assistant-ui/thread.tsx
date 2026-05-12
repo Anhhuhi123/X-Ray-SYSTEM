@@ -22,6 +22,7 @@ import {
 	RefreshCwIcon,
 	SquareIcon,
 	Unplug,
+	Upload,
 	Wrench,
 	X,
 } from "lucide-react";
@@ -36,6 +37,10 @@ import {
 	toggleToolAtom,
 } from "@/atoms/agent-tools/agent-tools.atoms";
 import { chatSessionStateAtom } from "@/atoms/chat/chat-session-state.atom";
+import {
+	clearSelectedChatImageAttachmentsAtom,
+	selectedChatImageAttachmentsAtom,
+} from "@/atoms/chat/chat-image-attachments.atom";
 import {
 	mentionedDocumentsAtom,
 	sidebarSelectedDocumentsAtom,
@@ -82,6 +87,20 @@ import { useBatchCommentsPreload } from "@/hooks/use-comments";
 import { useCommentsElectric } from "@/hooks/use-comments-electric";
 import { useMediaQuery } from "@/hooks/use-media-query";
 import { cn } from "@/lib/utils";
+
+function getImageExtension(file: File): string {
+	const fileNameExtension = file.name.includes(".") ? file.name.slice(file.name.lastIndexOf(".")) : "";
+	if (fileNameExtension) return fileNameExtension;
+	if (file.type.includes("png")) return ".png";
+	if (file.type.includes("jpeg") || file.type.includes("jpg")) return ".jpg";
+	if (file.type.includes("webp")) return ".webp";
+	if (file.type.includes("bmp")) return ".bmp";
+	return ".png";
+}
+
+function buildRelativeImagePath(file: File): string {
+	return `original/${crypto.randomUUID?.() ?? `image-${Date.now()}-${Math.random().toString(36).slice(2)}`}${getImageExtension(file)}`;
+}
 
 /** Placeholder texts that cycle in new chats when input is empty */
 const CYCLING_PLACEHOLDERS = [
@@ -559,9 +578,13 @@ interface ComposerActionProps {
 const ComposerAction: FC<ComposerActionProps> = ({ isBlockedByOtherUser = false }) => {
 	const mentionedDocuments = useAtomValue(mentionedDocumentsAtom);
 	const sidebarDocs = useAtomValue(sidebarSelectedDocumentsAtom);
+	const selectedImageAttachments = useAtomValue(selectedChatImageAttachmentsAtom);
 	const setDocumentsSidebarOpen = useSetAtom(documentsSidebarOpenAtom);
 	const setConnectorDialogOpen = useSetAtom(connectorDialogOpenAtom);
+	const setSelectedImageAttachments = useSetAtom(selectedChatImageAttachmentsAtom);
+	const clearSelectedImageAttachments = useSetAtom(clearSelectedChatImageAttachmentsAtom);
 	const [toolsPopoverOpen, setToolsPopoverOpen] = useState(false);
+	const imageInputRef = useRef<HTMLInputElement>(null);
 	const isDesktop = useMediaQuery("(min-width: 640px)");
 	const [toolsScrollPos, setToolsScrollPos] = useState<"top" | "middle" | "bottom">("top");
 	const handleToolsScroll = useCallback((e: React.UIEvent<HTMLDivElement>) => {
@@ -574,7 +597,8 @@ const ComposerAction: FC<ComposerActionProps> = ({ isBlockedByOtherUser = false 
 		const text = composer.text?.trim() || "";
 		return text.length === 0;
 	});
-	const isComposerEmpty = isComposerTextEmpty && mentionedDocuments.length === 0;
+	const hasSelectedImages = selectedImageAttachments.length > 0;
+	const isComposerEmpty = isComposerTextEmpty && mentionedDocuments.length === 0 && !hasSelectedImages;
 
 	const { data: userConfigs } = useAtomValue(newLLMConfigsAtom);
 	const { data: globalConfigs } = useAtomValue(globalNewLLMConfigsAtom);
@@ -603,9 +627,48 @@ const ComposerAction: FC<ComposerActionProps> = ({ isBlockedByOtherUser = false 
 
 	const isSendDisabled = isComposerEmpty || !hasModelConfigured || isBlockedByOtherUser;
 
+	const handleOpenImagePicker = useCallback(() => {
+		imageInputRef.current?.click();
+	}, []);
+
+	const handleImageFilesSelected = useCallback(
+		(e: React.ChangeEvent<HTMLInputElement>) => {
+			const files = Array.from(e.target.files ?? []);
+			if (files.length === 0) return;
+
+			const imageFiles = files.filter((file) => file.type.startsWith("image/"));
+			if (imageFiles.length === 0) {
+				e.target.value = "";
+				return;
+			}
+
+			setSelectedImageAttachments((prev) => [
+				...prev,
+				...imageFiles.map((file) => ({
+					id: crypto.randomUUID?.() ?? `image-${Date.now()}-${Math.random().toString(36)}`,
+					file,
+					name: file.name,
+					type: file.type,
+					size: file.size,
+					image_path: buildRelativeImagePath(file),
+				})),
+			]);
+			e.target.value = "";
+		},
+		[setSelectedImageAttachments]
+	);
+
 	return (
 		<div className="aui-composer-action-wrapper relative mx-3 mb-2 flex items-center justify-between">
 			<div className="flex items-center gap-1">
+				<input
+					ref={imageInputRef}
+					type="file"
+					accept="image/*"
+					multiple
+					className="hidden"
+					onChange={handleImageFilesSelected}
+				/>
 				<Popover open={toolsPopoverOpen} onOpenChange={setToolsPopoverOpen}>
 					<PopoverTrigger asChild>
 						<TooltipIconButton
@@ -675,6 +738,30 @@ const ComposerAction: FC<ComposerActionProps> = ({ isBlockedByOtherUser = false 
 						</div>
 					</PopoverContent>
 				</Popover>
+				<TooltipIconButton
+					tooltip={hasSelectedImages ? `Upload images (${selectedImageAttachments.length} selected)` : "Upload images"}
+					side="bottom"
+					variant="ghost"
+					size="icon"
+					className={cn(
+						"size-[34px] rounded-full p-1 font-semibold text-xs hover:bg-muted-foreground/15 dark:border-muted-foreground/15 dark:hover:bg-muted-foreground/30",
+						hasSelectedImages && "bg-primary/10 text-primary"
+					)}
+					aria-label="Upload images"
+					onClick={handleOpenImagePicker}
+				>
+					<Upload className="size-4" />
+				</TooltipIconButton>
+				{hasSelectedImages && (
+					<button
+						type="button"
+						onClick={() => clearSelectedImageAttachments()}
+						className="rounded-full border border-border/60 bg-accent/50 px-2.5 py-1 text-xs font-medium text-foreground/80 transition-colors hover:bg-accent"
+					>
+						{selectedImageAttachments.length} image{selectedImageAttachments.length === 1 ? "" : "s"}
+						<span className="ml-1 text-muted-foreground">×</span>
+					</button>
+				)}
 				{!isDesktop && (
 					<TooltipIconButton
 						tooltip="Manage connectors"

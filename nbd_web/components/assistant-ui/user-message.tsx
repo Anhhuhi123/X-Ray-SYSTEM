@@ -1,13 +1,22 @@
 import { ActionBarPrimitive, MessagePrimitive, useAssistantState } from "@assistant-ui/react";
 import { useAtomValue } from "jotai";
-import { FileText, Pen } from "lucide-react";
+import { FileText, Image, Pen } from "lucide-react";
 import { type FC, useState } from "react";
+import { messageImageAttachmentsMapAtom } from "@/atoms/chat/chat-image-attachments.atom";
 import { messageDocumentsMapAtom } from "@/atoms/chat/mentioned-documents.atom";
 import { TooltipIconButton } from "@/components/assistant-ui/tooltip-icon-button";
 
 interface AuthorMetadata {
 	displayName: string | null;
 	avatarUrl: string | null;
+}
+
+const BACKEND_URL = process.env.NEXT_PUBLIC_FASTAPI_BACKEND_URL || "http://localhost:8000";
+
+function buildImageUrl(imagePath: string): string {
+	if (!imagePath) return "";
+	if (/^https?:\/\//.test(imagePath)) return imagePath;
+	return `${BACKEND_URL}${imagePath.startsWith("/") ? "" : "/"}${imagePath}`;
 }
 
 const UserAvatar: FC<AuthorMetadata> = ({ displayName, avatarUrl }) => {
@@ -44,7 +53,9 @@ const UserAvatar: FC<AuthorMetadata> = ({ displayName, avatarUrl }) => {
 export const UserMessage: FC = () => {
 	const messageId = useAssistantState(({ message }) => message?.id);
 	const messageDocumentsMap = useAtomValue(messageDocumentsMapAtom);
+	const messageImageAttachmentsMap = useAtomValue(messageImageAttachmentsMapAtom);
 	const mentionedDocs = messageId ? messageDocumentsMap[messageId] : undefined;
+	const attachedImages = messageId ? messageImageAttachmentsMap[messageId] : undefined;
 	const metadata = useAssistantState(({ message }) => message?.metadata);
 	const author = metadata?.custom?.author as AuthorMetadata | undefined;
 
@@ -55,6 +66,31 @@ export const UserMessage: FC = () => {
 		>
 			<div className="aui-user-message-content-wrapper col-start-2 min-w-0 flex items-end gap-2">
 				<div className="flex-1 min-w-0">
+					{/* Display attached images */}
+					{attachedImages && attachedImages.length > 0 && (
+						<div className="mb-2 flex flex-wrap items-end justify-end gap-2">
+							{attachedImages.map((image) => (
+								<div
+									key={image.id}
+									className="overflow-hidden rounded-2xl border border-primary/15 bg-background shadow-sm"
+									title={image.name}
+								>
+									<img
+										src={buildImageUrl(image.image_path)}
+										alt={image.name}
+										className="h-32 w-32 object-cover"
+										onError={(e) => {
+											(e.currentTarget as HTMLImageElement).style.display = "none";
+										}}
+									/>
+									<div className="flex items-center gap-1 px-2 py-1 text-xs text-muted-foreground">
+										<Image className="size-3" />
+										<span className="max-w-[150px] truncate">{image.name}</span>
+									</div>
+								</div>
+							))}
+						</div>
+					)}
 					{/* Display mentioned documents */}
 					{mentionedDocs && mentionedDocs.length > 0 && (
 						<div className="flex flex-wrap items-end gap-2 mb-2 justify-end">

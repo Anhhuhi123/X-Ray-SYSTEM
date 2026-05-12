@@ -19,7 +19,8 @@ export function convertToThreadMessage(msg: MessageRecord): ThreadMessageLike {
 			return (
 				partType !== "thinking-steps" &&
 				partType !== "mentioned-documents" &&
-				partType !== "attachments"
+				partType !== "attachments" &&
+				partType !== "inference-output"
 			);
 		});
 		content =

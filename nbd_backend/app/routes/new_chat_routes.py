@@ -10,11 +10,15 @@ These endpoints support the ThreadHistoryAdapter pattern from assistant-ui:
 - POST /threads/{thread_id}/messages - Append message
 """
 
+import base64
 import asyncio
 import contextlib
+import binascii
 import logging
 from datetime import UTC, datetime
+from pathlib import Path
 from typing import Any
+from uuid import uuid4
 
 from fastapi import APIRouter, Depends, HTTPException, Request
 from fastapi.responses import StreamingResponse
@@ -63,6 +67,161 @@ _logger = logging.getLogger(__name__)
 _background_tasks: set[asyncio.Task] = set()
 
 router = APIRouter()
+
+AI_IMAGE_UPLOAD_DIR = Path(__file__).resolve().parents[1] / "ai" / "upload"
+AI_IMAGE_ORIGINAL_DIR = AI_IMAGE_UPLOAD_DIR / "original"
+
+
+def _strip_data_url_prefix(value: str) -> str:
+    if value.startswith("data:") and "," in value:
+        return value.split(",", 1)[1]
+    return value
+
+
+def _resolve_image_suffix(filename: str | None, mime_type: str | None) -> str:
+    if filename:
+        suffix = Path(filename).suffix
+        if suffix:
+            return suffix
+    if mime_type:
+        mime_type = mime_type.lower()
+        if "png" in mime_type:
+            return ".png"
+        if "jpeg" in mime_type or "jpg" in mime_type:
+            return ".jpg"
+        if "webp" in mime_type:
+            return ".webp"
+        if "bmp" in mime_type:
+            return ".bmp"
+    return ".png"
+
+
+async def _store_image_attachment(image: Any) -> dict[str, Any]:
+    AI_IMAGE_ORIGINAL_DIR.mkdir(parents=True, exist_ok=True)
+
+    image_path = getattr(image, "image_path", None)
+    base64_data = getattr(image, "base64_data", None)
+    filename = getattr(image, "filename", None)
+    mime_type = getattr(image, "mime_type", None)
+    threshold = getattr(image, "threshold", 0.5) or 0.5
+
+    if image_path:
+        candidate_path = Path(image_path).expanduser()
+        if not candidate_path.is_absolute():
+            relative_candidate = AI_IMAGE_UPLOAD_DIR / candidate_path
+            if relative_candidate.exists():
+                candidate_path = relative_candidate
+            else:
+                candidate_path = (AI_IMAGE_UPLOAD_DIR / image_path).resolve()
+        if not candidate_path.exists():
+            raise HTTPException(
+                status_code=400,
+                detail=f"Image file not found: {image_path}",
+            )
+        return {
+            "image_path": str(candidate_path),
+            "filename": filename or candidate_path.name,
+            "mime_type": mime_type,
+            "threshold": float(threshold),
+        }
+
+    if not base64_data:
+        raise HTTPException(
+            status_code=400,
+            detail="Each image must include either image_path or base64 data",
+        )
+
+    raw_data = _strip_data_url_prefix(base64_data)
+    try:
+        binary_data = base64.b64decode(raw_data, validate=True)
+    except (ValueError, binascii.Error) as exc:
+        raise HTTPException(
+            status_code=400,
+            detail=f"Invalid base64 image payload: {exc!s}",
+        ) from exc
+
+    suffix = _resolve_image_suffix(filename, mime_type)
+    stored_filename = f"{uuid4().hex}{suffix}"
+    stored_path = AI_IMAGE_ORIGINAL_DIR / stored_filename
+
+    await asyncio.to_thread(stored_path.write_bytes, binary_data)
+
+    return {
+        "image_path": str(stored_path),
+        "filename": filename or stored_filename,
+        "mime_type": mime_type,
+        "threshold": float(threshold),
+    }
+
+
+async def _normalize_image_attachments(images: list[Any] | None) -> list[dict[str, Any]]:
+    if not images:
+        return []
+
+    normalized_images: list[dict[str, Any]] = []
+    for image in images:
+        normalized_images.append(await _store_image_attachment(image))
+    return normalized_images
+
+
+def _build_image_inference_summary(inference_results: list[dict[str, Any]]) -> str:
+    if not inference_results:
+        return ""
+
+    lines = []
+    for index, result in enumerate(inference_results, start=1):
+        positive_labels = result.get("positive_labels") or []
+        top_predictions = result.get("top_predictions") or []
+        if positive_labels:
+            positive_text = ", ".join(positive_labels[:5])
+        elif top_predictions:
+            positive_text = ", ".join(
+                f"{item.get('label_name')}={float(item.get('probability', 0.0)):.2f}"
+                for item in top_predictions
+            )
+        else:
+            positive_text = "no strong findings"
+
+        lines.append(
+            f"- image {index}: threshold={float(result.get('threshold', 0.5)):.2f}; findings={positive_text}"
+        )
+
+    return "\n".join(lines)
+
+
+def _build_image_retrieval_prompt(
+    user_query: str,
+    images: list[dict[str, Any]],
+    inference_results: list[dict[str, Any]],
+) -> str:
+    if not images:
+        return user_query
+
+    image_summary_lines = []
+    for index, image in enumerate(images, start=1):
+        filename = image.get("filename") or f"image_{index}"
+        threshold = image.get("threshold", 0.5)
+        image_summary_lines.append(
+            f"- {filename}: threshold={threshold:.2f}, stored_path={image.get('image_path', '')}"
+        )
+
+    image_summary = "\n".join(image_summary_lines)
+    inference_summary = _build_image_inference_summary(inference_results)
+    inference_summary_block = (
+        f"\n\nImage inference summary:\n{inference_summary}" if inference_summary else ""
+    )
+    if user_query.strip():
+        return (
+            f"{user_query}\n\n"
+            f"Attached image context:\n{image_summary}\n\n"
+            f"Use the text and image findings together to retrieve the most relevant NFD docs and disease references.{inference_summary_block}"
+        )
+
+    return (
+        "Analyze the attached medical image(s) and retrieve the most relevant NFD docs and disease references.\n\n"
+        f"Attached image context:\n{image_summary}"
+        f"{inference_summary_block}"
+    )
 
 
 async def check_thread_access(
@@ -1187,6 +1346,22 @@ async def handle_new_chat(
         # Check thread-level access based on visibility
         await check_thread_access(session, thread, user)
 
+        normalized_images = await _normalize_image_attachments(request.images)
+        inference_results: list[dict[str, Any]] = []
+        if normalized_images:
+            from app.services.image_inference_service import run_image_inference
+
+            inference_results = await run_image_inference(
+                session=session,
+                user_id=user.id,
+                image_payloads=normalized_images,
+            )
+        retrieval_prompt = _build_image_retrieval_prompt(
+            request.user_query,
+            normalized_images,
+            inference_results,
+        )
+
         # Get search space to check LLM config preferences
         search_space_result = await session.execute(
             select(SearchSpace).filter(SearchSpace.id == request.search_space_id)
@@ -1217,13 +1392,14 @@ async def handle_new_chat(
 
         return StreamingResponse(
             stream_new_chat(
-                user_query=request.user_query,
+                user_query=retrieval_prompt,
                 search_space_id=request.search_space_id,
                 chat_id=request.chat_id,
                 user_id=str(user.id),
                 llm_config_id=llm_config_id,
                 mentioned_document_ids=request.mentioned_document_ids,
                 mentioned_nfd_doc_ids=request.mentioned_nfd_doc_ids,
+                image_payloads=normalized_images,
                 needs_history_bootstrap=thread.needs_history_bootstrap,
                 thread_visibility=thread.visibility,
                 current_user_display_name=user.display_name or "A team member",

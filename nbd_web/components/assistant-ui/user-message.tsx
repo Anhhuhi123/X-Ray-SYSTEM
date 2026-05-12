@@ -1,7 +1,8 @@
 import { ActionBarPrimitive, MessagePrimitive, useAssistantState } from "@assistant-ui/react";
 import { useAtomValue } from "jotai";
-import { FileText, Pen } from "lucide-react";
+import { FileText, Image, Pen } from "lucide-react";
 import { type FC, useState } from "react";
+import { messageImageAttachmentsMapAtom } from "@/atoms/chat/chat-image-attachments.atom";
 import { messageDocumentsMapAtom } from "@/atoms/chat/mentioned-documents.atom";
 import { TooltipIconButton } from "@/components/assistant-ui/tooltip-icon-button";
 
@@ -44,7 +45,9 @@ const UserAvatar: FC<AuthorMetadata> = ({ displayName, avatarUrl }) => {
 export const UserMessage: FC = () => {
 	const messageId = useAssistantState(({ message }) => message?.id);
 	const messageDocumentsMap = useAtomValue(messageDocumentsMapAtom);
+	const messageImageAttachmentsMap = useAtomValue(messageImageAttachmentsMapAtom);
 	const mentionedDocs = messageId ? messageDocumentsMap[messageId] : undefined;
+	const attachedImages = messageId ? messageImageAttachmentsMap[messageId] : undefined;
 	const metadata = useAssistantState(({ message }) => message?.metadata);
 	const author = metadata?.custom?.author as AuthorMetadata | undefined;
 
@@ -55,6 +58,21 @@ export const UserMessage: FC = () => {
 		>
 			<div className="aui-user-message-content-wrapper col-start-2 min-w-0 flex items-end gap-2">
 				<div className="flex-1 min-w-0">
+					{/* Display attached images */}
+					{attachedImages && attachedImages.length > 0 && (
+						<div className="flex flex-wrap items-end gap-2 mb-2 justify-end">
+							{attachedImages.map((image) => (
+								<span
+									key={image.id}
+									className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-primary/10 text-xs font-medium text-primary border border-primary/20"
+									title={image.name}
+								>
+									<Image className="size-3" />
+									<span className="max-w-[150px] truncate">{image.name}</span>
+								</span>
+							))}
+						</div>
+					)}
 					{/* Display mentioned documents */}
 					{mentionedDocs && mentionedDocs.length > 0 && (
 						<div className="flex flex-wrap items-end gap-2 mb-2 justify-end">

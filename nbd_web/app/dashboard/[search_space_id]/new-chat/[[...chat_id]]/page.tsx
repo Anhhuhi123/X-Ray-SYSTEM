@@ -72,6 +72,12 @@ import {
 	trackChatMessageSent,
 	trackChatResponseReceived,
 } from "@/lib/posthog/events";
+import {
+	clearSelectedChatImageAttachmentsAtom,
+	type ChatImageAttachmentInfo,
+	messageImageAttachmentsMapAtom,
+	selectedChatImageAttachmentsAtom,
+} from "@/atoms/chat/chat-image-attachments.atom";
 
 /**
  * Extract thinking steps from message content
@@ -120,6 +126,34 @@ function extractMentionedDocuments(content: unknown): MentionedDocumentInfo[] {
 	return [];
 }
 
+function extractImageAttachments(content: unknown): ChatImageAttachmentInfo[] {
+	if (!Array.isArray(content)) return [];
+
+	for (const part of content) {
+		if (
+			typeof part === "object" &&
+			part !== null &&
+			"type" in part &&
+			(part as { type: string }).type === "attachments" &&
+			"attachments" in part &&
+			Array.isArray((part as { attachments?: unknown[] }).attachments)
+		) {
+			return (part as { attachments: ChatImageAttachmentInfo[] }).attachments;
+		}
+	}
+
+	return [];
+}
+
+function fileToDataUrl(file: File): Promise<string> {
+	return new Promise((resolve, reject) => {
+		const reader = new FileReader();
+		reader.onload = () => resolve(String(reader.result ?? ""));
+		reader.onerror = () => reject(reader.error ?? new Error(`Failed to read ${file.name}`));
+		reader.readAsDataURL(file);
+	});
+}
+
 /**
  * Tools that should render custom UI in the chat.
  */
@@ -161,6 +195,7 @@ export default function NewChatPage() {
 	const setMentionedDocuments = useSetAtom(mentionedDocumentsAtom);
 	const setSidebarDocuments = useSetAtom(sidebarSelectedDocumentsAtom);
 	const setMessageDocumentsMap = useSetAtom(messageDocumentsMapAtom);
+	const setMessageImageAttachmentsMap = useSetAtom(messageImageAttachmentsMapAtom);
 	const setCurrentThreadState = useSetAtom(currentThreadAtom);
 	const setTargetCommentId = useSetAtom(setTargetCommentIdAtom);
 	const clearTargetCommentId = useSetAtom(clearTargetCommentIdAtom);
@@ -168,6 +203,8 @@ export default function NewChatPage() {
 
 	// Get current user for author info in shared chats
 	const { data: currentUser } = useAtomValue(currentUserAtom);
+	const selectedChatImageAttachments = useAtomValue(selectedChatImageAttachmentsAtom);
+	const clearSelectedChatImageAttachments = useSetAtom(clearSelectedChatImageAttachmentsAtom);
 
 	// Live collaboration: sync session state and messages via Electric SQL
 	useChatSessionStateSync(threadId);
@@ -216,8 +253,24 @@ export default function NewChatPage() {
 					});
 				});
 			});
+
+			const restoredAttachmentsMap: Record<string, ChatImageAttachmentInfo[]> = {};
+			for (const msg of electricMessages) {
+				if (msg.role === "user") {
+					const attachments = extractImageAttachments(msg.content);
+					if (attachments.length > 0) {
+						restoredAttachmentsMap[`msg-${msg.id}`] = attachments;
+					}
+				}
+			}
+			if (Object.keys(restoredAttachmentsMap).length > 0) {
+				setMessageImageAttachmentsMap((prev) => ({
+					...prev,
+					...restoredAttachmentsMap,
+				}));
+			}
 		},
-		[isRunning, membersData]
+		[isRunning, membersData, setMessageImageAttachmentsMap]
 	);
 
 	useMessagesElectric(threadId, handleElectricMessagesUpdate);
@@ -254,6 +307,8 @@ export default function NewChatPage() {
 		setMentionedDocuments([]);
 		setSidebarDocuments([]);
 		setMessageDocumentsMap({});
+		setMessageImageAttachmentsMap({});
+		clearSelectedChatImageAttachments();
 		clearPlanOwnerRegistry();
 		closeReportPanel();
 
@@ -278,6 +333,7 @@ export default function NewChatPage() {
 					const restoredThinkingSteps = new Map<string, ThinkingStep[]>();
 					// Extract and restore mentioned documents from persisted messages
 					const restoredDocsMap: Record<string, MentionedDocumentInfo[]> = {};
+					const restoredAttachmentsMap: Record<string, ChatImageAttachmentInfo[]> = {};
 
 					for (const msg of messagesResponse.messages) {
 						if (msg.role === "assistant") {
@@ -291,6 +347,10 @@ export default function NewChatPage() {
 							if (docs.length > 0) {
 								restoredDocsMap[`msg-${msg.id}`] = docs;
 							}
+							const attachments = extractImageAttachments(msg.content);
+							if (attachments.length > 0) {
+								restoredAttachmentsMap[`msg-${msg.id}`] = attachments;
+							}
 						}
 					}
 					if (restoredThinkingSteps.size > 0) {
@@ -298,6 +358,9 @@ export default function NewChatPage() {
 					}
 					if (Object.keys(restoredDocsMap).length > 0) {
 						setMessageDocumentsMap(restoredDocsMap);
+					}
+					if (Object.keys(restoredAttachmentsMap).length > 0) {
+						setMessageImageAttachmentsMap(restoredAttachmentsMap);
 					}
 				}
 			}
@@ -318,6 +381,7 @@ export default function NewChatPage() {
 		urlChatId,
 		searchSpaceId,
 		setMessageDocumentsMap,
+		setMessageImageAttachmentsMap,
 		setMentionedDocuments,
 		setSidebarDocuments,
 		closeReportPanel,
@@ -420,7 +484,8 @@ export default function NewChatPage() {
 				}
 			}
 
-			if (!userQuery.trim()) return;
+			const attachmentEntries = selectedChatImageAttachments;
+			if (!userQuery.trim() && attachmentEntries.length === 0) return;
 
 			const token = getBearerToken();
 			if (!token) {
@@ -484,7 +549,7 @@ export default function NewChatPage() {
 
 			// Track message sent
 			trackChatMessageSent(searchSpaceId, currentThreadId, {
-				hasAttachments: false,
+				hasAttachments: attachmentEntries.length > 0,
 				hasMentionedDocuments:
 					mentionedDocumentIds.nfd_doc_ids.length > 0 ||
 					mentionedDocumentIds.document_ids.length > 0,
@@ -510,6 +575,12 @@ export default function NewChatPage() {
 			}
 
 			const persistContent: unknown[] = [...message.content];
+			const attachmentMetadata = attachmentEntries.map((entry) => ({
+				id: entry.id,
+				name: entry.name,
+				type: entry.type,
+				size: entry.size,
+			}));
 
 			if (allMentionedDocs.length > 0) {
 				persistContent.push({
@@ -517,6 +588,28 @@ export default function NewChatPage() {
 					documents: allMentionedDocs,
 				});
 			}
+
+			if (attachmentMetadata.length > 0) {
+				persistContent.push({
+					type: "attachments",
+					attachments: attachmentMetadata,
+				});
+				setMessageImageAttachmentsMap((prev) => ({
+					...prev,
+					[userMsgId]: attachmentMetadata,
+				}));
+			}
+
+			const serializedImages = attachmentEntries.length
+				? await Promise.all(
+						attachmentEntries.map(async (entry) => ({
+							base64: await fileToDataUrl(entry.file),
+							filename: entry.name,
+							mime_type: entry.type,
+							threshold: 0.5,
+						}))
+					)
+				: undefined;
 
 			appendMessage(currentThreadId, {
 				role: "user",
@@ -605,6 +698,7 @@ export default function NewChatPage() {
 						user_query: userQuery.trim(),
 						search_space_id: searchSpaceId,
 						messages: messageHistory,
+						images: serializedImages,
 						mentioned_document_ids: hasDocumentIds ? mentionedDocumentIds.document_ids : undefined,
 						mentioned_nfd_doc_ids: hasNfdDocIds
 							? mentionedDocumentIds.nfd_doc_ids
@@ -616,6 +710,10 @@ export default function NewChatPage() {
 
 				if (!response.ok) {
 					throw new Error(`Backend error: ${response.status}`);
+				}
+
+				if (attachmentEntries.length > 0) {
+					clearSelectedChatImageAttachments();
 				}
 
 				for await (const parsed of readSSEStream(response)) {
@@ -874,6 +972,9 @@ export default function NewChatPage() {
 			setMentionedDocuments,
 			setSidebarDocuments,
 			setMessageDocumentsMap,
+			selectedChatImageAttachments,
+			setMessageImageAttachmentsMap,
+			clearSelectedChatImageAttachments,
 			queryClient,
 			currentThread,
 			currentUser,

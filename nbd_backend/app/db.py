@@ -1501,6 +1501,13 @@ if config.AUTH_TYPE == "GOOGLE":
             cascade="all, delete-orphan",
         )
 
+        # Image inference history
+        inference_requests = relationship(
+            "InferenceRequest",
+            back_populates="user",
+            cascade="all, delete-orphan",
+        )
+
 else:
 
     class User(SQLAlchemyBaseUserTableUUID, Base):
@@ -1582,6 +1589,13 @@ else:
             cascade="all, delete-orphan",
         )
 
+        # Image inference history
+        inference_requests = relationship(
+            "InferenceRequest",
+            back_populates="user",
+            cascade="all, delete-orphan",
+        )
+
 
 class RefreshToken(Base, TimestampMixin):
     """
@@ -1611,6 +1625,47 @@ class RefreshToken(Base, TimestampMixin):
     @property
     def is_valid(self) -> bool:
         return not self.is_expired and not self.is_revoked
+
+
+class InferenceRequest(Base, TimestampMixin):
+    __tablename__ = "inference_requests"
+
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid4)
+    user_id = Column(
+        UUID(as_uuid=True),
+        ForeignKey("user.id", ondelete="CASCADE"),
+        nullable=False,
+        index=True,
+    )
+    image_path = Column(Text, nullable=False)
+    model_name = Column(String(100), nullable=True)
+    model_version = Column(String(50), nullable=True)
+    inference_time_ms = Column(Float, nullable=True)
+
+    user = relationship("User", back_populates="inference_requests")
+    predictions = relationship(
+        "InferencePrediction",
+        back_populates="request",
+        cascade="all, delete-orphan",
+    )
+
+
+class InferencePrediction(Base):
+    __tablename__ = "inference_predictions"
+
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid4)
+    request_id = Column(
+        UUID(as_uuid=True),
+        ForeignKey("inference_requests.id", ondelete="CASCADE"),
+        nullable=False,
+        index=True,
+    )
+    label_name = Column(String(100), nullable=False)
+    probability = Column(Float, nullable=False)
+    threshold_used = Column(Float, nullable=False)
+    is_positive = Column(Boolean, nullable=False)
+
+    request = relationship("InferenceRequest", back_populates="predictions")
 
 
 engine = create_async_engine(

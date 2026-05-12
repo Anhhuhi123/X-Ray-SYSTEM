@@ -159,12 +159,25 @@ class ChatMessage(BaseModel):
     content: str
 
 
+class ChatImageAttachment(BaseModel):
+    """Normalized image payload accepted by the new chat endpoint."""
+
+    image_path: str | None = None
+    base64_data: str | None = Field(default=None, alias="base64")
+    filename: str | None = None
+    mime_type: str | None = None
+    threshold: float = 0.5
+
+    model_config = ConfigDict(populate_by_name=True)
+
+
 class NewChatRequest(BaseModel):
     """Request schema for the deep agent chat endpoint."""
 
     chat_id: int
     user_query: str
     search_space_id: int
+    images: list[ChatImageAttachment] | None = None
     messages: list[ChatMessage] | None = None  # Optional chat history from frontend
     mentioned_document_ids: list[int] | None = (
         None  # Optional document IDs mentioned with @ in the chat

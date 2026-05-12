@@ -7,9 +7,17 @@ import {
 	useMessage,
 } from "@assistant-ui/react";
 import { useAtomValue } from "jotai";
-import { CheckIcon, CopyIcon, DownloadIcon, MessageSquare, RefreshCwIcon } from "lucide-react";
+import {
+	CheckIcon,
+	CopyIcon,
+	DownloadIcon,
+	Image as ImageIcon,
+	MessageSquare,
+	RefreshCwIcon,
+} from "lucide-react";
 import type { FC } from "react";
 import { useContext, useEffect, useMemo, useRef, useState } from "react";
+import { messageInferenceOutputsMapAtom } from "@/atoms/chat/chat-image-attachments.atom";
 import { commentsEnabledAtom, targetCommentIdAtom } from "@/atoms/chat/current-thread.atom";
 import { activeSearchSpaceIdAtom } from "@/atoms/search-spaces/search-space-query.atoms";
 import { MarkdownText } from "@/components/assistant-ui/markdown-text";
@@ -24,6 +32,14 @@ import { CommentSheet } from "@/components/chat-comments/comment-sheet/comment-s
 import { useComments } from "@/hooks/use-comments";
 import { useMediaQuery } from "@/hooks/use-media-query";
 import { cn } from "@/lib/utils";
+
+const BACKEND_URL = process.env.NEXT_PUBLIC_FASTAPI_BACKEND_URL || "http://localhost:8000";
+
+function buildImageUrl(imagePath: string): string {
+	if (!imagePath) return "";
+	if (/^https?:\/\//.test(imagePath)) return imagePath;
+	return `${BACKEND_URL}${imagePath.startsWith("/") ? "" : "/"}${imagePath}`;
+}
 
 export const MessageError: FC = () => {
 	return (
@@ -61,10 +77,90 @@ const ThinkingStepsPart: FC = () => {
 };
 
 const AssistantMessageInner: FC = () => {
+	const messageId = useAssistantState(({ message }) => message?.id);
+	const inferenceOutputsMap = useAtomValue(messageInferenceOutputsMapAtom);
+	const inferenceOutputs = messageId ? inferenceOutputsMap[messageId] ?? [] : [];
+
 	return (
 		<>
 			{/* Render thinking steps from message content - this ensures proper scroll tracking */}
 			<ThinkingStepsPart />
+			{inferenceOutputs.length > 0 && (
+				<div className="mb-3 rounded-2xl border border-border/70 bg-muted/30 p-3">
+					<div className="mb-3 flex items-center gap-2 text-sm font-medium text-foreground">
+						<ImageIcon className="size-4 text-primary" />
+						Image inference results
+					</div>
+					<div className="space-y-4">
+						{inferenceOutputs.map((output) => (
+							<div key={output.request_id} className="space-y-3 rounded-xl bg-background p-3 shadow-sm">
+								<div className="grid gap-3 md:grid-cols-3">
+									{[
+										{ label: "Heatmap", url: output.heatmap_url },
+										{ label: "BBox", url: output.bbox_url },
+										{ label: "Crop", url: output.crop_url },
+									].map((item) => (
+										<div key={item.label} className="overflow-hidden rounded-xl border border-border/60 bg-background">
+											<div className="border-b border-border/60 px-2 py-1.5 text-xs font-medium text-muted-foreground">
+												{item.label}
+											</div>
+											{item.url ? (
+												<img
+													src={buildImageUrl(item.url)}
+													alt={`${item.label} for ${output.filename}`}
+													className="aspect-square w-full object-cover"
+												/>
+											) : (
+												<div className="flex aspect-square items-center justify-center text-xs text-muted-foreground">
+													No image
+												</div>
+											)}
+										</div>
+									))}
+								</div>
+								<div className="space-y-2 text-sm text-foreground/90">
+									<div className="flex flex-wrap gap-2">
+										<span className="rounded-full bg-primary/10 px-2 py-1 text-xs text-primary">
+											Threshold: {output.threshold.toFixed(2)}
+										</span>
+										<span className="rounded-full bg-muted px-2 py-1 text-xs text-muted-foreground">
+											Latency: {Math.round(output.inference_time_ms)} ms
+										</span>
+									</div>
+									{output.positive_labels.length > 0 && (
+										<div className="flex flex-wrap gap-2">
+											{output.positive_labels.map((label) => (
+												<span
+													key={`${output.request_id}-${label}`}
+													className="rounded-full border border-primary/20 bg-primary/5 px-2 py-1 text-xs text-primary"
+												>
+													{label}
+												</span>
+											))}
+										</div>
+									)}
+									<div className="grid gap-2 md:grid-cols-2">
+										{output.top_predictions.map((prediction) => (
+											<div
+												key={`${output.request_id}-${prediction.label_name}`}
+												className={cn(
+													"flex items-center justify-between rounded-lg border px-3 py-2 text-xs",
+													prediction.is_positive
+														? "border-primary/20 bg-primary/5 text-primary"
+														: "border-border/60 bg-background text-muted-foreground"
+												)}
+											>
+												<span>{prediction.label_name}</span>
+												<span>{(prediction.probability * 100).toFixed(1)}%</span>
+											</div>
+										))}
+									</div>
+								</div>
+							</div>
+						))}
+					</div>
+				</div>
+			)}
 
 			<div className="aui-assistant-message-content wrap-break-word px-2 text-foreground leading-relaxed">
 				<MessagePrimitive.Parts

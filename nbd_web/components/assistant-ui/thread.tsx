@@ -88,6 +88,20 @@ import { useCommentsElectric } from "@/hooks/use-comments-electric";
 import { useMediaQuery } from "@/hooks/use-media-query";
 import { cn } from "@/lib/utils";
 
+function getImageExtension(file: File): string {
+	const fileNameExtension = file.name.includes(".") ? file.name.slice(file.name.lastIndexOf(".")) : "";
+	if (fileNameExtension) return fileNameExtension;
+	if (file.type.includes("png")) return ".png";
+	if (file.type.includes("jpeg") || file.type.includes("jpg")) return ".jpg";
+	if (file.type.includes("webp")) return ".webp";
+	if (file.type.includes("bmp")) return ".bmp";
+	return ".png";
+}
+
+function buildRelativeImagePath(file: File): string {
+	return `original/${crypto.randomUUID?.() ?? `image-${Date.now()}-${Math.random().toString(36).slice(2)}`}${getImageExtension(file)}`;
+}
+
 /** Placeholder texts that cycle in new chats when input is empty */
 const CYCLING_PLACEHOLDERS = [
 	"Ask SurfSense anything or @mention docs.",
@@ -636,6 +650,7 @@ const ComposerAction: FC<ComposerActionProps> = ({ isBlockedByOtherUser = false 
 					name: file.name,
 					type: file.type,
 					size: file.size,
+					image_path: buildRelativeImagePath(file),
 				})),
 			]);
 			e.target.value = "";

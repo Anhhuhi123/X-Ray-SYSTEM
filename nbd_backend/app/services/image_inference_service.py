@@ -33,7 +33,9 @@ CLASS_NAMES = [
 ]
 
 MODEL_PATH = Path(__file__).resolve().parents[1] / "ai" / "models" / "best_auc_weights_only.pth"
-PROCESSED_IMAGE_DIR = Path(__file__).resolve().parents[1] / "ai" / "upload" / "processed"
+AI_IMAGE_UPLOAD_DIR = Path(__file__).resolve().parents[1] / "ai" / "upload"
+AI_IMAGE_UPLOAD_ROOT = AI_IMAGE_UPLOAD_DIR.resolve()
+PROCESSED_IMAGE_DIR = AI_IMAGE_UPLOAD_DIR / "processed"
 
 _heatmap_generator: HeatmapGenerator | None = None
 _heatmap_generator_lock = asyncio.Lock()
@@ -56,6 +58,24 @@ async def _get_heatmap_generator() -> HeatmapGenerator:
     return _heatmap_generator
 
 
+def _resolve_upload_path(path_value: str | Path) -> Path:
+    candidate = Path(path_value).expanduser()
+    if candidate.is_absolute():
+        resolved = candidate.resolve()
+    else:
+        resolved = (AI_IMAGE_UPLOAD_DIR / candidate).resolve()
+    resolved.relative_to(AI_IMAGE_UPLOAD_ROOT)
+    return resolved
+
+
+def _relative_upload_path(path_value: str | Path) -> str:
+    return _resolve_upload_path(path_value).relative_to(AI_IMAGE_UPLOAD_ROOT).as_posix()
+
+
+def _build_image_url(relative_path: str) -> str:
+    return f"/api/v1/images/{relative_path}"
+
+
 def _save_image(array: Any, destination: Path) -> str | None:
     if array is None:
         return None
@@ -64,9 +84,10 @@ def _save_image(array: Any, destination: Path) -> str | None:
     if image_array.size == 0:
         return None
 
-    destination.parent.mkdir(parents=True, exist_ok=True)
-    Image.fromarray(image_array).save(destination)
-    return str(destination)
+    destination_path = _resolve_upload_path(destination)
+    destination_path.parent.mkdir(parents=True, exist_ok=True)
+    Image.fromarray(image_array).save(destination_path)
+    return _relative_upload_path(destination_path)
 
 
 def _format_prediction_summary(predictions: list[dict[str, Any]]) -> dict[str, Any]:
@@ -99,21 +120,22 @@ async def run_image_inference(
     inference_results: list[dict[str, Any]] = []
 
     for index, payload in enumerate(image_payloads, start=1):
-        image_path = payload["image_path"]
+        image_path = _resolve_upload_path(payload["image_path"])
         threshold = float(payload.get("threshold", 0.5))
-        filename = payload.get("filename") or Path(image_path).name
+        filename = payload.get("filename") or image_path.name
+        relative_image_path = _relative_upload_path(image_path)
 
         start_time = time.perf_counter()
-        probs = await asyncio.to_thread(generator.predict, image_path)
+        probs = await asyncio.to_thread(generator.predict, str(image_path))
         heatmap_img, bbox_img, crop_img = await asyncio.to_thread(
             generator.generate,
-            image_path,
+            str(image_path),
         )
         elapsed_ms = (time.perf_counter() - start_time) * 1000.0
 
         request = InferenceRequest(
             user_id=user_id,
-            image_path=image_path,
+            image_path=relative_image_path,
             model_name="HeatmapGenerator",
             model_version="swin_t_14class",
             inference_time_ms=elapsed_ms,
@@ -159,7 +181,8 @@ async def run_image_inference(
         inference_results.append(
             {
                 "request_id": str(request.id),
-                "image_path": image_path,
+                "image_path": relative_image_path,
+                "image_url": _build_image_url(relative_image_path),
                 "filename": filename,
                 "threshold": threshold,
                 "inference_time_ms": elapsed_ms,
@@ -167,6 +190,9 @@ async def run_image_inference(
                 "heatmap_path": heatmap_path,
                 "bbox_path": bbox_path,
                 "crop_path": crop_path,
+                "heatmap_url": _build_image_url(heatmap_path) if heatmap_path else None,
+                "bbox_url": _build_image_url(bbox_path) if bbox_path else None,
+                "crop_url": _build_image_url(crop_path) if crop_path else None,
                 **_format_prediction_summary(predictions),
             }
         )

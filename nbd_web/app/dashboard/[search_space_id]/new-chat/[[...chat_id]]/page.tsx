@@ -74,7 +74,9 @@ import {
 } from "@/lib/posthog/events";
 import {
 	clearSelectedChatImageAttachmentsAtom,
+	type ChatInferenceOutputInfo,
 	type ChatImageAttachmentInfo,
+	messageInferenceOutputsMapAtom,
 	messageImageAttachmentsMapAtom,
 	selectedChatImageAttachmentsAtom,
 } from "@/atoms/chat/chat-image-attachments.atom";
@@ -145,6 +147,39 @@ function extractImageAttachments(content: unknown): ChatImageAttachmentInfo[] {
 	return [];
 }
 
+function extractInferenceOutputs(content: unknown): ChatInferenceOutputInfo[] {
+	if (!Array.isArray(content)) return [];
+
+	for (const part of content) {
+		if (
+			typeof part === "object" &&
+			part !== null &&
+			"type" in part &&
+			(part as { type: string }).type === "inference-output" &&
+			"outputs" in part &&
+			Array.isArray((part as { outputs?: unknown[] }).outputs)
+		) {
+			return (part as { outputs: ChatInferenceOutputInfo[] }).outputs;
+		}
+	}
+
+	return [];
+}
+
+function getImageExtension(file: File): string {
+	const suffix = file.name.includes(".") ? file.name.slice(file.name.lastIndexOf(".")) : "";
+	if (suffix) return suffix;
+	if (file.type.includes("png")) return ".png";
+	if (file.type.includes("jpeg") || file.type.includes("jpg")) return ".jpg";
+	if (file.type.includes("webp")) return ".webp";
+	if (file.type.includes("bmp")) return ".bmp";
+	return ".png";
+}
+
+function buildRelativeImagePath(file: File): string {
+	return `original/${crypto.randomUUID?.() ?? `image-${Date.now()}-${Math.random().toString(36).slice(2)}`}${getImageExtension(file)}`;
+}
+
 function fileToDataUrl(file: File): Promise<string> {
 	return new Promise((resolve, reject) => {
 		const reader = new FileReader();
@@ -196,6 +231,7 @@ export default function NewChatPage() {
 	const setSidebarDocuments = useSetAtom(sidebarSelectedDocumentsAtom);
 	const setMessageDocumentsMap = useSetAtom(messageDocumentsMapAtom);
 	const setMessageImageAttachmentsMap = useSetAtom(messageImageAttachmentsMapAtom);
+	const setMessageInferenceOutputsMap = useSetAtom(messageInferenceOutputsMapAtom);
 	const setCurrentThreadState = useSetAtom(currentThreadAtom);
 	const setTargetCommentId = useSetAtom(setTargetCommentIdAtom);
 	const clearTargetCommentId = useSetAtom(clearTargetCommentIdAtom);
@@ -255,11 +291,17 @@ export default function NewChatPage() {
 			});
 
 			const restoredAttachmentsMap: Record<string, ChatImageAttachmentInfo[]> = {};
+			const restoredInferenceOutputsMap: Record<string, ChatInferenceOutputInfo[]> = {};
 			for (const msg of electricMessages) {
 				if (msg.role === "user") {
 					const attachments = extractImageAttachments(msg.content);
 					if (attachments.length > 0) {
 						restoredAttachmentsMap[`msg-${msg.id}`] = attachments;
+					}
+				} else if (msg.role === "assistant") {
+					const inferenceOutputs = extractInferenceOutputs(msg.content);
+					if (inferenceOutputs.length > 0) {
+						restoredInferenceOutputsMap[`msg-${msg.id}`] = inferenceOutputs;
 					}
 				}
 			}
@@ -269,8 +311,14 @@ export default function NewChatPage() {
 					...restoredAttachmentsMap,
 				}));
 			}
+			if (Object.keys(restoredInferenceOutputsMap).length > 0) {
+				setMessageInferenceOutputsMap((prev) => ({
+					...prev,
+					...restoredInferenceOutputsMap,
+				}));
+			}
 		},
-		[isRunning, membersData, setMessageImageAttachmentsMap]
+		[isRunning, membersData, setMessageImageAttachmentsMap, setMessageInferenceOutputsMap]
 	);
 
 	useMessagesElectric(threadId, handleElectricMessagesUpdate);
@@ -308,6 +356,7 @@ export default function NewChatPage() {
 		setSidebarDocuments([]);
 		setMessageDocumentsMap({});
 		setMessageImageAttachmentsMap({});
+		setMessageInferenceOutputsMap({});
 		clearSelectedChatImageAttachments();
 		clearPlanOwnerRegistry();
 		closeReportPanel();
@@ -334,6 +383,7 @@ export default function NewChatPage() {
 					// Extract and restore mentioned documents from persisted messages
 					const restoredDocsMap: Record<string, MentionedDocumentInfo[]> = {};
 					const restoredAttachmentsMap: Record<string, ChatImageAttachmentInfo[]> = {};
+					const restoredInferenceOutputsMap: Record<string, ChatInferenceOutputInfo[]> = {};
 
 					for (const msg of messagesResponse.messages) {
 						if (msg.role === "assistant") {
@@ -351,6 +401,11 @@ export default function NewChatPage() {
 							if (attachments.length > 0) {
 								restoredAttachmentsMap[`msg-${msg.id}`] = attachments;
 							}
+						} else if (msg.role === "assistant") {
+							const inferenceOutputs = extractInferenceOutputs(msg.content);
+							if (inferenceOutputs.length > 0) {
+								restoredInferenceOutputsMap[`msg-${msg.id}`] = inferenceOutputs;
+							}
 						}
 					}
 					if (restoredThinkingSteps.size > 0) {
@@ -361,6 +416,9 @@ export default function NewChatPage() {
 					}
 					if (Object.keys(restoredAttachmentsMap).length > 0) {
 						setMessageImageAttachmentsMap(restoredAttachmentsMap);
+					}
+					if (Object.keys(restoredInferenceOutputsMap).length > 0) {
+						setMessageInferenceOutputsMap(restoredInferenceOutputsMap);
 					}
 				}
 			}
@@ -382,6 +440,7 @@ export default function NewChatPage() {
 		searchSpaceId,
 		setMessageDocumentsMap,
 		setMessageImageAttachmentsMap,
+		setMessageInferenceOutputsMap,
 		setMentionedDocuments,
 		setSidebarDocuments,
 		closeReportPanel,
@@ -580,6 +639,7 @@ export default function NewChatPage() {
 				name: entry.name,
 				type: entry.type,
 				size: entry.size,
+				image_path: entry.image_path,
 			}));
 
 			if (allMentionedDocs.length > 0) {
@@ -603,6 +663,7 @@ export default function NewChatPage() {
 			const serializedImages = attachmentEntries.length
 				? await Promise.all(
 						attachmentEntries.map(async (entry) => ({
+							image_path: entry.image_path,
 							base64: await fileToDataUrl(entry.file),
 							filename: entry.name,
 							mime_type: entry.type,
@@ -625,6 +686,12 @@ export default function NewChatPage() {
 						if (!docs) return prev;
 						const { [userMsgId]: _, ...rest } = prev;
 						return { ...rest, [newUserMsgId]: docs };
+					});
+					setMessageImageAttachmentsMap((prev) => {
+						const attachments = prev[userMsgId];
+						if (!attachments) return prev;
+						const { [userMsgId]: _, ...rest } = prev;
+						return { ...rest, [newUserMsgId]: attachments };
 					});
 					if (isNewThread) {
 						queryClient.invalidateQueries({ queryKey: ["threads", String(searchSpaceId)] });
@@ -794,6 +861,31 @@ export default function NewChatPage() {
 							break;
 						}
 
+						case "data-inference-output": {
+							const inferencePayload = parsed.data as {
+								outputs?: ChatInferenceOutputInfo[];
+							};
+							const outputs = inferencePayload.outputs || [];
+							if (outputs.length > 0) {
+								contentPartsState.contentParts.push({
+									type: "inference-output",
+									outputs,
+								});
+								setMessageInferenceOutputsMap((prev) => ({
+									...prev,
+									[assistantMsgId]: outputs,
+								}));
+							}
+							setMessages((prev) =>
+								prev.map((m) =>
+									m.id === assistantMsgId
+										? { ...m, content: buildContentForUI(contentPartsState, TOOLS_WITH_UI) }
+										: m
+								)
+							);
+							break;
+						}
+
 						case "data-thread-title-update": {
 							// Handle thread title update from LLM-generated title
 							const titleData = parsed.data as { threadId: number; title: string };
@@ -861,7 +953,7 @@ export default function NewChatPage() {
 					TOOLS_WITH_UI,
 					currentThinkingSteps
 				);
-				if (contentParts.length > 0 && !wasInterrupted) {
+				if (finalContent.length > 0 && !wasInterrupted) {
 					try {
 						const savedMessage = await appendMessage(currentThreadId, {
 							role: "assistant",
@@ -892,6 +984,12 @@ export default function NewChatPage() {
 							}
 							return prev;
 						});
+						setMessageInferenceOutputsMap((prev) => {
+							const outputs = prev[assistantMsgId];
+							if (!outputs) return prev;
+							const { [assistantMsgId]: _, ...rest } = prev;
+							return { ...rest, [newMsgId]: outputs };
+						});
 					} catch (err) {
 						console.error("Failed to persist assistant message:", err);
 					}
@@ -905,7 +1003,8 @@ export default function NewChatPage() {
 					const hasContent = contentParts.some(
 						(part) =>
 							(part.type === "text" && part.text.length > 0) ||
-							(part.type === "tool-call" && TOOLS_WITH_UI.has(part.toolName))
+							(part.type === "tool-call" && TOOLS_WITH_UI.has(part.toolName)) ||
+							part.type === "inference-output"
 					);
 					if (hasContent && currentThreadId) {
 						const partialContent = buildContentForPersistence(
@@ -924,6 +1023,12 @@ export default function NewChatPage() {
 							setMessages((prev) =>
 								prev.map((m) => (m.id === assistantMsgId ? { ...m, id: newMsgId } : m))
 							);
+							setMessageInferenceOutputsMap((prev) => {
+								const outputs = prev[assistantMsgId];
+								if (!outputs) return prev;
+								const { [assistantMsgId]: _, ...rest } = prev;
+								return { ...rest, [newMsgId]: outputs };
+							});
 						} catch (err) {
 							console.error("Failed to persist partial assistant message:", err);
 						}
@@ -1032,6 +1137,12 @@ export default function NewChatPage() {
 								toolName: String(p.toolName),
 								args: (p.args as Record<string, unknown>) ?? {},
 								result: p.result as unknown,
+							});
+							contentPartsState.currentTextPartIndex = -1;
+						} else if (p.type === "inference-output") {
+							contentParts.push({
+								type: "inference-output",
+								outputs: Array.isArray(p.outputs) ? p.outputs : [],
 							});
 							contentPartsState.currentTextPartIndex = -1;
 						}
@@ -1159,6 +1270,31 @@ export default function NewChatPage() {
 							break;
 						}
 
+						case "data-inference-output": {
+							const inferencePayload = parsed.data as {
+								outputs?: ChatInferenceOutputInfo[];
+							};
+							const outputs = inferencePayload.outputs || [];
+							if (outputs.length > 0) {
+								contentPartsState.contentParts.push({
+									type: "inference-output",
+									outputs,
+								});
+								setMessageInferenceOutputsMap((prev) => ({
+									...prev,
+									[assistantMsgId]: outputs,
+								}));
+							}
+							setMessages((prev) =>
+								prev.map((m) =>
+									m.id === assistantMsgId
+										? { ...m, content: buildContentForUI(contentPartsState, TOOLS_WITH_UI) }
+										: m
+								)
+							);
+							break;
+						}
+
 						case "data-interrupt-request": {
 							const interruptData = parsed.data as Record<string, unknown>;
 							const actionRequests = (interruptData.action_requests ?? []) as Array<{
@@ -1232,6 +1368,12 @@ export default function NewChatPage() {
 								return newMap;
 							}
 							return prev;
+						});
+						setMessageInferenceOutputsMap((prev) => {
+							const outputs = prev[assistantMsgId];
+							if (!outputs) return prev;
+							const { [assistantMsgId]: _, ...rest } = prev;
+							return { ...rest, [newMsgId]: outputs };
 						});
 					} catch (err) {
 						console.error("Failed to persist resumed assistant message:", err);

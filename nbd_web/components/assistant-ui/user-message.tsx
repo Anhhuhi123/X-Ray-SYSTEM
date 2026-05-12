@@ -11,6 +11,14 @@ interface AuthorMetadata {
 	avatarUrl: string | null;
 }
 
+const BACKEND_URL = process.env.NEXT_PUBLIC_FASTAPI_BACKEND_URL || "http://localhost:8000";
+
+function buildImageUrl(imagePath: string): string {
+	if (!imagePath) return "";
+	if (/^https?:\/\//.test(imagePath)) return imagePath;
+	return `${BACKEND_URL}${imagePath.startsWith("/") ? "" : "/"}${imagePath}`;
+}
+
 const UserAvatar: FC<AuthorMetadata> = ({ displayName, avatarUrl }) => {
 	const [hasError, setHasError] = useState(false);
 
@@ -60,16 +68,26 @@ export const UserMessage: FC = () => {
 				<div className="flex-1 min-w-0">
 					{/* Display attached images */}
 					{attachedImages && attachedImages.length > 0 && (
-						<div className="flex flex-wrap items-end gap-2 mb-2 justify-end">
+						<div className="mb-2 flex flex-wrap items-end justify-end gap-2">
 							{attachedImages.map((image) => (
-								<span
+								<div
 									key={image.id}
-									className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-primary/10 text-xs font-medium text-primary border border-primary/20"
+									className="overflow-hidden rounded-2xl border border-primary/15 bg-background shadow-sm"
 									title={image.name}
 								>
-									<Image className="size-3" />
-									<span className="max-w-[150px] truncate">{image.name}</span>
-								</span>
+									<img
+										src={buildImageUrl(image.image_path)}
+										alt={image.name}
+										className="h-32 w-32 object-cover"
+										onError={(e) => {
+											(e.currentTarget as HTMLImageElement).style.display = "none";
+										}}
+									/>
+									<div className="flex items-center gap-1 px-2 py-1 text-xs text-muted-foreground">
+										<Image className="size-3" />
+										<span className="max-w-[150px] truncate">{image.name}</span>
+									</div>
+								</div>
 							))}
 						</div>
 					)}

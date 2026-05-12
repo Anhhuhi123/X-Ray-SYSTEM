@@ -14,6 +14,7 @@ import base64
 import asyncio
 import contextlib
 import binascii
+import mimetypes
 import logging
 from datetime import UTC, datetime
 from pathlib import Path
@@ -21,7 +22,7 @@ from typing import Any
 from uuid import uuid4
 
 from fastapi import APIRouter, Depends, HTTPException, Request
-from fastapi.responses import StreamingResponse
+from fastapi.responses import FileResponse, StreamingResponse
 from pydantic import BaseModel
 from sqlalchemy import func, or_
 from sqlalchemy.exc import IntegrityError, OperationalError
@@ -69,7 +70,36 @@ _background_tasks: set[asyncio.Task] = set()
 router = APIRouter()
 
 AI_IMAGE_UPLOAD_DIR = Path(__file__).resolve().parents[1] / "ai" / "upload"
+AI_IMAGE_UPLOAD_ROOT = AI_IMAGE_UPLOAD_DIR.resolve()
 AI_IMAGE_ORIGINAL_DIR = AI_IMAGE_UPLOAD_DIR / "original"
+
+
+def _relative_upload_path(path_value: str | Path) -> Path:
+    candidate = Path(path_value).expanduser()
+    if candidate.is_absolute():
+        resolved = candidate.resolve()
+    else:
+        resolved = (AI_IMAGE_UPLOAD_DIR / candidate).resolve()
+
+    try:
+        return resolved.relative_to(AI_IMAGE_UPLOAD_ROOT)
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail="Invalid image path") from exc
+
+
+def _resolve_uploaded_image_path(relative_path: str | Path) -> Path:
+    relative_candidate = Path(relative_path)
+    resolved = (AI_IMAGE_UPLOAD_DIR / relative_candidate).resolve()
+    try:
+        resolved.relative_to(AI_IMAGE_UPLOAD_ROOT)
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail="Invalid image path") from exc
+    return resolved
+
+
+def _build_image_public_url(relative_path: str | Path) -> str:
+    relative_value = Path(relative_path).as_posix()
+    return f"/api/v1/new_chat/images/{relative_value}"
 
 
 def _strip_data_url_prefix(value: str) -> str:
@@ -106,21 +136,28 @@ async def _store_image_attachment(image: Any) -> dict[str, Any]:
     threshold = getattr(image, "threshold", 0.5) or 0.5
 
     if image_path:
-        candidate_path = Path(image_path).expanduser()
-        if not candidate_path.is_absolute():
-            relative_candidate = AI_IMAGE_UPLOAD_DIR / candidate_path
-            if relative_candidate.exists():
-                candidate_path = relative_candidate
-            else:
-                candidate_path = (AI_IMAGE_UPLOAD_DIR / image_path).resolve()
-        if not candidate_path.exists():
+        relative_path = _relative_upload_path(image_path)
+        destination = _resolve_uploaded_image_path(relative_path)
+        if base64_data:
+            raw_data = _strip_data_url_prefix(base64_data)
+            try:
+                binary_data = base64.b64decode(raw_data, validate=True)
+            except (ValueError, binascii.Error) as exc:
+                raise HTTPException(
+                    status_code=400,
+                    detail=f"Invalid base64 image payload: {exc!s}",
+                ) from exc
+            destination.parent.mkdir(parents=True, exist_ok=True)
+            await asyncio.to_thread(destination.write_bytes, binary_data)
+        elif not destination.exists():
             raise HTTPException(
                 status_code=400,
                 detail=f"Image file not found: {image_path}",
             )
         return {
-            "image_path": str(candidate_path),
-            "filename": filename or candidate_path.name,
+            "image_path": relative_path.as_posix(),
+            "image_url": _build_image_public_url(relative_path),
+            "filename": filename or relative_path.name,
             "mime_type": mime_type,
             "threshold": float(threshold),
         }
@@ -142,12 +179,13 @@ async def _store_image_attachment(image: Any) -> dict[str, Any]:
 
     suffix = _resolve_image_suffix(filename, mime_type)
     stored_filename = f"{uuid4().hex}{suffix}"
-    stored_path = AI_IMAGE_ORIGINAL_DIR / stored_filename
-
+    relative_path = Path("original") / stored_filename
+    stored_path = _resolve_uploaded_image_path(relative_path)
     await asyncio.to_thread(stored_path.write_bytes, binary_data)
 
     return {
-        "image_path": str(stored_path),
+        "image_path": relative_path.as_posix(),
+        "image_url": _build_image_public_url(relative_path),
         "filename": filename or stored_filename,
         "mime_type": mime_type,
         "threshold": float(threshold),
@@ -221,6 +259,24 @@ def _build_image_retrieval_prompt(
         "Analyze the attached medical image(s) and retrieve the most relevant NFD docs and disease references.\n\n"
         f"Attached image context:\n{image_summary}"
         f"{inference_summary_block}"
+    )
+
+
+@router.get("/images/{relative_path:path}")
+async def get_uploaded_image(
+    relative_path: str,
+):
+    """Serve an uploaded or processed image by relative path within the upload root."""
+
+    image_path = _resolve_uploaded_image_path(relative_path)
+    if not image_path.exists() or not image_path.is_file():
+        raise HTTPException(status_code=404, detail="Image not found")
+
+    media_type, _ = mimetypes.guess_type(image_path.name)
+    return FileResponse(
+        image_path,
+        media_type=media_type or "application/octet-stream",
+        filename=image_path.name,
     )
 
 
@@ -1400,6 +1456,7 @@ async def handle_new_chat(
                 mentioned_document_ids=request.mentioned_document_ids,
                 mentioned_nfd_doc_ids=request.mentioned_nfd_doc_ids,
                 image_payloads=normalized_images,
+                inference_results=inference_results,
                 needs_history_bootstrap=thread.needs_history_bootstrap,
                 thread_visibility=thread.visibility,
                 current_user_display_name=user.display_name or "A team member",

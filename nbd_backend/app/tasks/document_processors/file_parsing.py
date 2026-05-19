@@ -28,7 +28,9 @@ async def _parse_with_unstructured(file_path: str) -> str:
 
 async def _parse_with_llamacloud(file_path: str) -> str:
     # Reuse existing retry logic from upload pipeline.
-    from app.tasks.document_processors.file_processors import parse_with_llamacloud_retry
+    from app.tasks.document_processors.file_processors import (
+        parse_with_llamacloud_retry,
+    )
 
     file_size = os.path.getsize(file_path)
     estimated_pages = max(1, file_size // (80 * 1024))

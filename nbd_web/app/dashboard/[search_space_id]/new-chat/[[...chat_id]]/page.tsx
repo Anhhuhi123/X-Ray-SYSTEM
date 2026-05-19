@@ -42,7 +42,7 @@ import {
 } from "@/components/tool-ui/google-drive";
 import { RecallMemoryToolUI, SaveMemoryToolUI } from "@/components/tool-ui/user-memory";
 import { Skeleton } from "@/components/ui/skeleton";
-import { useChatSessionStateSync } from "@/hooks/use-chat-session-state";
+import { ChatSessionStateSync } from "@/hooks/use-chat-session-state";
 import { useMessagesElectric } from "@/hooks/use-messages-electric";
 import { documentsApiService } from "@/lib/apis/documents-api.service";
 // import { WriteTodosToolUI } from "@/components/tool-ui/write-todos";
@@ -242,8 +242,6 @@ export default function NewChatPage() {
 	const selectedChatImageAttachments = useAtomValue(selectedChatImageAttachmentsAtom);
 	const clearSelectedChatImageAttachments = useSetAtom(clearSelectedChatImageAttachmentsAtom);
 
-	// Live collaboration: sync session state and messages via Electric SQL
-	useChatSessionStateSync(threadId);
 	const { data: membersData } = useAtomValue(membersAtom);
 
 	const handleElectricMessagesUpdate = useCallback(
@@ -1842,6 +1840,7 @@ export default function NewChatPage() {
 
 	return (
 		<AssistantRuntimeProvider runtime={runtime}>
+			<ChatSessionStateSync threadId={threadId} />
 			<GenerateReportToolUI />
 			<SaveMemoryToolUI />
 			<RecallMemoryToolUI />

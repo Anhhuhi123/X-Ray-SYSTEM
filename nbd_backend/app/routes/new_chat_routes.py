@@ -10,12 +10,12 @@ These endpoints support the ThreadHistoryAdapter pattern from assistant-ui:
 - POST /threads/{thread_id}/messages - Append message
 """
 
-import base64
 import asyncio
-import contextlib
+import base64
 import binascii
-import mimetypes
+import contextlib
 import logging
+import mimetypes
 from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any

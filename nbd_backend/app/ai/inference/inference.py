@@ -1,13 +1,11 @@
-import os
-import numpy as np
 import cv2
-from PIL import Image
-
+import matplotlib.pyplot as plt
+import numpy as np
 import torch
 import torch.nn as nn
 import torchvision.transforms as transforms
+from PIL import Image
 from torchvision import models
-import matplotlib.pyplot as plt
 
 
 # =========================
@@ -94,7 +92,7 @@ class HeatmapGenerator:
                 # Try to allow the numpy scalar global if available
                 scalar_obj = None
                 try:
-                    scalar_obj = getattr(np, '_core').multiarray.scalar
+                    scalar_obj = np._core.multiarray.scalar
                 except Exception:
                     scalar_obj = None
 

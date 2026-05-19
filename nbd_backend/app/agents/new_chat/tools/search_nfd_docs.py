@@ -27,16 +27,16 @@ from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import joinedload
 
-from app.db import NFDDocsChunks, NFDDocsDocument, shielded_async_session
-from app.utils.perf import get_perf_logger
 from app.agents.new_chat.tools.document_search_base import (
     _BROWSE_MAX_CHUNKS_PER_DOC,
-    _is_degenerate_query,
     _compute_tool_output_budget,
+    _is_degenerate_query,
     format_documents_for_context,
 )
+from app.db import NFDDocsDocument, shielded_async_session
 from app.retriever.nfd_docs_hybrid_search import combined_nfd_docs_rrf_search
 from app.utils.document_converters import embed_text
+from app.utils.perf import get_perf_logger
 
 
 async def _browse_recent_nfd_docs(

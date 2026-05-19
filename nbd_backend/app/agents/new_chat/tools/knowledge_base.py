@@ -9,7 +9,6 @@ This module provides:
 """
 
 import asyncio
-import json
 import time
 from datetime import datetime
 from typing import Any
@@ -18,10 +17,6 @@ from langchain_core.tools import StructuredTool
 from pydantic import BaseModel, Field
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.db import shielded_async_session
-from app.services.connector_service import ConnectorService
-from app.utils.decommissioned_connectors import DECOMMISSIONED_CONNECTOR_TYPE_VALUES
-from app.utils.perf import get_perf_logger
 from app.agents.new_chat.tools.document_search_base import (
     _BROWSE_MAX_CHUNKS_PER_DOC,
     _LIVE_SEARCH_CONNECTORS,
@@ -29,6 +24,11 @@ from app.agents.new_chat.tools.document_search_base import (
     _is_degenerate_query,
     format_documents_for_context,
 )
+from app.db import shielded_async_session
+from app.services.connector_service import ConnectorService
+from app.utils.decommissioned_connectors import DECOMMISSIONED_CONNECTOR_TYPE_VALUES
+from app.utils.perf import get_perf_logger
+
 
 async def _browse_recent_documents(
     search_space_id: int,

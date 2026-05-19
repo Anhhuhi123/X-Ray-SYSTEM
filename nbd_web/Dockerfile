@@ -1,6 +1,6 @@
 # syntax=docker.io/docker/dockerfile:1
 
-FROM node:20-alpine AS base
+FROM node:22-alpine AS base
 
 # Install dependencies only when needed
 FROM base AS deps
@@ -13,6 +13,7 @@ RUN corepack enable pnpm
 
 # Copy package files
 COPY package.json pnpm-lock.yaml* .npmrc* ./
+COPY pnpm-workspace.yaml ./
 
 # First copy the config file and content to avoid fumadocs-mdx postinstall error
 COPY source.config.ts ./

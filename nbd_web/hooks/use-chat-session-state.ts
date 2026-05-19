@@ -2,9 +2,11 @@
 
 import { useShape } from "@electric-sql/react";
 import { useSetAtom } from "jotai";
+import { createElement } from "react";
 import { useEffect } from "react";
 import { chatSessionStateAtom } from "@/atoms/chat/chat-session-state.atom";
 import type { ChatSessionState } from "@/contracts/types/chat-session-state.types";
+import { useElectricClient } from "@/lib/electric/context";
 
 const ELECTRIC_URL = process.env.NEXT_PUBLIC_ELECTRIC_URL || "http://localhost:5133";
 
@@ -12,7 +14,17 @@ const ELECTRIC_URL = process.env.NEXT_PUBLIC_ELECTRIC_URL || "http://localhost:5
  * Syncs chat session state for a thread via Electric SQL.
  * Call once per thread (in page.tsx). Updates global atom.
  */
-export function useChatSessionStateSync(threadId: number | null) {
+export function ChatSessionStateSync({ threadId }: { threadId: number | null }) {
+	const electricClient = useElectricClient();
+
+	if (!electricClient || !threadId) {
+		return null;
+	}
+
+	return createElement(ChatSessionStateSyncInner, { threadId });
+}
+
+function ChatSessionStateSyncInner({ threadId }: { threadId: number }) {
 	const setSessionState = useSetAtom(chatSessionStateAtom);
 
 	const { data } = useShape<ChatSessionState>({
@@ -36,4 +48,6 @@ export function useChatSessionStateSync(threadId: number | null) {
 			respondingToUserId: row?.ai_responding_to_user_id ?? null,
 		});
 	}, [threadId, data, setSessionState]);
+
+	return null;
 }

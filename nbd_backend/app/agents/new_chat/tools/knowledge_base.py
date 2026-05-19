@@ -641,6 +641,18 @@ NOTE: `WEBCRAWLER_CONNECTOR` is mapped internally to the canonical document type
     ) -> str:
         """Implementation function for knowledge base search."""
         from app.agents.new_chat.utils import parse_date_or_datetime
+        # Log the exact query and parameters the agent passed to the tool.
+        # This helps debug what string is embedded for retrieval.
+        perf = get_perf_logger()
+        try:
+            perf.info(
+                "[kb_tool] search_knowledge_base called query=%r top_k=%d connectors=%s",
+                query,
+                top_k,
+                connectors_to_search,
+            )
+        except Exception:
+            pass
 
         parsed_start: datetime | None = None
         parsed_end: datetime | None = None

@@ -8,6 +8,7 @@ data sources (user knowledge base, NFD system documentation, etc.):
 """
 
 import json
+import os
 import re
 from typing import Any
 
@@ -52,14 +53,16 @@ def _is_degenerate_query(query: str) -> bool:
 # result is allowed to occupy.  The remainder is reserved for system prompt,
 # conversation history, and model output.  With ~4 chars/token this gives a
 # tool result ≈ 25 % of the context budget in tokens.
-_TOOL_OUTPUT_CONTEXT_FRACTION = 0.25
-_CHARS_PER_TOKEN = 4
+_TOOL_OUTPUT_CONTEXT_FRACTION = float(os.getenv("SURFSENSE_TOOL_OUTPUT_CONTEXT_FRACTION", "0.25"))
+_CHARS_PER_TOKEN = int(os.getenv("SURFSENSE_CHARS_PER_TOKEN", "4"))
 
 # Hard-floor / ceiling so the budget is always sensible regardless of what
-# the model reports.
-_MIN_TOOL_OUTPUT_CHARS = 20_000  # ~5K tokens
-_MAX_TOOL_OUTPUT_CHARS = 200_000  # ~50K tokens
-_MAX_CHUNK_CHARS = 8_000
+# the model reports. These may be overridden in runtime via environment
+# variables to allow deploying with a larger/smaller output budget without
+# changing source code or tests.
+_MIN_TOOL_OUTPUT_CHARS = int(os.getenv("SURFSENSE_MIN_TOOL_OUTPUT_CHARS", "20000"))
+_MAX_TOOL_OUTPUT_CHARS = int(os.getenv("SURFSENSE_MAX_TOOL_OUTPUT_CHARS", "200000"))
+_MAX_CHUNK_CHARS = int(os.getenv("SURFSENSE_MAX_CHUNK_CHARS", "8000"))
 
 # Rank-adaptive per-document budget allocation.
 # Top-ranked (most relevant) documents get a larger share of the budget so

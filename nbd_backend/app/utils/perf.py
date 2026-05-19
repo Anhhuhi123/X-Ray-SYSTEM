@@ -24,8 +24,34 @@ def get_perf_logger() -> logging.Logger:
     """Return the singleton [PERF] logger, creating it once on first call."""
     global _perf_log
     if _perf_log is None:
+        # Allow runtime control via environment variables:
+        # - NFD_PERF_LOG_ENABLED: if set to '0' or 'false' (case-insensitive) disables perf logging
+        # - NFD_PERF_LOG_LEVEL: optional explicit level (DEBUG, INFO, WARNING, ERROR, CRITICAL)
+        level_env = os.getenv("NFD_PERF_LOG_LEVEL")
+        enabled_env = os.getenv("NFD_PERF_LOG_ENABLED")
+
         _perf_log = logging.getLogger("nfd.perf")
-        _perf_log.setLevel(logging.DEBUG)
+
+        # Determine enabled/disabled first
+        if enabled_env is not None and str(enabled_env).strip().lower() in ("0", "false", "no"):
+            # Keep a logger object but disable it so calls are no-ops
+            _perf_log.disabled = True
+            # Ensure it has at least a NullHandler so library users won't get "No handler" warnings
+            if not _perf_log.handlers:
+                _perf_log.addHandler(logging.NullHandler())
+            return _perf_log
+
+        # Parse explicit level if provided, otherwise default to DEBUG
+        level = logging.DEBUG
+        if level_env:
+            try:
+                level = getattr(logging, str(level_env).strip().upper())
+                if not isinstance(level, int):
+                    level = logging.DEBUG
+            except Exception:
+                level = logging.DEBUG
+
+        _perf_log.setLevel(level)
         if not _perf_log.handlers:
             h = logging.StreamHandler()
             h.setFormatter(logging.Formatter("%(asctime)s [PERF] %(message)s"))

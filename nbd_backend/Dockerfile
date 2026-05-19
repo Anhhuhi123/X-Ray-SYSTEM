@@ -42,7 +42,7 @@ COPY uv.lock .
 RUN if [ "$(uname -m)" = "x86_64" ]; then \
         pip install --no-cache-dir torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121; \
     else \
-        pip install --no-cache-dir torch torchvision torchaudio; \
+        pip install --no-cache-dir torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cpu; \
     fi
 
 # Install python dependencies

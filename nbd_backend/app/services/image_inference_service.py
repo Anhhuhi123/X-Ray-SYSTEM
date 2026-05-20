@@ -32,7 +32,9 @@ CLASS_NAMES = [
     "Pneumothorax",
 ]
 
-MODEL_PATH = Path(__file__).resolve().parents[1] / "ai" / "models" / "best_auc_weights_only.pth"
+MODEL_PATH = (
+    Path(__file__).resolve().parents[1] / "ai" / "models" / "best_auc_weights_only.pth"
+)
 AI_IMAGE_UPLOAD_DIR = Path(__file__).resolve().parents[1] / "ai" / "upload"
 AI_IMAGE_UPLOAD_ROOT = AI_IMAGE_UPLOAD_DIR.resolve()
 PROCESSED_IMAGE_DIR = AI_IMAGE_UPLOAD_DIR / "processed"
@@ -92,9 +94,7 @@ def _save_image(array: Any, destination: Path) -> str | None:
 
 def _format_prediction_summary(predictions: list[dict[str, Any]]) -> dict[str, Any]:
     positive_labels = [
-        item["label_name"]
-        for item in predictions
-        if item.get("is_positive")
+        item["label_name"] for item in predictions if item.get("is_positive")
     ]
     top_predictions = sorted(
         predictions,

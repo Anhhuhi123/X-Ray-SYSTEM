@@ -187,9 +187,7 @@ class Config:
 
     # LangSmith observability (opt-in)
     LANGSMITH_TRACING = os.getenv("LANGSMITH_TRACING", "false").lower() == "true"
-    LANGSMITH_ENDPOINT = os.getenv(
-        "LANGSMITH_ENDPOINT", _LANGSMITH_DEFAULT_ENDPOINT
-    )
+    LANGSMITH_ENDPOINT = os.getenv("LANGSMITH_ENDPOINT", _LANGSMITH_DEFAULT_ENDPOINT)
     LANGSMITH_API_KEY = os.getenv("LANGSMITH_API_KEY")
     LANGSMITH_PROJECT = os.getenv("LANGSMITH_PROJECT", "nfd")
 
@@ -286,8 +284,6 @@ class Config:
     RESIDENTIAL_PROXY_HOSTNAME = os.getenv("RESIDENTIAL_PROXY_HOSTNAME")
     RESIDENTIAL_PROXY_LOCATION = os.getenv("RESIDENTIAL_PROXY_LOCATION", "")
     RESIDENTIAL_PROXY_TYPE = int(os.getenv("RESIDENTIAL_PROXY_TYPE", "1"))
-
-
 
     # Validation Checks
     # Check embedding dimension

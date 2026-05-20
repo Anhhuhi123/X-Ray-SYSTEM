@@ -342,8 +342,6 @@ async def _process_extension_document(
             raise
 
 
-
-
 @celery_app.task(name="process_file_upload", bind=True)
 def process_file_upload_task(
     self, file_path: str, filename: str, search_space_id: int, user_id: str

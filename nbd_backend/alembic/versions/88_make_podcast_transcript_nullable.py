@@ -11,15 +11,14 @@ podcast_transcript to be nullable.
 
 from collections.abc import Sequence
 
+import sqlalchemy as sa
+
 from alembic import op
 
 revision: str = "88"
 down_revision: str | None = "87"
 branch_labels: str | Sequence[str] | None = None
 depends_on: str | Sequence[str] | None = None
-
-
-import sqlalchemy as sa
 
 
 def table_exists(table_name: str) -> bool:

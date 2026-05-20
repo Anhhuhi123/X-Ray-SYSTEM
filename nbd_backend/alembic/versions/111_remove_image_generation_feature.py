@@ -63,7 +63,9 @@ def _column_exists(conn: sa.Connection, table_name: str, column_name: str) -> bo
     )
 
 
-def _constraint_exists(conn: sa.Connection, table_name: str, constraint_name: str) -> bool:
+def _constraint_exists(
+    conn: sa.Connection, table_name: str, constraint_name: str
+) -> bool:
     return (
         conn.execute(
             sa.text(
@@ -232,7 +234,9 @@ def downgrade() -> None:
             sa.Column("style", sa.String(length=50), nullable=True),
             sa.Column("response_format", sa.String(length=50), nullable=True),
             sa.Column("image_generation_config_id", sa.Integer(), nullable=True),
-            sa.Column("response_data", postgresql.JSONB(astext_type=sa.Text()), nullable=True),
+            sa.Column(
+                "response_data", postgresql.JSONB(astext_type=sa.Text()), nullable=True
+            ),
             sa.Column("error_message", sa.Text(), nullable=True),
             sa.Column("access_token", sa.String(length=64), nullable=True),
             sa.Column(
@@ -281,22 +285,23 @@ def downgrade() -> None:
             ["access_token"],
         )
 
-    # Restore permissions for default roles to match pre-removal behavior.
-    if _table_exists(conn, "search_space_roles"):
-        if _column_exists(conn, "search_space_roles", "name"):
+        # Restore permissions for default roles to match pre-removal behavior.
+        if _table_exists(conn, "search_space_roles") and _column_exists(
+            conn, "search_space_roles", "name"
+        ):
             op.execute(
                 """
-                UPDATE search_space_roles
-                SET permissions = permissions || ARRAY['image_generations:create', 'image_generations:read']
-                WHERE name = 'Editor'
-                  AND NOT ('image_generations:create' = ANY(permissions))
-                """
+                        UPDATE search_space_roles
+                        SET permissions = permissions || ARRAY['image_generations:create', 'image_generations:read']
+                        WHERE name = 'Editor'
+                            AND NOT ('image_generations:create' = ANY(permissions))
+                        """
             )
             op.execute(
                 """
-                UPDATE search_space_roles
-                SET permissions = permissions || ARRAY['image_generations:read']
-                WHERE name = 'Viewer'
-                  AND NOT ('image_generations:read' = ANY(permissions))
-                """
+                        UPDATE search_space_roles
+                        SET permissions = permissions || ARRAY['image_generations:read']
+                        WHERE name = 'Viewer'
+                            AND NOT ('image_generations:read' = ANY(permissions))
+                        """
             )

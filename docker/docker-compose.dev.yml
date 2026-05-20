@@ -104,13 +104,6 @@ services:
       - ELECTRIC_DB_USER=${ELECTRIC_DB_USER:-electric}
       - ELECTRIC_DB_PASSWORD=${ELECTRIC_DB_PASSWORD:-electric_password}
       - SERVICE_ROLE=worker
-    depends_on:
-      db:
-        condition: service_healthy
-      redis:
-        condition: service_healthy
-      backend:
-        condition: service_healthy
 
   celery_beat:
     build: ../nbd_backend
@@ -163,11 +156,6 @@ services:
       - "${FRONTEND_PORT:-3000}:3000"
     env_file:
       - ../nbd_web/.env
-    depends_on:
-      backend:
-        condition: service_healthy
-      electric:
-        condition: service_healthy
 
 volumes:
   postgres_data:

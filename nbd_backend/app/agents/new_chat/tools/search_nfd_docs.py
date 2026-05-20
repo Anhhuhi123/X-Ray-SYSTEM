@@ -79,21 +79,22 @@ async def _browse_recent_nfd_docs(
     for doc in documents:
         chunks_list = []
         for chunk in doc.chunks[:_BROWSE_MAX_CHUNKS_PER_DOC]:
-            chunks_list.append({
-                "chunk_id": f"doc-{chunk.id}",
-                "content": chunk.content
-            })
-        
-        results.append({
-            "document": {
-                "id": f"doc-{doc.id}",
-                "title": doc.title,
-                "document_type": "NFD_DOCS",
-                "metadata": {"source": doc.source},
-            },
-            "chunks": chunks_list,
-            "source": "NFD_DOCS",
-        })
+            chunks_list.append(
+                {"chunk_id": f"doc-{chunk.id}", "content": chunk.content}
+            )
+
+        results.append(
+            {
+                "document": {
+                    "id": f"doc-{doc.id}",
+                    "title": doc.title,
+                    "document_type": "NFD_DOCS",
+                    "metadata": {"source": doc.source},
+                },
+                "chunks": chunks_list,
+                "source": "NFD_DOCS",
+            }
+        )
 
     perf.info(
         "[nfd_browse] recency browse in %.3fs docs=%d",

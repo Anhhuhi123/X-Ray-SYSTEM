@@ -132,7 +132,9 @@ def _merge_rrf_results(
         if doc_id is not None and doc_id not in merged_data:
             merged_data[doc_id] = result
 
-    sorted_doc_ids = sorted(all_doc_ids, key=lambda doc_id: merged_scores[doc_id], reverse=True)
+    sorted_doc_ids = sorted(
+        all_doc_ids, key=lambda doc_id: merged_scores[doc_id], reverse=True
+    )
     combined_results: list[dict[str, Any]] = []
     for doc_id in sorted_doc_ids[:top_k]:
         entry = merged_data[doc_id].copy()
@@ -175,7 +177,9 @@ async def _search_nfd_documents_hybrid(
     semantic_search_cte = (
         select(
             NFDDocsDocument.id,
-            func.rank().over(order_by=NFDDocsDocument.embedding.op("<=>")(query_embedding)).label("rank"),
+            func.rank()
+            .over(order_by=NFDDocsDocument.embedding.op("<=>")(query_embedding))
+            .label("rank"),
         )
         .where(*base_conditions)
         .order_by(NFDDocsDocument.embedding.op("<=>")(query_embedding))
@@ -186,7 +190,9 @@ async def _search_nfd_documents_hybrid(
     keyword_search_cte = (
         select(
             NFDDocsDocument.id,
-            func.rank().over(order_by=func.ts_rank_cd(tsvector, tsquery).desc()).label("rank"),
+            func.rank()
+            .over(order_by=func.ts_rank_cd(tsvector, tsquery).desc())
+            .label("rank"),
         )
         .where(*base_conditions)
         .where(tsvector.op("@@")(tsquery))
@@ -233,7 +239,9 @@ async def _search_nfd_documents_hybrid(
         final_docs.append(
             {
                 "document_id": doc.id,
-                "content": "\n\n".join(c["content"] for c in chunks_list if c.get("content")),
+                "content": "\n\n".join(
+                    c["content"] for c in chunks_list if c.get("content")
+                ),
                 "score": float(score),
                 "chunks": chunks_list,
                 "document": _make_document_payload(doc.id, doc.title, doc.source),
@@ -283,7 +291,9 @@ async def _search_nfd_chunks_hybrid(
         select(
             NFDDocsChunks.id,
             NFDDocsChunks.document_id.label("document_id"),
-            func.rank().over(order_by=NFDDocsChunks.embedding.op("<=>")(query_embedding)).label("rank"),
+            func.rank()
+            .over(order_by=NFDDocsChunks.embedding.op("<=>")(query_embedding))
+            .label("rank"),
         )
         .join(NFDDocsDocument, NFDDocsChunks.document_id == NFDDocsDocument.id)
         .where(*base_conditions)
@@ -296,7 +306,9 @@ async def _search_nfd_chunks_hybrid(
         select(
             NFDDocsChunks.id,
             NFDDocsChunks.document_id.label("document_id"),
-            func.rank().over(order_by=func.ts_rank_cd(tsvector, tsquery).desc()).label("rank"),
+            func.rank()
+            .over(order_by=func.ts_rank_cd(tsvector, tsquery).desc())
+            .label("rank"),
         )
         .join(NFDDocsDocument, NFDDocsChunks.document_id == NFDDocsDocument.id)
         .where(*base_conditions)
@@ -384,10 +396,14 @@ async def _search_nfd_chunks_hybrid(
         doc = docs.get(doc_id)
         if doc is None:
             continue
-        doc_map[doc_id]["document"] = _make_document_payload(doc.id, doc.title, doc.source)
+        doc_map[doc_id]["document"] = _make_document_payload(
+            doc.id, doc.title, doc.source
+        )
         doc_map[doc_id]["chunks"] = chunks_by_doc.get(doc_id, [])
         doc_map[doc_id]["content"] = "\n\n".join(
-            chunk["content"] for chunk in doc_map[doc_id]["chunks"] if chunk.get("content")
+            chunk["content"]
+            for chunk in doc_map[doc_id]["chunks"]
+            if chunk.get("content")
         )
 
     final_docs = [doc_map[doc_id] for doc_id in doc_ids if doc_id in doc_map]

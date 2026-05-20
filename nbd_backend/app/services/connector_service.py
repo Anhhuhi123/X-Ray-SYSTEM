@@ -57,7 +57,6 @@ class ConnectorService:
                 # Fallback to default value
                 self.source_id_counter = 1
 
-
     async def search_files(
         self,
         user_query: str,
@@ -372,8 +371,6 @@ class ConnectorService:
 
         result = await self.session.execute(query)
         return result.scalars().first()
-
-
 
     async def search_notes(
         self,

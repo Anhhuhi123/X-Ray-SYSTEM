@@ -298,7 +298,6 @@ async def create_nfd_deep_agent(
         time.perf_counter() - _t_agent_total,
     )
 
-
     # Safe agent introspection: avoid accessing properties that may execute
     # code (descriptors) or trigger Pydantic/model construction.
     def safe_getattr(obj, name, default=None):
@@ -312,19 +311,24 @@ async def create_nfd_deep_agent(
         "type": type(agent).__name__,
         "has_astream_events": bool(safe_getattr(agent, "astream_events", False)),
         "has_aget_state": bool(safe_getattr(agent, "aget_state", False)),
-        "enabled_tools": sorted(list(_enabled_tool_names)),
+        "enabled_tools": sorted(_enabled_tool_names),
         "thread_visibility": str(thread_visibility),
     }
 
     # Try to read a shallow tools list safely
     tools_attr = None
     try:
-        tools_candidate = safe_getattr(agent, "tools", None) or safe_getattr(agent, "_tools", None)
+        tools_candidate = safe_getattr(agent, "tools", None) or safe_getattr(
+            agent, "_tools", None
+        )
         if tools_candidate is not None:
             tools_attr = []
             for t in list(tools_candidate)[:100]:
                 try:
-                    name = getattr(t, "name", None) or getattr(t, "__class__", type(t)).__name__
+                    name = (
+                        getattr(t, "name", None)
+                        or getattr(t, "__class__", type(t)).__name__
+                    )
                     tools_attr.append(str(name))
                 except Exception:
                     tools_attr.append(repr(t))

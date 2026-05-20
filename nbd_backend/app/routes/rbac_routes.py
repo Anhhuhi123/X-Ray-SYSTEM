@@ -80,7 +80,6 @@ PERMISSION_DESCRIPTIONS = {
     "llm_configs:read": "View AI model settings and configurations",
     "llm_configs:update": "Modify AI model configurations",
     "llm_configs:delete": "Remove AI model configurations",
-
     # Connectors
     "connectors:create": "Set up new data source integrations",
     "connectors:read": "View configured data sources and their status",

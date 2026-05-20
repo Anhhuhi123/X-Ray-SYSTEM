@@ -57,6 +57,7 @@ SEARCHSOURCECONNECTORTYPE_VALUES: tuple[str, ...] = (
     "COMPOSIO_GOOGLE_DRIVE_CONNECTOR",
 )
 
+
 def _as_sql_enum(values: tuple[str, ...]) -> str:
     return ", ".join(f"'{value}'" for value in values)
 
@@ -88,7 +89,9 @@ def upgrade() -> None:
     )
     op.execute("DROP TYPE documenttype_old")
 
-    op.execute("ALTER TYPE searchsourceconnectortype RENAME TO searchsourceconnectortype_old")
+    op.execute(
+        "ALTER TYPE searchsourceconnectortype RENAME TO searchsourceconnectortype_old"
+    )
     op.execute(
         "CREATE TYPE searchsourceconnectortype AS ENUM ("
         f"{_as_sql_enum(SEARCHSOURCECONNECTORTYPE_VALUES)}"

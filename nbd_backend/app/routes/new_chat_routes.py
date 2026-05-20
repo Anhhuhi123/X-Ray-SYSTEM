@@ -192,7 +192,9 @@ async def _store_image_attachment(image: Any) -> dict[str, Any]:
     }
 
 
-async def _normalize_image_attachments(images: list[Any] | None) -> list[dict[str, Any]]:
+async def _normalize_image_attachments(
+    images: list[Any] | None,
+) -> list[dict[str, Any]]:
     if not images:
         return []
 
@@ -246,7 +248,9 @@ def _build_image_retrieval_prompt(
     image_summary = "\n".join(image_summary_lines)
     inference_summary = _build_image_inference_summary(inference_results)
     inference_summary_block = (
-        f"\n\nImage inference summary:\n{inference_summary}" if inference_summary else ""
+        f"\n\nImage inference summary:\n{inference_summary}"
+        if inference_summary
+        else ""
     )
     if user_query.strip():
         return (

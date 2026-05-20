@@ -46,23 +46,16 @@ from .tools import (
 )
 
 __all__ = [
-    # Tools registry
     "BUILTIN_TOOLS",
-    # System prompt
     "NFD_CITATION_INSTRUCTIONS",
     "NFD_SYSTEM_PROMPT",
-    # Context
     "NFDContextSchema",
     "ToolDefinition",
     "build_nfd_system_prompt",
     "build_tools",
-    # LLM config
     "create_chat_litellm_from_config",
-    # Tool factories
-    "create_search_knowledge_base_tool",
-    # Agent factory
     "create_nfd_deep_agent",
-    # Knowledge base utilities
+    "create_search_knowledge_base_tool",
     "format_documents_for_context",
     "get_all_tool_names",
     "get_default_enabled_tools",

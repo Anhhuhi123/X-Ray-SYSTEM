@@ -55,6 +55,29 @@ from .shared_memory import (
 )
 from .user_memory import create_recall_memory_tool, create_save_memory_tool
 
+
+# -----------------------------------------------------------------------------
+# Stubs for optional Google Drive tools
+# These are placeholders so the registry can reference the factories even when
+# the concrete tool implementations are not present in this tree.
+def create_create_google_drive_file_tool(db_session, search_space_id, user_id):
+    """Placeholder factory for creating Google Drive files.
+
+    Raises NotImplementedError at runtime if invoked. This satisfies static
+    analysis until a real implementation is provided.
+    """
+    raise NotImplementedError("create_google_drive_file tool is not implemented")
+
+
+def create_delete_google_drive_file_tool(db_session, search_space_id, user_id):
+    """Placeholder factory for deleting Google Drive files.
+
+    Raises NotImplementedError at runtime if invoked. This satisfies static
+    analysis until a real implementation is provided.
+    """
+    raise NotImplementedError("delete_google_drive_file tool is not implemented")
+
+
 # =============================================================================
 # Tool Definition
 # =============================================================================

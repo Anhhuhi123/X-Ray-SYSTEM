@@ -33,7 +33,11 @@ def get_perf_logger() -> logging.Logger:
         _perf_log = logging.getLogger("nfd.perf")
 
         # Determine enabled/disabled first
-        if enabled_env is not None and str(enabled_env).strip().lower() in ("0", "false", "no"):
+        if enabled_env is not None and str(enabled_env).strip().lower() in (
+            "0",
+            "false",
+            "no",
+        ):
             # Keep a logger object but disable it so calls are no-ops
             _perf_log.disabled = True
             # Ensure it has at least a NullHandler so library users won't get "No handler" warnings

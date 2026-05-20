@@ -967,6 +967,7 @@ class NFDDocsChunks(BaseModel, TimestampMixin):
     )
     document = relationship("NFDDocsDocument", back_populates="chunks")
 
+
 class Report(BaseModel, TimestampMixin):
     """Report model for storing generated Markdown reports."""
 

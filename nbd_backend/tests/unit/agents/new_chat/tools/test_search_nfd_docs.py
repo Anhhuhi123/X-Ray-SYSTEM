@@ -42,7 +42,8 @@ async def test_search_nfd_docs_async_uses_browse_fallback_for_degenerate_query(m
             }
         ]
     )
-    format_mock = lambda *args, **kwargs: "formatted"
+    def format_mock(*args, **kwargs):
+        return "formatted"
 
     monkeypatch.setattr(nfd_search, "_browse_recent_nfd_docs", browse_mock)
     monkeypatch.setattr(nfd_search, "_compute_tool_output_budget", lambda _: 12345)

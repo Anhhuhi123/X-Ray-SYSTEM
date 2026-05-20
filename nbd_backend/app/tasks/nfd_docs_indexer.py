@@ -22,9 +22,7 @@ logger = logging.getLogger(__name__)
 
 # Path to content root relative to project root
 CONTENT_DIR = (
-    Path(__file__).resolve().parent.parent.parent.parent
-    / "nbd_web"
-    / "content"
+    Path(__file__).resolve().parent.parent.parent.parent / "nbd_web" / "content"
 )
 LEGACY_DOCS_DIR = CONTENT_DIR / "docs"
 
@@ -132,9 +130,7 @@ async def index_nfd_docs(session: AsyncSession) -> tuple[int, int, int, int]:
 
     # Get all existing docs from database
     existing_docs_result = await session.execute(
-        select(NFDDocsDocument).options(
-            selectinload(NFDDocsDocument.chunks)
-        )
+        select(NFDDocsDocument).options(selectinload(NFDDocsDocument.chunks))
     )
     existing_docs = {doc.source: doc for doc in existing_docs_result.scalars().all()}
 
@@ -153,7 +149,10 @@ async def index_nfd_docs(session: AsyncSession) -> tuple[int, int, int, int]:
             file_bytes = docs_file.read_bytes()
             content_hash = generate_nfd_docs_content_hash(file_bytes)
 
-            if source in existing_docs and existing_docs[source].content_hash == content_hash:
+            if (
+                source in existing_docs
+                and existing_docs[source].content_hash == content_hash
+            ):
                 logger.debug(f"Skipping unchanged: {source}")
                 skipped += 1
                 continue

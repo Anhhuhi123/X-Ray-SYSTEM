@@ -1860,5 +1860,3 @@ async def get_drive_picker_token(
             status_code=500,
             detail="Failed to retrieve access token. Check server logs for details.",
         ) from e
-
-

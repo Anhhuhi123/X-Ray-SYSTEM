@@ -61,7 +61,9 @@ def downgrade() -> None:
     ).fetchone()
 
     if not enum_exists:
-        task_enum = postgresql.ENUM("GITHUB_STAR", name=TASK_ENUM_NAME, create_type=False)
+        task_enum = postgresql.ENUM(
+            "GITHUB_STAR", name=TASK_ENUM_NAME, create_type=False
+        )
         task_enum.create(op.get_bind(), checkfirst=True)
 
     table_exists = conn.execute(
@@ -84,9 +86,7 @@ def downgrade() -> None:
             ),
             sa.Column(
                 "task_type",
-                postgresql.ENUM(
-                    "GITHUB_STAR", name=TASK_ENUM_NAME, create_type=False
-                ),
+                postgresql.ENUM("GITHUB_STAR", name=TASK_ENUM_NAME, create_type=False),
                 nullable=False,
                 index=True,
             ),

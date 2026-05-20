@@ -108,7 +108,9 @@ def upgrade() -> None:
     )
     op.execute("DROP TYPE documenttype_old")
 
-    op.execute("ALTER TYPE searchsourceconnectortype RENAME TO searchsourceconnectortype_old")
+    op.execute(
+        "ALTER TYPE searchsourceconnectortype RENAME TO searchsourceconnectortype_old"
+    )
     op.execute(
         "CREATE TYPE searchsourceconnectortype AS ENUM ("
         f"{_as_sql_enum(SEARCHSOURCECONNECTORTYPE_VALUES)}"

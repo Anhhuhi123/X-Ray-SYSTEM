@@ -557,11 +557,7 @@ def build_nfd_system_prompt(
         visibility, enabled_tool_names, disabled_tool_names
     )
     citation_instructions = NFD_CITATION_INSTRUCTIONS
-    return (
-        system_instructions
-        + tools_instructions
-        + citation_instructions
-    )
+    return system_instructions + tools_instructions + citation_instructions
 
 
 def build_configurable_system_prompt(
@@ -618,16 +614,10 @@ def build_configurable_system_prompt(
 
     # Citation instructions based on toggle
     citation_instructions = (
-        NFD_CITATION_INSTRUCTIONS
-        if citations_enabled
-        else NFD_NO_CITATION_INSTRUCTIONS
+        NFD_CITATION_INSTRUCTIONS if citations_enabled else NFD_NO_CITATION_INSTRUCTIONS
     )
 
-    return (
-        system_instructions
-        + tools_instructions
-        + citation_instructions
-    )
+    return system_instructions + tools_instructions + citation_instructions
 
 
 def get_default_system_instructions() -> str:

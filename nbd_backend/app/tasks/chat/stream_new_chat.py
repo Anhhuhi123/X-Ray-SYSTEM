@@ -978,7 +978,9 @@ async def stream_new_chat(
         yield streaming_service.format_start_step()
 
         if inference_results:
-            yield streaming_service.format_data("inference-output", {"outputs": inference_results})
+            yield streaming_service.format_data(
+                "inference-output", {"outputs": inference_results}
+            )
 
         # Initial thinking step - analyzing the request
         if mentioned_documents or mentioned_nfd_docs:

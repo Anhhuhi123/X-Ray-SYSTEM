@@ -11,15 +11,14 @@ file_location to be nullable.
 
 from collections.abc import Sequence
 
+import sqlalchemy as sa
+
 from alembic import op
 
 revision: str = "89"
 down_revision: str | None = "88"
 branch_labels: str | Sequence[str] | None = None
 depends_on: str | Sequence[str] | None = None
-
-
-import sqlalchemy as sa
 
 
 def table_exists(table_name: str) -> bool:

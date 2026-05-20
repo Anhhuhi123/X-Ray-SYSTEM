@@ -9,15 +9,14 @@ Adds status enum and thread_id FK to podcasts.
 
 from collections.abc import Sequence
 
+import sqlalchemy as sa
+
 from alembic import op
 
 revision: str = "82"
 down_revision: str | None = "81"
 branch_labels: str | Sequence[str] | None = None
 depends_on: str | Sequence[str] | None = None
-
-
-import sqlalchemy as sa
 
 
 def table_exists(table_name: str) -> bool:
@@ -82,5 +81,5 @@ def downgrade() -> None:
         op.execute("DROP INDEX IF EXISTS ix_podcasts_thread_id")
         op.execute("ALTER TABLE podcasts DROP COLUMN IF EXISTS thread_id")
         op.execute("ALTER TABLE podcasts DROP COLUMN IF EXISTS status")
-    
+
     op.execute("DROP TYPE IF EXISTS podcast_status")

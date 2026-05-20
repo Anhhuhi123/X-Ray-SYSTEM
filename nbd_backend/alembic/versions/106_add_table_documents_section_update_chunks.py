@@ -29,7 +29,9 @@ def _table_exists(bind: sa.engine.Connection, table_name: str) -> bool:
     return sa.inspect(bind).has_table(table_name)
 
 
-def _column_exists(bind: sa.engine.Connection, table_name: str, column_name: str) -> bool:
+def _column_exists(
+    bind: sa.engine.Connection, table_name: str, column_name: str
+) -> bool:
     return any(
         column["name"] == column_name
         for column in sa.inspect(bind).get_columns(table_name)
@@ -37,7 +39,10 @@ def _column_exists(bind: sa.engine.Connection, table_name: str, column_name: str
 
 
 def _index_exists(bind: sa.engine.Connection, table_name: str, index_name: str) -> bool:
-    return any(index["name"] == index_name for index in sa.inspect(bind).get_indexes(table_name))
+    return any(
+        index["name"] == index_name
+        for index in sa.inspect(bind).get_indexes(table_name)
+    )
 
 
 def upgrade() -> None:
@@ -99,7 +104,10 @@ def upgrade() -> None:
     for index_name, columns in (
         ("ix_document_sections_document_id", ["document_id"]),
         ("ix_document_sections_parent_section_id", ["parent_section_id"]),
-        ("ix_document_sections_document_id_section_order", ["document_id", "section_order"]),
+        (
+            "ix_document_sections_document_id_section_order",
+            ["document_id", "section_order"],
+        ),
         ("ix_document_sections_section_type", ["section_type"]),
     ):
         if not _index_exists(bind, DOCUMENT_SECTIONS_TABLE, index_name):
@@ -122,15 +130,25 @@ def upgrade() -> None:
                 sa.Column("chunk_order_in_section", sa.Integer(), nullable=True),
             )
         if not _column_exists(bind, CHUNKS_TABLE, "heading_text"):
-            op.add_column(CHUNKS_TABLE, sa.Column("heading_text", sa.Text(), nullable=True))
+            op.add_column(
+                CHUNKS_TABLE, sa.Column("heading_text", sa.Text(), nullable=True)
+            )
         if not _column_exists(bind, CHUNKS_TABLE, "heading_level"):
-            op.add_column(CHUNKS_TABLE, sa.Column("heading_level", sa.Integer(), nullable=True))
+            op.add_column(
+                CHUNKS_TABLE, sa.Column("heading_level", sa.Integer(), nullable=True)
+            )
         if not _column_exists(bind, CHUNKS_TABLE, "section_type"):
-            op.add_column(CHUNKS_TABLE, sa.Column("section_type", sa.Text(), nullable=True))
+            op.add_column(
+                CHUNKS_TABLE, sa.Column("section_type", sa.Text(), nullable=True)
+            )
         if not _column_exists(bind, CHUNKS_TABLE, "chunk_type"):
-            op.add_column(CHUNKS_TABLE, sa.Column("chunk_type", sa.Text(), nullable=True))
+            op.add_column(
+                CHUNKS_TABLE, sa.Column("chunk_type", sa.Text(), nullable=True)
+            )
         if not _column_exists(bind, CHUNKS_TABLE, "content_hash"):
-            op.add_column(CHUNKS_TABLE, sa.Column("content_hash", sa.Text(), nullable=True))
+            op.add_column(
+                CHUNKS_TABLE, sa.Column("content_hash", sa.Text(), nullable=True)
+            )
         if not _column_exists(bind, CHUNKS_TABLE, "metadata"):
             op.add_column(
                 CHUNKS_TABLE,
@@ -154,7 +172,10 @@ def upgrade() -> None:
 
         for index_name, columns in (
             ("ix_chunks_section_id", ["section_id"]),
-            ("ix_chunks_document_id_section_id_chunk_order", ["document_id", "section_id", "chunk_order_in_section"]),
+            (
+                "ix_chunks_document_id_section_id_chunk_order",
+                ["document_id", "section_id", "chunk_order_in_section"],
+            ),
             ("ix_chunks_section_type", ["section_type"]),
             ("ix_chunks_chunk_type", ["chunk_type"]),
             ("ix_chunks_content_hash", ["content_hash"]),

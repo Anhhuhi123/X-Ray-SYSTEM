@@ -230,9 +230,8 @@ async def lifespan(app: FastAPI):
         await asyncio.wait_for(seed_nfd_docs(), timeout=_NFD_DOCS_SEED_TIMEOUT_SEC)
     except TimeoutError:
         logging.getLogger(__name__).warning(
-            "NFD docs seeding timed out after %.0fs — skipping. "
-            "Docs will be indexed on the next restart."
-            % _NFD_DOCS_SEED_TIMEOUT_SEC
+            "NFD docs seeding timed out after %.0fs — skipping. Docs will be indexed on the next restart.",
+            _NFD_DOCS_SEED_TIMEOUT_SEC,
         )
 
     log_system_snapshot("startup_complete")

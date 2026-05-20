@@ -78,8 +78,7 @@ async def get_nfd_doc_by_chunk_id(
             source=document.source,
             content=document.content,
             chunks=[
-                NFDDocsChunkRead(id=c.id, content=c.content)
-                for c in sorted_chunks
+                NFDDocsChunkRead(id=c.id, content=c.content) for c in sorted_chunks
             ],
         )
     except HTTPException:
@@ -123,9 +122,7 @@ async def list_nfd_docs(
         # Filter by title if provided
         if title and title.strip():
             query = query.filter(NFDDocsDocument.title.ilike(f"%{title}%"))
-            count_query = count_query.filter(
-                NFDDocsDocument.title.ilike(f"%{title}%")
-            )
+            count_query = count_query.filter(NFDDocsDocument.title.ilike(f"%{title}%"))
 
         # Get total count
         total_result = await session.execute(count_query)

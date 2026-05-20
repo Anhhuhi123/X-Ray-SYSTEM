@@ -157,7 +157,6 @@ __all__ = [
     "ParsedSection",
     "PermissionInfo",
     "PermissionsListResponse",
-
     "RefreshTokenRequest",
     "RefreshTokenResponse",
     "ReportBase",

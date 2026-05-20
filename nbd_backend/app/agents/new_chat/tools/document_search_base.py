@@ -53,7 +53,9 @@ def _is_degenerate_query(query: str) -> bool:
 # result is allowed to occupy.  The remainder is reserved for system prompt,
 # conversation history, and model output.  With ~4 chars/token this gives a
 # tool result ≈ 25 % of the context budget in tokens.
-_TOOL_OUTPUT_CONTEXT_FRACTION = float(os.getenv("SURFSENSE_TOOL_OUTPUT_CONTEXT_FRACTION", "0.25"))
+_TOOL_OUTPUT_CONTEXT_FRACTION = float(
+    os.getenv("SURFSENSE_TOOL_OUTPUT_CONTEXT_FRACTION", "0.25")
+)
 _CHARS_PER_TOKEN = int(os.getenv("SURFSENSE_CHARS_PER_TOKEN", "4"))
 
 # Hard-floor / ceiling so the budget is always sensible regardless of what

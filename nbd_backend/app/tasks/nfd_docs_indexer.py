@@ -25,6 +25,9 @@ CONTENT_DIR = (
     Path(__file__).resolve().parent.parent.parent.parent / "nbd_web" / "content"
 )
 LEGACY_DOCS_DIR = CONTENT_DIR / "docs"
+DOCS_FOR_RAG_DIR = CONTENT_DIR / "docs_for_RAG"
+
+_DOCS_FOR_RAG_PREFIX_HASH_VERSION = "docs_for_rag_prefix_v1"
 
 SUPPORTED_EXTENSIONS = {".mdx", ".pdf", ".doc", ".docx"}
 
@@ -77,9 +80,21 @@ def get_all_indexable_files() -> list[Path]:
     return sorted(set(files))
 
 
-def generate_nfd_docs_content_hash(content: bytes) -> str:
-    """Generate SHA-256 hash for source file bytes."""
-    return hashlib.sha256(content).hexdigest()
+def generate_nfd_docs_content_hash(
+    content: bytes, prefix_label: str | None = None
+) -> str:
+    """Generate SHA-256 hash for source file bytes and ingest strategy."""
+    if prefix_label is None:
+        return hashlib.sha256(content).hexdigest()
+
+    payload = b"\0".join(
+        [
+            content,
+            _DOCS_FOR_RAG_PREFIX_HASH_VERSION.encode("utf-8"),
+            prefix_label.encode("utf-8"),
+        ]
+    )
+    return hashlib.sha256(payload).hexdigest()
 
 
 def get_title_from_path(file_path: Path) -> str:
@@ -94,7 +109,21 @@ def get_source_key(file_path: Path) -> str:
     return str(file_path.relative_to(CONTENT_DIR))
 
 
-def create_nfd_docs_chunks(content: str) -> list[NFDDocsChunks]:
+def get_docs_for_rag_folder_name(file_path: Path) -> str | None:
+    """Return the first folder name under docs_for_RAG for chunk prefixing."""
+    if not file_path.is_relative_to(DOCS_FOR_RAG_DIR):
+        return None
+
+    relative_path = file_path.relative_to(DOCS_FOR_RAG_DIR)
+    if not relative_path.parts:
+        return None
+
+    return relative_path.parts[0]
+
+
+def create_nfd_docs_chunks(
+    content: str, prefix_label: str | None = None
+) -> list[NFDDocsChunks]:
     """
     Create chunks from NFD documentation content.
 
@@ -106,10 +135,13 @@ def create_nfd_docs_chunks(content: str) -> list[NFDDocsChunks]:
     """
     return [
         NFDDocsChunks(
-            content=chunk.text,
-            embedding=embed_text(chunk.text),
+            content=chunk_content,
+            embedding=embed_text(chunk_content),
         )
         for chunk in config.chunker_instance.chunk(content)
+        for chunk_content in (
+            f"{prefix_label} :\n\n{chunk.text}" if prefix_label else chunk.text,
+        )
     ]
 
 
@@ -145,9 +177,13 @@ async def index_nfd_docs(session: AsyncSession) -> tuple[int, int, int, int]:
         try:
             source = get_source_key(docs_file)
             processed_sources.add(source)
+            folder_prefix = get_docs_for_rag_folder_name(docs_file)
 
             file_bytes = docs_file.read_bytes()
-            content_hash = generate_nfd_docs_content_hash(file_bytes)
+            content_hash = generate_nfd_docs_content_hash(
+                file_bytes,
+                prefix_label=folder_prefix,
+            )
 
             if (
                 source in existing_docs
@@ -185,7 +221,7 @@ async def index_nfd_docs(session: AsyncSession) -> tuple[int, int, int, int]:
                 logger.info(f"Updating changed document: {source}")
 
                 # Create new chunks
-                chunks = create_nfd_docs_chunks(content)
+                chunks = create_nfd_docs_chunks(content, prefix_label=folder_prefix)
 
                 # Update document fields
                 existing_doc.title = title
@@ -200,7 +236,7 @@ async def index_nfd_docs(session: AsyncSession) -> tuple[int, int, int, int]:
                 # New document - create it
                 logger.info(f"Creating new document: {source}")
 
-                chunks = create_nfd_docs_chunks(content)
+                chunks = create_nfd_docs_chunks(content, prefix_label=folder_prefix)
 
                 document = NFDDocsDocument(
                     source=source,

@@ -1,0 +1,195 @@
+{
+  "summary": {
+    "metric": "context_precision",
+    "description": "Mean cosine similarity between question embedding and context embeddings",
+    "mean_context_precision": 0.4438,
+    "std_context_precision": 0.1057,
+    "min": 0.2618,
+    "max": 0.6102,
+    "num_items": 10,
+    "model_used": "sentence-transformers/paraphrase-multilingual-mpnet-base-v2",
+    "language": "vi"
+  },
+  "results": [
+    {
+      "question": "Sự khác biệt cơ bản về mặt mô học giữa xẹp phổi (Atelectasis) và hội chứng đông đặc phổi (Pulmonary consolidation) là gì?",
+      "context_precision_score": 0.5161,
+      "individual_similarities": [
+        0.6823,
+        0.683,
+        0.6554,
+        0.4982,
+        0.4729,
+        0.5029,
+        0.6064,
+        0.6086,
+        0.2347,
+        0.2163
+      ],
+      "num_contexts": 10,
+      "model_used": "sentence-transformers/paraphrase-multilingual-mpnet-base-v2"
+    },
+    {
+      "question": "Tại sao bệnh nhân hít thở FiO2 cao (nồng độ oxy cao) lại có nguy cơ tiến triển xẹp phổi tái hấp thu nhanh hơn?",
+      "context_precision_score": 0.4074,
+      "individual_similarities": [
+        0.2599,
+        0.4686,
+        0.2729,
+        0.097,
+        0.1903,
+        0.4658,
+        0.5356,
+        0.5565,
+        0.6079,
+        0.6192
+      ],
+      "num_contexts": 10,
+      "model_used": "sentence-transformers/paraphrase-multilingual-mpnet-base-v2"
+    },
+    {
+      "question": "Dấu hiệu 'Golden S sign' (dấu hiệu S ngược) trên X-quang thường gợi ý bệnh lý gì và tại sao?",
+      "context_precision_score": 0.3498,
+      "individual_similarities": [
+        0.506,
+        0.4013,
+        0.5299,
+        0.2551,
+        0.2866,
+        0.3255,
+        0.2785,
+        0.2854,
+        0.3096,
+        0.3204
+      ],
+      "num_contexts": 10,
+      "model_used": "sentence-transformers/paraphrase-multilingual-mpnet-base-v2"
+    },
+    {
+      "question": "Dấu hiệu 'Luftsichel sign' là gì và nó giúp chẩn đoán tình trạng nào?",
+      "context_precision_score": 0.3109,
+      "individual_similarities": [
+        0.3158,
+        0.3181,
+        0.2859,
+        0.3582,
+        0.3157,
+        0.3405,
+        0.2753,
+        0.2814,
+        0.262,
+        0.3563
+      ],
+      "num_contexts": 10,
+      "model_used": "sentence-transformers/paraphrase-multilingual-mpnet-base-v2"
+    },
+    {
+      "question": "Tại sao trong xẹp phổi, trung thất và khí quản lại bị lệch về phía tổn thương?",
+      "context_precision_score": 0.5327,
+      "individual_similarities": [
+        0.3907,
+        0.6073,
+        0.4459,
+        0.1549,
+        0.2258,
+        0.563,
+        0.6513,
+        0.7949,
+        0.6865,
+        0.8062
+      ],
+      "num_contexts": 10,
+      "model_used": "sentence-transformers/paraphrase-multilingual-mpnet-base-v2"
+    },
+    {
+      "question": "Dấu hiệu 'Retrocardiac sail sign' (cánh buồm sau tim) có ý nghĩa gì trong chẩn đoán hình ảnh?",
+      "context_precision_score": 0.2618,
+      "individual_similarities": [
+        0.3443,
+        0.3233,
+        0.1746,
+        0.1543,
+        0.1769,
+        0.2469,
+        0.2459,
+        0.3489,
+        0.3152,
+        0.2879
+      ],
+      "num_contexts": 10,
+      "model_used": "sentence-transformers/paraphrase-multilingual-mpnet-base-v2"
+    },
+    {
+      "question": "Sự khác biệt về rung thanh (vocal fremitus) giữa xẹp phổi và đông đặc phổi là gì?",
+      "context_precision_score": 0.4262,
+      "individual_similarities": [
+        0.266,
+        0.4664,
+        0.2277,
+        0.2842,
+        0.2937,
+        0.4235,
+        0.5152,
+        0.5576,
+        0.6659,
+        0.5622
+      ],
+      "num_contexts": 10,
+      "model_used": "sentence-transformers/paraphrase-multilingual-mpnet-base-v2"
+    },
+    {
+      "question": "Cơ chế 'Xẹp phổi do kết dính' (Adhesive Atelectasis) có liên quan đến thành phần nào trong phế nang?",
+      "context_precision_score": 0.6102,
+      "individual_similarities": [
+        0.5018,
+        0.6942,
+        0.6467,
+        0.3723,
+        0.4144,
+        0.5635,
+        0.6614,
+        0.7633,
+        0.7271,
+        0.7575
+      ],
+      "num_contexts": 10,
+      "model_used": "sentence-transformers/paraphrase-multilingual-mpnet-base-v2"
+    },
+    {
+      "question": "Tại sao rốn phổi phải có thể bị kéo giật lên cao trong xẹp thùy trên phải?",
+      "context_precision_score": 0.4957,
+      "individual_similarities": [
+        0.3898,
+        0.5514,
+        0.3559,
+        0.2129,
+        0.2862,
+        0.5219,
+        0.5993,
+        0.7266,
+        0.5967,
+        0.7167
+      ],
+      "num_contexts": 10,
+      "model_used": "sentence-transformers/paraphrase-multilingual-mpnet-base-v2"
+    },
+    {
+      "question": "Nêu tiêu chí chẩn đoán phân biệt chính giữa xẹp phổi tắc nghẽn và tràn dịch màng phổi lượng lớn dựa trên sự di lệch trung thất.",
+      "context_precision_score": 0.5271,
+      "individual_similarities": [
+        0.4555,
+        0.6859,
+        0.4969,
+        0.3289,
+        0.5671,
+        0.4323,
+        0.7046,
+        0.3483,
+        0.6656,
+        0.5859
+      ],
+      "num_contexts": 10,
+      "model_used": "sentence-transformers/paraphrase-multilingual-mpnet-base-v2"
+    }
+  ]
+}

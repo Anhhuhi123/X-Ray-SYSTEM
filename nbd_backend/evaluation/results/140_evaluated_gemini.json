@@ -1,7 +1,24 @@
 [
   {
-    "question": "Xẹp phổi là gì?",
-    "ground_truth": "Xẹp phổi (Atelectasis) là tình trạng một phần hoặc toàn bộ phổi bị mất khí và xẹp xuống.",
+    "question": "Sự khác biệt cơ bản về mặt mô học giữa xẹp phổi (Atelectasis) và hội chứng đông đặc phổi (Pulmonary consolidation) là gì?",
+    "ground_truth": "Xẹp phổi đặc trưng bởi sự co rút thực sự của các vách phế nang làm giảm thể tích tổng thể, trong khi đông đặc phổi xảy ra khi thể tích phế nang không đổi nhưng bị lấp đầy bởi các chất dịch tiết, máu hoặc mủ.",
+    "printed_contexts": [
+      "Consolidation :\n\n## Pulmonary Consolidation\n\n### Tên tiếng Việt\n\nĐông đặc phổi\n\n### Tên gọi khác\n\nHội chứng đông đặc, tổn thương đông đặc, đám mờ phế nang (alveolar opacity), thâm nhiễm phổi (pulmonary infiltrate), nhục hóa phổi (induration of lung).\n\n### Tổng quan\n\n",
+      "Consolidation :\n\nĐông đặc phổi (Pulmonary Consolidation) không phải là một căn bệnh độc lập, mà là một **dấu hiệu hình ảnh y khoa (radiologic sign)** kinh điển, được phát hiện chủ yếu qua phim chụp X-quang ngực (Chest X-ray) hoặc chụp cắt lớp vi tính (CT scan). 1\n\n",
+      "Consolidation :\n\nĐể hiểu rõ hiện tượng này một cách cặn kẽ từ góc độ vật lý và giải phẫu, chúng ta cần hình dung phổi người bình thường giống như một miếng bọt biển khổng lồ chứa hàng triệu túi khí nhỏ gọi là phế nang (alveoli). ",
+      "Consolidation :\n\nCác phế nang này có thể co giãn và chứa đầy không khí, đảm nhiệm chức năng trao đổi oxy cho máu. 1 Trên nguyên lý tạo ảnh X-quang, tia X xuyên qua không khí rất dễ dàng, do đó các vùng phổi chứa khí sẽ hiển thị màu đen (hoặc xám rất đậm) trên tấm phim. ",
+      "Consolidation :\n\n2 Ngược lại, các cấu trúc đặc như xương sườn, cột sống, hay khối cơ tim sẽ hấp thụ tia X mạnh hơn, tạo ra các vùng màu trắng. 2\n\n",
+      "Consolidation :\n\nHiện tượng \"đông đặc\" xảy ra khi lượng không khí bên trong các phế nang bị đẩy ra ngoài và thay thế hoàn toàn bởi các chất dịch hoặc vật chất đặc. ",
+      "Consolidation :\n\n1 Khối vật chất này có thể là nước (dịch thấm), mủ (do nhiễm trùng), máu (do xuất huyết), hoặc các tế bào bất thường (tế bào viêm, tế bào ung thư). 2 Sự thay thế này biến một vùng nhu mô phổi xốp, chứa khí trở thành một khối đặc, cứng (induration). ",
+      "Consolidation :\n\n1 Về mặt quang học trên phim X-quang, do chất dịch và mô đặc có mật độ (density) cao hơn không khí, vùng phổi bị bệnh sẽ cản trở tia X đi qua và hiển thị thành các **đám mờ màu trắng hoặc xám nhạt** . 4\n\n",
+      "Consolidation :\n\n**Giá trị ứng dụng trong hệ thống RAG (Retrieval-Augmented Generation) &amp; AI Y tế:** Đối với các kỹ sư phát triển phần mềm và sinh viên Công nghệ Thông tin (CNTT), khái niệm \"đông đặc\" có thể được ánh xạ (mapping)",
+      "Consolidation :\n\n thành một sự biến đổi bất thường về phân bố giá trị cường độ điểm ảnh (pixel intensity) trên ma trận ảnh X-quang. "
+    ],
+    "answer": "Sự khác biệt cơ bản về mặt mô học giữa xẹp phổi (Atelectasis) và hội chứng đông đặc phổi (Pulmonary consolidation) nằm ở yếu tố thể tích và thành phần lấp đầy:\n\n*   **Đông đặc phổi (Pulmonary consolidation)**: Xảy ra khi khoảng không phế nang vẫn giữ nguyên kích thước vật lý nhưng bị lấp đầy bởi các chất dịch tiết, mủ, tế bào viêm hay máu.\n*   **Xẹp phổi (Atelectasis)**: Đặc trưng bởi sự co rút thực sự của các vách phế nang, làm suy giảm thể tích tổng thể của vùng nhu mô bị ảnh hưởng, và các phế nang bị xẹp xuống, mất đi thể tích khí lưu trữ bên trong."
+  },
+  {
+    "question": "Tại sao bệnh nhân hít thở FiO2 cao (nồng độ oxy cao) lại có nguy cơ tiến triển xẹp phổi tái hấp thu nhanh hơn?",
+    "ground_truth": "Khi hít FiO2 cao, sự vắng mặt của nitrogen (một loại khí trơ hòa tan chậm) khiến toàn bộ lượng khí bị kẹt trong phế nang bị dòng máu hấp thu ồ ạt, dẫn đến xẹp phổi nhanh chóng trong vòng chưa đầy một giờ.",
     "printed_contexts": [
       "Atelectasis :\n\n## Tài Liệu Kiến Thức Chuyên Sâu: Bệnh Lý Xẹp Phổi (Atelectasis) Trong Hình Ảnh Học X-Quang Ngực Phục Vụ Hệ Thống RAG\n\n### Tổng Quan Về Bệnh Lý Xẹp Phổi Trong Y Học Hiện Đại\n\n",
       "Atelectasis :\n\nTrong lĩnh vực hô hấp học và chẩn đoán hình ảnh lồng ngực, xẹp phổi (Atelectasis) đại diện cho một trong những thực thể lâm sàng và hình thái học thường xuyên được ghi nhận nhất,",
@@ -14,6 +31,142 @@
       "Atelectasis :\n\n1 Sự khác biệt mang tính nền tảng giữa xẹp phổi và hội chứng đông đặc phổi (pulmonary consolidation) nằm ở yếu tố thể tích và thành phần lấp đầy. ",
       "Atelectasis :\n\nTrong khi đông đặc phổi xảy ra khi khoảng không phế nang vẫn giữ nguyên kích thước vật lý nhưng bị lấp đầy bởi các chất dịch tiết, mủ, tế bào viêm hay máu, thì xẹp phổi đặc trưng bởi sự co rút thực sự của các vách phế nang,"
     ],
-    "answer": "Xẹp phổi (Atelectasis) là tình trạng sụp đổ một phần hoặc toàn bộ cấu trúc của một lá phổi, dẫn đến sự suy giảm hoặc đình trệ hoàn toàn quá trình trao đổi khí tại màng phế nang - mao mạch.\n\nVề bản chất mô học, xẹp phổi là hiện tượng các phế nang bị xẹp xuống, mất đi thể tích khí lưu trữ bên trong, biến một cấu trúc xốp chứa khí thành một khối mô đặc. Thuật ngữ \"atelectasis\" được cấu thành từ hai gốc từ tiếng Hy Lạp cổ đại: \"ateles\" mang ý nghĩa là sự thiếu sót hoặc không hoàn chỉnh, và \"ektasis\" biểu thị cho sự mở rộng hay giãn nở."
+    "answer": "Các ngữ cảnh được cung cấp không giải thích lý do tại sao bệnh nhân hít thở FiO2 cao (nồng độ oxy cao) lại có nguy cơ tiến triển xẹp phổi tái hấp thu nhanh hơn.\n\nCác ngữ cảnh chỉ định nghĩa xẹp phổi tái hấp thu là biến thể lâm sàng phổ biến nhất, xảy ra khi một phế quản hoặc tiểu phế quản bị tắc nghẽn, khiến khí bị mắc kẹt trong phế nang hạ lưu. Mặc dù tuần hoàn mao mạch phổi vẫn diễn ra bình thường, nhưng không có thông tin cụ thể về tác động của FiO2 cao lên quá trình này."
+  },
+  {
+    "question": "Dấu hiệu 'Golden S sign' (dấu hiệu S ngược) trên X-quang thường gợi ý bệnh lý gì và tại sao?",
+    "ground_truth": "Dấu hiệu này gợi ý khối u ác tính ở phế quản gốc gây bít tắc thùy trên phổi phải; hình dáng chữ S được tạo thành từ đường bờ lồi của khối u ở phía rốn phổi và đường bờ lõm của rãnh liên thùy bị co kéo về phía đỉnh phổi.",
+    "printed_contexts": [
+      "Atelectasis :\n\n## Tài Liệu Kiến Thức Chuyên Sâu: Bệnh Lý Xẹp Phổi (Atelectasis) Trong Hình Ảnh Học X-Quang Ngực Phục Vụ Hệ Thống RAG\n\n### Tổng Quan Về Bệnh Lý Xẹp Phổi Trong Y Học Hiện Đại\n\n",
+      "Atelectasis :\n\nTrong lĩnh vực hô hấp học và chẩn đoán hình ảnh lồng ngực, xẹp phổi (Atelectasis) đại diện cho một trong những thực thể lâm sàng và hình thái học thường xuyên được ghi nhận nhất,",
+      "Atelectasis :\n\n đóng vai trò là một chỉ báo quan trọng cho vô số các rối loạn tiềm ẩn bên dưới. ",
+      "Atelectasis :\n\n1 Về mặt từ nguyên học, thuật ngữ \"atelectasis\" được cấu thành từ hai gốc từ tiếng Hy Lạp cổ đại: \"ateles\" mang ý nghĩa là sự thiếu sót hoặc không hoàn chỉnh, và \"ektasis\" biểu thị cho sự mở rộng hay giãn nở. ",
+      "Atelectasis :\n\n1 Khái niệm này được chính thức đưa vào y văn thế giới từ năm 1832 bởi bác sĩ người Đức Eduard Jörg thông qua công trình nghiên cứu kinh điển \"De morbo pulmonum organico ex respiratione neonatorum imperfecta orto\",",
+      "Atelectasis :\n\n ban đầu dùng để mô tả tình trạng phổi không thể giãn nở hoàn toàn ở trẻ sơ sinh. ",
+      "Atelectasis :\n\n3 Ngày nay, định nghĩa này đã được mở rộng và hệ thống hóa để chỉ tình trạng sụp đổ một phần hoặc toàn bộ cấu trúc của một lá phổi, dẫn đến sự suy giảm hoặc đình trệ hoàn toàn quá trình trao đổi khí tại màng phế nang - mao mạch. 1\n\n",
+      "Atelectasis :\n\nVề bản chất mô học, xẹp phổi là hiện tượng các phế nang bị xẹp xuống, mất đi thể tích khí lưu trữ bên trong, biến một cấu trúc xốp chứa khí thành một khối mô đặc. ",
+      "Atelectasis :\n\n1 Sự khác biệt mang tính nền tảng giữa xẹp phổi và hội chứng đông đặc phổi (pulmonary consolidation) nằm ở yếu tố thể tích và thành phần lấp đầy. ",
+      "Atelectasis :\n\nTrong khi đông đặc phổi xảy ra khi khoảng không phế nang vẫn giữ nguyên kích thước vật lý nhưng bị lấp đầy bởi các chất dịch tiết, mủ, tế bào viêm hay máu, thì xẹp phổi đặc trưng bởi sự co rút thực sự của các vách phế nang,"
+    ],
+    "answer": "Dựa trên các ngữ cảnh được cung cấp, không có thông tin nào về dấu hiệu 'Golden S sign' (dấu hiệu S ngược) trên X-quang hay bệnh lý mà nó gợi ý."
+  },
+  {
+    "question": "Dấu hiệu 'Luftsichel sign' là gì và nó giúp chẩn đoán tình trạng nào?",
+    "ground_truth": "Đây là hiện tượng một viền sáng (hình lưỡi liềm) chứa khí nằm quanh cung động mạch chủ, xuất hiện do thùy dưới trái trương phồng bù trừ khi toàn bộ thùy trên trái bị xẹp hoàn toàn.",
+    "printed_contexts": [
+      "Infiltration :\n\n## Tài liệu phân tích chuyên sâu về thâm nhiễm phổi trên X-quang ngực phục vụ hệ thống RAG\n\n### Khái niệm thâm nhiễm và những tiến trình chuẩn hóa thuật ngữ y khoa\n\n",
+      "Infiltration :\n\nThuật ngữ \"thâm nhiễm\" (infiltration) từ lâu đã trở thành một khái niệm quen thuộc trong lâm sàng và chẩn đoán hình ảnh lồng ngực để chỉ sự tích tụ của các chất bất thường có đậm độ cao hơn không khí (như dịch, mủ, máu hoặc tế bào) bên trong nhu mô phổi. ",
+      "Infiltration :\n\n1 Mặc dù được sử dụng phổ biến, thuật ngữ này đã tạo ra nhiều cuộc tranh luận học thuật sâu sắc về tính chính xác và tính đồng nhất trong báo cáo y khoa. 4\n\n",
+      "Infiltration :\n\nHiệp hội Fleischner (Fleischner Society), cơ quan hàng đầu thế giới về chuẩn hóa thuật ngữ hình ảnh học lồng ngực, đã chính thức khuyến cáo hạn chế sử dụng từ \"thâm nhiễm\" trong các báo cáo X-quang ngực và cắt lớp vi tính (CT). ",
+      "Infiltration :\n\n4 Lý do cốt lõi là thuật ngữ này mang tính chủ quan cao, mang những ý nghĩa khác nhau đối với từng người đọc và dễ gây nhầm lẫn giữa cơ chế sinh lý bệnh với biểu hiện hình ảnh học. ",
+      "Infiltration :\n\n4 Hiệp hội Fleischner khuyến nghị thay thế bằng thuật ngữ mang tính khách quan và thuần túy mô tả hình ảnh là \"đám mờ\" (opacity). 4\n\n",
+      "Infiltration :\n\nTuy nhiên, các nhà lâm sàng và một số chuyên gia chẩn đoán hình ảnh vẫn ủng hộ việc duy trì thuật ngữ \"thâm nhiễm\". ",
+      "Infiltration :\n\n4 Lập luận của nhóm nghiên cứu này, tiêu biểu là quan điểm của Bill Tuddenham (1984) và Ferris Hall (2000, 2005), chỉ ra rằng \"thâm nhiễm\"",
+      "Infiltration :\n\n là từ phù hợp nhất để biểu đạt trạng thái mở rộng hoặc lan tỏa của các chất bệnh lý vào nhu mô phổi mà không gây ra sự biến dạng cấu trúc giải phẫu nghiêm trọng. ",
+      "Infiltration :\n\n4 Khi đối diện với một phim X-quang phổi có vùng tăng đậm độ khu trú, người đọc phim thường có đủ độ tin cậy để khẳng định sự hiện diện của chất bất thường trong phế nang hoặc mô kẽ,"
+    ],
+    "answer": "Dựa trên các ngữ cảnh được cung cấp, không có thông tin nào về dấu hiệu 'Luftsichel sign'."
+  },
+  {
+    "question": "Tại sao trong xẹp phổi, trung thất và khí quản lại bị lệch về phía tổn thương?",
+    "ground_truth": "Do sự sụp đổ của một thùy phổi lớn tạo ra khoảng trống thể tích, làm áp suất âm trong khoang màng phổi tăng lên, tạo lực co kéo cơ học lôi kéo trung thất về phía bên phổi bị xẹp.",
+    "printed_contexts": [
+      "Atelectasis :\n\n## Tài Liệu Kiến Thức Chuyên Sâu: Bệnh Lý Xẹp Phổi (Atelectasis) Trong Hình Ảnh Học X-Quang Ngực Phục Vụ Hệ Thống RAG\n\n### Tổng Quan Về Bệnh Lý Xẹp Phổi Trong Y Học Hiện Đại\n\n",
+      "Atelectasis :\n\nTrong lĩnh vực hô hấp học và chẩn đoán hình ảnh lồng ngực, xẹp phổi (Atelectasis) đại diện cho một trong những thực thể lâm sàng và hình thái học thường xuyên được ghi nhận nhất,",
+      "Atelectasis :\n\n đóng vai trò là một chỉ báo quan trọng cho vô số các rối loạn tiềm ẩn bên dưới. ",
+      "Atelectasis :\n\n1 Về mặt từ nguyên học, thuật ngữ \"atelectasis\" được cấu thành từ hai gốc từ tiếng Hy Lạp cổ đại: \"ateles\" mang ý nghĩa là sự thiếu sót hoặc không hoàn chỉnh, và \"ektasis\" biểu thị cho sự mở rộng hay giãn nở. ",
+      "Atelectasis :\n\n1 Khái niệm này được chính thức đưa vào y văn thế giới từ năm 1832 bởi bác sĩ người Đức Eduard Jörg thông qua công trình nghiên cứu kinh điển \"De morbo pulmonum organico ex respiratione neonatorum imperfecta orto\",",
+      "Atelectasis :\n\n ban đầu dùng để mô tả tình trạng phổi không thể giãn nở hoàn toàn ở trẻ sơ sinh. ",
+      "Atelectasis :\n\n3 Ngày nay, định nghĩa này đã được mở rộng và hệ thống hóa để chỉ tình trạng sụp đổ một phần hoặc toàn bộ cấu trúc của một lá phổi, dẫn đến sự suy giảm hoặc đình trệ hoàn toàn quá trình trao đổi khí tại màng phế nang - mao mạch. 1\n\n",
+      "Atelectasis :\n\nVề bản chất mô học, xẹp phổi là hiện tượng các phế nang bị xẹp xuống, mất đi thể tích khí lưu trữ bên trong, biến một cấu trúc xốp chứa khí thành một khối mô đặc. ",
+      "Atelectasis :\n\n1 Sự khác biệt mang tính nền tảng giữa xẹp phổi và hội chứng đông đặc phổi (pulmonary consolidation) nằm ở yếu tố thể tích và thành phần lấp đầy. ",
+      "Atelectasis :\n\nTrong khi đông đặc phổi xảy ra khi khoảng không phế nang vẫn giữ nguyên kích thước vật lý nhưng bị lấp đầy bởi các chất dịch tiết, mủ, tế bào viêm hay máu, thì xẹp phổi đặc trưng bởi sự co rút thực sự của các vách phế nang,"
+    ],
+    "answer": "Trong xẹp phổi (Atelectasis), các phế nang bị xẹp xuống, mất đi thể tích khí lưu trữ bên trong, dẫn đến sự co rút thực sự của các vách phế nang và làm suy giảm thể tích tổng thể của vùng nhu mô phổi bị ảnh hưởng. Sự giảm thể tích này tạo ra một lực kéo, làm cho trung thất và khí quản bị lệch về phía phổi bị tổn thương."
+  },
+  {
+    "question": "Dấu hiệu 'Retrocardiac sail sign' (cánh buồm sau tim) có ý nghĩa gì trong chẩn đoán hình ảnh?",
+    "ground_truth": "Đây là dấu hiệu giúp nhận biết xẹp thùy dưới phổi trái; đám mờ hình tam giác nhỏ lấp ló sau bóng tim giúp phát hiện tổn thương vốn rất dễ bị bỏ sót do bị che khuất bởi cấu trúc tim.",
+    "printed_contexts": [
+      "Effusion :\n\n## Pleural Effusion\n\n### Tên tiếng Việt\n\nTràn dịch màng phổi 1\n\n### Tên gọi khác\n\nTích tụ dịch khoang màng phổi, nước trong phổi 1\n\n### Tổng quan\n\n<!-- image -->\n\n<!-- image -->\n\n<!-- image -->\n\n",
+      "Effusion :\n\nTràn dịch màng phổi là sự tích tụ lượng dịch bất thường bên trong khoang màng phổi – một khoang ảo nằm giữa hai lá màng phổi: lá thành (lớp tế bào lót sát thành ngực và cơ hoành) và lá tạng (lớp tế bào bao bọc chặt nhu mô phổi). ",
+      "Effusion :\n\n2 Trong điều kiện sinh lý bình thường, lá thành liên tục tiết dịch từ mạng lưới mao mạch màng phổi với tốc độ khoảng  cân nặng mỗi giờ. ",
+      "Effusion :\n\n2 Lượng dịch này sau đó được tái hấp thu nhịp nhàng qua hệ dẫn lưu bạch huyết, chỉ để lại một thể tích rất nhỏ khoảng  (hoặc tối đa ) dịch sinh lý. ",
+      "Effusion :\n\n2 Lớp dịch siêu mỏng này đóng vai trò như chất bôi trơn, giảm thiểu tối đa ma sát và tạo ra áp lực âm (functional vacuum) giúp hai lá màng phổi trượt lên nhau dễ dàng, đảm bảo phổi giãn nở đồng bộ theo lồng ngực khi hít thở. 2\n\n",
+      "Effusion :\n\nKhi xuất hiện các biến đổi bệnh lý làm gia tăng áp lực thủy tĩnh, sụt giảm áp lực keo huyết tương, tăng tính thấm mao mạch hoặc cản trở hệ bạch huyết dẫn lưu, dịch sẽ ứ đọng vượt quá khả năng tái hấp thu. ",
+      "Effusion :\n\n2 Sự tích tụ dịch màng phổi theo thời gian sẽ ép xẹp nhu mô phổi lành lân cận (gọi là xẹp phổi thụ động hoặc xẹp phổi do giãn nghỉ), từ đó gây suy giảm trực tiếp và nghiêm trọng chức năng trao đổi khí. 2\n\n",
+      "Effusion :\n\n### Triệu chứng thường gặp\n\n",
+      "Effusion :\n\nBiểu hiện lâm sàng của tràn dịch màng phổi dao động rất lớn, từ hoàn toàn không triệu chứng (đối với thể tích dịch nhỏ phát hiện tình cờ) cho đến tình trạng suy hô hấp cấp tính đe dọa tính mạng. 1 Các triệu chứng điển hình bao gồm:\n\n",
+      "Effusion :\n\n- **Khó thở (Dyspnea):** Đây là triệu chứng cơ năng thường gặp nhất. 3 Người bệnh có cảm giác hụt hơi, ban đầu chỉ khi gắng sức nhưng dần dần khó thở xuất hiện ngay cả khi nghỉ ngơi do dịch chèn ép làm suy giảm thể tích khí lưu thông hữu dụng của phổi. 1\n"
+    ],
+    "answer": "Dựa trên các ngữ cảnh được cung cấp, không có thông tin nào về dấu hiệu 'Retrocardiac sail sign' (cánh buồm sau tim) trong chẩn đoán hình ảnh."
+  },
+  {
+    "question": "Sự khác biệt về rung thanh (vocal fremitus) giữa xẹp phổi và đông đặc phổi là gì?",
+    "ground_truth": "Trong xẹp phổi, rung thanh thường giảm do sự gián đoạn luồng khí và giảm thể tích, trong khi trong hội chứng đông đặc phổi, rung thanh thường tăng lên.",
+    "printed_contexts": [
+      "Atelectasis :\n\n## Tài Liệu Kiến Thức Chuyên Sâu: Bệnh Lý Xẹp Phổi (Atelectasis) Trong Hình Ảnh Học X-Quang Ngực Phục Vụ Hệ Thống RAG\n\n### Tổng Quan Về Bệnh Lý Xẹp Phổi Trong Y Học Hiện Đại\n\n",
+      "Atelectasis :\n\nTrong lĩnh vực hô hấp học và chẩn đoán hình ảnh lồng ngực, xẹp phổi (Atelectasis) đại diện cho một trong những thực thể lâm sàng và hình thái học thường xuyên được ghi nhận nhất,",
+      "Atelectasis :\n\n đóng vai trò là một chỉ báo quan trọng cho vô số các rối loạn tiềm ẩn bên dưới. ",
+      "Atelectasis :\n\n1 Về mặt từ nguyên học, thuật ngữ \"atelectasis\" được cấu thành từ hai gốc từ tiếng Hy Lạp cổ đại: \"ateles\" mang ý nghĩa là sự thiếu sót hoặc không hoàn chỉnh, và \"ektasis\" biểu thị cho sự mở rộng hay giãn nở. ",
+      "Atelectasis :\n\n1 Khái niệm này được chính thức đưa vào y văn thế giới từ năm 1832 bởi bác sĩ người Đức Eduard Jörg thông qua công trình nghiên cứu kinh điển \"De morbo pulmonum organico ex respiratione neonatorum imperfecta orto\",",
+      "Atelectasis :\n\n ban đầu dùng để mô tả tình trạng phổi không thể giãn nở hoàn toàn ở trẻ sơ sinh. ",
+      "Atelectasis :\n\n3 Ngày nay, định nghĩa này đã được mở rộng và hệ thống hóa để chỉ tình trạng sụp đổ một phần hoặc toàn bộ cấu trúc của một lá phổi, dẫn đến sự suy giảm hoặc đình trệ hoàn toàn quá trình trao đổi khí tại màng phế nang - mao mạch. 1\n\n",
+      "Atelectasis :\n\nVề bản chất mô học, xẹp phổi là hiện tượng các phế nang bị xẹp xuống, mất đi thể tích khí lưu trữ bên trong, biến một cấu trúc xốp chứa khí thành một khối mô đặc. ",
+      "Atelectasis :\n\n1 Sự khác biệt mang tính nền tảng giữa xẹp phổi và hội chứng đông đặc phổi (pulmonary consolidation) nằm ở yếu tố thể tích và thành phần lấp đầy. ",
+      "Atelectasis :\n\nTrong khi đông đặc phổi xảy ra khi khoảng không phế nang vẫn giữ nguyên kích thước vật lý nhưng bị lấp đầy bởi các chất dịch tiết, mủ, tế bào viêm hay máu, thì xẹp phổi đặc trưng bởi sự co rút thực sự của các vách phế nang,"
+    ],
+    "answer": "Dựa trên các ngữ cảnh được cung cấp, không có thông tin nào về sự khác biệt về rung thanh (vocal fremitus) giữa xẹp phổi (atelectasis) và đông đặc phổi (pulmonary consolidation)."
+  },
+  {
+    "question": "Cơ chế 'Xẹp phổi do kết dính' (Adhesive Atelectasis) có liên quan đến thành phần nào trong phế nang?",
+    "ground_truth": "Liên quan đến sự thiếu hụt hoặc suy giảm chất hoạt diện (surfactant), làm gia tăng sức căng bề mặt khiến các vách phế nang dính chặt vào nhau và không thể mở ra khi hít vào.",
+    "printed_contexts": [
+      "Atelectasis :\n\n## Tài Liệu Kiến Thức Chuyên Sâu: Bệnh Lý Xẹp Phổi (Atelectasis) Trong Hình Ảnh Học X-Quang Ngực Phục Vụ Hệ Thống RAG\n\n### Tổng Quan Về Bệnh Lý Xẹp Phổi Trong Y Học Hiện Đại\n\n",
+      "Atelectasis :\n\nTrong lĩnh vực hô hấp học và chẩn đoán hình ảnh lồng ngực, xẹp phổi (Atelectasis) đại diện cho một trong những thực thể lâm sàng và hình thái học thường xuyên được ghi nhận nhất,",
+      "Atelectasis :\n\n đóng vai trò là một chỉ báo quan trọng cho vô số các rối loạn tiềm ẩn bên dưới. ",
+      "Atelectasis :\n\n1 Về mặt từ nguyên học, thuật ngữ \"atelectasis\" được cấu thành từ hai gốc từ tiếng Hy Lạp cổ đại: \"ateles\" mang ý nghĩa là sự thiếu sót hoặc không hoàn chỉnh, và \"ektasis\" biểu thị cho sự mở rộng hay giãn nở. ",
+      "Atelectasis :\n\n1 Khái niệm này được chính thức đưa vào y văn thế giới từ năm 1832 bởi bác sĩ người Đức Eduard Jörg thông qua công trình nghiên cứu kinh điển \"De morbo pulmonum organico ex respiratione neonatorum imperfecta orto\",",
+      "Atelectasis :\n\n ban đầu dùng để mô tả tình trạng phổi không thể giãn nở hoàn toàn ở trẻ sơ sinh. ",
+      "Atelectasis :\n\n3 Ngày nay, định nghĩa này đã được mở rộng và hệ thống hóa để chỉ tình trạng sụp đổ một phần hoặc toàn bộ cấu trúc của một lá phổi, dẫn đến sự suy giảm hoặc đình trệ hoàn toàn quá trình trao đổi khí tại màng phế nang - mao mạch. 1\n\n",
+      "Atelectasis :\n\nVề bản chất mô học, xẹp phổi là hiện tượng các phế nang bị xẹp xuống, mất đi thể tích khí lưu trữ bên trong, biến một cấu trúc xốp chứa khí thành một khối mô đặc. ",
+      "Atelectasis :\n\n1 Sự khác biệt mang tính nền tảng giữa xẹp phổi và hội chứng đông đặc phổi (pulmonary consolidation) nằm ở yếu tố thể tích và thành phần lấp đầy. ",
+      "Atelectasis :\n\nTrong khi đông đặc phổi xảy ra khi khoảng không phế nang vẫn giữ nguyên kích thước vật lý nhưng bị lấp đầy bởi các chất dịch tiết, mủ, tế bào viêm hay máu, thì xẹp phổi đặc trưng bởi sự co rút thực sự của các vách phế nang,"
+    ],
+    "answer": "Dựa trên các ngữ cảnh được cung cấp, không có thông tin nào về cơ chế 'Xẹp phổi do kết dính' (Adhesive Atelectasis) hay thành phần liên quan trong phế nang. Các ngữ cảnh chỉ đề cập đến \"xẹp phổi do tắc nghẽn (obstructive hoặc resorptive atelectasis)\" và \"xẹp phổi không do tắc nghẽn (non-obstructive atelectasis)\"."
+  },
+  {
+    "question": "Tại sao rốn phổi phải có thể bị kéo giật lên cao trong xẹp thùy trên phải?",
+    "ground_truth": "Khi thùy trên phải bị xẹp, lực co rút mạnh mẽ từ việc mất thể tích nhu mô sẽ kéo rãnh liên thùy bé lên cao và đồng thời kéo cấu trúc rốn phổi đi kèm lên theo vị trí giải phẫu mới.",
+    "printed_contexts": [
+      "Atelectasis :\n\n## Tài Liệu Kiến Thức Chuyên Sâu: Bệnh Lý Xẹp Phổi (Atelectasis) Trong Hình Ảnh Học X-Quang Ngực Phục Vụ Hệ Thống RAG\n\n### Tổng Quan Về Bệnh Lý Xẹp Phổi Trong Y Học Hiện Đại\n\n",
+      "Atelectasis :\n\nTrong lĩnh vực hô hấp học và chẩn đoán hình ảnh lồng ngực, xẹp phổi (Atelectasis) đại diện cho một trong những thực thể lâm sàng và hình thái học thường xuyên được ghi nhận nhất,",
+      "Atelectasis :\n\n đóng vai trò là một chỉ báo quan trọng cho vô số các rối loạn tiềm ẩn bên dưới. ",
+      "Atelectasis :\n\n1 Về mặt từ nguyên học, thuật ngữ \"atelectasis\" được cấu thành từ hai gốc từ tiếng Hy Lạp cổ đại: \"ateles\" mang ý nghĩa là sự thiếu sót hoặc không hoàn chỉnh, và \"ektasis\" biểu thị cho sự mở rộng hay giãn nở. ",
+      "Atelectasis :\n\n1 Khái niệm này được chính thức đưa vào y văn thế giới từ năm 1832 bởi bác sĩ người Đức Eduard Jörg thông qua công trình nghiên cứu kinh điển \"De morbo pulmonum organico ex respiratione neonatorum imperfecta orto\",",
+      "Atelectasis :\n\n ban đầu dùng để mô tả tình trạng phổi không thể giãn nở hoàn toàn ở trẻ sơ sinh. ",
+      "Atelectasis :\n\n3 Ngày nay, định nghĩa này đã được mở rộng và hệ thống hóa để chỉ tình trạng sụp đổ một phần hoặc toàn bộ cấu trúc của một lá phổi, dẫn đến sự suy giảm hoặc đình trệ hoàn toàn quá trình trao đổi khí tại màng phế nang - mao mạch. 1\n\n",
+      "Atelectasis :\n\nVề bản chất mô học, xẹp phổi là hiện tượng các phế nang bị xẹp xuống, mất đi thể tích khí lưu trữ bên trong, biến một cấu trúc xốp chứa khí thành một khối mô đặc. ",
+      "Atelectasis :\n\n1 Sự khác biệt mang tính nền tảng giữa xẹp phổi và hội chứng đông đặc phổi (pulmonary consolidation) nằm ở yếu tố thể tích và thành phần lấp đầy. ",
+      "Atelectasis :\n\nTrong khi đông đặc phổi xảy ra khi khoảng không phế nang vẫn giữ nguyên kích thước vật lý nhưng bị lấp đầy bởi các chất dịch tiết, mủ, tế bào viêm hay máu, thì xẹp phổi đặc trưng bởi sự co rút thực sự của các vách phế nang,"
+    ],
+    "answer": "Trong xẹp thùy trên phải, rốn phổi phải có thể bị kéo giật lên cao là do xẹp phổi (Atelectasis) đặc trưng bởi sự co rút thực sự của các vách phế nang, làm suy giảm thể tích tổng thể của vùng nhu mô bị ảnh hưởng. Khi thùy trên phải bị xẹp và mất thể tích, các cấu trúc lân cận, bao gồm rốn phổi, sẽ bị kéo về phía vùng phổi bị xẹp."
+  },
+  {
+    "question": "Nêu tiêu chí chẩn đoán phân biệt chính giữa xẹp phổi tắc nghẽn và tràn dịch màng phổi lượng lớn dựa trên sự di lệch trung thất.",
+    "ground_truth": "Trong xẹp phổi tắc nghẽn, trung thất bị kéo lệch về cùng bên tổn thương (lực kéo vào), trong khi ở tràn dịch màng phổi lượng lớn, trung thất bị đẩy lệch sang phía đối diện (lực đẩy ra).",
+    "printed_contexts": [
+      "Effusion :\n\n## Pleural Effusion\n\n### Tên tiếng Việt\n\nTràn dịch màng phổi 1\n\n### Tên gọi khác\n\nTích tụ dịch khoang màng phổi, nước trong phổi 1\n\n### Tổng quan\n\n<!-- image -->\n\n<!-- image -->\n\n<!-- image -->\n\n",
+      "Effusion :\n\nTràn dịch màng phổi là sự tích tụ lượng dịch bất thường bên trong khoang màng phổi – một khoang ảo nằm giữa hai lá màng phổi: lá thành (lớp tế bào lót sát thành ngực và cơ hoành) và lá tạng (lớp tế bào bao bọc chặt nhu mô phổi). ",
+      "Effusion :\n\n2 Trong điều kiện sinh lý bình thường, lá thành liên tục tiết dịch từ mạng lưới mao mạch màng phổi với tốc độ khoảng  cân nặng mỗi giờ. ",
+      "Effusion :\n\n2 Lượng dịch này sau đó được tái hấp thu nhịp nhàng qua hệ dẫn lưu bạch huyết, chỉ để lại một thể tích rất nhỏ khoảng  (hoặc tối đa ) dịch sinh lý. ",
+      "Effusion :\n\n2 Lớp dịch siêu mỏng này đóng vai trò như chất bôi trơn, giảm thiểu tối đa ma sát và tạo ra áp lực âm (functional vacuum) giúp hai lá màng phổi trượt lên nhau dễ dàng, đảm bảo phổi giãn nở đồng bộ theo lồng ngực khi hít thở. 2\n\n",
+      "Effusion :\n\nKhi xuất hiện các biến đổi bệnh lý làm gia tăng áp lực thủy tĩnh, sụt giảm áp lực keo huyết tương, tăng tính thấm mao mạch hoặc cản trở hệ bạch huyết dẫn lưu, dịch sẽ ứ đọng vượt quá khả năng tái hấp thu. ",
+      "Effusion :\n\n2 Sự tích tụ dịch màng phổi theo thời gian sẽ ép xẹp nhu mô phổi lành lân cận (gọi là xẹp phổi thụ động hoặc xẹp phổi do giãn nghỉ), từ đó gây suy giảm trực tiếp và nghiêm trọng chức năng trao đổi khí. 2\n\n",
+      "Effusion :\n\n### Triệu chứng thường gặp\n\n",
+      "Effusion :\n\nBiểu hiện lâm sàng của tràn dịch màng phổi dao động rất lớn, từ hoàn toàn không triệu chứng (đối với thể tích dịch nhỏ phát hiện tình cờ) cho đến tình trạng suy hô hấp cấp tính đe dọa tính mạng. 1 Các triệu chứng điển hình bao gồm:\n\n",
+      "Effusion :\n\n- **Khó thở (Dyspnea):** Đây là triệu chứng cơ năng thường gặp nhất. 3 Người bệnh có cảm giác hụt hơi, ban đầu chỉ khi gắng sức nhưng dần dần khó thở xuất hiện ngay cả khi nghỉ ngơi do dịch chèn ép làm suy giảm thể tích khí lưu thông hữu dụng của phổi. 1\n"
+    ],
+    "answer": "Dựa trên các ngữ cảnh được cung cấp:\n\n*   **Xẹp phổi (Atelectasis):** Là tình trạng \"sụp đổ một phần hoặc toàn bộ cấu trúc của một lá phổi, dẫn đến sự suy giảm hoặc đình trệ hoàn toàn quá trình trao đổi khí\" và \"các phế nang bị xẹp xuống, mất đi thể tích khí lưu trữ bên trong, biến một cấu trúc xốp chứa khí thành một khối mô đặc.\" Sự \"co rút thực sự của các vách phế nang, làm suy giảm thể tích tổng thể của vùng nhu mô bị ảnh hưởng.\" Điều này ngụ ý rằng xẹp phổi do tắc nghẽn sẽ gây giảm thể tích phổi, có xu hướng kéo trung thất về phía phổi bị xẹp.\n*   **Tràn dịch màng phổi lượng lớn:** Là \"sự tích tụ lượng dịch bất thường bên trong khoang màng phổi.\" Lượng dịch này \"ép xẹp nhu mô phổi lành lân cận.\" Sự tích tụ một lượng lớn dịch sẽ tạo ra áp lực, có xu hướng đẩy trung thất sang phía đối diện (phía phổi lành).\n\nDo đó, tiêu chí chẩn đoán phân biệt chính giữa xẹp phổi tắc nghẽn và tràn dịch màng phổi lượng lớn dựa trên sự di lệch trung thất là:\n\n*   **Xẹp phổi tắc nghẽn:** Gây giảm thể tích phổi, có xu hướng **kéo trung thất về phía phổi bị xẹp**.\n*   **Tràn dịch màng phổi lượng lớn:** Gây tăng thể tích và áp lực trong khoang màng phổi, có xu hướng **đẩy trung thất sang phía đối diện (phía phổi lành)**."
   }
 ]

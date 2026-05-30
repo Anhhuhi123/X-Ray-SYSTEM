@@ -1,0 +1,98 @@
+{
+  "summary": {
+    "metric": "context_recall",
+    "description": "RAGAS context_recall: fraction of ground_truth statements that can be attributed to the retrieved contexts. Measures retriever completeness.",
+    "mean_context_recall": 0.4778,
+    "std_context_recall": 0.1402,
+    "min": 0.2632,
+    "max": 0.7234,
+    "num_items": 10,
+    "num_skipped": 0,
+    "method_used": "heuristic_fallback",
+    "use_ragas": false,
+    "model_used": "gemini-2.5-flash",
+    "language": "vi"
+  },
+  "results": [
+    {
+      "question": "Sự khác biệt cơ bản về mặt mô học giữa xẹp phổi (Atelectasis) và hội chứng đông đặc phổi (Pulmonary consolidation) là gì?",
+      "context_recall_score": 0.7234,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10,
+      "has_ground_truth": true
+    },
+    {
+      "question": "Tại sao bệnh nhân hít thở FiO2 cao (nồng độ oxy cao) lại có nguy cơ tiến triển xẹp phổi tái hấp thu nhanh hơn?",
+      "context_recall_score": 0.5111,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10,
+      "has_ground_truth": true
+    },
+    {
+      "question": "Dấu hiệu 'Golden S sign' (dấu hiệu S ngược) trên X-quang thường gợi ý bệnh lý gì và tại sao?",
+      "context_recall_score": 0.4151,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10,
+      "has_ground_truth": true
+    },
+    {
+      "question": "Dấu hiệu 'Luftsichel sign' là gì và nó giúp chẩn đoán tình trạng nào?",
+      "context_recall_score": 0.2632,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10,
+      "has_ground_truth": true
+    },
+    {
+      "question": "Tại sao trong xẹp phổi, trung thất và khí quản lại bị lệch về phía tổn thương?",
+      "context_recall_score": 0.4878,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10,
+      "has_ground_truth": true
+    },
+    {
+      "question": "Dấu hiệu 'Retrocardiac sail sign' (cánh buồm sau tim) có ý nghĩa gì trong chẩn đoán hình ảnh?",
+      "context_recall_score": 0.3571,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10,
+      "has_ground_truth": true
+    },
+    {
+      "question": "Sự khác biệt về rung thanh (vocal fremitus) giữa xẹp phổi và đông đặc phổi là gì?",
+      "context_recall_score": 0.6667,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10,
+      "has_ground_truth": true
+    },
+    {
+      "question": "Cơ chế 'Xẹp phổi do kết dính' (Adhesive Atelectasis) có liên quan đến thành phần nào trong phế nang?",
+      "context_recall_score": 0.5946,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10,
+      "has_ground_truth": true
+    },
+    {
+      "question": "Tại sao rốn phổi phải có thể bị kéo giật lên cao trong xẹp thùy trên phải?",
+      "context_recall_score": 0.3488,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10,
+      "has_ground_truth": true
+    },
+    {
+      "question": "Nêu tiêu chí chẩn đoán phân biệt chính giữa xẹp phổi tắc nghẽn và tràn dịch màng phổi lượng lớn dựa trên sự di lệch trung thất.",
+      "context_recall_score": 0.4103,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10,
+      "has_ground_truth": true
+    }
+  ]
+}

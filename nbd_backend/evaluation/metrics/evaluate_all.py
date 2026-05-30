@@ -28,6 +28,8 @@ Params:
     --embed_model     : override sentence-transformers model (context_precision)
     --bertscore_model : override BERTScore model (answer_correctness)
     --skip_metrics    : bỏ qua metric(s) — vd: --skip_metrics faithfulness context_recall
+    --no_ragas        : bỏ qua RAGAS/LLM, dùng heuristic token-overlap cho faithfulness
+                        và context_recall (không cần API key, chạy local hoàn toàn)
 """
 
 import argparse
@@ -58,7 +60,7 @@ DEFAULT_EMBED_MODELS = {
     "en": "sentence-transformers/all-mpnet-base-v2",
 }
 DEFAULT_BERTSCORE_MODELS = {
-    "vi": "vinai/phobert-base",
+    "vi": "bert-base-multilingual-cased",
     "en": "roberta-large",
 }
 
@@ -126,18 +128,20 @@ def _run_faithfulness(
     output_file: str,
     llm_model: str,
     language: str,
+    use_ragas: bool,
 ) -> dict[str, Any]:
     """Gọi compute_faithfulness và trả về output dict."""
     from evaluate_faithfulness import compute_faithfulness  # type: ignore
 
     print("\n" + "═" * 60)
-    print("▶  Running: Faithfulness")
+    print("▶  Running: Faithfulness" + ("" if use_ragas else "  [heuristic mode]"))
     print("═" * 60)
     compute_faithfulness(
         input_file=input_file,
         output_file=output_file,
         model_name=llm_model,
         language=language,
+        use_ragas=use_ragas,
     )
     with open(output_file, encoding="utf-8") as f:
         return json.load(f)
@@ -170,18 +174,20 @@ def _run_context_recall(
     output_file: str,
     llm_model: str,
     language: str,
+    use_ragas: bool,
 ) -> dict[str, Any]:
     """Gọi compute_context_recall và trả về output dict."""
     from evaluate_context_recall import compute_context_recall  # type: ignore
 
     print("\n" + "═" * 60)
-    print("▶  Running: Context Recall")
+    print("▶  Running: Context Recall" + ("" if use_ragas else "  [heuristic mode]"))
     print("═" * 60)
     return compute_context_recall(
         input_file=input_file,
         output_file=output_file,
         model_name=llm_model,
         language=language,
+        use_ragas=use_ragas,
     )
 
 
@@ -591,6 +597,7 @@ def evaluate_all(
     embed_model: str,
     bertscore_model: str,
     skip_metrics: list[str],
+    use_ragas: bool = True,
 ) -> None:
     out = Path(output_dir)
     out.mkdir(parents=True, exist_ok=True)
@@ -600,6 +607,7 @@ def evaluate_all(
     print(f"Metrics to run: {[m for m in ALL_METRIC_NAMES if m not in skip_metrics]}")
     if skip_metrics:
         print(f"Skipping      : {skip_metrics}")
+    print(f"RAGAS/LLM     : {'enabled' if use_ragas else 'disabled (heuristic mode)'}")
 
     # ── Run metrics ───────────────────────────────────────────────────────────
     cp_output = None
@@ -621,6 +629,7 @@ def evaluate_all(
             output_file=str(out / "faithfulness_scores.json"),
             llm_model=llm_model,
             language=language,
+            use_ragas=use_ragas,
         )
 
     if "answer_correctness" not in skip_metrics:
@@ -637,6 +646,7 @@ def evaluate_all(
             output_file=str(out / "context_recall_scores.json"),
             llm_model=llm_model,
             language=language,
+            use_ragas=use_ragas,
         )
 
     # ── Merge & summarize ────────────────────────────────────────────────────
@@ -652,6 +662,7 @@ def evaluate_all(
             "embed_model": embed_model,
             "bertscore_model": bertscore_model,
             "skipped_metrics": skip_metrics,
+            "use_ragas": use_ragas,
         },
         "results": merged,
     }
@@ -704,6 +715,9 @@ Examples:
 
   # Skip LLM-heavy metrics during quick testing
   python metrics/evaluate_all.py --skip_metrics faithfulness context_recall
+
+  # Full end-to-end test without any API/RAGAS dependency (heuristic only)
+  python metrics/evaluate_all.py --no_ragas
         """,
     )
     parser.add_argument(
@@ -764,6 +778,24 @@ Examples:
             "Example: --skip_metrics faithfulness context_recall"
         ),
     )
+    use_ragas_group = parser.add_mutually_exclusive_group()
+    use_ragas_group.add_argument(
+        "--use_ragas",
+        dest="use_ragas",
+        action="store_true",
+        help="Enable RAGAS/LLM judge for Faithfulness and Context Recall. Default: enabled.",
+    )
+    use_ragas_group.add_argument(
+        "--no_ragas",
+        dest="use_ragas",
+        action="store_false",
+        help=(
+            "Disable RAGAS/LLM for Faithfulness and Context Recall. "
+            "Uses fast token-overlap heuristic instead — no API key needed. "
+            "Useful for end-to-end smoke tests."
+        ),
+    )
+    parser.set_defaults(use_ragas=True)
 
     args = parser.parse_args()
 
@@ -781,6 +813,7 @@ Examples:
         embed_model=embed_model,
         bertscore_model=bert_model,
         skip_metrics=skip_metrics,
+        use_ragas=args.use_ragas,
     )
 
 

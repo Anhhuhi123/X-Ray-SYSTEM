@@ -199,6 +199,7 @@ def compute_context_recall(
     output_file: str,
     model_name: str,
     language: str,
+    use_ragas: bool,
 ) -> dict[str, Any]:
     """
     Evaluate Context Recall: ground_truth coverage by retrieved contexts.
@@ -220,16 +221,19 @@ def compute_context_recall(
         else:
             valid_indices.append(i)
 
-    # Khởi tạo LLM
+    # Khởi tạo LLM chỉ khi thật sự cần RAGAS
     llm = None
-    try:
-        llm = _init_llm(model_name)
-        print(f"LLM judge initialized: {model_name}")
-    except Exception as e:
-        logger.warning("Could not initialize LLM (%s) → will use heuristic fallback", e)
+    if use_ragas:
+        try:
+            llm = _init_llm(model_name)
+            print(f"LLM judge initialized: {model_name}")
+        except Exception as e:
+            logger.warning(
+                "Could not initialize LLM (%s) → will use heuristic fallback", e
+            )
 
-    # RAGAS nếu LLM available
-    if llm is not None:
+    # RAGAS nếu được bật và LLM available
+    if use_ragas and llm is not None:
         print("Attempting RAGAS context_recall evaluation...")
         ragas_scores, method_label = _ragas_context_recall(data, llm)
     else:
@@ -290,6 +294,7 @@ def compute_context_recall(
             1 for r in results if r["method"] == "skipped_no_ground_truth"
         ),
         "method_used": method_label,
+        "use_ragas": use_ragas,
         "model_used": model_name,
         "language": language,
     }
@@ -302,6 +307,7 @@ def compute_context_recall(
     print("─" * 60)
     print(f"  LLM Judge : {model_name}")
     print(f"  Method    : {method_label}")
+    print(f"  Use RAGAS : {use_ragas}")
     print(f"  Language  : {language}")
     print(f"  Items     : {summary['num_items']}")
     print(f"  Skipped   : {summary['num_skipped']}  (no ground_truth)")
@@ -374,6 +380,20 @@ def main() -> None:
             f"Default: {default_model} (based on available API keys)"
         ),
     )
+    use_ragas_group = parser.add_mutually_exclusive_group()
+    use_ragas_group.add_argument(
+        "--use_ragas",
+        dest="use_ragas",
+        action="store_true",
+        help="Enable RAGAS evaluation for context recall. Default: enabled",
+    )
+    use_ragas_group.add_argument(
+        "--no_ragas",
+        dest="use_ragas",
+        action="store_false",
+        help="Disable RAGAS evaluation and always use the heuristic fallback.",
+    )
+    parser.set_defaults(use_ragas=True)
 
     args = parser.parse_args()
 
@@ -382,6 +402,7 @@ def main() -> None:
         output_file=args.output_file,
         model_name=args.model,
         language=args.language,
+        use_ragas=args.use_ragas,
     )
 
 

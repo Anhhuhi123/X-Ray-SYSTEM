@@ -15,7 +15,7 @@ Cách tính (BERTScore):
     - Miễn phí
 
 Default models theo ngôn ngữ:
-    --language vi  → vinai/phobert-base   (tốt cho tiếng Việt)
+    --language vi  → bert-base-multilingual-cased
     --language en  → roberta-large        (mặc định BERTScore cho tiếng Anh)
     --model <any>  → override cả hai
 
@@ -41,7 +41,7 @@ import numpy as np
 # Default BERTScore models per language
 # ──────────────────────────────────────────────────────────────────────────────
 DEFAULT_MODELS: dict[str, str] = {
-    "vi": "vinai/phobert-base",
+    "vi": "bert-base-multilingual-cased",
     "en": "roberta-large",
 }
 
@@ -71,6 +71,26 @@ def save_results(output_file: str, data: dict[str, Any]) -> None:
         json.dump(data, f, ensure_ascii=False, indent=2)
 
 
+def _resolve_num_layers(model_name: str) -> int | None:
+    """Resolve a fallback layer count for BERTScore when the model is unsupported."""
+    try:
+        from transformers import AutoConfig
+    except ImportError:
+        return None
+
+    try:
+        config = AutoConfig.from_pretrained(model_name)
+    except Exception:
+        return None
+
+    for attr in ("num_hidden_layers", "n_layer"):
+        num_layers = getattr(config, attr, None)
+        if isinstance(num_layers, int) and num_layers > 0:
+            return num_layers
+
+    return None
+
+
 # ──────────────────────────────────────────────────────────────────────────────
 # BERTScore computation
 # ──────────────────────────────────────────────────────────────────────────────
@@ -96,14 +116,30 @@ def _compute_bertscore(
     print(f"  Candidates: {len(candidates)} items")
 
     # bert_score trả về tensors (Precision, Recall, F1)
-    P_tensor, R_tensor, F1_tensor = bert_score_fn(
-        cands=candidates,
-        refs=references,
-        model_type=model_name,
-        lang=lang,
-        verbose=True,
-        rescale_with_baseline=False,  # Tắt rescaling để tránh lỗi khi lang baseline chưa có
-    )
+    score_kwargs = {
+        "cands": candidates,
+        "refs": references,
+        "model_type": model_name,
+        "lang": lang,
+        "verbose": True,
+        "rescale_with_baseline": False,  # Tắt rescaling để tránh lỗi khi lang baseline chưa có
+    }
+
+    try:
+        P_tensor, R_tensor, F1_tensor = bert_score_fn(**score_kwargs)
+    except KeyError:
+        num_layers = _resolve_num_layers(model_name)
+        if num_layers is None:
+            raise
+
+        print(
+            f"[WARN] BERTScore has no built-in layer mapping for {model_name}; "
+            f"retrying with num_layers={num_layers}"
+        )
+        P_tensor, R_tensor, F1_tensor = bert_score_fn(
+            **score_kwargs,
+            num_layers=num_layers,
+        )
 
     precisions: list[float] = P_tensor.tolist()
     recalls: list[float] = R_tensor.tolist()
@@ -288,7 +324,7 @@ def main() -> None:
         default="vi",
         help=(
             "Language of the data. Determines default BERTScore model: "
-            "'vi' → vinai/phobert-base, "
+            "'vi' → bert-base-multilingual-cased, "
             "'en' → roberta-large. "
             "Default: %(default)s"
         ),
@@ -300,7 +336,7 @@ def main() -> None:
         help=(
             "Override BERTScore model (any HuggingFace model ID). "
             "Takes priority over --language default. "
-            "Examples: 'vinai/phobert-base', 'roberta-large', "
+            "Examples: 'bert-base-multilingual-cased', 'roberta-large', "
             "'bert-base-multilingual-cased'"
         ),
     )

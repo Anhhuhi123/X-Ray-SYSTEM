@@ -194,6 +194,7 @@ def compute_faithfulness(
     output_file: str,
     model_name: str,
     language: str,
+    use_ragas: bool,
 ) -> None:
     """Evaluate faithfulness: answer vs contexts."""
     import numpy as np
@@ -201,16 +202,19 @@ def compute_faithfulness(
     data = load_data(input_file)
     print(f"Loaded {len(data)} items from: {input_file}\n")
 
-    # Khởi tạo LLM cho RAGAS judge
+    # Khởi tạo LLM chỉ khi thật sự cần RAGAS
     llm = None
-    try:
-        llm = _init_llm(model_name)
-        print(f"LLM judge initialized: {model_name}")
-    except Exception as e:
-        logger.warning("Could not initialize LLM (%s) → will use heuristic fallback", e)
+    if use_ragas:
+        try:
+            llm = _init_llm(model_name)
+            print(f"LLM judge initialized: {model_name}")
+        except Exception as e:
+            logger.warning(
+                "Could not initialize LLM (%s) → will use heuristic fallback", e
+            )
 
-    # Thử RAGAS nếu LLM available
-    if llm is not None:
+    # Thử RAGAS nếu được bật và LLM available
+    if use_ragas and llm is not None:
         print("Attempting RAGAS faithfulness evaluation...")
         ragas_scores, method_label = _ragas_faithfulness(data, llm)
     else:
@@ -263,6 +267,7 @@ def compute_faithfulness(
         "max": round(float(np.max(scores)), 4),
         "num_items": len(scores),
         "method_used": method_label,
+        "use_ragas": use_ragas,
         "model_used": model_name,
         "language": language,
     }
@@ -275,6 +280,7 @@ def compute_faithfulness(
     print("─" * 60)
     print(f"  LLM Judge : {model_name}")
     print(f"  Method    : {method_label}")
+    print(f"  Use RAGAS : {use_ragas}")
     print(f"  Language  : {language}")
     print(f"  Items     : {summary['num_items']}")
     print(f"  Mean      : {summary['mean_faithfulness']}")
@@ -340,6 +346,20 @@ def main() -> None:
             f"Default: {default_model} (based on available API keys)"
         ),
     )
+    use_ragas_group = parser.add_mutually_exclusive_group()
+    use_ragas_group.add_argument(
+        "--use_ragas",
+        dest="use_ragas",
+        action="store_true",
+        help="Enable RAGAS evaluation for faithfulness. Default: enabled",
+    )
+    use_ragas_group.add_argument(
+        "--no_ragas",
+        dest="use_ragas",
+        action="store_false",
+        help="Disable RAGAS evaluation and always use the heuristic fallback.",
+    )
+    parser.set_defaults(use_ragas=True)
 
     args = parser.parse_args()
 
@@ -348,6 +368,7 @@ def main() -> None:
         output_file=args.output_file,
         model_name=args.model,
         language=args.language,
+        use_ragas=args.use_ragas,
     )
 
 

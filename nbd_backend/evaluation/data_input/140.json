@@ -1,0 +1,42 @@
+[
+    {
+        "question": "Sự khác biệt cơ bản về mặt mô học giữa xẹp phổi (Atelectasis) và hội chứng đông đặc phổi (Pulmonary consolidation) là gì?",
+        "ground_truth": "Xẹp phổi đặc trưng bởi sự co rút thực sự của các vách phế nang làm giảm thể tích tổng thể, trong khi đông đặc phổi xảy ra khi thể tích phế nang không đổi nhưng bị lấp đầy bởi các chất dịch tiết, máu hoặc mủ."
+    },
+    {
+        "question": "Tại sao bệnh nhân hít thở FiO2 cao (nồng độ oxy cao) lại có nguy cơ tiến triển xẹp phổi tái hấp thu nhanh hơn?",
+        "ground_truth": "Khi hít FiO2 cao, sự vắng mặt của nitrogen (một loại khí trơ hòa tan chậm) khiến toàn bộ lượng khí bị kẹt trong phế nang bị dòng máu hấp thu ồ ạt, dẫn đến xẹp phổi nhanh chóng trong vòng chưa đầy một giờ."
+    },
+    {
+        "question": "Dấu hiệu 'Golden S sign' (dấu hiệu S ngược) trên X-quang thường gợi ý bệnh lý gì và tại sao?",
+        "ground_truth": "Dấu hiệu này gợi ý khối u ác tính ở phế quản gốc gây bít tắc thùy trên phổi phải; hình dáng chữ S được tạo thành từ đường bờ lồi của khối u ở phía rốn phổi và đường bờ lõm của rãnh liên thùy bị co kéo về phía đỉnh phổi."
+    },
+    {
+        "question": "Dấu hiệu 'Luftsichel sign' là gì và nó giúp chẩn đoán tình trạng nào?",
+        "ground_truth": "Đây là hiện tượng một viền sáng (hình lưỡi liềm) chứa khí nằm quanh cung động mạch chủ, xuất hiện do thùy dưới trái trương phồng bù trừ khi toàn bộ thùy trên trái bị xẹp hoàn toàn."
+    },
+    {
+        "question": "Tại sao trong xẹp phổi, trung thất và khí quản lại bị lệch về phía tổn thương?",
+        "ground_truth": "Do sự sụp đổ của một thùy phổi lớn tạo ra khoảng trống thể tích, làm áp suất âm trong khoang màng phổi tăng lên, tạo lực co kéo cơ học lôi kéo trung thất về phía bên phổi bị xẹp."
+    },
+    {
+        "question": "Dấu hiệu 'Retrocardiac sail sign' (cánh buồm sau tim) có ý nghĩa gì trong chẩn đoán hình ảnh?",
+        "ground_truth": "Đây là dấu hiệu giúp nhận biết xẹp thùy dưới phổi trái; đám mờ hình tam giác nhỏ lấp ló sau bóng tim giúp phát hiện tổn thương vốn rất dễ bị bỏ sót do bị che khuất bởi cấu trúc tim."
+    },
+    {
+        "question": "Sự khác biệt về rung thanh (vocal fremitus) giữa xẹp phổi và đông đặc phổi là gì?",
+        "ground_truth": "Trong xẹp phổi, rung thanh thường giảm do sự gián đoạn luồng khí và giảm thể tích, trong khi trong hội chứng đông đặc phổi, rung thanh thường tăng lên."
+    },
+    {
+        "question": "Cơ chế 'Xẹp phổi do kết dính' (Adhesive Atelectasis) có liên quan đến thành phần nào trong phế nang?",
+        "ground_truth": "Liên quan đến sự thiếu hụt hoặc suy giảm chất hoạt diện (surfactant), làm gia tăng sức căng bề mặt khiến các vách phế nang dính chặt vào nhau và không thể mở ra khi hít vào."
+    },
+    {
+        "question": "Tại sao rốn phổi phải có thể bị kéo giật lên cao trong xẹp thùy trên phải?",
+        "ground_truth": "Khi thùy trên phải bị xẹp, lực co rút mạnh mẽ từ việc mất thể tích nhu mô sẽ kéo rãnh liên thùy bé lên cao và đồng thời kéo cấu trúc rốn phổi đi kèm lên theo vị trí giải phẫu mới."
+    },
+    {
+        "question": "Nêu tiêu chí chẩn đoán phân biệt chính giữa xẹp phổi tắc nghẽn và tràn dịch màng phổi lượng lớn dựa trên sự di lệch trung thất.",
+        "ground_truth": "Trong xẹp phổi tắc nghẽn, trung thất bị kéo lệch về cùng bên tổn thương (lực kéo vào), trong khi ở tràn dịch màng phổi lượng lớn, trung thất bị đẩy lệch sang phía đối diện (lực đẩy ra)."
+    }
+]

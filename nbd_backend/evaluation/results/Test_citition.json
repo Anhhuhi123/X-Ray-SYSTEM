@@ -1,0 +1,842 @@
+[
+  {
+    "question": "Xẹp phổi là gì?",
+    "ground_truth": "Xẹp phổi (Atelectasis) là tình trạng một phần hoặc toàn bộ phổi bị mất khí và xẹp xuống.",
+    "contexts": [
+      "Atelectasis :\n\n## Tài Liệu Kiến Thức Chuyên Sâu: Bệnh Lý Xẹp Phổi (Atelectasis) Trong Hình Ảnh Học X-Quang Ngực Phục Vụ Hệ Thống RAG\n\n### Tổng Quan Về Bệnh Lý Xẹp Phổi Trong Y Học Hiện Đại\n\n",
+      "Atelectasis :\n\nTrong lĩnh vực hô hấp học và chẩn đoán hình ảnh lồng ngực, xẹp phổi (Atelectasis) đại diện cho một trong những thực thể lâm sàng và hình thái học thường xuyên được ghi nhận nhất,",
+      "Atelectasis :\n\n đóng vai trò là một chỉ báo quan trọng cho vô số các rối loạn tiềm ẩn bên dưới. ",
+      "Atelectasis :\n\n1 Về mặt từ nguyên học, thuật ngữ \"atelectasis\" được cấu thành từ hai gốc từ tiếng Hy Lạp cổ đại: \"ateles\" mang ý nghĩa là sự thiếu sót hoặc không hoàn chỉnh, và \"ektasis\" biểu thị cho sự mở rộng hay giãn nở. ",
+      "Atelectasis :\n\n1 Khái niệm này được chính thức đưa vào y văn thế giới từ năm 1832 bởi bác sĩ người Đức Eduard Jörg thông qua công trình nghiên cứu kinh điển \"De morbo pulmonum organico ex respiratione neonatorum imperfecta orto\",",
+      "Atelectasis :\n\n ban đầu dùng để mô tả tình trạng phổi không thể giãn nở hoàn toàn ở trẻ sơ sinh. ",
+      "Atelectasis :\n\n3 Ngày nay, định nghĩa này đã được mở rộng và hệ thống hóa để chỉ tình trạng sụp đổ một phần hoặc toàn bộ cấu trúc của một lá phổi, dẫn đến sự suy giảm hoặc đình trệ hoàn toàn quá trình trao đổi khí tại màng phế nang - mao mạch. 1\n\n",
+      "Atelectasis :\n\nVề bản chất mô học, xẹp phổi là hiện tượng các phế nang bị xẹp xuống, mất đi thể tích khí lưu trữ bên trong, biến một cấu trúc xốp chứa khí thành một khối mô đặc. ",
+      "Atelectasis :\n\n1 Sự khác biệt mang tính nền tảng giữa xẹp phổi và hội chứng đông đặc phổi (pulmonary consolidation) nằm ở yếu tố thể tích và thành phần lấp đầy. ",
+      "Atelectasis :\n\nTrong khi đông đặc phổi xảy ra khi khoảng không phế nang vẫn giữ nguyên kích thước vật lý nhưng bị lấp đầy bởi các chất dịch tiết, mủ, tế bào viêm hay máu, thì xẹp phổi đặc trưng bởi sự co rút thực sự của các vách phế nang,",
+      "Atelectasis :\n\n làm suy giảm thể tích tổng thể của vùng nhu mô bị ảnh hưởng. ",
+      "Atelectasis :\n\n1 Khối nhu mô xẹp này mất khả năng thông khí nhưng vẫn tiếp tục được tưới máu bởi tuần hoàn động mạch phổi, từ đó tạo ra một hiện tượng sinh lý bệnh học nghiêm trọng gọi là bất tương xứng thông khí - tưới máu (V/Q mismatch). ",
+      "Atelectasis :\n\n3 Hệ quả trực tiếp là sự hình thành một luồng thông nối nội phổi từ phải sang trái (intrapulmonary shunt), nơi dòng máu tĩnh mạch nghèo oxy đi qua vùng phổi tổn thương mà không hề được nạp thêm oxy cũng như không thải được carbon dioxide,",
+      "Atelectasis :\n\n sau đó hòa vào tĩnh mạch phổi và làm suy giảm nồng độ oxy hòa tan trong hệ tuần hoàn động mạch. 3\n\n",
+      "Atelectasis :\n\nMặc dù trong thực hành lâm sàng hàng ngày, thuật ngữ \"collapsed lung\" (phổi xẹp) thường được các y bác sĩ và bệnh nhân sử dụng một cách không chính thức để chỉ bệnh lý này, sự đánh đồng này có thể gây ra những hiểu lầm sâu sắc về mặt cơ chế. ",
+      "Atelectasis :\n\n1 Đáng chú ý, \"collapsed lung\" cũng là cụm từ thường được dùng để mô tả bệnh lý tràn khí màng phổi (pneumothorax). ",
+      "Atelectasis :\n\n1 Tràn khí màng phổi là tình trạng không khí xâm nhập vào khoang màng phổi gây triệt tiêu áp suất âm sinh lý, từ đó gián tiếp ép nhu mô phổi xẹp lại. ",
+      "Atelectasis :\n\n1 Do đó, tràn khí màng phổi chỉ là một trong những nguyên nhân có thể dẫn đến hiện tượng xẹp phổi, chứ bản thân nó không đồng nghĩa hoàn toàn với khái niệm xẹp phổi nguyên phát (Atelectasis). ",
+      "Atelectasis :\n\n1 Tình trạng xẹp phổi thông thường mang tính chất đơn phương (unilateral), chỉ ảnh hưởng đến một phân thùy, một thùy hoặc tối đa là một bên lá phổi, và việc xẹp đồng thời cả hai bên phổi hiếm khi xảy ra trừ những trường hợp suy hô hấp thảm khốc. ",
+      "Atelectasis :\n\n1 Tần suất xuất hiện của xẹp phổi trong môi trường y khoa là cực kỳ cao. ",
+      "Atelectasis :\n\nĐặc biệt, đối với những bệnh nhân trải qua các cuộc phẫu thuật dưới phương pháp gây mê toàn thân, tỷ lệ phát triển tổn thương xẹp phổi hậu phẫu có thể lên đến 90%,",
+      "Atelectasis :\n\n biến nó thành một trong những mối bận tâm lớn nhất của các bác sĩ hồi sức tích cực và chăm sóc hậu phẫu. 3\n\n",
+      "Atelectasis :\n\n### Trích Xuất Lâm Sàng: Phân Tích Chuyên Sâu Về Cơ Chế Sinh Lý Bệnh Học Và Phân Loại Nguyên Nhân\n\n",
+      "Atelectasis :\n\nSự sụp đổ của mạng lưới phế nang không diễn ra một cách ngẫu nhiên mà luôn bị chi phối bởi các định luật vật lý và động lực học chất lưu trong hệ hô hấp. ",
+      "Atelectasis :\n\nDựa trên các cơ chế bệnh sinh mang tính nền tảng, nền y học hiện đại phân chia xẹp phổi thành hai nhóm cơ bản lớn: xẹp phổi do tắc nghẽn (obstructive hoặc resorptive atelectasis) và xẹp phổi không do tắc nghẽn (non-obstructive atelectasis). ",
+      "Atelectasis :\n\n1 Sự phân loại này không chỉ mang ý nghĩa học thuật mà còn quyết định trực tiếp đến phác đồ can thiệp lâm sàng, từ việc chỉ định nội soi phế quản cho đến việc dẫn lưu khoang màng phổi.\n\n",
+      "Atelectasis :\n\n#### Động Lực Học Của Xẹp Phổi Do Tắc Nghẽn (Xẹp Phổi Tái Hấp Thu)\n\n",
+      "Atelectasis :\n\nXẹp phổi do tắc nghẽn, hay còn được gọi bằng một thuật ngữ chính xác hơn về mặt cơ chế là xẹp phổi tái hấp thu (resorptive atelectasis), là biến thể lâm sàng phổ biến nhất, đại diện cho sự gián đoạn hoàn toàn luồng thông khí đi vào một vùng nhu mô phổi. ",
+      "Atelectasis :\n\n5 Khi một phế quản hoặc tiểu phế quản bị tắc nghẽn, một khối lượng khí nhất định sẽ bị mắc kẹt lại trong các phế nang nằm ở khu vực hạ lưu của điểm tắc. 4 Tại thời điểm này, áp suất bên trong phế nang vẫn tương đương với áp suất khí quyển. ",
+      "Atelectasis :\n\nTuy nhiên, sự tuần hoàn của mạng lưới mao mạch phổi bao quanh các phế nang này vẫn tiếp tục diễn ra bình thường. 5\n\n",
+      "Effusion :\n\n## Pleural Effusion\n\n### Tên tiếng Việt\n\nTràn dịch màng phổi 1\n\n### Tên gọi khác\n\nTích tụ dịch khoang màng phổi, nước trong phổi 1\n\n### Tổng quan\n\n<!-- image -->\n\n<!-- image -->\n\n<!-- image -->\n\n",
+      "Effusion :\n\nTràn dịch màng phổi là sự tích tụ lượng dịch bất thường bên trong khoang màng phổi – một khoang ảo nằm giữa hai lá màng phổi: lá thành (lớp tế bào lót sát thành ngực và cơ hoành) và lá tạng (lớp tế bào bao bọc chặt nhu mô phổi). ",
+      "Effusion :\n\n2 Trong điều kiện sinh lý bình thường, lá thành liên tục tiết dịch từ mạng lưới mao mạch màng phổi với tốc độ khoảng  cân nặng mỗi giờ. ",
+      "Effusion :\n\n2 Lượng dịch này sau đó được tái hấp thu nhịp nhàng qua hệ dẫn lưu bạch huyết, chỉ để lại một thể tích rất nhỏ khoảng  (hoặc tối đa ) dịch sinh lý. ",
+      "Effusion :\n\n2 Lớp dịch siêu mỏng này đóng vai trò như chất bôi trơn, giảm thiểu tối đa ma sát và tạo ra áp lực âm (functional vacuum) giúp hai lá màng phổi trượt lên nhau dễ dàng, đảm bảo phổi giãn nở đồng bộ theo lồng ngực khi hít thở. 2\n\n",
+      "Effusion :\n\nKhi xuất hiện các biến đổi bệnh lý làm gia tăng áp lực thủy tĩnh, sụt giảm áp lực keo huyết tương, tăng tính thấm mao mạch hoặc cản trở hệ bạch huyết dẫn lưu, dịch sẽ ứ đọng vượt quá khả năng tái hấp thu. ",
+      "Effusion :\n\n2 Sự tích tụ dịch màng phổi theo thời gian sẽ ép xẹp nhu mô phổi lành lân cận (gọi là xẹp phổi thụ động hoặc xẹp phổi do giãn nghỉ), từ đó gây suy giảm trực tiếp và nghiêm trọng chức năng trao đổi khí. 2\n\n",
+      "Effusion :\n\n### Triệu chứng thường gặp\n\n",
+      "Effusion :\n\nBiểu hiện lâm sàng của tràn dịch màng phổi dao động rất lớn, từ hoàn toàn không triệu chứng (đối với thể tích dịch nhỏ phát hiện tình cờ) cho đến tình trạng suy hô hấp cấp tính đe dọa tính mạng. 1 Các triệu chứng điển hình bao gồm:\n\n",
+      "Effusion :\n\n- **Khó thở (Dyspnea):** Đây là triệu chứng cơ năng thường gặp nhất. 3 Người bệnh có cảm giác hụt hơi, ban đầu chỉ khi gắng sức nhưng dần dần khó thở xuất hiện ngay cả khi nghỉ ngơi do dịch chèn ép làm suy giảm thể tích khí lưu thông hữu dụng của phổi. 1\n",
+      "Effusion :\n\n- **Đau ngực kiểu màng phổi (Pleuritic chest pain):** Đau nhói như dao đâm khu trú tại vùng ngực tổn thương. 1 Đau tăng lên rõ rệt khi hít thở sâu, ho, hoặc hắt hơi do hai lá màng phổi đang bị viêm cọ xát trực tiếp vào nhau. 1\n",
+      "Effusion :\n\n- **Ho khan (Dry cough):** Ho dai dẳng không kèm đờm, xuất hiện do phản xạ kích thích cơ học của dịch lên các thụ thể thần kinh nhạy cảm bám trên màng phổi. 1\n",
+      "Effusion :\n\n- **Khó thở khi nằm phẳng (Orthopnea):** Người bệnh buộc phải ngồi dậy hoặc kê gối thật cao để thở. 3 Khi nằm phẳng, dịch tự do sẽ dàn đều ra phía sau và chèn ép vào diện tích lớn nhu mô phổi, gây suy giảm thông khí nghiêm trọng hơn so với tư thế ngồi. 3\n",
+      "Effusion :\n\n- **Các triệu chứng toàn thân đi kèm:** Sốt cao, ớn lạnh thường cảnh báo tràn dịch do nhiễm trùng (như viêm phổi hoặc lao); trong khi sụt cân, mệt mỏi mạn tính gợi ý tràn dịch màng phổi ác tính do ung thư. 1\n",
+      "Effusion :\n\n- **Nấc cụt hoặc thở nhanh nông:** Xuất hiện do cơ hoành bị kích thích liên tục bởi dịch tích tụ ở đáy phổi. 3\n\n### Nguyên nhân phổ biến\n\n<!-- image -->\n\n<!-- image -->\n\n<!-- image -->\n\n",
+      "Effusion :\n\nĐể định hướng chẩn đoán nguyên nhân, dịch màng phổi rút ra được phân tách thành hai nhóm bản chất sinh hóa hoàn toàn khác biệt bằng cách áp dụng tiêu chuẩn Light (Light's criteria). ",
+      "Effusion :\n\n7 Tiêu chuẩn này xác định dịch là dịch tiết (exudate) nếu thỏa mãn ít nhất một trong ba tiêu chí: tỷ lệ protein dịch/huyết thanh ; tỷ lệ LDH dịch/huyết thanh ; hoặc nồng độ LDH dịch lớn hơn  giới hạn trên của LDH huyết thanh bình thường. ",
+      "Effusion :\n\n7 Ngược lại, nếu không thỏa mãn tiêu chí nào, dịch được xếp vào nhóm dịch thấm (transudate). 7\n\n",
+      "Effusion :\n\n| **Bản chất dịch**             | **Cơ chế sinh bệnh**                                                                                                                                                                                          |",
+      "Effusion :\n\n **Nguyên nhân lâm sàng điển hình**                                                                                                                                                                                                                             ",
+      "Effusion :\n\n                                                                                                                                                                                                                                                                ",
+      "Effusion :\n\n                             |\n",
+      "Effusion :\n\n|-------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------",
+      "Effusion :\n\n----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------",
+      "Effusion :\n\n----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------",
+      "Effusion :\n\n--------------|\n",
+      "Effusion :\n\n| **Dịch thấm (Transudate)**  7 | Xảy ra do rối loạn áp lực hệ thống (tăng áp lực thủy tĩnh hoặc giảm áp lực keo huyết tương) trong khi cấu trúc màng phổi hoàn toàn bình thường.  6  Dịch thấm nghèo protein và có tỷ trọng thấp. ",
+      "Effusion :\n\n 7           | -  **Suy tim sung huyết (CHF):**  Nguyên nhân phổ biến nhất; tim co bóp kém làm ứ máu ngược dòng ở phổi, tăng áp lực thủy tĩnh mạch máu phổi. ",
+      "Effusion :\n\n 1  -  **Xơ gan:**  Giảm tổng hợp albumin (giảm áp lực keo) kèm dịch cổ trướng thấm qua các lỗ cơ hoành vào khoang màng phổi.  1  -  **Hội chứng thận hư hoặc suy thận:**  Thất thoát protein qua nước tiểu và giữ muối nước hệ thống. ",
+      "Effusion :\n\n 1  -  **Xẹp phổi:**  Tạo ra áp lực âm rất lớn trong khoang màng phổi, rút dịch từ mạch máu ra ngoài.  7                                                               |\n",
+      "Pneumothorax :\n\n## Pneumothorax\n\n### Tên tiếng Việt\n\nTràn khí màng phổi\n\n### Tên gọi khác\n\n- TKMP (Viết tắt lâm sàng phổ biến trong hồ sơ bệnh án)\n- Chứng xẹp phổi do khí\n- Rách màng phổi\n- Bệnh lý khí khoang màng phổi (Thuật ngữ hàn lâm)\n\n### Tổng quan\n\n",
+      "Pneumothorax :\n\nTràn khí màng phổi (Pneumothorax) là một cấp cứu y khoa và là một trong những bệnh lý hô hấp phổ biến nhất được chẩn đoán thông qua hình ảnh X-quang ngực. 1 Để hiểu rõ về bệnh lý này, chúng ta cần nắm bắt cấu trúc giải phẫu học cơ bản của lồng ngực. ",
+      "Pneumothorax :\n\nMàng phổi người được cấu tạo bởi hai lớp màng mỏng: lớp màng phổi tạng (visceral pleura) bao bọc chặt chẽ và dính sát vào bề mặt của nhu mô phổi, và lớp màng phổi thành (parietal pleura) lót mặt trong của lồng ngực, cơ hoành và trung thất.\n\n",
+      "Pneumothorax :\n\nGiữa hai lớp màng này là một không gian ảo được gọi là \"khoang màng phổi\" (pleural space). ",
+      "Pneumothorax :\n\nTrong điều kiện sinh lý bình thường, khoang này không chứa không khí mà chỉ có một lớp dịch mỏng vài ml hoạt động như chất bôi trơn, giúp hai bề mặt trượt lên nhau dễ dàng trong các chu kỳ hít vào và thở ra. ",
+      "Pneumothorax :\n\nQuan trọng hơn, khoang màng phổi duy trì một áp lực âm liên tục (khoảng -4 đến -8 cmH2O) so với áp lực khí quyển bên ngoài. ",
+      "Pneumothorax :\n\n2 Lực hút chân không này chính là cơ chế vật lý cốt lõi giữ cho tổ chức nhu mô phổi luôn trong trạng thái nở rộ, bám sát vào thành lồng ngực và chống lại xu hướng co rút tự nhiên (elastic recoil) của nhu mô phổi.\n\n",
+      "Pneumothorax :\n\nKhi có sự xâm nhập của không khí vào khoang màng phổi—cho dù nguồn khí đến từ môi trường bên ngoài thông qua một vết thương xuyên thấu thành ngực, hay đến từ bên trong do sự rách vỡ của các phế nang và đường thở—áp lực âm này ngay lập tức bị phá vỡ. ",
+      "Pneumothorax :\n\n1 Khi áp lực trong khoang màng phổi cân bằng với áp lực khí quyển hoặc thậm chí cao hơn, lực hút chân không biến mất, dẫn đến việc nhu mô phổi tự động co rút lại và xẹp xuống dưới sức ép của lượng khí thừa. ",
+      "Pneumothorax :\n\n1 Thể tích khí tích tụ càng lớn, mức độ xẹp phổi càng nghiêm trọng, làm suy giảm trực tiếp diện tích bề mặt trao đổi khí (oxy và carbon dioxide) tại các phế nang.\n\n",
+      "Pneumothorax :\n\n**Ghi chú dành cho sinh viên CNTT / Hệ thống RAG:** Đối với việc xây dựng hệ thống truy xuất thông tin (Retrieval-Augmented Generation) để hỗ trợ chẩn đoán hình ảnh y khoa, hãy mô hình hóa bệnh lý này bằng một phép loại suy vật lý đơn giản:",
+      "Pneumothorax :\n\n Hãy tưởng tượng lồng ngực là một hộp kín bằng nhựa cứng (thành ngực), bên trong có một quả bóng cao su (phổi). ",
+      "Pneumothorax :\n\nQuả bóng không được bơm trực tiếp, mà nó phình to nhờ người ta hút hết không khí trong khoảng trống giữa quả bóng và hộp (tạo áp suất âm). Tràn khí màng phổi chính là hiện tượng \"thủng hộp\" hoặc \"thủng bóng\", khiến không khí tràn vào khoảng trống đó. ",
+      "Pneumothorax :\n\nHệ quả tất yếu là quả bóng xẹp lại. Các mô hình Machine Learning phân tích ảnh X-quang không tìm kiếm \"bệnh\" mà bản chất là tìm kiếm \"vùng không gian bất thường chứa không khí\" và \"đường viền của quả bóng đang xẹp\". 3\n\n",
+      "Pneumothorax :\n\nViệc nắm vững cơ chế bệnh sinh này là cơ sở nền tảng để hiểu tại sao các dấu hiệu hình ảnh trên phim X-quang lại xuất hiện,",
+      "Pneumothorax :\n\n cũng như lý do tại sao các phương pháp điều trị lại tập trung vào việc hút bỏ lượng khí thừa để thiết lập lại áp lực âm sinh lý ban đầu.\n\n",
+      "Pneumothorax :\n\n### Triệu chứng thường gặp\n\n",
+      "Pneumothorax :\n\nSự khởi phát và biểu hiện của tràn khí màng phổi mang tính chất rất đa dạng, phụ thuộc trực tiếp vào kích thước của lượng khí bị rò rỉ, tốc độ tràn khí, và đặc biệt là tình trạng chức năng hô hấp nền của người bệnh. ",
+      "Pneumothorax :\n\n1 Ở những người có phổi khỏe mạnh, một lượng khí nhỏ có thể không gây ra triệu chứng rõ rệt, nhưng đối với bệnh nhân đã có tổn thương phổi từ trước, dù chỉ một lượng khí nhỏ cũng có thể gây suy hô hấp cấp tính.\n\n",
+      "Pneumothorax :\n\nCác triệu chứng lâm sàng kinh điển có giá trị gợi ý cao nhất (Cần được lập chỉ mục sâu trong cơ sở dữ liệu vector) bao gồm 1 :\n\n",
+      "Pneumothorax :\n\n- **Đau ngực kiểu màng phổi (Pleuritic Chest Pain):** Đây là triệu chứng đặc trưng và thường gặp nhất. Cơn đau thường khởi phát một cách đột ngột, đau nhói dữ dội (sharp pain), và khu trú rõ ràng ở một bên nửa lồng ngực—chính là bên bị tổn thương. ",
+      "Pneumothorax :\n\n1 Đặc điểm \"kiểu màng phổi\" có nghĩa là mức độ đau sẽ tăng lên một cách rõ rệt khi bệnh nhân thực hiện động tác hít thở sâu, ho, hoặc hắt hơi. ",
+      "Pneumothorax :\n\nVề mặt thần kinh học, điều này xảy ra do lớp màng phổi thành có mạng lưới dây thần kinh cảm giác rất phong phú, sự cọ xát hoặc căng dãn đột ngột của lớp màng này do khí chèn ép sẽ kích hoạt các tín hiệu đau cấp tính.\n",
+      "Pneumothorax :\n\n- **Khó thở (Dyspnea / Shortness of breath):** Xuất hiện đồng thời hoặc ngay sau cơn đau ngực. 1 Sự xẹp xuống của một phần hoặc toàn bộ một bên phổi làm giảm mạnh thể tích khí lưu thông. ",
+      "Pneumothorax :\n\nTình trạng này tạo ra sự mất tương xứng giữa thông khí và tưới máu (V/Q mismatch): máu vẫn chảy qua vùng phổi bị xẹp nhưng không được trao đổi oxy, dẫn đến tình trạng thiếu oxy máu (hypoxemia). ",
+      "Pneumothorax :\n\nBệnh nhân thường cảm thấy hụt hơi, thở nhanh nông, và có nhu cầu phải gắng sức để hô hấp.\n",
+      "Pneumothorax :\n\n- **Biểu hiện toàn thân:** Trong những trường hợp lượng khí lớn hoặc tiến triển nhanh, cơ thể sẽ kích hoạt hệ thần kinh giao cảm gây ra nhịp tim nhanh (tachycardia), nhịp thở nhanh (tachypnea), vã mồ hôi hột, và trạng thái lo âu hoảng hốt.\n",
+      "Pneumothorax :\n\n- **Dấu hiệu khi khám thực thể (Physical Examination):** Mặc dù X-quang là tiêu chuẩn chẩn đoán, nhưng các dấu hiệu khám lâm sàng truyền thống vẫn rất quan trọng:\n",
+      "Pneumothorax :\n\n- **Sờ:** Rung thanh (tactile fremitus) giảm hoặc mất do lớp không khí hoạt động như một lớp cách âm, ngăn cản sự truyền âm thanh từ thanh quản xuống thành ngực.\n",
+      "Pneumothorax :\n\n- **Gõ:** Gõ lồng ngực bên bệnh sẽ phát ra âm thanh \"gõ vang\" (hyperresonance) như gõ vào một chiếc trống rỗng, vì bên dưới thành ngực lúc này chứa đầy không khí thay vì nhu mô phổi xốp.\n",
+      "Pneumonia :\n\n## Pulmonary Pneumonia\n\n### Tên tiếng Việt\n\nViêm phổi 1\n\n### Tên gọi khác\n\nNhiễm trùng nhu mô phổi, viêm phế quản phổi, đông đặc phổi do viêm.\n\n### Tổng quan\n\n",
+      "Pneumonia :\n\n- **Định nghĩa cơ bản:** Viêm phổi là một bệnh lý nhiễm trùng cấp tính ảnh hưởng trực tiếp đến nhu mô phổi, bao gồm các phế nang (túi chứa khí), ống phế nang và tổ chức kẽ nâng đỡ của phổi.\n",
+      "Pneumonia :\n\n- **Cơ chế sinh lý bệnh:** Khi tác nhân gây bệnh (vi khuẩn, virus hoặc nấm) xâm nhập và nhân lên trong đường hô hấp dưới, cơ thể sẽ kích hoạt phản ứng viêm mạch máu tại chỗ. ",
+      "Pneumonia :\n\nHàng rào màng phế nang - mao mạch bị tổn thương làm rò rỉ và tích tụ dịch rỉ viêm giàu protein, hồng cầu, và các tế bào bạch cầu (mủ) lấp đầy hoàn toàn lòng phế nang. ",
+      "Pneumonia :\n\nSự thay thế không khí sinh lý bằng dịch viêm này làm cho vùng phổi bị ảnh hưởng mất đi khả năng thông khí và trao đổi khí oxy.\n",
+      "Pneumonia :\n\n- **Biểu hiện trên X-quang ngực:** Trên phim chụp đứng tiêu chuẩn, do dịch viêm có đậm độ cản quang cao hơn hẳn không khí, vùng phế nang bị tổn thương sẽ hiển thị là một vùng mờ màu trắng. ",
+      "Pneumonia :\n\nHiện tượng này được gọi là tổn thương đông đặc nhu mô (consolidation) hoặc thâm nhiễm phế nang (alveolar infiltration). 3 Viêm phổi là nguyên nhân phổ biến nhất gây ra các đám mờ phế trường trên X-quang ngực.\n",
+      "Pneumonia :\n\n- **Vai trò trong hệ thống RAG:** Tài liệu này chuẩn hóa các mô tả hình thái đám mờ, dấu hiệu xóa bóng và mối liên quan căn nguyên giúp hệ thống RAG ánh xạ chính xác các phát hiện hình ảnh X-quang với bệnh cảnh lâm sàng của viêm phổi.\n\n",
+      "Pneumonia :\n\n### Triệu chứng thường gặp\n\nBiểu hiện lâm sàng của viêm phổi dao động từ âm thầm, nhẹ nhàng đến suy hô hấp cấp tính đe dọa tính mạng tùy thuộc vào tác nhân và cơ địa bệnh nhân 2 :\n\n",
+      "Pneumonia :\n\n- **Sốt và lạnh run:** Thường xuất hiện đột ngột, sốt cao kèm run lạnh là dấu hiệu điển hình của viêm phổi do vi khuẩn điển hình. Ở trẻ em hoặc người già, sốt có thể là triệu chứng duy nhất. 2\n",
+      "Pneumonia :\n\n- **Ho và khạc đờm:** Ho tiến triển từ ho khan sang ho có đờm mủ đục màu xanh hoặc vàng. Đờm màu rỉ sắt (rust-colored sputum) là dấu hiệu kinh điển của viêm phổi do phế cầu. Viêm phổi không điển hình thường gây ho khan kéo dài.\n<!-- image -->\n",
+      "Pneumonia :\n\n- **Khó thở và thở nhanh:** Người bệnh có cảm giác hụt hơi, thở nhanh nông. 2 Ở trẻ em, nhịp thở nhanh và dấu hiệu rút lõm lồng ngực (chest indrawing) có độ đặc hiệu cực cao () cảnh báo viêm phổi nặng. 2\n",
+      "Pneumonia :\n\n- **Đau ngực kiểu màng phổi (Pleuritic chest pain):** Cảm giác đau nhói ngực tăng lên rõ rệt khi hít thở sâu hoặc ho, do lá thành màng phổi lân cận bị kích ứng viêm.\n",
+      "Pneumonia :\n\n- **Ran nổ tại phổi:** Nghe phổi bằng ống nghe phát hiện tiếng ran nổ mịn (crackles) ở cuối thì hít vào tại vùng phổi bị đông đặc, đi kèm tiếng thổi phế quản và giảm rì rào phế nang. 2\n\n### Nguyên nhân phổ biến\n\n",
+      "Pneumonia :\n\nViêm phổi được phân chia theo tác nhân gây bệnh với các đặc điểm hình thái X-quang tương ứng:\n\n- **Vi khuẩn điển hình (Bacterial Pneumonia):**\n",
+      "Pneumonia :\n\n- *Staphylococcus aureus (Tụ cầu vàng):* Thường gây phế quản phế viêm nặng hoại tử, dễ tạo các nang khí thành mỏng (pneumatoceles) và biến chứng tràn mủ/tràn khí màng phổi.\n",
+      "Pneumonia :\n\n- *Klebsiella pneumoniae:* Hay gặp ở người già, người mắc bệnh phổi mạn tính hoặc nghiện rượu; dịch viêm đặc và nhiều gây tăng thể tích thùy phổi rõ rệt.\n- *Pseudomonas aeruginosa:* Tác nhân phổ biến trong viêm phổi bệnh viện và thở máy.\n",
+      "Pneumonia :\n\n- *Chlamydia pneumoniae* hoặc *Legionella pneumophila* .\n- *SARS-CoV-2 (COVID-19):* Gây tổn thương kính mờ và đông đặc đa ổ vùng ngoại vi và đáy phổi hai bên. 6\n",
+      "Pneumonia :\n\n- **Viêm phổi hít sặc (Aspiration Pneumonia):** Do hít phải dịch vị dạ dày, thức ăn, nước bẩn vào phổi.\n\n### Yếu tố nguy cơ\n\n- **Độ tuổi cực đoan:** Trẻ em dưới 5 tuổi (hệ miễn dịch chưa hoàn thiện) và người già trên 65 tuổi (sức đề kháng suy giảm).\n",
+      "Pneumonia :\n\n- **Bệnh lý mạn tính nền:** Người mắc bệnh phổi tắc nghẽn mạn tính (COPD), giãn phế quản, hen suyễn, suy tim, đái tháo đường, hoặc xơ gan.\n",
+      "Pneumonia :\n\n- **Đặt nội khí quản và thở máy:** Đây là yếu tố nguy cơ lớn nhất dẫn đến viêm phổi liên quan đến thở máy (VAP) trong khoa ICU. 8\n",
+      "Pneumonia :\n\n- **Hạn chế khả năng bảo vệ đường thở:** Bệnh nhân tai biến mạch máu não, hôn mê, hoặc có ống thông dạ dày (nasogastric tube) làm tăng vọt nguy cơ viêm phổi hít sặc. 9\n",
+      "Pneumonia :\n\n- **Suy giảm miễn dịch:** Bệnh nhân nhiễm HIV, ghép tạng, đang điều trị hóa chất hoặc corticoid dài ngày. 9\n- **Thói quen có hại:** Hút thuốc lá lâu năm phá hủy hệ thống lông chuyển đường thở, nghiện rượu làm ức chế chức năng đại thực bào phế nang.\n\n",
+      "Pneumonia :\n\n### Dấu hiệu trên ảnh X-quang ngực\n\nX-quang ngực thẳng đứng (PA) là phương tiện hình ảnh đầu tay để xác định sự hiện diện của viêm phổi. Các dấu hiệu X-quang đặc trưng bao gồm:\n\n",
+      "Pneumonia :\n\n- **Đám mờ đông đặc (Consolidation):** Vùng tăng đậm độ màu trắng, mịn, phân bố theo phân thùy hoặc thùy phổi, làm nhòa và che lấp hoàn toàn bờ các mạch máu phổi đi qua nó.\n",
+      "Pneumonia :\n\n- **Dấu hiệu phế quản hơi (Air bronchogram sign):** Hình ảnh các đường đen chứa khí của nhánh phế quản nổi bật trên nền trắng xóa của phế nang chứa dịch viêm xung quanh. ",
+      "Pneumonia :\n\nDấu hiệu này chứng minh phế quản lớn vẫn thông thoáng và loại trừ xẹp phổi do tắc nghẽn hoàn toàn.\n",
+      "Pneumonia :\n\n- **Dấu hiệu xóa bóng (Silhouette sign):** Mất ranh giới trơn láng sinh lý giữa nhu mô phổi chứa khí và các cấu trúc mô mềm lân cận có cùng đậm độ dịch (như tim, cơ hoành, quai động mạch chủ). 10 Ví dụ:\n<!-- image -->\n<!-- image -->\n",
+      "Pneumonia :\n\n- Mờ xóa bờ tim phải  Tổn thương thuộc thùy giữa phổi phải.\n<!-- image -->\n- Mờ xóa bờ cơ hoành  Tổn thương thuộc thùy dưới. 10\n",
+      "Pneumonia :\n\n- **Bóng khí thành mỏng (Pneumatoceles):** Các khoang chứa khí tròn, thành mỏng dưới 1 mm, xuất hiện tạm thời trong vùng đông đặc do hoại tử nhu mô khu trú (điển hình do tụ cầu vàng), có thể vỡ gây tràn khí màng phổi.\n",
+      "Edema :\n\n## Pulmonary Edema\n\n### Tên tiếng Việt\n\nPhù phổi (thường biểu hiện dưới dạng cấp cứu lâm sàng là Phù phổi cấp - Acute Pulmonary Edema)\n\n### Tên gọi khác\n\n- Ứ dịch phổi\n- Phù phế nang (alveolar flooding)\n- Tích tụ dịch trong phế trường\n",
+      "Edema :\n\n- Pulmonary congestion (sung huyết phổi)\n\n### Tổng quan\n\n",
+      "Edema :\n\nPhù phổi (Pulmonary Edema) là một hội chứng lâm sàng và hình ảnh học cấp cứu, đặc trưng bởi sự tích tụ quá mức của dịch lỏng (huyết tương, đôi khi lẫn hồng cầu) ở ngoài mạch máu,",
+      "Edema :\n\n ban đầu ở tổ chức kẽ của phổi và sau đó tràn ngập vào các phế nang (túi khí). ",
+      "Edema :\n\nTrong điều kiện sinh lý bình thường, các phế nang chứa đầy không khí để thực hiện chức năng trao đổi oxy. ",
+      "Edema :\n\nKhi phù phổi xảy ra, lượng dịch thừa này lấp đầy các túi khí, dựng lên một bức tường ngăn cản oxy khuếch tán vào máu mao mạch, dẫn đến suy hô hấp cấp tính và thiếu hụt oxy mô nghiêm trọng.\n\n",
+      "Edema :\n\nSự di chuyển của chất dịch qua màng mao mạch phổi vào khoảng kẽ được chi phối bởi **Phương trình Starling** (Starling's Equation):\n\n<!-- image -->\n\nTrong đó:\n\n<!-- image -->\n\n- là lưu lượng dịch lọc qua màng (fluid filtration rate).\n<!-- image -->\n",
+      "Edema :\n\n- là hệ số lọc của màng phế nang - mao mạch (membrane filtration coefficient).\n<!-- image -->\n- là áp lực thủy tĩnh bên trong mao mạch phổi (pulmonary capillary hydrostatic pressure).\n<!-- image -->\n",
+      "Edema :\n\n- là áp lực thủy tĩnh của khoang kẽ (interstitial hydrostatic pressure).\n<!-- image -->\n- là hệ số phản xạ protein của màng (reflection coefficient).\n<!-- image -->\n- là áp lực keo của huyết tương (plasma oncotic pressure).\n<!-- image -->\n",
+      "Edema :\n\n- là áp lực keo của khoang kẽ (interstitial oncotic pressure).\n<!-- image -->\n\n<!-- image -->\n\n",
+      "Edema :\n\nBất kỳ sự biến đổi bất thường nào vượt quá cơ chế tự điều hòa của cơ thể (chẳng hạn như tăng vọt áp lực thủy tĩnh  trong suy tim trái, hoặc tăng tính thấm màng phế nang mao mạch làm thay đổi  do độc chất/viêm nhiễm) sẽ khiến dịch thoát ra ồ ạt,",
+      "Edema :\n\n dẫn đến phù phổi.\n\n",
+      "Edema :\n\n**Lưu ý cho hệ thống RAG:**\n\n",
+      "Edema :\n\nĐối với cơ sở dữ liệu vector hỗ trợ Computer Vision, phù phổi là một trạng thái mờ lan tỏa (diffuse opacification) động. ",
+      "Edema :\n\nKhác với viêm phổi (mất vài tuần để xóa mờ), phù phổi có đặc tính \"bay màu\" cực kỳ nhanh chóng (trong vòng 24-48 giờ) sau khi bệnh nhân đáp ứng với điều trị lợi tiểu.\n\n",
+      "Edema :\n\n### Triệu chứng thường gặp\n\n- **Khó thở cấp tính dữ dội (Dyspnea)** : Bệnh nhân có cảm giác ngột ngạt, như bị \"chết đuối trên cạn\", nhịp thở nhanh và nông.\n",
+      "Edema :\n\n- **Khó thở khi nằm (Orthopnea)** : Bệnh nhân không thể nằm ngang vì dịch sẽ tràn ngập khắp phế trường theo trọng lực; họ buộc phải ngồi dậy, bám vào thành giường để thở.\n",
+      "Edema :\n\n- **Khó thở kịch phát về đêm (Paroxysmal Nocturnal Dyspnea - PND)** : Cơn khó thở đột ngột xuất hiện khi đang ngủ, buộc bệnh nhân phải bật dậy mở cửa sổ để hít thở.\n",
+      "Edema :\n\n- **Ho khạc đờm bọt hồng (Pink frothy sputum)** : Đây là triệu chứng kinh điển cực kỳ đặc hiệu, xảy ra khi áp lực quá cao làm rách màng phế nang, khiến dịch thấm lẫn hồng cầu tràn vào đường thở.\n",
+      "Edema :\n\n- **Tiếng ran ẩm, ran nổ dâng lên nhanh ở cả hai phế trường** : Khi đặt ống nghe, bác sĩ sẽ ghi nhận tiếng ran bắt đầu từ hai đáy phổi, sau đó lan nhanh lên đỉnh phổi giống như \"thủy triều dâng\".\n",
+      "Edema :\n\n- **Vã mồ hôi hột, da tái lạnh, vật vã, lo sợ** do kích thích hệ giao cảm và thiếu oxy não.\n- **Tím tái (Cyanosis)** ở môi và các đầu ngón tay khi bão hòa oxy máu giảm sâu.\n\n### Nguyên Nhân Phổ Biến\n\n",
+      "Edema :\n\nPhù phổi được phân loại thành hai nhóm nguyên nhân cốt lõi dựa trên cơ chế áp lực thủy tĩnh:\n\n- **Phù phổi do tim (Cardiogenic / Hydrostatic Pulmonary Edema)** : Xảy ra do tăng áp lực thủy tĩnh tĩnh mạch và mao mạch phổi dội ngược từ tim trái.\n",
+      "Edema :\n\n- *Bệnh lý van tim trái* : Hẹp van hai lá, hở van hai lá cấp (do đứt cơ nhú), hẹp van động mạch chủ.\n- *Cơn tăng huyết áp cấp cứu* .\n- *Rối loạn nhịp tim nặng* : Rung nhĩ nhanh, nhịp nhanh kịch phát.\n- *Viêm phổi nặng* (vi khuẩn, virus như COVID-19).\n",
+      "Edema :\n\n- *Hít phải độc chất hoặc ngạt nước (near drowning)* .\n- *Phù phổi do thần kinh (Neurogenic)* : Xảy ra sau chấn thương sọ não hoặc xuất huyết não.\n",
+      "Edema :\n\n- *Phù phổi áp lực âm (Negative pressure pulmonary edema)* : Xảy ra khi bệnh nhân cố hít vào mạnh chống lại một đường thở bị bít tắc (ví dụ do co thắt thanh quản trong lúc khởi mê).\n\n### Yếu tố nguy cơ\n\n",
+      "Edema :\n\n- Tiền sử mắc bệnh mạch vành, nhồi máu cơ tim hoặc suy tim trái.\n- Tăng huyết áp mạn tính không được kiểm soát tốt.\n- Bệnh thận mạn tính hoặc suy thận (gây quá tải thể tích tuần hoàn).\n",
+      "Edema :\n\n- Chế độ ăn nhiều muối hoặc tự ý ngưng thuốc lợi tiểu ở bệnh nhân suy tim mạn.\n- Truyền dịch quá nhanh hoặc quá nhiều ở những bệnh nhân có chức năng tim thận suy giảm.\n\n### Dấu hiệu trên ảnh X-quang ngực\n\n",
+      "Edema :\n\nSự tiến triển của phù phổi do tim (suy tim sung huyết) trên phim chụp thẳng đứng (PA) tuân theo một chuỗi dấu hiệu vô tuyến kinh điển từ nhẹ đến nặng:\n\n",
+      "Edema :\n\n- **Bóng tim to (Cardiomegaly)** : Chỉ số tim - ngực (CTR) &gt; 0.5. Đây là dấu hiệu định hướng quan trọng cho thấy phù phổi có nguồn gốc từ tim.\n",
+      "Edema :\n\n- **Tái phân bố tuần hoàn phổi (Cephalization / Antler sign)** : Bình thường, do trọng lực, mạch máu ở đáy phổi sẽ lớn hơn đỉnh phổi. "
+    ],
+    "formatted_context": "<document>\n<document_metadata>\n  <document_id>doc-34</document_id>\n  <document_type>NFD_DOCS</document_type>\n  <title><![CDATA[Atelectasis]]></title>\n  <url><![CDATA[docs_for_RAG/Atelectasis/Atelectasis.docx]]></url>\n  <metadata_json><![CDATA[{\"source\": \"docs_for_RAG/Atelectasis/Atelectasis.docx\"}]]></metadata_json>\n</document_metadata>\n\n<document_content>\n  <chunk id='doc-607'><![CDATA[Atelectasis :\n\n## Tài Liệu Kiến Thức Chuyên Sâu: Bệnh Lý Xẹp Phổi (Atelectasis) Trong Hình Ảnh Học X-Quang Ngực Phục Vụ Hệ Thống RAG\n\n### Tổng Quan Về Bệnh Lý Xẹp Phổi Trong Y Học Hiện Đại]]></chunk>\n  <chunk id='doc-608'><![CDATA[Atelectasis :\n\nTrong lĩnh vực hô hấp học và chẩn đoán hình ảnh lồng ngực, xẹp phổi (Atelectasis) đại diện cho một trong những thực thể lâm sàng và hình thái học thường xuyên được ghi nhận nhất,]]></chunk>\n  <chunk id='doc-609'><![CDATA[Atelectasis :\n\n đóng vai trò là một chỉ báo quan trọng cho vô số các rối loạn tiềm ẩn bên dưới.]]></chunk>\n  <chunk id='doc-610'><![CDATA[Atelectasis :\n\n1 Về mặt từ nguyên học, thuật ngữ \"atelectasis\" được cấu thành từ hai gốc từ tiếng Hy Lạp cổ đại: \"ateles\" mang ý nghĩa là sự thiếu sót hoặc không hoàn chỉnh, và \"ektasis\" biểu thị cho sự mở rộng hay giãn nở.]]></chunk>\n  <chunk id='doc-611'><![CDATA[Atelectasis :\n\n1 Khái niệm này được chính thức đưa vào y văn thế giới từ năm 1832 bởi bác sĩ người Đức Eduard Jörg thông qua công trình nghiên cứu kinh điển \"De morbo pulmonum organico ex respiratione neonatorum imperfecta orto\",]]></chunk>\n  <chunk id='doc-612'><![CDATA[Atelectasis :\n\n ban đầu dùng để mô tả tình trạng phổi không thể giãn nở hoàn toàn ở trẻ sơ sinh.]]></chunk>\n  <chunk id='doc-613'><![CDATA[Atelectasis :\n\n3 Ngày nay, định nghĩa này đã được mở rộng và hệ thống hóa để chỉ tình trạng sụp đổ một phần hoặc toàn bộ cấu trúc của một lá phổi, dẫn đến sự suy giảm hoặc đình trệ hoàn toàn quá trình trao đổi khí tại màng phế nang - mao mạch. 1]]></chunk>\n  <chunk id='doc-614'><![CDATA[Atelectasis :\n\nVề bản chất mô học, xẹp phổi là hiện tượng các phế nang bị xẹp xuống, mất đi thể tích khí lưu trữ bên trong, biến một cấu trúc xốp chứa khí thành một khối mô đặc.]]></chunk>\n  <chunk id='doc-615'><![CDATA[Atelectasis :\n\n1 Sự khác biệt mang tính nền tảng giữa xẹp phổi và hội chứng đông đặc phổi (pulmonary consolidation) nằm ở yếu tố thể tích và thành phần lấp đầy.]]></chunk>\n</document_content>\n</document>\n\n<document>\n<document_metadata>\n  <document_id>doc-38</document_id>\n  <document_type>NFD_DOCS</document_type>\n  <title><![CDATA[Effusion]]></title>\n  <url><![CDATA[docs_for_RAG/Effusion/Effusion.docx]]></url>\n  <metadata_json><![CDATA[{\"source\": \"docs_for_RAG/Effusion/Effusion.docx\"}]]></metadata_json>\n</document_metadata>\n\n<document_content>\n  <chunk id='doc-1397'><![CDATA[Effusion :\n\n## Pleural Effusion\n\n### Tên tiếng Việt\n\nTràn dịch màng phổi 1\n\n### Tên gọi khác\n\nTích tụ dịch khoang màng phổi, nước trong phổi 1\n\n### Tổng quan\n\n<!-- image -->\n\n<!-- image -->\n\n<!-- image -->]]></chunk>\n  <chunk id='doc-1398'><![CDATA[Effusion :\n\nTràn dịch màng phổi là sự tích tụ lượng dịch bất thường bên trong khoang màng phổi – một khoang ảo nằm giữa hai lá màng phổi: lá thành (lớp tế bào lót sát thành ngực và cơ hoành) và lá tạng (lớp tế bào bao bọc chặt nhu mô phổi).]]></chunk>\n  <chunk id='doc-1399'><![CDATA[Effusion :\n\n2 Trong điều kiện sinh lý bình thường, lá thành liên tục tiết dịch từ mạng lưới mao mạch màng phổi với tốc độ khoảng  cân nặng mỗi giờ.]]></chunk>\n  <chunk id='doc-1400'><![CDATA[Effusion :\n\n2 Lượng dịch này sau đó được tái hấp thu nhịp nhàng qua hệ dẫn lưu bạch huyết, chỉ để lại một thể tích rất nhỏ khoảng  (hoặc tối đa ) dịch sinh lý.]]></chunk>\n  <chunk id='doc-1401'><![CDATA[Effusion :\n\n2 Lớp dịch siêu mỏng này đóng vai trò như chất bôi trơn, giảm thiểu tối đa ma sát và tạo ra áp lực âm (functional vacuum) giúp hai lá màng phổi trượt lên nhau dễ dàng, đảm bảo phổi giãn nở đồng bộ theo lồng ngực khi hít thở. 2]]></chunk>\n  <chunk id='doc-1402'><![CDATA[Effusion :\n\nKhi xuất hiện các biến đổi bệnh lý làm gia tăng áp lực thủy tĩnh, sụt giảm áp lực keo huyết tương, tăng tính thấm mao mạch hoặc cản trở hệ bạch huyết dẫn lưu, dịch sẽ ứ đọng vượt quá khả năng tái hấp thu.]]></chunk>\n  <chunk id='doc-1403'><![CDATA[Effusion :\n\n2 Sự tích tụ dịch màng phổi theo thời gian sẽ ép xẹp nhu mô phổi lành lân cận (gọi là xẹp phổi thụ động hoặc xẹp phổi do giãn nghỉ), từ đó gây suy giảm trực tiếp và nghiêm trọng chức năng trao đổi khí. 2]]></chunk>\n</document_content>\n</document>\n\n<document>\n<document_metadata>\n  <document_id>doc-39</document_id>\n  <document_type>NFD_DOCS</document_type>\n  <title><![CDATA[Pneumothorax]]></title>\n  <url><![CDATA[docs_for_RAG/Pneumothorax/Pneumothorax.docx]]></url>\n  <metadata_json><![CDATA[{\"source\": \"docs_for_RAG/Pneumothorax/Pneumothorax.docx\"}]]></metadata_json>\n</document_metadata>\n\n<document_content>\n  <chunk id='doc-1551'><![CDATA[Pneumothorax :\n\n## Pneumothorax\n\n### Tên tiếng Việt\n\nTràn khí màng phổi\n\n### Tên gọi khác\n\n- TKMP (Viết tắt lâm sàng phổ biến trong hồ sơ bệnh án)\n- Chứng xẹp phổi do khí\n- Rách màng phổi\n- Bệnh lý khí khoang màng phổi (Thuật ngữ hàn lâm)\n\n### Tổng quan]]></chunk>\n  <chunk id='doc-1552'><![CDATA[Pneumothorax :\n\nTràn khí màng phổi (Pneumothorax) là một cấp cứu y khoa và là một trong những bệnh lý hô hấp phổ biến nhất được chẩn đoán thông qua hình ảnh X-quang ngực. 1 Để hiểu rõ về bệnh lý này, chúng ta cần nắm bắt cấu trúc giải phẫu học cơ bản của lồng ngực.]]></chunk>\n  <chunk id='doc-1553'><![CDATA[Pneumothorax :\n\nMàng phổi người được cấu tạo bởi hai lớp màng mỏng: lớp màng phổi tạng (visceral pleura) bao bọc chặt chẽ và dính sát vào bề mặt của nhu mô phổi, và lớp màng phổi thành (parietal pleura) lót mặt trong của lồng ngực, cơ hoành và trung thất.]]></chunk>\n  <chunk id='doc-1554'><![CDATA[Pneumothorax :\n\nGiữa hai lớp màng này là một không gian ảo được gọi là \"khoang màng phổi\" (pleural space).]]></chunk>\n  <chunk id='doc-1555'><![CDATA[Pneumothorax :\n\nTrong điều kiện sinh lý bình thường, khoang này không chứa không khí mà chỉ có một lớp dịch mỏng vài ml hoạt động như chất bôi trơn, giúp hai bề mặt trượt lên nhau dễ dàng trong các chu kỳ hít vào và thở ra.]]></chunk>\n</document_content>\n</document>\n\n<document>\n<document_metadata>\n  <document_id>doc-47</document_id>\n  <document_type>NFD_DOCS</document_type>\n  <title><![CDATA[Pneumonia]]></title>\n  <url><![CDATA[docs_for_RAG/Pneumonia/Pneumonia.docx]]></url>\n  <metadata_json><![CDATA[{\"source\": \"docs_for_RAG/Pneumonia/Pneumonia.docx\"}]]></metadata_json>\n</document_metadata>\n\n<document_content>\n  <chunk id='doc-2860'><![CDATA[Pneumonia :\n\n## Pulmonary Pneumonia\n\n### Tên tiếng Việt\n\nViêm phổi 1\n\n### Tên gọi khác\n\nNhiễm trùng nhu mô phổi, viêm phế quản phổi, đông đặc phổi do viêm.\n\n### Tổng quan]]></chunk>\n  <chunk id='doc-2861'><![CDATA[Pneumonia :\n\n- **Định nghĩa cơ bản:** Viêm phổi là một bệnh lý nhiễm trùng cấp tính ảnh hưởng trực tiếp đến nhu mô phổi, bao gồm các phế nang (túi chứa khí), ống phế nang và tổ chức kẽ nâng đỡ của phổi.]]></chunk>\n  <chunk id='doc-2862'><![CDATA[Pneumonia :\n\n- **Cơ chế sinh lý bệnh:** Khi tác nhân gây bệnh (vi khuẩn, virus hoặc nấm) xâm nhập và nhân lên trong đường hô hấp dưới, cơ thể sẽ kích hoạt phản ứng viêm mạch máu tại chỗ.]]></chunk>\n  <chunk id='doc-2863'><![CDATA[Pneumonia :\n\nHàng rào màng phế nang - mao mạch bị tổn thương làm rò rỉ và tích tụ dịch rỉ viêm giàu protein, hồng cầu, và các tế bào bạch cầu (mủ) lấp đầy hoàn toàn lòng phế nang.]]></chunk>\n</document_content>\n</document>\n\n<document>\n<document_metadata>\n  <document_id>doc-37</document_id>\n  <document_type>NFD_DOCS</document_type>\n  <title><![CDATA[Edema]]></title>\n  <url><![CDATA[docs_for_RAG/Edema/Edema.docx]]></url>\n  <metadata_json><![CDATA[{\"source\": \"docs_for_RAG/Edema/Edema.docx\"}]]></metadata_json>\n</document_metadata>\n\n<document_content>\n  <chunk id='doc-1320'><![CDATA[Edema :\n\n## Pulmonary Edema\n\n### Tên tiếng Việt\n\nPhù phổi (thường biểu hiện dưới dạng cấp cứu lâm sàng là Phù phổi cấp - Acute Pulmonary Edema)\n\n### Tên gọi khác\n\n- Ứ dịch phổi\n- Phù phế nang (alveolar flooding)\n- Tích tụ dịch trong phế trường]]></chunk>\n  <chunk id='doc-1321'><![CDATA[Edema :\n\n- Pulmonary congestion (sung huyết phổi)\n\n### Tổng quan]]></chunk>\n  <chunk id='doc-1322'><![CDATA[Edema :\n\nPhù phổi (Pulmonary Edema) là một hội chứng lâm sàng và hình ảnh học cấp cứu, đặc trưng bởi sự tích tụ quá mức của dịch lỏng (huyết tương, đôi khi lẫn hồng cầu) ở ngoài mạch máu,]]></chunk>\n  <chunk id='doc-1323'><![CDATA[Edema :\n\n ban đầu ở tổ chức kẽ của phổi và sau đó tràn ngập vào các phế nang (túi khí).]]></chunk>\n</document_content>\n</document>",
+    "retrieved_documents": [
+      {
+        "document_id": 34,
+        "content": "Atelectasis :\n\n## Tài Liệu Kiến Thức Chuyên Sâu: Bệnh Lý Xẹp Phổi (Atelectasis) Trong Hình Ảnh Học X-Quang Ngực Phục Vụ Hệ Thống RAG\n\n### Tổng Quan Về Bệnh Lý Xẹp Phổi Trong Y Học Hiện Đại\n\n\n\nAtelectasis :\n\nTrong lĩnh vực hô hấp học và chẩn đoán hình ảnh lồng ngực, xẹp phổi (Atelectasis) đại diện cho một trong những thực thể lâm sàng và hình thái học thường xuyên được ghi nhận nhất,\n\nAtelectasis :\n\n đóng vai trò là một chỉ báo quan trọng cho vô số các rối loạn tiềm ẩn bên dưới. \n\nAtelectasis :\n\n1 Về mặt từ nguyên học, thuật ngữ \"atelectasis\" được cấu thành từ hai gốc từ tiếng Hy Lạp cổ đại: \"ateles\" mang ý nghĩa là sự thiếu sót hoặc không hoàn chỉnh, và \"ektasis\" biểu thị cho sự mở rộng hay giãn nở. \n\nAtelectasis :\n\n1 Khái niệm này được chính thức đưa vào y văn thế giới từ năm 1832 bởi bác sĩ người Đức Eduard Jörg thông qua công trình nghiên cứu kinh điển \"De morbo pulmonum organico ex respiratione neonatorum imperfecta orto\",\n\nAtelectasis :\n\n ban đầu dùng để mô tả tình trạng phổi không thể giãn nở hoàn toàn ở trẻ sơ sinh. \n\nAtelectasis :\n\n3 Ngày nay, định nghĩa này đã được mở rộng và hệ thống hóa để chỉ tình trạng sụp đổ một phần hoặc toàn bộ cấu trúc của một lá phổi, dẫn đến sự suy giảm hoặc đình trệ hoàn toàn quá trình trao đổi khí tại màng phế nang - mao mạch. 1\n\n\n\nAtelectasis :\n\nVề bản chất mô học, xẹp phổi là hiện tượng các phế nang bị xẹp xuống, mất đi thể tích khí lưu trữ bên trong, biến một cấu trúc xốp chứa khí thành một khối mô đặc. \n\nAtelectasis :\n\n1 Sự khác biệt mang tính nền tảng giữa xẹp phổi và hội chứng đông đặc phổi (pulmonary consolidation) nằm ở yếu tố thể tích và thành phần lấp đầy. \n\nAtelectasis :\n\nTrong khi đông đặc phổi xảy ra khi khoảng không phế nang vẫn giữ nguyên kích thước vật lý nhưng bị lấp đầy bởi các chất dịch tiết, mủ, tế bào viêm hay máu, thì xẹp phổi đặc trưng bởi sự co rút thực sự của các vách phế nang,\n\nAtelectasis :\n\n làm suy giảm thể tích tổng thể của vùng nhu mô bị ảnh hưởng. \n\nAtelectasis :\n\n1 Khối nhu mô xẹp này mất khả năng thông khí nhưng vẫn tiếp tục được tưới máu bởi tuần hoàn động mạch phổi, từ đó tạo ra một hiện tượng sinh lý bệnh học nghiêm trọng gọi là bất tương xứng thông khí - tưới máu (V/Q mismatch). \n\nAtelectasis :\n\n3 Hệ quả trực tiếp là sự hình thành một luồng thông nối nội phổi từ phải sang trái (intrapulmonary shunt), nơi dòng máu tĩnh mạch nghèo oxy đi qua vùng phổi tổn thương mà không hề được nạp thêm oxy cũng như không thải được carbon dioxide,\n\nAtelectasis :\n\n sau đó hòa vào tĩnh mạch phổi và làm suy giảm nồng độ oxy hòa tan trong hệ tuần hoàn động mạch. 3\n\n\n\nAtelectasis :\n\nMặc dù trong thực hành lâm sàng hàng ngày, thuật ngữ \"collapsed lung\" (phổi xẹp) thường được các y bác sĩ và bệnh nhân sử dụng một cách không chính thức để chỉ bệnh lý này, sự đánh đồng này có thể gây ra những hiểu lầm sâu sắc về mặt cơ chế. \n\nAtelectasis :\n\n1 Đáng chú ý, \"collapsed lung\" cũng là cụm từ thường được dùng để mô tả bệnh lý tràn khí màng phổi (pneumothorax). \n\nAtelectasis :\n\n1 Tràn khí màng phổi là tình trạng không khí xâm nhập vào khoang màng phổi gây triệt tiêu áp suất âm sinh lý, từ đó gián tiếp ép nhu mô phổi xẹp lại. \n\nAtelectasis :\n\n1 Do đó, tràn khí màng phổi chỉ là một trong những nguyên nhân có thể dẫn đến hiện tượng xẹp phổi, chứ bản thân nó không đồng nghĩa hoàn toàn với khái niệm xẹp phổi nguyên phát (Atelectasis). \n\nAtelectasis :\n\n1 Tình trạng xẹp phổi thông thường mang tính chất đơn phương (unilateral), chỉ ảnh hưởng đến một phân thùy, một thùy hoặc tối đa là một bên lá phổi, và việc xẹp đồng thời cả hai bên phổi hiếm khi xảy ra trừ những trường hợp suy hô hấp thảm khốc. \n\nAtelectasis :\n\n1 Tần suất xuất hiện của xẹp phổi trong môi trường y khoa là cực kỳ cao. \n\nAtelectasis :\n\nĐặc biệt, đối với những bệnh nhân trải qua các cuộc phẫu thuật dưới phương pháp gây mê toàn thân, tỷ lệ phát triển tổn thương xẹp phổi hậu phẫu có thể lên đến 90%,\n\nAtelectasis :\n\n biến nó thành một trong những mối bận tâm lớn nhất của các bác sĩ hồi sức tích cực và chăm sóc hậu phẫu. 3\n\n\n\nAtelectasis :\n\n### Trích Xuất Lâm Sàng: Phân Tích Chuyên Sâu Về Cơ Chế Sinh Lý Bệnh Học Và Phân Loại Nguyên Nhân\n\n\n\nAtelectasis :\n\nSự sụp đổ của mạng lưới phế nang không diễn ra một cách ngẫu nhiên mà luôn bị chi phối bởi các định luật vật lý và động lực học chất lưu trong hệ hô hấp. \n\nAtelectasis :\n\nDựa trên các cơ chế bệnh sinh mang tính nền tảng, nền y học hiện đại phân chia xẹp phổi thành hai nhóm cơ bản lớn: xẹp phổi do tắc nghẽn (obstructive hoặc resorptive atelectasis) và xẹp phổi không do tắc nghẽn (non-obstructive atelectasis). \n\nAtelectasis :\n\n1 Sự phân loại này không chỉ mang ý nghĩa học thuật mà còn quyết định trực tiếp đến phác đồ can thiệp lâm sàng, từ việc chỉ định nội soi phế quản cho đến việc dẫn lưu khoang màng phổi.\n\n\n\nAtelectasis :\n\n#### Động Lực Học Của Xẹp Phổi Do Tắc Nghẽn (Xẹp Phổi Tái Hấp Thu)\n\n\n\nAtelectasis :\n\nXẹp phổi do tắc nghẽn, hay còn được gọi bằng một thuật ngữ chính xác hơn về mặt cơ chế là xẹp phổi tái hấp thu (resorptive atelectasis), là biến thể lâm sàng phổ biến nhất, đại diện cho sự gián đoạn hoàn toàn luồng thông khí đi vào một vùng nhu mô phổi. \n\nAtelectasis :\n\n5 Khi một phế quản hoặc tiểu phế quản bị tắc nghẽn, một khối lượng khí nhất định sẽ bị mắc kẹt lại trong các phế nang nằm ở khu vực hạ lưu của điểm tắc. 4 Tại thời điểm này, áp suất bên trong phế nang vẫn tương đương với áp suất khí quyển. \n\nAtelectasis :\n\nTuy nhiên, sự tuần hoàn của mạng lưới mao mạch phổi bao quanh các phế nang này vẫn tiếp tục diễn ra bình thường. 5\n\n",
+        "score": 0.0315136476426799,
+        "chunks": [
+          {
+            "chunk_id": "doc-607",
+            "content": "Atelectasis :\n\n## Tài Liệu Kiến Thức Chuyên Sâu: Bệnh Lý Xẹp Phổi (Atelectasis) Trong Hình Ảnh Học X-Quang Ngực Phục Vụ Hệ Thống RAG\n\n### Tổng Quan Về Bệnh Lý Xẹp Phổi Trong Y Học Hiện Đại\n\n"
+          },
+          {
+            "chunk_id": "doc-608",
+            "content": "Atelectasis :\n\nTrong lĩnh vực hô hấp học và chẩn đoán hình ảnh lồng ngực, xẹp phổi (Atelectasis) đại diện cho một trong những thực thể lâm sàng và hình thái học thường xuyên được ghi nhận nhất,"
+          },
+          {
+            "chunk_id": "doc-609",
+            "content": "Atelectasis :\n\n đóng vai trò là một chỉ báo quan trọng cho vô số các rối loạn tiềm ẩn bên dưới. "
+          },
+          {
+            "chunk_id": "doc-610",
+            "content": "Atelectasis :\n\n1 Về mặt từ nguyên học, thuật ngữ \"atelectasis\" được cấu thành từ hai gốc từ tiếng Hy Lạp cổ đại: \"ateles\" mang ý nghĩa là sự thiếu sót hoặc không hoàn chỉnh, và \"ektasis\" biểu thị cho sự mở rộng hay giãn nở. "
+          },
+          {
+            "chunk_id": "doc-611",
+            "content": "Atelectasis :\n\n1 Khái niệm này được chính thức đưa vào y văn thế giới từ năm 1832 bởi bác sĩ người Đức Eduard Jörg thông qua công trình nghiên cứu kinh điển \"De morbo pulmonum organico ex respiratione neonatorum imperfecta orto\","
+          },
+          {
+            "chunk_id": "doc-612",
+            "content": "Atelectasis :\n\n ban đầu dùng để mô tả tình trạng phổi không thể giãn nở hoàn toàn ở trẻ sơ sinh. "
+          },
+          {
+            "chunk_id": "doc-613",
+            "content": "Atelectasis :\n\n3 Ngày nay, định nghĩa này đã được mở rộng và hệ thống hóa để chỉ tình trạng sụp đổ một phần hoặc toàn bộ cấu trúc của một lá phổi, dẫn đến sự suy giảm hoặc đình trệ hoàn toàn quá trình trao đổi khí tại màng phế nang - mao mạch. 1\n\n"
+          },
+          {
+            "chunk_id": "doc-614",
+            "content": "Atelectasis :\n\nVề bản chất mô học, xẹp phổi là hiện tượng các phế nang bị xẹp xuống, mất đi thể tích khí lưu trữ bên trong, biến một cấu trúc xốp chứa khí thành một khối mô đặc. "
+          },
+          {
+            "chunk_id": "doc-615",
+            "content": "Atelectasis :\n\n1 Sự khác biệt mang tính nền tảng giữa xẹp phổi và hội chứng đông đặc phổi (pulmonary consolidation) nằm ở yếu tố thể tích và thành phần lấp đầy. "
+          },
+          {
+            "chunk_id": "doc-616",
+            "content": "Atelectasis :\n\nTrong khi đông đặc phổi xảy ra khi khoảng không phế nang vẫn giữ nguyên kích thước vật lý nhưng bị lấp đầy bởi các chất dịch tiết, mủ, tế bào viêm hay máu, thì xẹp phổi đặc trưng bởi sự co rút thực sự của các vách phế nang,"
+          },
+          {
+            "chunk_id": "doc-617",
+            "content": "Atelectasis :\n\n làm suy giảm thể tích tổng thể của vùng nhu mô bị ảnh hưởng. "
+          },
+          {
+            "chunk_id": "doc-618",
+            "content": "Atelectasis :\n\n1 Khối nhu mô xẹp này mất khả năng thông khí nhưng vẫn tiếp tục được tưới máu bởi tuần hoàn động mạch phổi, từ đó tạo ra một hiện tượng sinh lý bệnh học nghiêm trọng gọi là bất tương xứng thông khí - tưới máu (V/Q mismatch). "
+          },
+          {
+            "chunk_id": "doc-619",
+            "content": "Atelectasis :\n\n3 Hệ quả trực tiếp là sự hình thành một luồng thông nối nội phổi từ phải sang trái (intrapulmonary shunt), nơi dòng máu tĩnh mạch nghèo oxy đi qua vùng phổi tổn thương mà không hề được nạp thêm oxy cũng như không thải được carbon dioxide,"
+          },
+          {
+            "chunk_id": "doc-620",
+            "content": "Atelectasis :\n\n sau đó hòa vào tĩnh mạch phổi và làm suy giảm nồng độ oxy hòa tan trong hệ tuần hoàn động mạch. 3\n\n"
+          },
+          {
+            "chunk_id": "doc-621",
+            "content": "Atelectasis :\n\nMặc dù trong thực hành lâm sàng hàng ngày, thuật ngữ \"collapsed lung\" (phổi xẹp) thường được các y bác sĩ và bệnh nhân sử dụng một cách không chính thức để chỉ bệnh lý này, sự đánh đồng này có thể gây ra những hiểu lầm sâu sắc về mặt cơ chế. "
+          },
+          {
+            "chunk_id": "doc-622",
+            "content": "Atelectasis :\n\n1 Đáng chú ý, \"collapsed lung\" cũng là cụm từ thường được dùng để mô tả bệnh lý tràn khí màng phổi (pneumothorax). "
+          },
+          {
+            "chunk_id": "doc-623",
+            "content": "Atelectasis :\n\n1 Tràn khí màng phổi là tình trạng không khí xâm nhập vào khoang màng phổi gây triệt tiêu áp suất âm sinh lý, từ đó gián tiếp ép nhu mô phổi xẹp lại. "
+          },
+          {
+            "chunk_id": "doc-624",
+            "content": "Atelectasis :\n\n1 Do đó, tràn khí màng phổi chỉ là một trong những nguyên nhân có thể dẫn đến hiện tượng xẹp phổi, chứ bản thân nó không đồng nghĩa hoàn toàn với khái niệm xẹp phổi nguyên phát (Atelectasis). "
+          },
+          {
+            "chunk_id": "doc-625",
+            "content": "Atelectasis :\n\n1 Tình trạng xẹp phổi thông thường mang tính chất đơn phương (unilateral), chỉ ảnh hưởng đến một phân thùy, một thùy hoặc tối đa là một bên lá phổi, và việc xẹp đồng thời cả hai bên phổi hiếm khi xảy ra trừ những trường hợp suy hô hấp thảm khốc. "
+          },
+          {
+            "chunk_id": "doc-626",
+            "content": "Atelectasis :\n\n1 Tần suất xuất hiện của xẹp phổi trong môi trường y khoa là cực kỳ cao. "
+          },
+          {
+            "chunk_id": "doc-627",
+            "content": "Atelectasis :\n\nĐặc biệt, đối với những bệnh nhân trải qua các cuộc phẫu thuật dưới phương pháp gây mê toàn thân, tỷ lệ phát triển tổn thương xẹp phổi hậu phẫu có thể lên đến 90%,"
+          },
+          {
+            "chunk_id": "doc-628",
+            "content": "Atelectasis :\n\n biến nó thành một trong những mối bận tâm lớn nhất của các bác sĩ hồi sức tích cực và chăm sóc hậu phẫu. 3\n\n"
+          },
+          {
+            "chunk_id": "doc-629",
+            "content": "Atelectasis :\n\n### Trích Xuất Lâm Sàng: Phân Tích Chuyên Sâu Về Cơ Chế Sinh Lý Bệnh Học Và Phân Loại Nguyên Nhân\n\n"
+          },
+          {
+            "chunk_id": "doc-630",
+            "content": "Atelectasis :\n\nSự sụp đổ của mạng lưới phế nang không diễn ra một cách ngẫu nhiên mà luôn bị chi phối bởi các định luật vật lý và động lực học chất lưu trong hệ hô hấp. "
+          },
+          {
+            "chunk_id": "doc-631",
+            "content": "Atelectasis :\n\nDựa trên các cơ chế bệnh sinh mang tính nền tảng, nền y học hiện đại phân chia xẹp phổi thành hai nhóm cơ bản lớn: xẹp phổi do tắc nghẽn (obstructive hoặc resorptive atelectasis) và xẹp phổi không do tắc nghẽn (non-obstructive atelectasis). "
+          },
+          {
+            "chunk_id": "doc-632",
+            "content": "Atelectasis :\n\n1 Sự phân loại này không chỉ mang ý nghĩa học thuật mà còn quyết định trực tiếp đến phác đồ can thiệp lâm sàng, từ việc chỉ định nội soi phế quản cho đến việc dẫn lưu khoang màng phổi.\n\n"
+          },
+          {
+            "chunk_id": "doc-633",
+            "content": "Atelectasis :\n\n#### Động Lực Học Của Xẹp Phổi Do Tắc Nghẽn (Xẹp Phổi Tái Hấp Thu)\n\n"
+          },
+          {
+            "chunk_id": "doc-634",
+            "content": "Atelectasis :\n\nXẹp phổi do tắc nghẽn, hay còn được gọi bằng một thuật ngữ chính xác hơn về mặt cơ chế là xẹp phổi tái hấp thu (resorptive atelectasis), là biến thể lâm sàng phổ biến nhất, đại diện cho sự gián đoạn hoàn toàn luồng thông khí đi vào một vùng nhu mô phổi. "
+          },
+          {
+            "chunk_id": "doc-635",
+            "content": "Atelectasis :\n\n5 Khi một phế quản hoặc tiểu phế quản bị tắc nghẽn, một khối lượng khí nhất định sẽ bị mắc kẹt lại trong các phế nang nằm ở khu vực hạ lưu của điểm tắc. 4 Tại thời điểm này, áp suất bên trong phế nang vẫn tương đương với áp suất khí quyển. "
+          },
+          {
+            "chunk_id": "doc-636",
+            "content": "Atelectasis :\n\nTuy nhiên, sự tuần hoàn của mạng lưới mao mạch phổi bao quanh các phế nang này vẫn tiếp tục diễn ra bình thường. 5\n\n"
+          }
+        ],
+        "document": {
+          "id": "doc-34",
+          "title": "Atelectasis",
+          "document_type": "NFD_DOCS",
+          "metadata": {
+            "source": "docs_for_RAG/Atelectasis/Atelectasis.docx"
+          }
+        },
+        "source": "NFD_DOCS"
+      },
+      {
+        "document_id": 38,
+        "content": "Effusion :\n\n## Pleural Effusion\n\n### Tên tiếng Việt\n\nTràn dịch màng phổi 1\n\n### Tên gọi khác\n\nTích tụ dịch khoang màng phổi, nước trong phổi 1\n\n### Tổng quan\n\n<!-- image -->\n\n<!-- image -->\n\n<!-- image -->\n\n\n\nEffusion :\n\nTràn dịch màng phổi là sự tích tụ lượng dịch bất thường bên trong khoang màng phổi – một khoang ảo nằm giữa hai lá màng phổi: lá thành (lớp tế bào lót sát thành ngực và cơ hoành) và lá tạng (lớp tế bào bao bọc chặt nhu mô phổi). \n\nEffusion :\n\n2 Trong điều kiện sinh lý bình thường, lá thành liên tục tiết dịch từ mạng lưới mao mạch màng phổi với tốc độ khoảng  cân nặng mỗi giờ. \n\nEffusion :\n\n2 Lượng dịch này sau đó được tái hấp thu nhịp nhàng qua hệ dẫn lưu bạch huyết, chỉ để lại một thể tích rất nhỏ khoảng  (hoặc tối đa ) dịch sinh lý. \n\nEffusion :\n\n2 Lớp dịch siêu mỏng này đóng vai trò như chất bôi trơn, giảm thiểu tối đa ma sát và tạo ra áp lực âm (functional vacuum) giúp hai lá màng phổi trượt lên nhau dễ dàng, đảm bảo phổi giãn nở đồng bộ theo lồng ngực khi hít thở. 2\n\n\n\nEffusion :\n\nKhi xuất hiện các biến đổi bệnh lý làm gia tăng áp lực thủy tĩnh, sụt giảm áp lực keo huyết tương, tăng tính thấm mao mạch hoặc cản trở hệ bạch huyết dẫn lưu, dịch sẽ ứ đọng vượt quá khả năng tái hấp thu. \n\nEffusion :\n\n2 Sự tích tụ dịch màng phổi theo thời gian sẽ ép xẹp nhu mô phổi lành lân cận (gọi là xẹp phổi thụ động hoặc xẹp phổi do giãn nghỉ), từ đó gây suy giảm trực tiếp và nghiêm trọng chức năng trao đổi khí. 2\n\n\n\nEffusion :\n\n### Triệu chứng thường gặp\n\n\n\nEffusion :\n\nBiểu hiện lâm sàng của tràn dịch màng phổi dao động rất lớn, từ hoàn toàn không triệu chứng (đối với thể tích dịch nhỏ phát hiện tình cờ) cho đến tình trạng suy hô hấp cấp tính đe dọa tính mạng. 1 Các triệu chứng điển hình bao gồm:\n\n\n\nEffusion :\n\n- **Khó thở (Dyspnea):** Đây là triệu chứng cơ năng thường gặp nhất. 3 Người bệnh có cảm giác hụt hơi, ban đầu chỉ khi gắng sức nhưng dần dần khó thở xuất hiện ngay cả khi nghỉ ngơi do dịch chèn ép làm suy giảm thể tích khí lưu thông hữu dụng của phổi. 1\n\n\nEffusion :\n\n- **Đau ngực kiểu màng phổi (Pleuritic chest pain):** Đau nhói như dao đâm khu trú tại vùng ngực tổn thương. 1 Đau tăng lên rõ rệt khi hít thở sâu, ho, hoặc hắt hơi do hai lá màng phổi đang bị viêm cọ xát trực tiếp vào nhau. 1\n\n\nEffusion :\n\n- **Ho khan (Dry cough):** Ho dai dẳng không kèm đờm, xuất hiện do phản xạ kích thích cơ học của dịch lên các thụ thể thần kinh nhạy cảm bám trên màng phổi. 1\n\n\nEffusion :\n\n- **Khó thở khi nằm phẳng (Orthopnea):** Người bệnh buộc phải ngồi dậy hoặc kê gối thật cao để thở. 3 Khi nằm phẳng, dịch tự do sẽ dàn đều ra phía sau và chèn ép vào diện tích lớn nhu mô phổi, gây suy giảm thông khí nghiêm trọng hơn so với tư thế ngồi. 3\n\n\nEffusion :\n\n- **Các triệu chứng toàn thân đi kèm:** Sốt cao, ớn lạnh thường cảnh báo tràn dịch do nhiễm trùng (như viêm phổi hoặc lao); trong khi sụt cân, mệt mỏi mạn tính gợi ý tràn dịch màng phổi ác tính do ung thư. 1\n\n\nEffusion :\n\n- **Nấc cụt hoặc thở nhanh nông:** Xuất hiện do cơ hoành bị kích thích liên tục bởi dịch tích tụ ở đáy phổi. 3\n\n### Nguyên nhân phổ biến\n\n<!-- image -->\n\n<!-- image -->\n\n<!-- image -->\n\n\n\nEffusion :\n\nĐể định hướng chẩn đoán nguyên nhân, dịch màng phổi rút ra được phân tách thành hai nhóm bản chất sinh hóa hoàn toàn khác biệt bằng cách áp dụng tiêu chuẩn Light (Light's criteria). \n\nEffusion :\n\n7 Tiêu chuẩn này xác định dịch là dịch tiết (exudate) nếu thỏa mãn ít nhất một trong ba tiêu chí: tỷ lệ protein dịch/huyết thanh ; tỷ lệ LDH dịch/huyết thanh ; hoặc nồng độ LDH dịch lớn hơn  giới hạn trên của LDH huyết thanh bình thường. \n\nEffusion :\n\n7 Ngược lại, nếu không thỏa mãn tiêu chí nào, dịch được xếp vào nhóm dịch thấm (transudate). 7\n\n\n\nEffusion :\n\n| **Bản chất dịch**             | **Cơ chế sinh bệnh**                                                                                                                                                                                          |\n\nEffusion :\n\n **Nguyên nhân lâm sàng điển hình**                                                                                                                                                                                                                             \n\nEffusion :\n\n                                                                                                                                                                                                                                                                \n\nEffusion :\n\n                             |\n\n\nEffusion :\n\n|-------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------\n\nEffusion :\n\n----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n\nEffusion :\n\n----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n\nEffusion :\n\n--------------|\n\n\nEffusion :\n\n| **Dịch thấm (Transudate)**  7 | Xảy ra do rối loạn áp lực hệ thống (tăng áp lực thủy tĩnh hoặc giảm áp lực keo huyết tương) trong khi cấu trúc màng phổi hoàn toàn bình thường.  6  Dịch thấm nghèo protein và có tỷ trọng thấp. \n\nEffusion :\n\n 7           | -  **Suy tim sung huyết (CHF):**  Nguyên nhân phổ biến nhất; tim co bóp kém làm ứ máu ngược dòng ở phổi, tăng áp lực thủy tĩnh mạch máu phổi. \n\nEffusion :\n\n 1  -  **Xơ gan:**  Giảm tổng hợp albumin (giảm áp lực keo) kèm dịch cổ trướng thấm qua các lỗ cơ hoành vào khoang màng phổi.  1  -  **Hội chứng thận hư hoặc suy thận:**  Thất thoát protein qua nước tiểu và giữ muối nước hệ thống. \n\nEffusion :\n\n 1  -  **Xẹp phổi:**  Tạo ra áp lực âm rất lớn trong khoang màng phổi, rút dịch từ mạch máu ra ngoài.  7                                                               |\n",
+        "score": 0.01639344262295082,
+        "chunks": [
+          {
+            "chunk_id": "doc-1397",
+            "content": "Effusion :\n\n## Pleural Effusion\n\n### Tên tiếng Việt\n\nTràn dịch màng phổi 1\n\n### Tên gọi khác\n\nTích tụ dịch khoang màng phổi, nước trong phổi 1\n\n### Tổng quan\n\n<!-- image -->\n\n<!-- image -->\n\n<!-- image -->\n\n"
+          },
+          {
+            "chunk_id": "doc-1398",
+            "content": "Effusion :\n\nTràn dịch màng phổi là sự tích tụ lượng dịch bất thường bên trong khoang màng phổi – một khoang ảo nằm giữa hai lá màng phổi: lá thành (lớp tế bào lót sát thành ngực và cơ hoành) và lá tạng (lớp tế bào bao bọc chặt nhu mô phổi). "
+          },
+          {
+            "chunk_id": "doc-1399",
+            "content": "Effusion :\n\n2 Trong điều kiện sinh lý bình thường, lá thành liên tục tiết dịch từ mạng lưới mao mạch màng phổi với tốc độ khoảng  cân nặng mỗi giờ. "
+          },
+          {
+            "chunk_id": "doc-1400",
+            "content": "Effusion :\n\n2 Lượng dịch này sau đó được tái hấp thu nhịp nhàng qua hệ dẫn lưu bạch huyết, chỉ để lại một thể tích rất nhỏ khoảng  (hoặc tối đa ) dịch sinh lý. "
+          },
+          {
+            "chunk_id": "doc-1401",
+            "content": "Effusion :\n\n2 Lớp dịch siêu mỏng này đóng vai trò như chất bôi trơn, giảm thiểu tối đa ma sát và tạo ra áp lực âm (functional vacuum) giúp hai lá màng phổi trượt lên nhau dễ dàng, đảm bảo phổi giãn nở đồng bộ theo lồng ngực khi hít thở. 2\n\n"
+          },
+          {
+            "chunk_id": "doc-1402",
+            "content": "Effusion :\n\nKhi xuất hiện các biến đổi bệnh lý làm gia tăng áp lực thủy tĩnh, sụt giảm áp lực keo huyết tương, tăng tính thấm mao mạch hoặc cản trở hệ bạch huyết dẫn lưu, dịch sẽ ứ đọng vượt quá khả năng tái hấp thu. "
+          },
+          {
+            "chunk_id": "doc-1403",
+            "content": "Effusion :\n\n2 Sự tích tụ dịch màng phổi theo thời gian sẽ ép xẹp nhu mô phổi lành lân cận (gọi là xẹp phổi thụ động hoặc xẹp phổi do giãn nghỉ), từ đó gây suy giảm trực tiếp và nghiêm trọng chức năng trao đổi khí. 2\n\n"
+          },
+          {
+            "chunk_id": "doc-1404",
+            "content": "Effusion :\n\n### Triệu chứng thường gặp\n\n"
+          },
+          {
+            "chunk_id": "doc-1405",
+            "content": "Effusion :\n\nBiểu hiện lâm sàng của tràn dịch màng phổi dao động rất lớn, từ hoàn toàn không triệu chứng (đối với thể tích dịch nhỏ phát hiện tình cờ) cho đến tình trạng suy hô hấp cấp tính đe dọa tính mạng. 1 Các triệu chứng điển hình bao gồm:\n\n"
+          },
+          {
+            "chunk_id": "doc-1406",
+            "content": "Effusion :\n\n- **Khó thở (Dyspnea):** Đây là triệu chứng cơ năng thường gặp nhất. 3 Người bệnh có cảm giác hụt hơi, ban đầu chỉ khi gắng sức nhưng dần dần khó thở xuất hiện ngay cả khi nghỉ ngơi do dịch chèn ép làm suy giảm thể tích khí lưu thông hữu dụng của phổi. 1\n"
+          },
+          {
+            "chunk_id": "doc-1407",
+            "content": "Effusion :\n\n- **Đau ngực kiểu màng phổi (Pleuritic chest pain):** Đau nhói như dao đâm khu trú tại vùng ngực tổn thương. 1 Đau tăng lên rõ rệt khi hít thở sâu, ho, hoặc hắt hơi do hai lá màng phổi đang bị viêm cọ xát trực tiếp vào nhau. 1\n"
+          },
+          {
+            "chunk_id": "doc-1408",
+            "content": "Effusion :\n\n- **Ho khan (Dry cough):** Ho dai dẳng không kèm đờm, xuất hiện do phản xạ kích thích cơ học của dịch lên các thụ thể thần kinh nhạy cảm bám trên màng phổi. 1\n"
+          },
+          {
+            "chunk_id": "doc-1409",
+            "content": "Effusion :\n\n- **Khó thở khi nằm phẳng (Orthopnea):** Người bệnh buộc phải ngồi dậy hoặc kê gối thật cao để thở. 3 Khi nằm phẳng, dịch tự do sẽ dàn đều ra phía sau và chèn ép vào diện tích lớn nhu mô phổi, gây suy giảm thông khí nghiêm trọng hơn so với tư thế ngồi. 3\n"
+          },
+          {
+            "chunk_id": "doc-1410",
+            "content": "Effusion :\n\n- **Các triệu chứng toàn thân đi kèm:** Sốt cao, ớn lạnh thường cảnh báo tràn dịch do nhiễm trùng (như viêm phổi hoặc lao); trong khi sụt cân, mệt mỏi mạn tính gợi ý tràn dịch màng phổi ác tính do ung thư. 1\n"
+          },
+          {
+            "chunk_id": "doc-1411",
+            "content": "Effusion :\n\n- **Nấc cụt hoặc thở nhanh nông:** Xuất hiện do cơ hoành bị kích thích liên tục bởi dịch tích tụ ở đáy phổi. 3\n\n### Nguyên nhân phổ biến\n\n<!-- image -->\n\n<!-- image -->\n\n<!-- image -->\n\n"
+          },
+          {
+            "chunk_id": "doc-1412",
+            "content": "Effusion :\n\nĐể định hướng chẩn đoán nguyên nhân, dịch màng phổi rút ra được phân tách thành hai nhóm bản chất sinh hóa hoàn toàn khác biệt bằng cách áp dụng tiêu chuẩn Light (Light's criteria). "
+          },
+          {
+            "chunk_id": "doc-1413",
+            "content": "Effusion :\n\n7 Tiêu chuẩn này xác định dịch là dịch tiết (exudate) nếu thỏa mãn ít nhất một trong ba tiêu chí: tỷ lệ protein dịch/huyết thanh ; tỷ lệ LDH dịch/huyết thanh ; hoặc nồng độ LDH dịch lớn hơn  giới hạn trên của LDH huyết thanh bình thường. "
+          },
+          {
+            "chunk_id": "doc-1414",
+            "content": "Effusion :\n\n7 Ngược lại, nếu không thỏa mãn tiêu chí nào, dịch được xếp vào nhóm dịch thấm (transudate). 7\n\n"
+          },
+          {
+            "chunk_id": "doc-1415",
+            "content": "Effusion :\n\n| **Bản chất dịch**             | **Cơ chế sinh bệnh**                                                                                                                                                                                          |"
+          },
+          {
+            "chunk_id": "doc-1416",
+            "content": "Effusion :\n\n **Nguyên nhân lâm sàng điển hình**                                                                                                                                                                                                                             "
+          },
+          {
+            "chunk_id": "doc-1417",
+            "content": "Effusion :\n\n                                                                                                                                                                                                                                                                "
+          },
+          {
+            "chunk_id": "doc-1418",
+            "content": "Effusion :\n\n                             |\n"
+          },
+          {
+            "chunk_id": "doc-1419",
+            "content": "Effusion :\n\n|-------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------"
+          },
+          {
+            "chunk_id": "doc-1420",
+            "content": "Effusion :\n\n----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------"
+          },
+          {
+            "chunk_id": "doc-1421",
+            "content": "Effusion :\n\n----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------"
+          },
+          {
+            "chunk_id": "doc-1422",
+            "content": "Effusion :\n\n--------------|\n"
+          },
+          {
+            "chunk_id": "doc-1423",
+            "content": "Effusion :\n\n| **Dịch thấm (Transudate)**  7 | Xảy ra do rối loạn áp lực hệ thống (tăng áp lực thủy tĩnh hoặc giảm áp lực keo huyết tương) trong khi cấu trúc màng phổi hoàn toàn bình thường.  6  Dịch thấm nghèo protein và có tỷ trọng thấp. "
+          },
+          {
+            "chunk_id": "doc-1424",
+            "content": "Effusion :\n\n 7           | -  **Suy tim sung huyết (CHF):**  Nguyên nhân phổ biến nhất; tim co bóp kém làm ứ máu ngược dòng ở phổi, tăng áp lực thủy tĩnh mạch máu phổi. "
+          },
+          {
+            "chunk_id": "doc-1425",
+            "content": "Effusion :\n\n 1  -  **Xơ gan:**  Giảm tổng hợp albumin (giảm áp lực keo) kèm dịch cổ trướng thấm qua các lỗ cơ hoành vào khoang màng phổi.  1  -  **Hội chứng thận hư hoặc suy thận:**  Thất thoát protein qua nước tiểu và giữ muối nước hệ thống. "
+          },
+          {
+            "chunk_id": "doc-1426",
+            "content": "Effusion :\n\n 1  -  **Xẹp phổi:**  Tạo ra áp lực âm rất lớn trong khoang màng phổi, rút dịch từ mạch máu ra ngoài.  7                                                               |\n"
+          }
+        ],
+        "document": {
+          "id": "doc-38",
+          "title": "Effusion",
+          "document_type": "NFD_DOCS",
+          "metadata": {
+            "source": "docs_for_RAG/Effusion/Effusion.docx"
+          }
+        },
+        "source": "NFD_DOCS"
+      },
+      {
+        "document_id": 39,
+        "content": "Pneumothorax :\n\n## Pneumothorax\n\n### Tên tiếng Việt\n\nTràn khí màng phổi\n\n### Tên gọi khác\n\n- TKMP (Viết tắt lâm sàng phổ biến trong hồ sơ bệnh án)\n- Chứng xẹp phổi do khí\n- Rách màng phổi\n- Bệnh lý khí khoang màng phổi (Thuật ngữ hàn lâm)\n\n### Tổng quan\n\n\n\nPneumothorax :\n\nTràn khí màng phổi (Pneumothorax) là một cấp cứu y khoa và là một trong những bệnh lý hô hấp phổ biến nhất được chẩn đoán thông qua hình ảnh X-quang ngực. 1 Để hiểu rõ về bệnh lý này, chúng ta cần nắm bắt cấu trúc giải phẫu học cơ bản của lồng ngực. \n\nPneumothorax :\n\nMàng phổi người được cấu tạo bởi hai lớp màng mỏng: lớp màng phổi tạng (visceral pleura) bao bọc chặt chẽ và dính sát vào bề mặt của nhu mô phổi, và lớp màng phổi thành (parietal pleura) lót mặt trong của lồng ngực, cơ hoành và trung thất.\n\n\n\nPneumothorax :\n\nGiữa hai lớp màng này là một không gian ảo được gọi là \"khoang màng phổi\" (pleural space). \n\nPneumothorax :\n\nTrong điều kiện sinh lý bình thường, khoang này không chứa không khí mà chỉ có một lớp dịch mỏng vài ml hoạt động như chất bôi trơn, giúp hai bề mặt trượt lên nhau dễ dàng trong các chu kỳ hít vào và thở ra. \n\nPneumothorax :\n\nQuan trọng hơn, khoang màng phổi duy trì một áp lực âm liên tục (khoảng -4 đến -8 cmH2O) so với áp lực khí quyển bên ngoài. \n\nPneumothorax :\n\n2 Lực hút chân không này chính là cơ chế vật lý cốt lõi giữ cho tổ chức nhu mô phổi luôn trong trạng thái nở rộ, bám sát vào thành lồng ngực và chống lại xu hướng co rút tự nhiên (elastic recoil) của nhu mô phổi.\n\n\n\nPneumothorax :\n\nKhi có sự xâm nhập của không khí vào khoang màng phổi—cho dù nguồn khí đến từ môi trường bên ngoài thông qua một vết thương xuyên thấu thành ngực, hay đến từ bên trong do sự rách vỡ của các phế nang và đường thở—áp lực âm này ngay lập tức bị phá vỡ. \n\nPneumothorax :\n\n1 Khi áp lực trong khoang màng phổi cân bằng với áp lực khí quyển hoặc thậm chí cao hơn, lực hút chân không biến mất, dẫn đến việc nhu mô phổi tự động co rút lại và xẹp xuống dưới sức ép của lượng khí thừa. \n\nPneumothorax :\n\n1 Thể tích khí tích tụ càng lớn, mức độ xẹp phổi càng nghiêm trọng, làm suy giảm trực tiếp diện tích bề mặt trao đổi khí (oxy và carbon dioxide) tại các phế nang.\n\n\n\nPneumothorax :\n\n**Ghi chú dành cho sinh viên CNTT / Hệ thống RAG:** Đối với việc xây dựng hệ thống truy xuất thông tin (Retrieval-Augmented Generation) để hỗ trợ chẩn đoán hình ảnh y khoa, hãy mô hình hóa bệnh lý này bằng một phép loại suy vật lý đơn giản:\n\nPneumothorax :\n\n Hãy tưởng tượng lồng ngực là một hộp kín bằng nhựa cứng (thành ngực), bên trong có một quả bóng cao su (phổi). \n\nPneumothorax :\n\nQuả bóng không được bơm trực tiếp, mà nó phình to nhờ người ta hút hết không khí trong khoảng trống giữa quả bóng và hộp (tạo áp suất âm). Tràn khí màng phổi chính là hiện tượng \"thủng hộp\" hoặc \"thủng bóng\", khiến không khí tràn vào khoảng trống đó. \n\nPneumothorax :\n\nHệ quả tất yếu là quả bóng xẹp lại. Các mô hình Machine Learning phân tích ảnh X-quang không tìm kiếm \"bệnh\" mà bản chất là tìm kiếm \"vùng không gian bất thường chứa không khí\" và \"đường viền của quả bóng đang xẹp\". 3\n\n\n\nPneumothorax :\n\nViệc nắm vững cơ chế bệnh sinh này là cơ sở nền tảng để hiểu tại sao các dấu hiệu hình ảnh trên phim X-quang lại xuất hiện,\n\nPneumothorax :\n\n cũng như lý do tại sao các phương pháp điều trị lại tập trung vào việc hút bỏ lượng khí thừa để thiết lập lại áp lực âm sinh lý ban đầu.\n\n\n\nPneumothorax :\n\n### Triệu chứng thường gặp\n\n\n\nPneumothorax :\n\nSự khởi phát và biểu hiện của tràn khí màng phổi mang tính chất rất đa dạng, phụ thuộc trực tiếp vào kích thước của lượng khí bị rò rỉ, tốc độ tràn khí, và đặc biệt là tình trạng chức năng hô hấp nền của người bệnh. \n\nPneumothorax :\n\n1 Ở những người có phổi khỏe mạnh, một lượng khí nhỏ có thể không gây ra triệu chứng rõ rệt, nhưng đối với bệnh nhân đã có tổn thương phổi từ trước, dù chỉ một lượng khí nhỏ cũng có thể gây suy hô hấp cấp tính.\n\n\n\nPneumothorax :\n\nCác triệu chứng lâm sàng kinh điển có giá trị gợi ý cao nhất (Cần được lập chỉ mục sâu trong cơ sở dữ liệu vector) bao gồm 1 :\n\n\n\nPneumothorax :\n\n- **Đau ngực kiểu màng phổi (Pleuritic Chest Pain):** Đây là triệu chứng đặc trưng và thường gặp nhất. Cơn đau thường khởi phát một cách đột ngột, đau nhói dữ dội (sharp pain), và khu trú rõ ràng ở một bên nửa lồng ngực—chính là bên bị tổn thương. \n\nPneumothorax :\n\n1 Đặc điểm \"kiểu màng phổi\" có nghĩa là mức độ đau sẽ tăng lên một cách rõ rệt khi bệnh nhân thực hiện động tác hít thở sâu, ho, hoặc hắt hơi. \n\nPneumothorax :\n\nVề mặt thần kinh học, điều này xảy ra do lớp màng phổi thành có mạng lưới dây thần kinh cảm giác rất phong phú, sự cọ xát hoặc căng dãn đột ngột của lớp màng này do khí chèn ép sẽ kích hoạt các tín hiệu đau cấp tính.\n\n\nPneumothorax :\n\n- **Khó thở (Dyspnea / Shortness of breath):** Xuất hiện đồng thời hoặc ngay sau cơn đau ngực. 1 Sự xẹp xuống của một phần hoặc toàn bộ một bên phổi làm giảm mạnh thể tích khí lưu thông. \n\nPneumothorax :\n\nTình trạng này tạo ra sự mất tương xứng giữa thông khí và tưới máu (V/Q mismatch): máu vẫn chảy qua vùng phổi bị xẹp nhưng không được trao đổi oxy, dẫn đến tình trạng thiếu oxy máu (hypoxemia). \n\nPneumothorax :\n\nBệnh nhân thường cảm thấy hụt hơi, thở nhanh nông, và có nhu cầu phải gắng sức để hô hấp.\n\n\nPneumothorax :\n\n- **Biểu hiện toàn thân:** Trong những trường hợp lượng khí lớn hoặc tiến triển nhanh, cơ thể sẽ kích hoạt hệ thần kinh giao cảm gây ra nhịp tim nhanh (tachycardia), nhịp thở nhanh (tachypnea), vã mồ hôi hột, và trạng thái lo âu hoảng hốt.\n\n\nPneumothorax :\n\n- **Dấu hiệu khi khám thực thể (Physical Examination):** Mặc dù X-quang là tiêu chuẩn chẩn đoán, nhưng các dấu hiệu khám lâm sàng truyền thống vẫn rất quan trọng:\n\n\nPneumothorax :\n\n- **Sờ:** Rung thanh (tactile fremitus) giảm hoặc mất do lớp không khí hoạt động như một lớp cách âm, ngăn cản sự truyền âm thanh từ thanh quản xuống thành ngực.\n\n\nPneumothorax :\n\n- **Gõ:** Gõ lồng ngực bên bệnh sẽ phát ra âm thanh \"gõ vang\" (hyperresonance) như gõ vào một chiếc trống rỗng, vì bên dưới thành ngực lúc này chứa đầy không khí thay vì nhu mô phổi xốp.\n",
+        "score": 0.01639344262295082,
+        "chunks": [
+          {
+            "chunk_id": "doc-1551",
+            "content": "Pneumothorax :\n\n## Pneumothorax\n\n### Tên tiếng Việt\n\nTràn khí màng phổi\n\n### Tên gọi khác\n\n- TKMP (Viết tắt lâm sàng phổ biến trong hồ sơ bệnh án)\n- Chứng xẹp phổi do khí\n- Rách màng phổi\n- Bệnh lý khí khoang màng phổi (Thuật ngữ hàn lâm)\n\n### Tổng quan\n\n"
+          },
+          {
+            "chunk_id": "doc-1552",
+            "content": "Pneumothorax :\n\nTràn khí màng phổi (Pneumothorax) là một cấp cứu y khoa và là một trong những bệnh lý hô hấp phổ biến nhất được chẩn đoán thông qua hình ảnh X-quang ngực. 1 Để hiểu rõ về bệnh lý này, chúng ta cần nắm bắt cấu trúc giải phẫu học cơ bản của lồng ngực. "
+          },
+          {
+            "chunk_id": "doc-1553",
+            "content": "Pneumothorax :\n\nMàng phổi người được cấu tạo bởi hai lớp màng mỏng: lớp màng phổi tạng (visceral pleura) bao bọc chặt chẽ và dính sát vào bề mặt của nhu mô phổi, và lớp màng phổi thành (parietal pleura) lót mặt trong của lồng ngực, cơ hoành và trung thất.\n\n"
+          },
+          {
+            "chunk_id": "doc-1554",
+            "content": "Pneumothorax :\n\nGiữa hai lớp màng này là một không gian ảo được gọi là \"khoang màng phổi\" (pleural space). "
+          },
+          {
+            "chunk_id": "doc-1555",
+            "content": "Pneumothorax :\n\nTrong điều kiện sinh lý bình thường, khoang này không chứa không khí mà chỉ có một lớp dịch mỏng vài ml hoạt động như chất bôi trơn, giúp hai bề mặt trượt lên nhau dễ dàng trong các chu kỳ hít vào và thở ra. "
+          },
+          {
+            "chunk_id": "doc-1556",
+            "content": "Pneumothorax :\n\nQuan trọng hơn, khoang màng phổi duy trì một áp lực âm liên tục (khoảng -4 đến -8 cmH2O) so với áp lực khí quyển bên ngoài. "
+          },
+          {
+            "chunk_id": "doc-1557",
+            "content": "Pneumothorax :\n\n2 Lực hút chân không này chính là cơ chế vật lý cốt lõi giữ cho tổ chức nhu mô phổi luôn trong trạng thái nở rộ, bám sát vào thành lồng ngực và chống lại xu hướng co rút tự nhiên (elastic recoil) của nhu mô phổi.\n\n"
+          },
+          {
+            "chunk_id": "doc-1558",
+            "content": "Pneumothorax :\n\nKhi có sự xâm nhập của không khí vào khoang màng phổi—cho dù nguồn khí đến từ môi trường bên ngoài thông qua một vết thương xuyên thấu thành ngực, hay đến từ bên trong do sự rách vỡ của các phế nang và đường thở—áp lực âm này ngay lập tức bị phá vỡ. "
+          },
+          {
+            "chunk_id": "doc-1559",
+            "content": "Pneumothorax :\n\n1 Khi áp lực trong khoang màng phổi cân bằng với áp lực khí quyển hoặc thậm chí cao hơn, lực hút chân không biến mất, dẫn đến việc nhu mô phổi tự động co rút lại và xẹp xuống dưới sức ép của lượng khí thừa. "
+          },
+          {
+            "chunk_id": "doc-1560",
+            "content": "Pneumothorax :\n\n1 Thể tích khí tích tụ càng lớn, mức độ xẹp phổi càng nghiêm trọng, làm suy giảm trực tiếp diện tích bề mặt trao đổi khí (oxy và carbon dioxide) tại các phế nang.\n\n"
+          },
+          {
+            "chunk_id": "doc-1561",
+            "content": "Pneumothorax :\n\n**Ghi chú dành cho sinh viên CNTT / Hệ thống RAG:** Đối với việc xây dựng hệ thống truy xuất thông tin (Retrieval-Augmented Generation) để hỗ trợ chẩn đoán hình ảnh y khoa, hãy mô hình hóa bệnh lý này bằng một phép loại suy vật lý đơn giản:"
+          },
+          {
+            "chunk_id": "doc-1562",
+            "content": "Pneumothorax :\n\n Hãy tưởng tượng lồng ngực là một hộp kín bằng nhựa cứng (thành ngực), bên trong có một quả bóng cao su (phổi). "
+          },
+          {
+            "chunk_id": "doc-1563",
+            "content": "Pneumothorax :\n\nQuả bóng không được bơm trực tiếp, mà nó phình to nhờ người ta hút hết không khí trong khoảng trống giữa quả bóng và hộp (tạo áp suất âm). Tràn khí màng phổi chính là hiện tượng \"thủng hộp\" hoặc \"thủng bóng\", khiến không khí tràn vào khoảng trống đó. "
+          },
+          {
+            "chunk_id": "doc-1564",
+            "content": "Pneumothorax :\n\nHệ quả tất yếu là quả bóng xẹp lại. Các mô hình Machine Learning phân tích ảnh X-quang không tìm kiếm \"bệnh\" mà bản chất là tìm kiếm \"vùng không gian bất thường chứa không khí\" và \"đường viền của quả bóng đang xẹp\". 3\n\n"
+          },
+          {
+            "chunk_id": "doc-1565",
+            "content": "Pneumothorax :\n\nViệc nắm vững cơ chế bệnh sinh này là cơ sở nền tảng để hiểu tại sao các dấu hiệu hình ảnh trên phim X-quang lại xuất hiện,"
+          },
+          {
+            "chunk_id": "doc-1566",
+            "content": "Pneumothorax :\n\n cũng như lý do tại sao các phương pháp điều trị lại tập trung vào việc hút bỏ lượng khí thừa để thiết lập lại áp lực âm sinh lý ban đầu.\n\n"
+          },
+          {
+            "chunk_id": "doc-1567",
+            "content": "Pneumothorax :\n\n### Triệu chứng thường gặp\n\n"
+          },
+          {
+            "chunk_id": "doc-1568",
+            "content": "Pneumothorax :\n\nSự khởi phát và biểu hiện của tràn khí màng phổi mang tính chất rất đa dạng, phụ thuộc trực tiếp vào kích thước của lượng khí bị rò rỉ, tốc độ tràn khí, và đặc biệt là tình trạng chức năng hô hấp nền của người bệnh. "
+          },
+          {
+            "chunk_id": "doc-1569",
+            "content": "Pneumothorax :\n\n1 Ở những người có phổi khỏe mạnh, một lượng khí nhỏ có thể không gây ra triệu chứng rõ rệt, nhưng đối với bệnh nhân đã có tổn thương phổi từ trước, dù chỉ một lượng khí nhỏ cũng có thể gây suy hô hấp cấp tính.\n\n"
+          },
+          {
+            "chunk_id": "doc-1570",
+            "content": "Pneumothorax :\n\nCác triệu chứng lâm sàng kinh điển có giá trị gợi ý cao nhất (Cần được lập chỉ mục sâu trong cơ sở dữ liệu vector) bao gồm 1 :\n\n"
+          },
+          {
+            "chunk_id": "doc-1571",
+            "content": "Pneumothorax :\n\n- **Đau ngực kiểu màng phổi (Pleuritic Chest Pain):** Đây là triệu chứng đặc trưng và thường gặp nhất. Cơn đau thường khởi phát một cách đột ngột, đau nhói dữ dội (sharp pain), và khu trú rõ ràng ở một bên nửa lồng ngực—chính là bên bị tổn thương. "
+          },
+          {
+            "chunk_id": "doc-1572",
+            "content": "Pneumothorax :\n\n1 Đặc điểm \"kiểu màng phổi\" có nghĩa là mức độ đau sẽ tăng lên một cách rõ rệt khi bệnh nhân thực hiện động tác hít thở sâu, ho, hoặc hắt hơi. "
+          },
+          {
+            "chunk_id": "doc-1573",
+            "content": "Pneumothorax :\n\nVề mặt thần kinh học, điều này xảy ra do lớp màng phổi thành có mạng lưới dây thần kinh cảm giác rất phong phú, sự cọ xát hoặc căng dãn đột ngột của lớp màng này do khí chèn ép sẽ kích hoạt các tín hiệu đau cấp tính.\n"
+          },
+          {
+            "chunk_id": "doc-1574",
+            "content": "Pneumothorax :\n\n- **Khó thở (Dyspnea / Shortness of breath):** Xuất hiện đồng thời hoặc ngay sau cơn đau ngực. 1 Sự xẹp xuống của một phần hoặc toàn bộ một bên phổi làm giảm mạnh thể tích khí lưu thông. "
+          },
+          {
+            "chunk_id": "doc-1575",
+            "content": "Pneumothorax :\n\nTình trạng này tạo ra sự mất tương xứng giữa thông khí và tưới máu (V/Q mismatch): máu vẫn chảy qua vùng phổi bị xẹp nhưng không được trao đổi oxy, dẫn đến tình trạng thiếu oxy máu (hypoxemia). "
+          },
+          {
+            "chunk_id": "doc-1576",
+            "content": "Pneumothorax :\n\nBệnh nhân thường cảm thấy hụt hơi, thở nhanh nông, và có nhu cầu phải gắng sức để hô hấp.\n"
+          },
+          {
+            "chunk_id": "doc-1577",
+            "content": "Pneumothorax :\n\n- **Biểu hiện toàn thân:** Trong những trường hợp lượng khí lớn hoặc tiến triển nhanh, cơ thể sẽ kích hoạt hệ thần kinh giao cảm gây ra nhịp tim nhanh (tachycardia), nhịp thở nhanh (tachypnea), vã mồ hôi hột, và trạng thái lo âu hoảng hốt.\n"
+          },
+          {
+            "chunk_id": "doc-1578",
+            "content": "Pneumothorax :\n\n- **Dấu hiệu khi khám thực thể (Physical Examination):** Mặc dù X-quang là tiêu chuẩn chẩn đoán, nhưng các dấu hiệu khám lâm sàng truyền thống vẫn rất quan trọng:\n"
+          },
+          {
+            "chunk_id": "doc-1579",
+            "content": "Pneumothorax :\n\n- **Sờ:** Rung thanh (tactile fremitus) giảm hoặc mất do lớp không khí hoạt động như một lớp cách âm, ngăn cản sự truyền âm thanh từ thanh quản xuống thành ngực.\n"
+          },
+          {
+            "chunk_id": "doc-1580",
+            "content": "Pneumothorax :\n\n- **Gõ:** Gõ lồng ngực bên bệnh sẽ phát ra âm thanh \"gõ vang\" (hyperresonance) như gõ vào một chiếc trống rỗng, vì bên dưới thành ngực lúc này chứa đầy không khí thay vì nhu mô phổi xốp.\n"
+          }
+        ],
+        "document": {
+          "id": "doc-39",
+          "title": "Pneumothorax",
+          "document_type": "NFD_DOCS",
+          "metadata": {
+            "source": "docs_for_RAG/Pneumothorax/Pneumothorax.docx"
+          }
+        },
+        "source": "NFD_DOCS"
+      },
+      {
+        "document_id": 47,
+        "content": "Pneumonia :\n\n## Pulmonary Pneumonia\n\n### Tên tiếng Việt\n\nViêm phổi 1\n\n### Tên gọi khác\n\nNhiễm trùng nhu mô phổi, viêm phế quản phổi, đông đặc phổi do viêm.\n\n### Tổng quan\n\n\n\nPneumonia :\n\n- **Định nghĩa cơ bản:** Viêm phổi là một bệnh lý nhiễm trùng cấp tính ảnh hưởng trực tiếp đến nhu mô phổi, bao gồm các phế nang (túi chứa khí), ống phế nang và tổ chức kẽ nâng đỡ của phổi.\n\n\nPneumonia :\n\n- **Cơ chế sinh lý bệnh:** Khi tác nhân gây bệnh (vi khuẩn, virus hoặc nấm) xâm nhập và nhân lên trong đường hô hấp dưới, cơ thể sẽ kích hoạt phản ứng viêm mạch máu tại chỗ. \n\nPneumonia :\n\nHàng rào màng phế nang - mao mạch bị tổn thương làm rò rỉ và tích tụ dịch rỉ viêm giàu protein, hồng cầu, và các tế bào bạch cầu (mủ) lấp đầy hoàn toàn lòng phế nang. \n\nPneumonia :\n\nSự thay thế không khí sinh lý bằng dịch viêm này làm cho vùng phổi bị ảnh hưởng mất đi khả năng thông khí và trao đổi khí oxy.\n\n\nPneumonia :\n\n- **Biểu hiện trên X-quang ngực:** Trên phim chụp đứng tiêu chuẩn, do dịch viêm có đậm độ cản quang cao hơn hẳn không khí, vùng phế nang bị tổn thương sẽ hiển thị là một vùng mờ màu trắng. \n\nPneumonia :\n\nHiện tượng này được gọi là tổn thương đông đặc nhu mô (consolidation) hoặc thâm nhiễm phế nang (alveolar infiltration). 3 Viêm phổi là nguyên nhân phổ biến nhất gây ra các đám mờ phế trường trên X-quang ngực.\n\n\nPneumonia :\n\n- **Vai trò trong hệ thống RAG:** Tài liệu này chuẩn hóa các mô tả hình thái đám mờ, dấu hiệu xóa bóng và mối liên quan căn nguyên giúp hệ thống RAG ánh xạ chính xác các phát hiện hình ảnh X-quang với bệnh cảnh lâm sàng của viêm phổi.\n\n\n\nPneumonia :\n\n### Triệu chứng thường gặp\n\nBiểu hiện lâm sàng của viêm phổi dao động từ âm thầm, nhẹ nhàng đến suy hô hấp cấp tính đe dọa tính mạng tùy thuộc vào tác nhân và cơ địa bệnh nhân 2 :\n\n\n\nPneumonia :\n\n- **Sốt và lạnh run:** Thường xuất hiện đột ngột, sốt cao kèm run lạnh là dấu hiệu điển hình của viêm phổi do vi khuẩn điển hình. Ở trẻ em hoặc người già, sốt có thể là triệu chứng duy nhất. 2\n\n\nPneumonia :\n\n- **Ho và khạc đờm:** Ho tiến triển từ ho khan sang ho có đờm mủ đục màu xanh hoặc vàng. Đờm màu rỉ sắt (rust-colored sputum) là dấu hiệu kinh điển của viêm phổi do phế cầu. Viêm phổi không điển hình thường gây ho khan kéo dài.\n<!-- image -->\n\n\nPneumonia :\n\n- **Khó thở và thở nhanh:** Người bệnh có cảm giác hụt hơi, thở nhanh nông. 2 Ở trẻ em, nhịp thở nhanh và dấu hiệu rút lõm lồng ngực (chest indrawing) có độ đặc hiệu cực cao () cảnh báo viêm phổi nặng. 2\n\n\nPneumonia :\n\n- **Đau ngực kiểu màng phổi (Pleuritic chest pain):** Cảm giác đau nhói ngực tăng lên rõ rệt khi hít thở sâu hoặc ho, do lá thành màng phổi lân cận bị kích ứng viêm.\n\n\nPneumonia :\n\n- **Ran nổ tại phổi:** Nghe phổi bằng ống nghe phát hiện tiếng ran nổ mịn (crackles) ở cuối thì hít vào tại vùng phổi bị đông đặc, đi kèm tiếng thổi phế quản và giảm rì rào phế nang. 2\n\n### Nguyên nhân phổ biến\n\n\n\nPneumonia :\n\nViêm phổi được phân chia theo tác nhân gây bệnh với các đặc điểm hình thái X-quang tương ứng:\n\n- **Vi khuẩn điển hình (Bacterial Pneumonia):**\n\n\nPneumonia :\n\n- *Staphylococcus aureus (Tụ cầu vàng):* Thường gây phế quản phế viêm nặng hoại tử, dễ tạo các nang khí thành mỏng (pneumatoceles) và biến chứng tràn mủ/tràn khí màng phổi.\n\n\nPneumonia :\n\n- *Klebsiella pneumoniae:* Hay gặp ở người già, người mắc bệnh phổi mạn tính hoặc nghiện rượu; dịch viêm đặc và nhiều gây tăng thể tích thùy phổi rõ rệt.\n- *Pseudomonas aeruginosa:* Tác nhân phổ biến trong viêm phổi bệnh viện và thở máy.\n\n\nPneumonia :\n\n- *Chlamydia pneumoniae* hoặc *Legionella pneumophila* .\n- *SARS-CoV-2 (COVID-19):* Gây tổn thương kính mờ và đông đặc đa ổ vùng ngoại vi và đáy phổi hai bên. 6\n\n\nPneumonia :\n\n- **Viêm phổi hít sặc (Aspiration Pneumonia):** Do hít phải dịch vị dạ dày, thức ăn, nước bẩn vào phổi.\n\n### Yếu tố nguy cơ\n\n- **Độ tuổi cực đoan:** Trẻ em dưới 5 tuổi (hệ miễn dịch chưa hoàn thiện) và người già trên 65 tuổi (sức đề kháng suy giảm).\n\n\nPneumonia :\n\n- **Bệnh lý mạn tính nền:** Người mắc bệnh phổi tắc nghẽn mạn tính (COPD), giãn phế quản, hen suyễn, suy tim, đái tháo đường, hoặc xơ gan.\n\n\nPneumonia :\n\n- **Đặt nội khí quản và thở máy:** Đây là yếu tố nguy cơ lớn nhất dẫn đến viêm phổi liên quan đến thở máy (VAP) trong khoa ICU. 8\n\n\nPneumonia :\n\n- **Hạn chế khả năng bảo vệ đường thở:** Bệnh nhân tai biến mạch máu não, hôn mê, hoặc có ống thông dạ dày (nasogastric tube) làm tăng vọt nguy cơ viêm phổi hít sặc. 9\n\n\nPneumonia :\n\n- **Suy giảm miễn dịch:** Bệnh nhân nhiễm HIV, ghép tạng, đang điều trị hóa chất hoặc corticoid dài ngày. 9\n- **Thói quen có hại:** Hút thuốc lá lâu năm phá hủy hệ thống lông chuyển đường thở, nghiện rượu làm ức chế chức năng đại thực bào phế nang.\n\n\n\nPneumonia :\n\n### Dấu hiệu trên ảnh X-quang ngực\n\nX-quang ngực thẳng đứng (PA) là phương tiện hình ảnh đầu tay để xác định sự hiện diện của viêm phổi. Các dấu hiệu X-quang đặc trưng bao gồm:\n\n\n\nPneumonia :\n\n- **Đám mờ đông đặc (Consolidation):** Vùng tăng đậm độ màu trắng, mịn, phân bố theo phân thùy hoặc thùy phổi, làm nhòa và che lấp hoàn toàn bờ các mạch máu phổi đi qua nó.\n\n\nPneumonia :\n\n- **Dấu hiệu phế quản hơi (Air bronchogram sign):** Hình ảnh các đường đen chứa khí của nhánh phế quản nổi bật trên nền trắng xóa của phế nang chứa dịch viêm xung quanh. \n\nPneumonia :\n\nDấu hiệu này chứng minh phế quản lớn vẫn thông thoáng và loại trừ xẹp phổi do tắc nghẽn hoàn toàn.\n\n\nPneumonia :\n\n- **Dấu hiệu xóa bóng (Silhouette sign):** Mất ranh giới trơn láng sinh lý giữa nhu mô phổi chứa khí và các cấu trúc mô mềm lân cận có cùng đậm độ dịch (như tim, cơ hoành, quai động mạch chủ). 10 Ví dụ:\n<!-- image -->\n<!-- image -->\n\n\nPneumonia :\n\n- Mờ xóa bờ tim phải  Tổn thương thuộc thùy giữa phổi phải.\n<!-- image -->\n- Mờ xóa bờ cơ hoành  Tổn thương thuộc thùy dưới. 10\n\n\nPneumonia :\n\n- **Bóng khí thành mỏng (Pneumatoceles):** Các khoang chứa khí tròn, thành mỏng dưới 1 mm, xuất hiện tạm thời trong vùng đông đặc do hoại tử nhu mô khu trú (điển hình do tụ cầu vàng), có thể vỡ gây tràn khí màng phổi.\n",
+        "score": 0.016129032258064516,
+        "chunks": [
+          {
+            "chunk_id": "doc-2860",
+            "content": "Pneumonia :\n\n## Pulmonary Pneumonia\n\n### Tên tiếng Việt\n\nViêm phổi 1\n\n### Tên gọi khác\n\nNhiễm trùng nhu mô phổi, viêm phế quản phổi, đông đặc phổi do viêm.\n\n### Tổng quan\n\n"
+          },
+          {
+            "chunk_id": "doc-2861",
+            "content": "Pneumonia :\n\n- **Định nghĩa cơ bản:** Viêm phổi là một bệnh lý nhiễm trùng cấp tính ảnh hưởng trực tiếp đến nhu mô phổi, bao gồm các phế nang (túi chứa khí), ống phế nang và tổ chức kẽ nâng đỡ của phổi.\n"
+          },
+          {
+            "chunk_id": "doc-2862",
+            "content": "Pneumonia :\n\n- **Cơ chế sinh lý bệnh:** Khi tác nhân gây bệnh (vi khuẩn, virus hoặc nấm) xâm nhập và nhân lên trong đường hô hấp dưới, cơ thể sẽ kích hoạt phản ứng viêm mạch máu tại chỗ. "
+          },
+          {
+            "chunk_id": "doc-2863",
+            "content": "Pneumonia :\n\nHàng rào màng phế nang - mao mạch bị tổn thương làm rò rỉ và tích tụ dịch rỉ viêm giàu protein, hồng cầu, và các tế bào bạch cầu (mủ) lấp đầy hoàn toàn lòng phế nang. "
+          },
+          {
+            "chunk_id": "doc-2864",
+            "content": "Pneumonia :\n\nSự thay thế không khí sinh lý bằng dịch viêm này làm cho vùng phổi bị ảnh hưởng mất đi khả năng thông khí và trao đổi khí oxy.\n"
+          },
+          {
+            "chunk_id": "doc-2865",
+            "content": "Pneumonia :\n\n- **Biểu hiện trên X-quang ngực:** Trên phim chụp đứng tiêu chuẩn, do dịch viêm có đậm độ cản quang cao hơn hẳn không khí, vùng phế nang bị tổn thương sẽ hiển thị là một vùng mờ màu trắng. "
+          },
+          {
+            "chunk_id": "doc-2866",
+            "content": "Pneumonia :\n\nHiện tượng này được gọi là tổn thương đông đặc nhu mô (consolidation) hoặc thâm nhiễm phế nang (alveolar infiltration). 3 Viêm phổi là nguyên nhân phổ biến nhất gây ra các đám mờ phế trường trên X-quang ngực.\n"
+          },
+          {
+            "chunk_id": "doc-2867",
+            "content": "Pneumonia :\n\n- **Vai trò trong hệ thống RAG:** Tài liệu này chuẩn hóa các mô tả hình thái đám mờ, dấu hiệu xóa bóng và mối liên quan căn nguyên giúp hệ thống RAG ánh xạ chính xác các phát hiện hình ảnh X-quang với bệnh cảnh lâm sàng của viêm phổi.\n\n"
+          },
+          {
+            "chunk_id": "doc-2868",
+            "content": "Pneumonia :\n\n### Triệu chứng thường gặp\n\nBiểu hiện lâm sàng của viêm phổi dao động từ âm thầm, nhẹ nhàng đến suy hô hấp cấp tính đe dọa tính mạng tùy thuộc vào tác nhân và cơ địa bệnh nhân 2 :\n\n"
+          },
+          {
+            "chunk_id": "doc-2869",
+            "content": "Pneumonia :\n\n- **Sốt và lạnh run:** Thường xuất hiện đột ngột, sốt cao kèm run lạnh là dấu hiệu điển hình của viêm phổi do vi khuẩn điển hình. Ở trẻ em hoặc người già, sốt có thể là triệu chứng duy nhất. 2\n"
+          },
+          {
+            "chunk_id": "doc-2870",
+            "content": "Pneumonia :\n\n- **Ho và khạc đờm:** Ho tiến triển từ ho khan sang ho có đờm mủ đục màu xanh hoặc vàng. Đờm màu rỉ sắt (rust-colored sputum) là dấu hiệu kinh điển của viêm phổi do phế cầu. Viêm phổi không điển hình thường gây ho khan kéo dài.\n<!-- image -->\n"
+          },
+          {
+            "chunk_id": "doc-2871",
+            "content": "Pneumonia :\n\n- **Khó thở và thở nhanh:** Người bệnh có cảm giác hụt hơi, thở nhanh nông. 2 Ở trẻ em, nhịp thở nhanh và dấu hiệu rút lõm lồng ngực (chest indrawing) có độ đặc hiệu cực cao () cảnh báo viêm phổi nặng. 2\n"
+          },
+          {
+            "chunk_id": "doc-2872",
+            "content": "Pneumonia :\n\n- **Đau ngực kiểu màng phổi (Pleuritic chest pain):** Cảm giác đau nhói ngực tăng lên rõ rệt khi hít thở sâu hoặc ho, do lá thành màng phổi lân cận bị kích ứng viêm.\n"
+          },
+          {
+            "chunk_id": "doc-2873",
+            "content": "Pneumonia :\n\n- **Ran nổ tại phổi:** Nghe phổi bằng ống nghe phát hiện tiếng ran nổ mịn (crackles) ở cuối thì hít vào tại vùng phổi bị đông đặc, đi kèm tiếng thổi phế quản và giảm rì rào phế nang. 2\n\n### Nguyên nhân phổ biến\n\n"
+          },
+          {
+            "chunk_id": "doc-2874",
+            "content": "Pneumonia :\n\nViêm phổi được phân chia theo tác nhân gây bệnh với các đặc điểm hình thái X-quang tương ứng:\n\n- **Vi khuẩn điển hình (Bacterial Pneumonia):**\n"
+          },
+          {
+            "chunk_id": "doc-2875",
+            "content": "Pneumonia :\n\n- *Staphylococcus aureus (Tụ cầu vàng):* Thường gây phế quản phế viêm nặng hoại tử, dễ tạo các nang khí thành mỏng (pneumatoceles) và biến chứng tràn mủ/tràn khí màng phổi.\n"
+          },
+          {
+            "chunk_id": "doc-2876",
+            "content": "Pneumonia :\n\n- *Klebsiella pneumoniae:* Hay gặp ở người già, người mắc bệnh phổi mạn tính hoặc nghiện rượu; dịch viêm đặc và nhiều gây tăng thể tích thùy phổi rõ rệt.\n- *Pseudomonas aeruginosa:* Tác nhân phổ biến trong viêm phổi bệnh viện và thở máy.\n"
+          },
+          {
+            "chunk_id": "doc-2877",
+            "content": "Pneumonia :\n\n- *Chlamydia pneumoniae* hoặc *Legionella pneumophila* .\n- *SARS-CoV-2 (COVID-19):* Gây tổn thương kính mờ và đông đặc đa ổ vùng ngoại vi và đáy phổi hai bên. 6\n"
+          },
+          {
+            "chunk_id": "doc-2878",
+            "content": "Pneumonia :\n\n- **Viêm phổi hít sặc (Aspiration Pneumonia):** Do hít phải dịch vị dạ dày, thức ăn, nước bẩn vào phổi.\n\n### Yếu tố nguy cơ\n\n- **Độ tuổi cực đoan:** Trẻ em dưới 5 tuổi (hệ miễn dịch chưa hoàn thiện) và người già trên 65 tuổi (sức đề kháng suy giảm).\n"
+          },
+          {
+            "chunk_id": "doc-2879",
+            "content": "Pneumonia :\n\n- **Bệnh lý mạn tính nền:** Người mắc bệnh phổi tắc nghẽn mạn tính (COPD), giãn phế quản, hen suyễn, suy tim, đái tháo đường, hoặc xơ gan.\n"
+          },
+          {
+            "chunk_id": "doc-2880",
+            "content": "Pneumonia :\n\n- **Đặt nội khí quản và thở máy:** Đây là yếu tố nguy cơ lớn nhất dẫn đến viêm phổi liên quan đến thở máy (VAP) trong khoa ICU. 8\n"
+          },
+          {
+            "chunk_id": "doc-2881",
+            "content": "Pneumonia :\n\n- **Hạn chế khả năng bảo vệ đường thở:** Bệnh nhân tai biến mạch máu não, hôn mê, hoặc có ống thông dạ dày (nasogastric tube) làm tăng vọt nguy cơ viêm phổi hít sặc. 9\n"
+          },
+          {
+            "chunk_id": "doc-2882",
+            "content": "Pneumonia :\n\n- **Suy giảm miễn dịch:** Bệnh nhân nhiễm HIV, ghép tạng, đang điều trị hóa chất hoặc corticoid dài ngày. 9\n- **Thói quen có hại:** Hút thuốc lá lâu năm phá hủy hệ thống lông chuyển đường thở, nghiện rượu làm ức chế chức năng đại thực bào phế nang.\n\n"
+          },
+          {
+            "chunk_id": "doc-2883",
+            "content": "Pneumonia :\n\n### Dấu hiệu trên ảnh X-quang ngực\n\nX-quang ngực thẳng đứng (PA) là phương tiện hình ảnh đầu tay để xác định sự hiện diện của viêm phổi. Các dấu hiệu X-quang đặc trưng bao gồm:\n\n"
+          },
+          {
+            "chunk_id": "doc-2884",
+            "content": "Pneumonia :\n\n- **Đám mờ đông đặc (Consolidation):** Vùng tăng đậm độ màu trắng, mịn, phân bố theo phân thùy hoặc thùy phổi, làm nhòa và che lấp hoàn toàn bờ các mạch máu phổi đi qua nó.\n"
+          },
+          {
+            "chunk_id": "doc-2885",
+            "content": "Pneumonia :\n\n- **Dấu hiệu phế quản hơi (Air bronchogram sign):** Hình ảnh các đường đen chứa khí của nhánh phế quản nổi bật trên nền trắng xóa của phế nang chứa dịch viêm xung quanh. "
+          },
+          {
+            "chunk_id": "doc-2886",
+            "content": "Pneumonia :\n\nDấu hiệu này chứng minh phế quản lớn vẫn thông thoáng và loại trừ xẹp phổi do tắc nghẽn hoàn toàn.\n"
+          },
+          {
+            "chunk_id": "doc-2887",
+            "content": "Pneumonia :\n\n- **Dấu hiệu xóa bóng (Silhouette sign):** Mất ranh giới trơn láng sinh lý giữa nhu mô phổi chứa khí và các cấu trúc mô mềm lân cận có cùng đậm độ dịch (như tim, cơ hoành, quai động mạch chủ). 10 Ví dụ:\n<!-- image -->\n<!-- image -->\n"
+          },
+          {
+            "chunk_id": "doc-2888",
+            "content": "Pneumonia :\n\n- Mờ xóa bờ tim phải  Tổn thương thuộc thùy giữa phổi phải.\n<!-- image -->\n- Mờ xóa bờ cơ hoành  Tổn thương thuộc thùy dưới. 10\n"
+          },
+          {
+            "chunk_id": "doc-2889",
+            "content": "Pneumonia :\n\n- **Bóng khí thành mỏng (Pneumatoceles):** Các khoang chứa khí tròn, thành mỏng dưới 1 mm, xuất hiện tạm thời trong vùng đông đặc do hoại tử nhu mô khu trú (điển hình do tụ cầu vàng), có thể vỡ gây tràn khí màng phổi.\n"
+          }
+        ],
+        "document": {
+          "id": "doc-47",
+          "title": "Pneumonia",
+          "document_type": "NFD_DOCS",
+          "metadata": {
+            "source": "docs_for_RAG/Pneumonia/Pneumonia.docx"
+          }
+        },
+        "source": "NFD_DOCS"
+      },
+      {
+        "document_id": 37,
+        "content": "Edema :\n\n## Pulmonary Edema\n\n### Tên tiếng Việt\n\nPhù phổi (thường biểu hiện dưới dạng cấp cứu lâm sàng là Phù phổi cấp - Acute Pulmonary Edema)\n\n### Tên gọi khác\n\n- Ứ dịch phổi\n- Phù phế nang (alveolar flooding)\n- Tích tụ dịch trong phế trường\n\n\nEdema :\n\n- Pulmonary congestion (sung huyết phổi)\n\n### Tổng quan\n\n\n\nEdema :\n\nPhù phổi (Pulmonary Edema) là một hội chứng lâm sàng và hình ảnh học cấp cứu, đặc trưng bởi sự tích tụ quá mức của dịch lỏng (huyết tương, đôi khi lẫn hồng cầu) ở ngoài mạch máu,\n\nEdema :\n\n ban đầu ở tổ chức kẽ của phổi và sau đó tràn ngập vào các phế nang (túi khí). \n\nEdema :\n\nTrong điều kiện sinh lý bình thường, các phế nang chứa đầy không khí để thực hiện chức năng trao đổi oxy. \n\nEdema :\n\nKhi phù phổi xảy ra, lượng dịch thừa này lấp đầy các túi khí, dựng lên một bức tường ngăn cản oxy khuếch tán vào máu mao mạch, dẫn đến suy hô hấp cấp tính và thiếu hụt oxy mô nghiêm trọng.\n\n\n\nEdema :\n\nSự di chuyển của chất dịch qua màng mao mạch phổi vào khoảng kẽ được chi phối bởi **Phương trình Starling** (Starling's Equation):\n\n<!-- image -->\n\nTrong đó:\n\n<!-- image -->\n\n- là lưu lượng dịch lọc qua màng (fluid filtration rate).\n<!-- image -->\n\n\nEdema :\n\n- là hệ số lọc của màng phế nang - mao mạch (membrane filtration coefficient).\n<!-- image -->\n- là áp lực thủy tĩnh bên trong mao mạch phổi (pulmonary capillary hydrostatic pressure).\n<!-- image -->\n\n\nEdema :\n\n- là áp lực thủy tĩnh của khoang kẽ (interstitial hydrostatic pressure).\n<!-- image -->\n- là hệ số phản xạ protein của màng (reflection coefficient).\n<!-- image -->\n- là áp lực keo của huyết tương (plasma oncotic pressure).\n<!-- image -->\n\n\nEdema :\n\n- là áp lực keo của khoang kẽ (interstitial oncotic pressure).\n<!-- image -->\n\n<!-- image -->\n\n\n\nEdema :\n\nBất kỳ sự biến đổi bất thường nào vượt quá cơ chế tự điều hòa của cơ thể (chẳng hạn như tăng vọt áp lực thủy tĩnh  trong suy tim trái, hoặc tăng tính thấm màng phế nang mao mạch làm thay đổi  do độc chất/viêm nhiễm) sẽ khiến dịch thoát ra ồ ạt,\n\nEdema :\n\n dẫn đến phù phổi.\n\n\n\nEdema :\n\n**Lưu ý cho hệ thống RAG:**\n\n\n\nEdema :\n\nĐối với cơ sở dữ liệu vector hỗ trợ Computer Vision, phù phổi là một trạng thái mờ lan tỏa (diffuse opacification) động. \n\nEdema :\n\nKhác với viêm phổi (mất vài tuần để xóa mờ), phù phổi có đặc tính \"bay màu\" cực kỳ nhanh chóng (trong vòng 24-48 giờ) sau khi bệnh nhân đáp ứng với điều trị lợi tiểu.\n\n\n\nEdema :\n\n### Triệu chứng thường gặp\n\n- **Khó thở cấp tính dữ dội (Dyspnea)** : Bệnh nhân có cảm giác ngột ngạt, như bị \"chết đuối trên cạn\", nhịp thở nhanh và nông.\n\n\nEdema :\n\n- **Khó thở khi nằm (Orthopnea)** : Bệnh nhân không thể nằm ngang vì dịch sẽ tràn ngập khắp phế trường theo trọng lực; họ buộc phải ngồi dậy, bám vào thành giường để thở.\n\n\nEdema :\n\n- **Khó thở kịch phát về đêm (Paroxysmal Nocturnal Dyspnea - PND)** : Cơn khó thở đột ngột xuất hiện khi đang ngủ, buộc bệnh nhân phải bật dậy mở cửa sổ để hít thở.\n\n\nEdema :\n\n- **Ho khạc đờm bọt hồng (Pink frothy sputum)** : Đây là triệu chứng kinh điển cực kỳ đặc hiệu, xảy ra khi áp lực quá cao làm rách màng phế nang, khiến dịch thấm lẫn hồng cầu tràn vào đường thở.\n\n\nEdema :\n\n- **Tiếng ran ẩm, ran nổ dâng lên nhanh ở cả hai phế trường** : Khi đặt ống nghe, bác sĩ sẽ ghi nhận tiếng ran bắt đầu từ hai đáy phổi, sau đó lan nhanh lên đỉnh phổi giống như \"thủy triều dâng\".\n\n\nEdema :\n\n- **Vã mồ hôi hột, da tái lạnh, vật vã, lo sợ** do kích thích hệ giao cảm và thiếu oxy não.\n- **Tím tái (Cyanosis)** ở môi và các đầu ngón tay khi bão hòa oxy máu giảm sâu.\n\n### Nguyên Nhân Phổ Biến\n\n\n\nEdema :\n\nPhù phổi được phân loại thành hai nhóm nguyên nhân cốt lõi dựa trên cơ chế áp lực thủy tĩnh:\n\n- **Phù phổi do tim (Cardiogenic / Hydrostatic Pulmonary Edema)** : Xảy ra do tăng áp lực thủy tĩnh tĩnh mạch và mao mạch phổi dội ngược từ tim trái.\n\n\nEdema :\n\n- *Bệnh lý van tim trái* : Hẹp van hai lá, hở van hai lá cấp (do đứt cơ nhú), hẹp van động mạch chủ.\n- *Cơn tăng huyết áp cấp cứu* .\n- *Rối loạn nhịp tim nặng* : Rung nhĩ nhanh, nhịp nhanh kịch phát.\n- *Viêm phổi nặng* (vi khuẩn, virus như COVID-19).\n\n\nEdema :\n\n- *Hít phải độc chất hoặc ngạt nước (near drowning)* .\n- *Phù phổi do thần kinh (Neurogenic)* : Xảy ra sau chấn thương sọ não hoặc xuất huyết não.\n\n\nEdema :\n\n- *Phù phổi áp lực âm (Negative pressure pulmonary edema)* : Xảy ra khi bệnh nhân cố hít vào mạnh chống lại một đường thở bị bít tắc (ví dụ do co thắt thanh quản trong lúc khởi mê).\n\n### Yếu tố nguy cơ\n\n\n\nEdema :\n\n- Tiền sử mắc bệnh mạch vành, nhồi máu cơ tim hoặc suy tim trái.\n- Tăng huyết áp mạn tính không được kiểm soát tốt.\n- Bệnh thận mạn tính hoặc suy thận (gây quá tải thể tích tuần hoàn).\n\n\nEdema :\n\n- Chế độ ăn nhiều muối hoặc tự ý ngưng thuốc lợi tiểu ở bệnh nhân suy tim mạn.\n- Truyền dịch quá nhanh hoặc quá nhiều ở những bệnh nhân có chức năng tim thận suy giảm.\n\n### Dấu hiệu trên ảnh X-quang ngực\n\n\n\nEdema :\n\nSự tiến triển của phù phổi do tim (suy tim sung huyết) trên phim chụp thẳng đứng (PA) tuân theo một chuỗi dấu hiệu vô tuyến kinh điển từ nhẹ đến nặng:\n\n\n\nEdema :\n\n- **Bóng tim to (Cardiomegaly)** : Chỉ số tim - ngực (CTR) &gt; 0.5. Đây là dấu hiệu định hướng quan trọng cho thấy phù phổi có nguồn gốc từ tim.\n\n\nEdema :\n\n- **Tái phân bố tuần hoàn phổi (Cephalization / Antler sign)** : Bình thường, do trọng lực, mạch máu ở đáy phổi sẽ lớn hơn đỉnh phổi. ",
+        "score": 0.015873015873015872,
+        "chunks": [
+          {
+            "chunk_id": "doc-1320",
+            "content": "Edema :\n\n## Pulmonary Edema\n\n### Tên tiếng Việt\n\nPhù phổi (thường biểu hiện dưới dạng cấp cứu lâm sàng là Phù phổi cấp - Acute Pulmonary Edema)\n\n### Tên gọi khác\n\n- Ứ dịch phổi\n- Phù phế nang (alveolar flooding)\n- Tích tụ dịch trong phế trường\n"
+          },
+          {
+            "chunk_id": "doc-1321",
+            "content": "Edema :\n\n- Pulmonary congestion (sung huyết phổi)\n\n### Tổng quan\n\n"
+          },
+          {
+            "chunk_id": "doc-1322",
+            "content": "Edema :\n\nPhù phổi (Pulmonary Edema) là một hội chứng lâm sàng và hình ảnh học cấp cứu, đặc trưng bởi sự tích tụ quá mức của dịch lỏng (huyết tương, đôi khi lẫn hồng cầu) ở ngoài mạch máu,"
+          },
+          {
+            "chunk_id": "doc-1323",
+            "content": "Edema :\n\n ban đầu ở tổ chức kẽ của phổi và sau đó tràn ngập vào các phế nang (túi khí). "
+          },
+          {
+            "chunk_id": "doc-1324",
+            "content": "Edema :\n\nTrong điều kiện sinh lý bình thường, các phế nang chứa đầy không khí để thực hiện chức năng trao đổi oxy. "
+          },
+          {
+            "chunk_id": "doc-1325",
+            "content": "Edema :\n\nKhi phù phổi xảy ra, lượng dịch thừa này lấp đầy các túi khí, dựng lên một bức tường ngăn cản oxy khuếch tán vào máu mao mạch, dẫn đến suy hô hấp cấp tính và thiếu hụt oxy mô nghiêm trọng.\n\n"
+          },
+          {
+            "chunk_id": "doc-1326",
+            "content": "Edema :\n\nSự di chuyển của chất dịch qua màng mao mạch phổi vào khoảng kẽ được chi phối bởi **Phương trình Starling** (Starling's Equation):\n\n<!-- image -->\n\nTrong đó:\n\n<!-- image -->\n\n- là lưu lượng dịch lọc qua màng (fluid filtration rate).\n<!-- image -->\n"
+          },
+          {
+            "chunk_id": "doc-1327",
+            "content": "Edema :\n\n- là hệ số lọc của màng phế nang - mao mạch (membrane filtration coefficient).\n<!-- image -->\n- là áp lực thủy tĩnh bên trong mao mạch phổi (pulmonary capillary hydrostatic pressure).\n<!-- image -->\n"
+          },
+          {
+            "chunk_id": "doc-1328",
+            "content": "Edema :\n\n- là áp lực thủy tĩnh của khoang kẽ (interstitial hydrostatic pressure).\n<!-- image -->\n- là hệ số phản xạ protein của màng (reflection coefficient).\n<!-- image -->\n- là áp lực keo của huyết tương (plasma oncotic pressure).\n<!-- image -->\n"
+          },
+          {
+            "chunk_id": "doc-1329",
+            "content": "Edema :\n\n- là áp lực keo của khoang kẽ (interstitial oncotic pressure).\n<!-- image -->\n\n<!-- image -->\n\n"
+          },
+          {
+            "chunk_id": "doc-1330",
+            "content": "Edema :\n\nBất kỳ sự biến đổi bất thường nào vượt quá cơ chế tự điều hòa của cơ thể (chẳng hạn như tăng vọt áp lực thủy tĩnh  trong suy tim trái, hoặc tăng tính thấm màng phế nang mao mạch làm thay đổi  do độc chất/viêm nhiễm) sẽ khiến dịch thoát ra ồ ạt,"
+          },
+          {
+            "chunk_id": "doc-1331",
+            "content": "Edema :\n\n dẫn đến phù phổi.\n\n"
+          },
+          {
+            "chunk_id": "doc-1332",
+            "content": "Edema :\n\n**Lưu ý cho hệ thống RAG:**\n\n"
+          },
+          {
+            "chunk_id": "doc-1333",
+            "content": "Edema :\n\nĐối với cơ sở dữ liệu vector hỗ trợ Computer Vision, phù phổi là một trạng thái mờ lan tỏa (diffuse opacification) động. "
+          },
+          {
+            "chunk_id": "doc-1334",
+            "content": "Edema :\n\nKhác với viêm phổi (mất vài tuần để xóa mờ), phù phổi có đặc tính \"bay màu\" cực kỳ nhanh chóng (trong vòng 24-48 giờ) sau khi bệnh nhân đáp ứng với điều trị lợi tiểu.\n\n"
+          },
+          {
+            "chunk_id": "doc-1335",
+            "content": "Edema :\n\n### Triệu chứng thường gặp\n\n- **Khó thở cấp tính dữ dội (Dyspnea)** : Bệnh nhân có cảm giác ngột ngạt, như bị \"chết đuối trên cạn\", nhịp thở nhanh và nông.\n"
+          },
+          {
+            "chunk_id": "doc-1336",
+            "content": "Edema :\n\n- **Khó thở khi nằm (Orthopnea)** : Bệnh nhân không thể nằm ngang vì dịch sẽ tràn ngập khắp phế trường theo trọng lực; họ buộc phải ngồi dậy, bám vào thành giường để thở.\n"
+          },
+          {
+            "chunk_id": "doc-1337",
+            "content": "Edema :\n\n- **Khó thở kịch phát về đêm (Paroxysmal Nocturnal Dyspnea - PND)** : Cơn khó thở đột ngột xuất hiện khi đang ngủ, buộc bệnh nhân phải bật dậy mở cửa sổ để hít thở.\n"
+          },
+          {
+            "chunk_id": "doc-1338",
+            "content": "Edema :\n\n- **Ho khạc đờm bọt hồng (Pink frothy sputum)** : Đây là triệu chứng kinh điển cực kỳ đặc hiệu, xảy ra khi áp lực quá cao làm rách màng phế nang, khiến dịch thấm lẫn hồng cầu tràn vào đường thở.\n"
+          },
+          {
+            "chunk_id": "doc-1339",
+            "content": "Edema :\n\n- **Tiếng ran ẩm, ran nổ dâng lên nhanh ở cả hai phế trường** : Khi đặt ống nghe, bác sĩ sẽ ghi nhận tiếng ran bắt đầu từ hai đáy phổi, sau đó lan nhanh lên đỉnh phổi giống như \"thủy triều dâng\".\n"
+          },
+          {
+            "chunk_id": "doc-1340",
+            "content": "Edema :\n\n- **Vã mồ hôi hột, da tái lạnh, vật vã, lo sợ** do kích thích hệ giao cảm và thiếu oxy não.\n- **Tím tái (Cyanosis)** ở môi và các đầu ngón tay khi bão hòa oxy máu giảm sâu.\n\n### Nguyên Nhân Phổ Biến\n\n"
+          },
+          {
+            "chunk_id": "doc-1341",
+            "content": "Edema :\n\nPhù phổi được phân loại thành hai nhóm nguyên nhân cốt lõi dựa trên cơ chế áp lực thủy tĩnh:\n\n- **Phù phổi do tim (Cardiogenic / Hydrostatic Pulmonary Edema)** : Xảy ra do tăng áp lực thủy tĩnh tĩnh mạch và mao mạch phổi dội ngược từ tim trái.\n"
+          },
+          {
+            "chunk_id": "doc-1342",
+            "content": "Edema :\n\n- *Bệnh lý van tim trái* : Hẹp van hai lá, hở van hai lá cấp (do đứt cơ nhú), hẹp van động mạch chủ.\n- *Cơn tăng huyết áp cấp cứu* .\n- *Rối loạn nhịp tim nặng* : Rung nhĩ nhanh, nhịp nhanh kịch phát.\n- *Viêm phổi nặng* (vi khuẩn, virus như COVID-19).\n"
+          },
+          {
+            "chunk_id": "doc-1343",
+            "content": "Edema :\n\n- *Hít phải độc chất hoặc ngạt nước (near drowning)* .\n- *Phù phổi do thần kinh (Neurogenic)* : Xảy ra sau chấn thương sọ não hoặc xuất huyết não.\n"
+          },
+          {
+            "chunk_id": "doc-1344",
+            "content": "Edema :\n\n- *Phù phổi áp lực âm (Negative pressure pulmonary edema)* : Xảy ra khi bệnh nhân cố hít vào mạnh chống lại một đường thở bị bít tắc (ví dụ do co thắt thanh quản trong lúc khởi mê).\n\n### Yếu tố nguy cơ\n\n"
+          },
+          {
+            "chunk_id": "doc-1345",
+            "content": "Edema :\n\n- Tiền sử mắc bệnh mạch vành, nhồi máu cơ tim hoặc suy tim trái.\n- Tăng huyết áp mạn tính không được kiểm soát tốt.\n- Bệnh thận mạn tính hoặc suy thận (gây quá tải thể tích tuần hoàn).\n"
+          },
+          {
+            "chunk_id": "doc-1346",
+            "content": "Edema :\n\n- Chế độ ăn nhiều muối hoặc tự ý ngưng thuốc lợi tiểu ở bệnh nhân suy tim mạn.\n- Truyền dịch quá nhanh hoặc quá nhiều ở những bệnh nhân có chức năng tim thận suy giảm.\n\n### Dấu hiệu trên ảnh X-quang ngực\n\n"
+          },
+          {
+            "chunk_id": "doc-1347",
+            "content": "Edema :\n\nSự tiến triển của phù phổi do tim (suy tim sung huyết) trên phim chụp thẳng đứng (PA) tuân theo một chuỗi dấu hiệu vô tuyến kinh điển từ nhẹ đến nặng:\n\n"
+          },
+          {
+            "chunk_id": "doc-1348",
+            "content": "Edema :\n\n- **Bóng tim to (Cardiomegaly)** : Chỉ số tim - ngực (CTR) &gt; 0.5. Đây là dấu hiệu định hướng quan trọng cho thấy phù phổi có nguồn gốc từ tim.\n"
+          },
+          {
+            "chunk_id": "doc-1349",
+            "content": "Edema :\n\n- **Tái phân bố tuần hoàn phổi (Cephalization / Antler sign)** : Bình thường, do trọng lực, mạch máu ở đáy phổi sẽ lớn hơn đỉnh phổi. "
+          }
+        ],
+        "document": {
+          "id": "doc-37",
+          "title": "Edema",
+          "document_type": "NFD_DOCS",
+          "metadata": {
+            "source": "docs_for_RAG/Edema/Edema.docx"
+          }
+        },
+        "source": "NFD_DOCS"
+      }
+    ],
+    "answer": "Xẹp phổi (Atelectasis) là tình trạng sụp đổ một phần hoặc toàn bộ cấu trúc của một lá phổi, dẫn đến sự suy giảm hoặc đình trệ hoàn toàn quá trình trao đổi khí tại màng phế nang - mao mạch [citation:doc-613]. Về bản chất mô học, đây là hiện tượng các phế nang bị xẹp xuống, mất đi thể tích khí lưu trữ bên trong, biến một cấu trúc xốp chứa khí thành một khối mô đặc [citation:doc-614].\n\nThuật ngữ \"atelectasis\" được cấu thành từ hai gốc từ tiếng Hy Lạp cổ đại: \"ateles\" mang ý nghĩa là sự thiếu sót hoặc không hoàn chỉnh, và \"ektasis\" biểu thị cho sự mở rộng hay giãn nở [citation:doc-610]. Khái niệm này được bác sĩ người Đức Eduard Jörg chính thức đưa vào y văn thế giới từ năm 1832, ban đầu dùng để mô tả tình trạng phổi không thể giãn nở hoàn toàn ở trẻ sơ sinh [citation:doc-611, doc-612]."
+  }
+]

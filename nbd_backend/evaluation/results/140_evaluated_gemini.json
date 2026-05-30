@@ -1,0 +1,19 @@
+[
+  {
+    "question": "Xẹp phổi là gì?",
+    "ground_truth": "Xẹp phổi (Atelectasis) là tình trạng một phần hoặc toàn bộ phổi bị mất khí và xẹp xuống.",
+    "printed_contexts": [
+      "Atelectasis :\n\n## Tài Liệu Kiến Thức Chuyên Sâu: Bệnh Lý Xẹp Phổi (Atelectasis) Trong Hình Ảnh Học X-Quang Ngực Phục Vụ Hệ Thống RAG\n\n### Tổng Quan Về Bệnh Lý Xẹp Phổi Trong Y Học Hiện Đại\n\n",
+      "Atelectasis :\n\nTrong lĩnh vực hô hấp học và chẩn đoán hình ảnh lồng ngực, xẹp phổi (Atelectasis) đại diện cho một trong những thực thể lâm sàng và hình thái học thường xuyên được ghi nhận nhất,",
+      "Atelectasis :\n\n đóng vai trò là một chỉ báo quan trọng cho vô số các rối loạn tiềm ẩn bên dưới. ",
+      "Atelectasis :\n\n1 Về mặt từ nguyên học, thuật ngữ \"atelectasis\" được cấu thành từ hai gốc từ tiếng Hy Lạp cổ đại: \"ateles\" mang ý nghĩa là sự thiếu sót hoặc không hoàn chỉnh, và \"ektasis\" biểu thị cho sự mở rộng hay giãn nở. ",
+      "Atelectasis :\n\n1 Khái niệm này được chính thức đưa vào y văn thế giới từ năm 1832 bởi bác sĩ người Đức Eduard Jörg thông qua công trình nghiên cứu kinh điển \"De morbo pulmonum organico ex respiratione neonatorum imperfecta orto\",",
+      "Atelectasis :\n\n ban đầu dùng để mô tả tình trạng phổi không thể giãn nở hoàn toàn ở trẻ sơ sinh. ",
+      "Atelectasis :\n\n3 Ngày nay, định nghĩa này đã được mở rộng và hệ thống hóa để chỉ tình trạng sụp đổ một phần hoặc toàn bộ cấu trúc của một lá phổi, dẫn đến sự suy giảm hoặc đình trệ hoàn toàn quá trình trao đổi khí tại màng phế nang - mao mạch. 1\n\n",
+      "Atelectasis :\n\nVề bản chất mô học, xẹp phổi là hiện tượng các phế nang bị xẹp xuống, mất đi thể tích khí lưu trữ bên trong, biến một cấu trúc xốp chứa khí thành một khối mô đặc. ",
+      "Atelectasis :\n\n1 Sự khác biệt mang tính nền tảng giữa xẹp phổi và hội chứng đông đặc phổi (pulmonary consolidation) nằm ở yếu tố thể tích và thành phần lấp đầy. ",
+      "Atelectasis :\n\nTrong khi đông đặc phổi xảy ra khi khoảng không phế nang vẫn giữ nguyên kích thước vật lý nhưng bị lấp đầy bởi các chất dịch tiết, mủ, tế bào viêm hay máu, thì xẹp phổi đặc trưng bởi sự co rút thực sự của các vách phế nang,"
+    ],
+    "answer": "Xẹp phổi (Atelectasis) là tình trạng sụp đổ một phần hoặc toàn bộ cấu trúc của một lá phổi, dẫn đến sự suy giảm hoặc đình trệ hoàn toàn quá trình trao đổi khí tại màng phế nang - mao mạch.\n\nVề bản chất mô học, xẹp phổi là hiện tượng các phế nang bị xẹp xuống, mất đi thể tích khí lưu trữ bên trong, biến một cấu trúc xốp chứa khí thành một khối mô đặc. Thuật ngữ \"atelectasis\" được cấu thành từ hai gốc từ tiếng Hy Lạp cổ đại: \"ateles\" mang ý nghĩa là sự thiếu sót hoặc không hoàn chỉnh, và \"ektasis\" biểu thị cho sự mở rộng hay giãn nở."
+  }
+]

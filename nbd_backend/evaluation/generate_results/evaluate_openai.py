@@ -137,9 +137,9 @@ async def evaluate_openai(
 
 def main():
     backend_dir = Path(__file__).resolve().parent.parent.parent
-    default_input = str(backend_dir / "evaluate" / "data" / "140.json")
+    default_input = str(backend_dir / "evaluation" / "data_input" / "140.json")
     default_output = str(
-        backend_dir / "evaluate" / "results" / "140_evaluated_openai.json"
+        backend_dir / "evaluation" / "results" / "140_evaluated_openai.json"
     )
 
     parser = argparse.ArgumentParser(

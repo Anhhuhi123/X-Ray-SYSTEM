@@ -40,6 +40,9 @@ import sys
 from pathlib import Path
 from typing import Any
 
+import langchain
+langchain.debug = True
+
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -171,19 +174,20 @@ def _ragas_context_recall(
         logger.warning("Failed to set RAGAS LLM (%s) → using heuristic fallback", e)
         return [None] * len(items), "heuristic_fallback"
 
-    # Build dataset — context_recall cần: question, contexts, ground_truth
+    # Build dataset — context_recall cần: user_input, retrieved_contexts, reference (tương ứng với ragas >= 0.2.x)
     dataset_dict = {
-        "question": [it.get("question", "") for it in items],
-        "contexts": [
+        "user_input": [it.get("question", "") for it in items],
+        "retrieved_contexts": [
             it.get("printed_contexts", it.get("contexts", [])) for it in items
         ],
-        "ground_truth": [it.get("ground_truth", "") for it in items],
+        "reference": [it.get("ground_truth", "") for it in items],
     }
 
     try:
         dataset = Dataset.from_dict(dataset_dict)
         result = ragas_evaluate(dataset, metrics=[ragas_context_recall])
         df = result.to_pandas()
+        print("DEBUG RAGAS COLUMNS:", df.columns.tolist())
         scores = df["context_recall"].tolist()
         return scores, "ragas"
     except Exception as e:

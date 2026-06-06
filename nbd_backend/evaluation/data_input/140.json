@@ -1,42 +1,782 @@
 [
     {
-        "question": "Sự khác biệt cơ bản về mặt mô học giữa xẹp phổi (Atelectasis) và hội chứng đông đặc phổi (Pulmonary consolidation) là gì?",
+        "question": "Sự khác biệt cơ bản về mặt mô học giữa xẹp phổi (Atelectasis) và hội chứng đông đặc phổi (Pulmonary Consolidation) là gì?",
         "ground_truth": "Xẹp phổi đặc trưng bởi sự co rút thực sự của các vách phế nang làm giảm thể tích tổng thể, trong khi đông đặc phổi xảy ra khi thể tích phế nang không đổi nhưng bị lấp đầy bởi các chất dịch tiết, máu hoặc mủ."
     },
     {
-        "question": "Tại sao bệnh nhân hít thở FiO2 cao (nồng độ oxy cao) lại có nguy cơ tiến triển xẹp phổi tái hấp thu nhanh hơn?",
+        "question": "Tại sao bệnh nhân hít thở FiO2 cao lại có nguy cơ tiến triển xẹp phổi tái hấp thu nhanh hơn?",
         "ground_truth": "Khi hít FiO2 cao, sự vắng mặt của nitrogen (một loại khí trơ hòa tan chậm) khiến toàn bộ lượng khí bị kẹt trong phế nang bị dòng máu hấp thu ồ ạt, dẫn đến xẹp phổi nhanh chóng trong vòng chưa đầy một giờ."
     },
     {
-        "question": "Dấu hiệu 'Golden S sign' (dấu hiệu S ngược) trên X-quang thường gợi ý bệnh lý gì và tại sao?",
-        "ground_truth": "Dấu hiệu này gợi ý khối u ác tính ở phế quản gốc gây bít tắc thùy trên phổi phải; hình dáng chữ S được tạo thành từ đường bờ lồi của khối u ở phía rốn phổi và đường bờ lõm của rãnh liên thùy bị co kéo về phía đỉnh phổi."
+        "question": "Dấu hiệu S ngược Golden (Golden S sign) trên X-quang ngực xuất hiện trong bối cảnh nào và có ý nghĩa lâm sàng gì?",
+        "ground_truth": "Dấu hiệu S ngược Golden xuất hiện trong xẹp thùy trên phổi phải khi có một khối ung thư phế quản ở rốn phổi. Khối u tạo đường cong lồi ở đoạn giữa rãnh liên thùy bé, trong khi phần ngoại vi của rãnh bị lực hút kéo lõm tạo hình dáng chữ S ngược, là tín hiệu báo động đỏ chỉ điểm ác tính cao."
     },
     {
-        "question": "Dấu hiệu 'Luftsichel sign' là gì và nó giúp chẩn đoán tình trạng nào?",
-        "ground_truth": "Đây là hiện tượng một viền sáng (hình lưỡi liềm) chứa khí nằm quanh cung động mạch chủ, xuất hiện do thùy dưới trái trương phồng bù trừ khi toàn bộ thùy trên trái bị xẹp hoàn toàn."
+        "question": "Dấu hiệu Luftsichel (lưỡi liềm khí) trên X-quang ngực là gì và xuất hiện trong tình huống nào?",
+        "ground_truth": "Luftsichel là viền đen sáng hình lưỡi liềm chạy quanh quai động mạch chủ, xuất hiện khi thùy trên phổi trái xẹp hoàn toàn. Phân thùy đỉnh của thùy dưới trái căng phồng bù trừ chèn vào khoảng khe giữa thùy trên đang xẹp và cung động mạch chủ, tạo nên viền khí đặc trưng này."
     },
     {
-        "question": "Tại sao trong xẹp phổi, trung thất và khí quản lại bị lệch về phía tổn thương?",
-        "ground_truth": "Do sự sụp đổ của một thùy phổi lớn tạo ra khoảng trống thể tích, làm áp suất âm trong khoang màng phổi tăng lên, tạo lực co kéo cơ học lôi kéo trung thất về phía bên phổi bị xẹp."
+        "question": "Hội chứng thùy giữa (Middle Lobe Syndrome) có đặc điểm giải phẫu nào khiến vùng này dễ bị xẹp phổi tái diễn?",
+        "ground_truth": "Thùy giữa phổi phải có phế quản hẹp, dài, được bao quanh bởi chuỗi hạch bạch huyết và thiếu vắng thông khí bàng hệ, khiến vùng này cực kỳ nhạy cảm với chèn ép hoặc viêm nhiễm, dẫn đến xẹp thùy giữa tái phát hoặc cố định kéo dài."
     },
     {
-        "question": "Dấu hiệu 'Retrocardiac sail sign' (cánh buồm sau tim) có ý nghĩa gì trong chẩn đoán hình ảnh?",
-        "ground_truth": "Đây là dấu hiệu giúp nhận biết xẹp thùy dưới phổi trái; đám mờ hình tam giác nhỏ lấp ló sau bóng tim giúp phát hiện tổn thương vốn rất dễ bị bỏ sót do bị che khuất bởi cấu trúc tim."
+        "question": "Xẹp phổi dạng tròn (Rounded Atelectasis) thường gặp nhất ở bệnh nhân nào và có dấu hiệu hình ảnh đặc trưng gì?",
+        "ground_truth": "Xẹp phổi dạng tròn thường xuất hiện ở bệnh nhân có tiền sử phơi nhiễm amiăng. Quá trình viêm và xơ hóa màng phổi cuộn nhu mô phổi bên dưới vào trong, tạo khối mờ hình tròn sát màng phổi với dấu hiệu 'đuôi sao chổi' của các mạch máu bị kéo vào khối tổn thương."
     },
     {
-        "question": "Sự khác biệt về rung thanh (vocal fremitus) giữa xẹp phổi và đông đặc phổi là gì?",
-        "ground_truth": "Trong xẹp phổi, rung thanh thường giảm do sự gián đoạn luồng khí và giảm thể tích, trong khi trong hội chứng đông đặc phổi, rung thanh thường tăng lên."
+        "question": "Điểm khác biệt chính trên X-quang để phân biệt xẹp phổi một bên toàn bộ với tràn dịch màng phổi lượng lớn là gì?",
+        "ground_truth": "Trong xẹp phổi một bên toàn bộ, khí quản, bóng tim và trung thất bị lôi kéo mạnh về phía lồng ngực bị bệnh do lực hút chân không. Ngược lại, trong tràn dịch màng phổi lượng lớn, áp lực dương của dịch đẩy trung thất sang bên đối diện lành."
     },
     {
-        "question": "Cơ chế 'Xẹp phổi do kết dính' (Adhesive Atelectasis) có liên quan đến thành phần nào trong phế nang?",
-        "ground_truth": "Liên quan đến sự thiếu hụt hoặc suy giảm chất hoạt diện (surfactant), làm gia tăng sức căng bề mặt khiến các vách phế nang dính chặt vào nhau và không thể mở ra khi hít vào."
+        "question": "Cơ chế sinh lý bệnh của xẹp phổi do kết dính (Adhesive Atelectasis) liên quan đến yếu tố nào?",
+        "ground_truth": "Xẹp phổi do kết dính xảy ra khi surfactant bị khiếm khuyết hoặc suy giảm sản xuất, như trong ARDS hoặc hội chứng suy hô hấp sơ sinh. Mất surfactant làm sức căng bề mặt tăng vọt, kéo vách phế nang dính chặt vào nhau và từ chối mở ra trong chu kỳ hít vào."
     },
     {
-        "question": "Tại sao rốn phổi phải có thể bị kéo giật lên cao trong xẹp thùy trên phải?",
-        "ground_truth": "Khi thùy trên phải bị xẹp, lực co rút mạnh mẽ từ việc mất thể tích nhu mô sẽ kéo rãnh liên thùy bé lên cao và đồng thời kéo cấu trúc rốn phổi đi kèm lên theo vị trí giải phẫu mới."
+        "question": "Tỷ lệ Tim-Ngực (CTR) bình thường trên phim X-quang ngực PA là bao nhiêu và tại sao không áp dụng ngưỡng này cho phim AP?",
+        "ground_truth": "CTR bình thường ở người trưởng thành chụp đứng hướng PA không vượt quá 0.5 (50%). Không áp dụng cho phim AP vì khi chụp AP, tim nằm gần nguồn phát tia X hơn tấm nhận ảnh, khiến bóng tim bị khuếch đại quang học trông lớn hơn thực tế."
     },
     {
-        "question": "Nêu tiêu chí chẩn đoán phân biệt chính giữa xẹp phổi tắc nghẽn và tràn dịch màng phổi lượng lớn dựa trên sự di lệch trung thất.",
-        "ground_truth": "Trong xẹp phổi tắc nghẽn, trung thất bị kéo lệch về cùng bên tổn thương (lực kéo vào), trong khi ở tràn dịch màng phổi lượng lớn, trung thất bị đẩy lệch sang phía đối diện (lực đẩy ra)."
+        "question": "Dấu hiệu bờ đôi (Double density sign) trong đánh giá tim trên X-quang ngực chỉ điểm cấu trúc bất thường nào?",
+        "ground_truth": "Dấu hiệu bờ đôi xuất hiện khi nhĩ trái phình quá lớn sang phía bên phải lồng ngực, tạo ra hai đường viền cong chồng lên nhau ở bờ phải bóng tim: một đường là bờ tự nhiên của tâm nhĩ phải, đường còn lại mờ hơn là từ tâm nhĩ trái giãn to."
+    },
+    {
+        "question": "Ba giai đoạn tiến triển của suy tim sung huyết trên X-quang ngực biểu hiện như thế nào?",
+        "ground_truth": "Giai đoạn 1 (PCWP 13-18 mmHg): tái phân bố mạch máu phổi, các tĩnh mạch thùy trên giãn to hơn. Giai đoạn 2 (PCWP 18-25 mmHg): xuất hiện đường Kerley B và dày thành phế quản do phù mô kẽ. Giai đoạn 3 (PCWP >25 mmHg): đám mờ hình cánh dơi lan từ rốn phổi ra ngoại vi và tràn dịch màng phổi hai bên."
+    },
+    {
+        "question": "Hình ảnh 'Boot-shaped heart' (tim hình giày gỗ) trên X-quang ngực đặc trưng cho bệnh lý bẩm sinh nào?",
+        "ground_truth": "Hình ảnh tim hình giày gỗ đặc trưng cho Tứ chứng Fallot, xảy ra khi thất phải phì đại làm mỏm tim hếch lên trên kết hợp với cung động mạch phổi bị lõm do thiểu sản, tạo ra hình dạng đặc trưng như chiếc giày gỗ."
+    },
+    {
+        "question": "Bốn nhóm nguyên nhân gây đông đặc phổi phân loại theo bản chất chất lấp đầy phế nang là gì?",
+        "ground_truth": "Bốn nhóm gồm: Nước/dịch thấm (Suy tim sung huyết, quá tải thể tích, suy thận), Mủ/dịch tiết viêm (Viêm phổi vi khuẩn, virus, nấm, lao), Máu/xuất huyết phế nang (Chấn thương, nhồi máu phổi, hội chứng Goodpasture), và Tế bào bất thường (Ung thư biểu mô phế nang, lymphoma, viêm phổi tổ chức hóa)."
+    },
+    {
+        "question": "Dấu hiệu phế quản khí (Air Bronchogram) có ý nghĩa gì trong phân biệt đông đặc phổi và xẹp phổi do tắc nghẽn?",
+        "ground_truth": "Dấu hiệu phế quản khí - các ống phế quản đen chứa khí nổi bật trên nền nhu mô mờ trắng - đặc trưng cho đông đặc phổi khi phế quản vẫn thông thoáng. Trong xẹp phổi do tắc nghẽn, phế quản nguồn đã bị bít tắc hoàn toàn nên gần như không bao giờ quan sát được dấu hiệu này."
+    },
+    {
+        "question": "Tiêu chuẩn Light (Light's criteria) dùng để phân loại dịch màng phổi như thế nào?",
+        "ground_truth": "Tiêu chuẩn Light xác định dịch là dịch tiết (exudate) nếu thỏa mãn ít nhất một trong ba tiêu chí: tỷ lệ protein dịch/huyết thanh >0.5, tỷ lệ LDH dịch/huyết thanh >0.6, hoặc nồng độ LDH dịch lớn hơn 2/3 giới hạn trên LDH huyết thanh bình thường. Không thỏa mãn tiêu chí nào thì là dịch thấm (transudate)."
+    },
+    {
+        "question": "Ngưỡng thể tích dịch tối thiểu để phát hiện tràn dịch màng phổi trên X-quang ngực thẳng đứng PA là bao nhiêu?",
+        "ground_truth": "Trên phim X-quang ngực thẳng đứng PA, cần ít nhất khoảng 200-300 mL dịch mới bắt đầu thấy dấu hiệu tù góc sườn hoành và đường cong Meniscus. Siêu âm màng phổi có thể phát hiện dịch từ 5-50 mL, còn CT scan phát hiện từ 5-10 mL."
+    },
+    {
+        "question": "Tại sao ung thư phổi phân loại giai đoạn T2a trong hệ thống TNM lại liên quan đến xẹp phổi?",
+        "ground_truth": "Theo hệ thống phân loại giai đoạn TNM phiên bản 8, một khối u kích thước 3-4 cm có liên quan đến viêm phổi tắc nghẽn hoặc xẹp phổi kéo dài đến rốn phổi, ảnh hưởng đến một phần hay toàn bộ lá phổi, sẽ được phân loại tự động vào giai đoạn T2a."
+    },
+    {
+        "question": "Phù phổi do tim (Cardiogenic Pulmonary Edema) và phù phổi không do tim (Non-cardiogenic) khác nhau ở điểm cơ bản nào?",
+        "ground_truth": "Phù phổi do tim xảy ra do tăng áp lực thủy tĩnh tĩnh mạch và mao mạch phổi dội ngược từ tim trái suy (suy tim, bệnh van tim, tăng huyết áp). Phù phổi không do tim xảy ra do tổn thương trực tiếp màng phế nang-mao mạch tăng tính thấm (ARDS, viêm phổi nặng) bất chấp áp lực tim bình thường."
+    },
+    {
+        "question": "Đặc điểm nào trên X-quang giúp phân biệt phù phổi cấp (Pulmonary Edema) với viêm phổi vi khuẩn?",
+        "ground_truth": "Phù phổi thường tạo hình ảnh đối xứng hai bên dạng 'cánh dơi' lan từ rốn phổi ra, kèm đường Kerley B và tràn dịch màng phổi. Phù phổi đáp ứng điều trị lợi tiểu rất nhanh (24-48 giờ). Viêm phổi thường gây đông đặc một thùy hoặc một bên với bờ theo rãnh liên thùy, đi kèm sốt và đờm mủ, xóa mờ chậm hơn nhiều."
+    },
+    {
+        "question": "Bốn tiêu chí chính để chẩn đoán khí phế thũng (Emphysema) trên X-quang ngực là gì?",
+        "ground_truth": "Bốn tiêu chí chính gồm: (1) Cơ hoành dẹt trên phim thẳng - vòm hoành xuống dưới mức xương sườn sau thứ 10; (2) Tăng thấu quang không đều trên phim thẳng; (3) Cơ hoành dẹt trên phim nghiêng - góc sternodiaphragmatic mở rộng >90 độ; (4) Giãn rộng khoảng sáng sau xương ức trên phim nghiêng hơn 4.4 cm. Cần ít nhất 2/4 tiêu chí."
+    },
+    {
+        "question": "Thiếu hụt men Alpha-1 Antitrypsin gây khí phế thũng theo cơ chế nào?",
+        "ground_truth": "Alpha-1 Antitrypsin do gan sản xuất có vai trò bảo vệ phổi khỏi sự tàn phá của neutrophil elastase. Khi bị thiếu hụt do đột biến gen trên nhiễm sắc thể 14, enzyme tiêu protein này hoạt động không bị kiểm soát, phân hủy protein cấu trúc elastin của phổi gây khí phế thũng ngay cả khi người bệnh không hút thuốc."
+    },
+    {
+        "question": "Dấu hiệu 'tim bay' (Floating heart sign) trong khí phế thũng nặng xuất hiện do cơ chế gì?",
+        "ground_truth": "Trong khí phế thũng rất nặng, thể tích phổi bị căng phồng quá mức đẩy tim lên cao, làm lộ rõ bờ dưới của tim lơ lửng trên cơ hoành, tạo hình ảnh 'tim bay'. Đây là hệ quả của sự căng phồng phổi mãn tính đẩy bẹp cơ hoành và tách tim khỏi bề mặt cơ hoành."
+    },
+    {
+        "question": "Xơ phổi vô căn (IPF) biểu hiện mô bệnh học dưới dạng nào và có tiên lượng như thế nào?",
+        "ground_truth": "Xơ phổi vô căn biểu hiện mô bệnh học dưới dạng viêm phổi kẽ thông thường (Usual Interstitial Pneumonia - UIP) với sự lắng đọng collagen và xơ hóa nhu mô không đồng nhất. Đây là thể bệnh phổ biến và có tiên lượng nặng nề nhất trong nhóm bệnh phổi kẽ xơ hóa."
+    },
+    {
+        "question": "Dấu hiệu 'ran Velcro' (Velcro crackles) trong xơ phổi có đặc điểm gì và cơ chế xuất hiện thế nào?",
+        "ground_truth": "Ran Velcro là âm sắc khô, mịn, xuất hiện ở cuối thì hít vào, nghe rõ nhất ở vùng đáy phổi hai bên và không mất đi sau khi ho. Cơ chế xuất hiện do sự mở ra đột ngột của các phế quản nhỏ và phế nang bị xơ cứng bao quanh bởi mô kẽ dày trong quá trình hít vào."
+    },
+    {
+        "question": "Hình ảnh tổ ong (Honeycombing) trên X-quang ngực biểu hiện như thế nào và chỉ điểm giai đoạn nào của xơ phổi?",
+        "ground_truth": "Hình ảnh tổ ong biểu hiện dưới dạng lưới rất thô kèm các hốc sáng nhỏ, đường kính 3-10 mm, thành dày, xếp chồng nhiều lớp sát màng phổi vùng đáy phổi. Đây là biểu hiện của xơ hóa giai đoạn cuối, phản ánh sự hủy hoại hoàn toàn cấu trúc phế nang và mô thức UIP."
+    },
+    {
+        "question": "Thoát vị khe thực quản Type I (Sliding) và Type II (Paraesophageal/Rolling) khác nhau về mặt giải phẫu như thế nào?",
+        "ground_truth": "Trong Type I (trượt), khớp nối dạ dày-thực quản và tâm vị dịch chuyển lên trên vòm hoành, chiếm hơn 90% các ca và thường gây trào ngược. Trong Type II (cuộn), khớp nối GE vẫn đúng vị trí sinh lý dưới hoành nhưng phình vị dạ dày thoát vị lên sát bên thực quản, ít gây trào ngược nhưng nguy cơ nghẹt và xoắn dạ dày cao hơn."
+    },
+    {
+        "question": "Tại sao thoát vị hoành do chấn thương phần lớn xảy ra ở bên trái?",
+        "ground_truth": "Khoảng 90-98% trường hợp rách cơ hoành do chấn thương xảy ra ở bên trái vì hai lý do: sự hiện diện của gan ở bên phải đóng vai trò như tấm đệm phân tán lực chấn động, đồng thời màng phổi-phúc mạc phía bên trái về mặt phôi thai học có cấu trúc yếu hơn."
+    },
+    {
+        "question": "Trong thoát vị Bochdalek sơ sinh, tại sao việc sử dụng mặt nạ và bóng để hỗ trợ hô hấp là chống chỉ định tuyệt đối?",
+        "ground_truth": "Sử dụng mặt nạ và bóng sẽ vô tình bơm khí vào dạ dày và ruột đang nằm trên lồng ngực, làm tăng thể tích khối thoát vị, ép xẹp nhu mô phổi lành còn lại và khiến tình trạng suy hô hấp trở nên nguy kịch. Quy trình chuẩn yêu cầu đặt nội khí quản nhanh và đặt ống thông dạ dày hút liên tục."
+    },
+    {
+        "question": "Hiệp hội Fleischner khuyến nghị hạn chế dùng thuật ngữ 'thâm nhiễm' (infiltration) thay bằng thuật ngữ nào và lý do gì?",
+        "ground_truth": "Hiệp hội Fleischner khuyến nghị thay 'thâm nhiễm' bằng thuật ngữ 'đám mờ' (opacity) vì 'thâm nhiễm' mang tính chủ quan cao, có ý nghĩa khác nhau đối với từng người đọc và dễ gây nhầm lẫn giữa cơ chế sinh lý bệnh với biểu hiện hình ảnh học, không đủ tính khách quan trong báo cáo y khoa."
+    },
+    {
+        "question": "Dấu hiệu 'cột sống đen hơn' (more black sign) trên phim X-quang ngực nghiêng có ý nghĩa gì?",
+        "ground_truth": "Bình thường trên phim nghiêng, các đốt sống ngực tối dần từ đỉnh xuống đáy phổi do lượng nhu mô phổi chứa khí chồng lấp tăng dần. Khi có tổn thương thâm nhiễm hoặc đông đặc thùy dưới, đậm độ vùng đáy tăng lên làm mất dấu hiệu này, khiến đốt sống vùng thấp trông trắng hơn hoặc đồng đậm độ với đốt sống vùng cao."
+    },
+    {
+        "question": "Nốt đơn độc phổi (SPN) được định nghĩa như thế nào và khác gì với khối choán chỗ phổi (Mass)?",
+        "ground_truth": "Nốt đơn độc phổi (SPN) là vùng mờ đơn độc dạng tròn/bầu dục, giới hạn tương đối rõ, đường kính không quá 3 cm, nằm hoàn toàn trong nhu mô phổi thông khí bình thường, không đi kèm xẹp phổi hay phì đại hạch. Khối choán chỗ phổi có đường kính lớn hơn 3 cm và mang tỷ lệ ác tính cao vượt trội, phải giả định là ung thư cho đến khi có bằng chứng ngược lại."
+    },
+    {
+        "question": "Bốn kiểu vôi hóa lành tính kinh điển trong nốt phổi trên CT là gì?",
+        "ground_truth": "Bốn kiểu vôi hóa lành tính gồm: vôi hóa trung tâm (central), vôi hóa đồng nhất lan tỏa (diffuse solid), vôi hóa nhiều lớp đồng tâm (laminated) - thường là di chứng u hạt cũ như histoplasmosis hoặc lao, và vôi hóa dạng bắp rang (popcorn-like) - dấu hiệu đặc hiệu của u mô thừa phổi (hamartoma)."
+    },
+    {
+        "question": "Quy tắc '5 Ts' trong chẩn đoán phân biệt khối u trung thất trước bao gồm những thực thể nào?",
+        "ground_truth": "Quy tắc 5 Ts gồm: Thymic neoplasm/Thymoma (u tuyến ức), Teratoma/Germ cell tumors (u quái và u tế bào mầm), Thyroid (bướu giáp thòng), Terrible lymphoma (u lympho ác tính), và Thoracic aorta aneurysm (phình động mạch chủ ngực lên)."
+    },
+    {
+        "question": "Dày màng phổi lan tỏa (DPT) gây ra hậu quả chức năng gì cho hệ hô hấp?",
+        "ground_truth": "Dày màng phổi lan tỏa gây hội chứng hạn chế (restrictive lung defect): màng phổi bị xơ dày và cứng lại hoạt động như 'áo giáp' bóp nghẹt nhu mô phổi, cản trở giãn nở sinh lý khi hít vào, dẫn đến giảm dung tích sống và dung tích phổi toàn phần."
+    },
+    {
+        "question": "Vôi hóa mảng màng phổi do amiăng có đặc điểm hình ảnh đặc trưng nào trên X-quang?",
+        "ground_truth": "Mảng màng phổi vôi hóa do amiăng biểu hiện là các bóng mờ vôi hóa đậm độ xương, bờ rõ nét nhưng không đều, nằm tang diện với chùm tia X ở thành ngực bên. Kiểu vôi hóa đặc trưng có hình dạng 'lá nhựa ruồi' (holly leaf sign), phân bố ở lá thành màng phổi và thường chừa lại vùng đỉnh và góc sườn hoành."
+    },
+    {
+        "question": "Tràn khí màng phổi tự phát nguyên phát (PSP) thường xảy ra ở đối tượng nào và do cơ chế gì?",
+        "ground_truth": "PSP thường gặp ở nam giới trẻ tuổi (15-34 tuổi) có vóc dáng cao gầy. Cơ chế do vỡ đột ngột các bóng khí nhỏ (blebs) hoặc kén khí (bullae) nằm dưới màng phổi, thường tập trung ở vùng đỉnh phổi. Sự chênh lệch áp lực màng phổi theo chiều dọc ở người có lồng ngực dài làm gia tăng nguy cơ vỡ bóng khí."
+    },
+    {
+        "question": "Dấu hiệu gõ vang (Hyperresonance) và giảm rì rào phế nang khi khám lâm sàng bệnh nhân tràn khí màng phổi có ý nghĩa gì?",
+        "ground_truth": "Gõ vang xuất hiện vì bên dưới thành ngực bên bệnh chứa không khí thay vì nhu mô phổi xốp, tạo âm thanh giống gõ trống rỗng. Rì rào phế nang giảm hoặc mất vì lớp không khí trong khoang màng phổi hoạt động như lớp cách âm, ngăn cản sự truyền âm thanh từ phế nang ra thành ngực."
+    },
+    {
+        "question": "Dấu hiệu Silhouette sign do bác sĩ Benjamin Felson mô tả được áp dụng thế nào để định vị tổn thương phổi?",
+        "ground_truth": "Khi vùng phổi nằm sát cấu trúc giải phẫu (như tim hoặc hoành) bị đông đặc hoặc xẹp, chúng có cùng đậm độ mô mềm, làm mất đường ranh giới bình thường. Ứng dụng: mất bờ vòm nhĩ phải chỉ điểm tổn thương thùy giữa phổi phải; mất bờ thất trái chỉ điểm tổn thương phân thùy lưỡi phổi trái; mất đường viền vòm hoành gợi ý xẹp hoặc đông đặc thùy dưới."
+    },
+    {
+        "question": "Viêm phổi do Klebsiella pneumoniae có đặc điểm hình ảnh X-quang nào khác biệt so với viêm phổi phế cầu điển hình?",
+        "ground_truth": "Viêm phổi do Klebsiella thường gặp ở người già, người COPD hoặc nghiện rượu. Dịch viêm rất đặc và nhiều gây tăng thể tích thùy phổi rõ rệt, có thể thấy rãnh liên thùy lồi ra ngoài (bulging fissure sign) do áp lực dịch viêm đặc lấp đầy thùy. Ngược lại, viêm phổi phế cầu điển hình không gây phồng thùy."
+    },
+    {
+        "question": "Đường Kerley B trên X-quang ngực là gì và xuất hiện trong bối cảnh bệnh lý nào?",
+        "ground_truth": "Đường Kerley B là các vạch ngang ngắn (dài 1-2 cm, dày 1-2 mm) nằm vuông góc và sát bờ màng phổi, rõ nhất ở góc sườn hoành. Chúng xuất hiện khi áp lực mao mạch phổi tăng (PCWP 18-25 mmHg) gây dịch huyết tương rò rỉ vào mô kẽ và hạch bạch huyết rãnh liên thùy, điển hình trong giai đoạn phù mô kẽ của suy tim sung huyết."
+    },
+    {
+        "question": "Quy tắc 1/3 (Rule of Thirds) của Davidoff trong đánh giá tim trên phim X-quang nghiêng là gì?",
+        "ground_truth": "Quy tắc 1/3 gồm: ở bờ trước, đường viền trước tim chỉ chiếm 1/3 dưới khoảng cách từ khớp ức-đòn đến cơ hoành; ở bờ sau, nhĩ trái chiếm 1/3 trên và thất trái chiếm 2/3 dưới; thất trái dọc theo cơ hoành bình thường chỉ chiếm 1/3 chiều dài cơ hoành."
+    },
+    {
+        "question": "Thoát vị Morgagni-Larrey biểu hiện trên X-quang ngực thẳng và nghiêng như thế nào?",
+        "ground_truth": "Trên phim thẳng, thoát vị Morgagni là khối mờ tròn, bờ đều rõ nét ở góc tâm hoành phải. Nếu chứa mỡ mạc nối thì đậm độ đồng nhất, nếu có đại tràng thì có dải sáng chứa khí bên trong. Trên phim nghiêng, khối mờ nằm hoàn toàn ở khoảng không gian sau xương ức, ngay phía trước bóng tim và tựa lên vòm hoành trước."
+    },
+    {
+        "question": "Bệnh cơ tim giãn (Dilated Cardiomyopathy) biểu hiện trên X-quang ngực khác gì so với tràn dịch màng ngoài tim (Pericardial Effusion)?",
+        "ground_truth": "Trong bệnh cơ tim giãn, bóng tim to nhưng vẫn còn thấy các cung tim riêng biệt (bờ thất trái, cung động mạch phổi). Trong tràn dịch màng ngoài tim, dịch che phủ hoàn toàn các cung tim tạo hình ảnh 'bóng tim hình chai nước' (water bottle sign): bóng tim tỏa đều đối xứng, hình tròn dẹt, các góc tâm hoành bị tù và đường bờ mất sắc nét."
+    },
+    {
+        "question": "Xẹp phổi do cicatrization (sẹo xơ) khác gì về mặt tiên lượng và đặc điểm hình ảnh so với xẹp phổi do tắc nghẽn?",
+        "ground_truth": "Xẹp phổi do sẹo xơ là kết quả không thể đảo ngược của viêm mạn tính (lao, bụi phổi, xơ phổi do xạ trị), các dải mô xơ co rút kéo nhu mô xẹp lại. Thường tập trung ở thùy trên tạo dải mờ co kéo lồng ngực. Xẹp phổi do tắc nghẽn có thể hồi phục khi giải phóng tắc nghẽn bằng nội soi phế quản hoặc điều trị nguyên nhân."
+    },
+    {
+        "question": "Viêm phổi do SARS-CoV-2 (COVID-19) có đặc điểm hình ảnh đặc trưng nào trên X-quang và CT?",
+        "ground_truth": "Viêm phổi COVID-19 gây tổn thương kính mờ (ground-glass opacity) và đông đặc đa ổ phân bố vùng ngoại vi và đáy phổi hai bên theo hình thái đặc trưng. Tổn thương thường đối xứng hai bên, ngoại vi nhiều hơn trung tâm, với xu hướng tập trung ở vùng đáy phổi sau."
+    },
+    {
+        "question": "Dấu hiệu 'retrocardiac sail sign' (dấu cánh buồm sau tim) trên X-quang ngực chỉ điểm tổn thương gì?",
+        "ground_truth": "Dấu hiệu cánh buồm sau tim chỉ điểm xẹp thùy dưới phổi trái. Đây là đám mờ hình tam giác nhỏ với bờ mép bên ngoài phẳng hoặc lõm, lấp ló nhô ra khỏi giới hạn bên trái của bóng tim, xuất hiện vì toàn bộ đám mờ thùy dưới trái nằm phía sau và bị che khuất bởi bóng tim phía trước."
+    },
+    {
+        "question": "Thâm nhiễm phế nang và thâm nhiễm kẽ trên X-quang ngực có đặc điểm hình ảnh khác nhau như thế nào?",
+        "ground_truth": "Thâm nhiễm phế nang tạo ra đám mờ dạng bông xốp, ranh giới không rõ, có xu hướng hội tụ hòa nhập thành đám lớn, bờ chỉ sắc nét khi tựa vào màng phổi hay rãnh liên thùy. Thâm nhiễm kẽ tạo ra đường mờ, nốt mờ hoặc lưới-nốt, phân bố đều đối xứng, tổn thương có bờ sắc nét hơn và không hội tụ thành đám."
+    },
+    {
+        "question": "Cơ chế tàn phá phổi của khói thuốc lá trong khí phế thũng là gì?",
+        "ground_truth": "Chất độc trong khói thuốc kích hoạt dòng tế bào viêm (đặc biệt neutrophil) giải phóng các enzyme tiêu protein (protease), lấn át các chất ức chế tự nhiên trong phổi (đặc biệt là Alpha-1 Antitrypsin) và phân hủy protein cấu trúc elastin của vách phế nang, gây mất tính đàn hồi và giãn rộng vĩnh viễn các khoang chứa khí."
+    },
+    {
+        "question": "Tràn dịch màng phổi dịch lympho chỉ điểm nhóm bệnh lý nào?",
+        "ground_truth": "Tràn dịch màng phổi với dịch nhiều bạch cầu lympho điển hình cho các tổn thương tiến triển mạn tính như bệnh lao màng phổi hoặc các bệnh lý ác tính/ung thư di căn màng phổi. Đây là một trong các tiêu chí tế bào học quan trọng để định hướng nguyên nhân."
+    },
+    {
+        "question": "Tràn dịch màng phổi ái toan (Eosinophilic effusion) thường liên quan đến những nguyên nhân nào?",
+        "ground_truth": "Tràn dịch màng phổi ái toan (bạch cầu ái toan chiếm >10%) thường liên quan đến sự hiện diện của khí hoặc máu trong khoang màng phổi (sau thủ thuật chọc dò, chấn thương), nhiễm ký sinh trùng, hoặc do phản ứng thuốc."
+    },
+    {
+        "question": "Trong phân loại khí phế thũng theo giải phẫu bệnh, thể centrolobular và panlobular khác nhau như thế nào?",
+        "ground_truth": "Khí phế thũng centrolobular (trung tâm tiểu thùy) chủ yếu phá hủy phần trung tâm của acinus (tiểu phế quản hô hấp), thường liên quan đến hút thuốc và ưu thế ở thùy trên. Khí phế thũng panlobular (toàn tiểu thùy) phá hủy toàn bộ acinus đồng đều, điển hình cho thiếu hụt Alpha-1 Antitrypsin, phân bố đồng đều hoặc ưu thế đáy phổi."
+    },
+    {
+        "question": "Dấu hiệu Hilum overlay sign (che lấp rốn phổi) và Hilum convergence sign (hội tụ rốn phổi) được sử dụng để phân biệt điều gì?",
+        "ground_truth": "Hilum overlay sign: nếu mạch máu rốn phổi vẫn thấy xuyên qua đám mờ, đám mờ nằm trước hoặc sau rốn phổi, không phải tại rốn phổi. Hilum convergence sign: các mạch máu chìm vào trong khối mờ, xác nhận khối có nguồn gốc từ rốn phổi. Hai dấu hiệu này giúp phân biệt tổn thương mạch máu rốn phổi với tổn thương trung thất trước hoặc sau."
+    },
+    {
+        "question": "Hội chứng Shrinking Lung (Phổi Teo) trong Lupus Ban Đỏ Hệ Thống biểu hiện đặc trưng như thế nào trên X-quang?",
+        "ground_truth": "Hội chứng Phổi Teo trong SLE biểu hiện bằng thể tích phổi hai bên giảm nghiêm trọng trên X-quang, vòm hoành nâng cao bất thường và xẹp phổi vùng đáy hai bên, mặc dù CT loại trừ hoàn toàn xơ phổi. Bệnh nhân khó thở nặng do cơ hoành và cơ hô hấp bị ảnh hưởng thần kinh cơ chứ không do tổn thương nhu mô."
+    },
+    {
+        "question": "Bệnh nhân bị xẹp phổi thụ động (Passive Atelectasis) do tràn khí màng phổi - cơ chế nào giải thích sự xẹp phổi này?",
+        "ground_truth": "Phổi bản chất có tính đàn hồi cao, luôn muốn co rút về phía rốn phổi nhưng được giữ ở trạng thái nở rộng nhờ áp suất âm liên tục trong khoang kín màng phổi. Khi tràn khí màng phổi xảy ra, áp suất âm bị triệt tiêu, phổi giải phóng lực đàn hồi và tự động thư giãn co rút lại một cách thụ động."
+    },
+    {
+        "question": "Xẹp thùy dưới phổi phải trên X-quang ngực thẳng biểu hiện như thế nào và dễ bị bỏ sót trong trường hợp nào?",
+        "ground_truth": "Xẹp thùy dưới phổi phải biểu hiện là đám mờ hình tam giác, đỉnh chỉ lên rốn phổi và đáy bám vào nửa trong cơ hoành phải. Rốn phổi phải bị kéo tụt xuống thấp và vòm hoành phải nâng cao. Đám mờ này dễ bị bỏ sót vì thùy giữa nằm đệm phía trước che khuất, và đôi khi bị che phủ bởi bóng tim bên phải."
+    },
+    {
+        "question": "Giãn phế quản do co kéo (Traction Bronchiectasis) trong xơ phổi xuất hiện như thế nào trên X-quang?",
+        "ground_truth": "Các dải xơ cứng bám xung quanh thành phế quản khi co rút tạo lực kéo hướng tâm làm lòng phế quản bị giãn rộng không đều và vặn vẹo. Trên X-quang ngực, biểu hiện là các đường mờ song song từ rốn phổi ra ngoại vi ('dấu hiệu đường ray xe lửa' - tram-track sign) hoặc các cấu trúc dạng vòng mờ ở vùng sát màng phổi đáy phổi."
+    },
+    {
+        "question": "Angiotensin-converting enzyme (ACE) và các xét nghiệm bổ sung nào được dùng để theo dõi điều trị xơ phổi?",
+        "ground_truth": "Để đánh giá và theo dõi xơ phổi, các xét nghiệm quan trọng gồm: đo chức năng hô hấp (Spirometry) và dung tích khuếch tán CO (DLCO), xét nghiệm kháng thể tự miễn (ANA, anti-CCP, RF) để loại trừ bệnh tự miễn, sinh thiết phổi qua nội soi lồng ngực hoặc phẫu thuật để xác định mô bệnh học, và CT lồng ngực độ phân giải cao (HRCT) là phương tiện hình ảnh vàng để đánh giá mức độ xơ hóa."
+    },
+    {
+        "question": "Phù phổi cấp có biểu hiện lâm sàng đặc trưng nào giúp phân biệt ngay với các nguyên nhân khó thở cấp khác?",
+        "ground_truth": "Phù phổi cấp có ba biểu hiện đặc trưng: khó thở khi nằm (orthopnea) buộc bệnh nhân ngồi dậy để thở, ho khạc đờm bọt hồng (pink frothy sputum) là triệu chứng cực kỳ đặc hiệu do áp lực cao làm rách màng phế nang khiến dịch lẫn hồng cầu, và tiếng ran ẩm dâng lên nhanh từ hai đáy phổi lên đỉnh như thủy triều."
+    },
+    {
+        "question": "Viêm phổi hít sặc (Aspiration Pneumonia) thường biểu hiện ở phân thùy nào của phổi và tại sao?",
+        "ground_truth": "Viêm phổi hít sặc thường biểu hiện ở phân thùy sau thùy trên và phân thùy đỉnh thùy dưới khi bệnh nhân nằm ngửa, hoặc thùy dưới phổi phải khi bệnh nhân đứng, do phế quản thùy dưới phải có góc phân nhánh dốc hơn bên trái. Trọng lực đóng vai trò quyết định vị trí tổn thương."
+    },
+    {
+        "question": "Độ dày thành hang phổi trên CT là thông số tiên lượng ác tính như thế nào?",
+        "ground_truth": "Hang có thành mỏng dưới 4 mm hầu hết lành tính. Thành dày 5-15 mm là vùng xám lâm sàng (51% lành tính, 49% ác tính). Thành dày trên 16 mm có tỷ lệ ác tính lên đến 95%. Ung thư biểu mô tế bào vảy (squamous cell carcinoma) là thể mô học có tỷ lệ tạo hang cao nhất."
+    },
+    {
+        "question": "Thymoma (u tuyến ức) liên quan đến hội chứng cận ung thư nào và biểu hiện trên CT như thế nào?",
+        "ground_truth": "Thymoma liên quan chặt chẽ đến các hội chứng cận ung thư tự miễn như nhược cơ (myasthenia gravis), lupus ban đỏ hệ thống, viêm khớp dạng thấp và giảm gamma-globulin máu. Trên CT biểu hiện là khối đặc phân thùy được bao bọc bởi vách xơ, nằm ở trung thất trước, đỉnh điểm ở độ tuổi 40-60."
+    },
+    {
+        "question": "Bóng mờ của tuyến vú (Breast shadow) trên X-quang ngực có thể gây nhầm lẫn với tổn thương nào và cách phân biệt?",
+        "ground_truth": "Bóng vú lớn hoặc không đối xứng có thể làm mờ vùng đáy phổi hai bên, giả tượng thâm nhiễm phế nang thùy dưới. Phân biệt bằng cách: sử dụng tấm đánh dấu núm vú, chụp phim nghiêng hoặc chụp X-quang xóa xương. Bóng vú có bờ dưới đặc trưng song song với cơ hoành và không có dấu hiệu phế quản khí."
+    },
+    {
+        "question": "Ngón tay dùi trống (Digital clubbing) trong xơ phổi phản ánh cơ chế bệnh sinh nào?",
+        "ground_truth": "Ngón tay dùi trống gặp ở 25-50% bệnh nhân xơ phổi, phản ánh tình trạng thiếu oxy mô hệ thống mạn tính kéo dài. Thiếu oxy kéo dài kích thích sự phát triển của mô đệm dưới móng và đầu ngón, gây phình to đầu ngón tay và cong vòm bất thường của móng tay."
+    },
+    {
+        "question": "Cơ chế nào giải thích tại sao người lớn tuổi mắc COPD ít bị xẹp phổi tắc nghẽn hơn trẻ em?",
+        "ground_truth": "Ở người lớn tuổi mắc COPD, mạng lưới thông khí bàng hệ qua các lỗ Kohn và kênh Lambert phát triển rất phong phú, có thể cung cấp khí vòng qua điểm tắc nghẽn cho các phế nang hạ lưu. Trẻ em có đường bàng hệ kém phát triển nên phụ thuộc hoàn toàn vào luồng khí trực tiếp, dễ xẹp phổi hoàn toàn khi có tắc nghẽn."
+    },
+    {
+        "question": "Viêm phổi thùy (Lobar Pneumonia) do phế cầu có đặc điểm hình ảnh X-quang nào điển hình?",
+        "ground_truth": "Viêm phổi thùy do phế cầu tạo ra đám mờ đông đặc lan tỏa toàn bộ một thùy phổi, giới hạn bởi rãnh liên thùy, có dấu hiệu phế quản khí (air bronchogram) rõ ràng. Rãnh liên thùy giữ nguyên vị trí (không lồi, không lõm) và không có hiện tượng co kéo trung thất."
+    },
+    {
+        "question": "Tại sao hít thở FiO2 cao trước phẫu thuật được coi là yếu tố nguy cơ gây xẹp phổi hậu phẫu?",
+        "ground_truth": "Hít FiO2 cao trước phẫu thuật loại bỏ gần như toàn bộ nitrogen - khí trơ hoạt động như 'khung xương' duy trì thể tích phế nang. Khi phế quản bị tắc bởi dịch tiết hậu phẫu, toàn bộ khí còn lại (chủ yếu là oxy) bị hấp thu rất nhanh vào máu, gây xẹp phổi tái hấp thu trong vòng chưa đầy một giờ."
+    },
+    {
+        "question": "Bệnh bụi phổi than (Coal worker's pneumoconiosis) và bệnh bụi phổi silic (Silicosis) có thể gây xơ phổi theo cơ chế nào?",
+        "ground_truth": "Các hạt bụi than hoặc silic siêu nhỏ bị đại thực bào phế nang thực bào nhưng không thể tiêu hủy, giải phóng các cytokine gây xơ hóa (đặc biệt là TGF-beta và TNF-alpha) kéo dài, kích hoạt nguyên bào sợi tích tụ collagen liên tục trong mô kẽ phổi, dẫn đến xơ phổi tiến triển."
+    },
+    {
+        "question": "Phương trình Starling trong sinh lý màng phổi giải thích sự hình thành tràn dịch như thế nào?",
+        "ground_truth": "Phương trình Starling mô tả sự cân bằng giữa các lực thúc đẩy dịch ra khỏi mạch (áp lực thủy tĩnh mao mạch tăng) và các lực giữ dịch trong mạch (áp lực keo huyết tương). Tràn dịch xảy ra khi áp lực thủy tĩnh tăng (suy tim), áp lực keo giảm (giảm albumin), tính thấm màng tăng (viêm nhiễm), hoặc hệ bạch huyết dẫn lưu bị tắc nghẽn."
+    },
+    {
+        "question": "Ung thư biểu mô tuyến phổi (Adenocarcinoma) và ung thư biểu mô tế bào vảy (Squamous cell carcinoma) có phân bố giải phẫu điển hình khác nhau như thế nào?",
+        "ground_truth": "Ung thư biểu mô tuyến thường biểu hiện ở ngoại vi phổi dưới dạng nốt hoặc khối, hay gặp ở thùy trên. Ung thư biểu mô tế bào vảy thường phát sinh ở trung tâm (gần phế quản lớn), là thể mô học có tỷ lệ tạo hang cao nhất, thường biểu hiện là khối đặc thành dày không đều ở vùng trung tâm hoặc rốn phổi."
+    },
+    {
+        "question": "Dấu hiệu Bờ tim nham nhở (Shaggy heart border sign) trong xơ phổi xảy ra do cơ chế nào?",
+        "ground_truth": "Đường bờ sắc nét của bóng tim bị xóa mờ, trở nên mấp mô do cơ chế silhouette sign: vùng nhu mô phổi chứa khí sát bờ tim (thùy giữa phổi phải và phân thùy lưỡi phổi trái) bị thay thế bởi các dải sợi xơ kẽ và phế quản dày thành có đậm độ dịch, làm mất tương phản ranh giới tự nhiên giữa bóng tim và phổi."
+    },
+    {
+        "question": "Bệnh nhân xẹp phổi mạn tính do ung thư thường kèm triệu chứng toàn thân nào ngoài các triệu chứng hô hấp?",
+        "ground_truth": "Xẹp phổi mạn tính do ung thư thường được bọc lót bởi các triệu chứng toàn thân như sốt kéo dài, ho ra máu (hemoptysis) và sụt cân không rõ nguyên nhân. Các dấu hiệu này phản ánh cả tình trạng viêm tắc nghẽn mạn tính và đặc tính ác tính của khối u nguyên phát."
+    },
+    {
+        "question": "Tăng thông khí bù trừ (Compensatory Hyperinflation) sau xẹp phổi biểu hiện như thế nào trên X-quang?",
+        "ground_truth": "Nhu mô phổi bù trừ căng phồng quá mức biểu hiện là vùng tăng sáng (quá đen) do chứa thể tích khí thặng dư, mật độ phân nhánh của vân mạch máu thưa thớt hơn. Ở trường hợp nặng, nhu mô phổi lành có thể thoát vị vượt qua đường giữa cột sống sang hẳn khoang lồng ngực bên bệnh."
+    },
+    {
+        "question": "Hội chứng tĩnh mạch chủ trên (SVC Syndrome) biểu hiện lâm sàng nào và thường do nguyên nhân trung thất nào gây ra?",
+        "ground_truth": "Hội chứng tĩnh mạch chủ trên biểu hiện bằng phù áo khoác (phù mặt, cổ, chi trên), nổi tĩnh mạch cổ và khó thở dữ dội. Thường do khối u lympho trung thất trước hoặc ung thư phổi chèn ép tĩnh mạch chủ trên, là cấp cứu y khoa cần xử trí khẩn cấp."
+    },
+    {
+        "question": "Thuật ngữ 'phổi chết đuối' (Drowned lung) mô tả tình trạng gì trong xẹp phổi tắc nghẽn kéo dài?",
+        "ground_truth": "Khi sự tắc nghẽn phế quản do khối u kéo dài, vùng nhu mô phổi phía xa không chỉ bị xẹp mà còn bị viêm xuất tiết trầm trọng, tạo nên hội chứng 'phổi chết đuối' khi dịch viêm lấp đầy cả các khoang khí đã xẹp. Điều này khiến sự co rút thể tích bị hạn chế do bị bù đắp bởi dịch viêm."
+    },
+    {
+        "question": "Phân tích sự khác biệt về đặc điểm đường bờ tổn thương giữa nốt phổi lành tính và ác tính?",
+        "ground_truth": "Bờ nhẵn, sắc nét, đều đặn gợi ý lành tính (u hạt hoặc u lành tính), dù các khối di căn cũng có thể có bờ nhẵn. Bờ phân thùy (lobulated) do tốc độ tăng trưởng không đồng đều thường liên quan ác tính nhưng không đặc hiệu. Bờ tủa gai (spiculated - corona radiata) là dấu hiệu có giá trị dự báo ác tính cực cao, hình thành do tế bào ung thư xâm lấn theo vách liên kết kẽ."
+    },
+    {
+        "question": "Quy trình đánh giá ban đầu bắt buộc khi phát hiện tràn dịch màng phổi là gì và nhằm mục đích gì?",
+        "ground_truth": "Khi phát hiện tràn dịch màng phổi, cần chọc dò màng phổi chẩn đoán (thoracentesis) và phân tích dịch để xác định bản chất dịch thấm hay dịch tiết theo tiêu chuẩn Light, tế bào học, vi sinh và sinh hóa. Mục đích là định hướng nguyên nhân (suy tim, ung thư, lao, viêm nhiễm) để chỉ đạo điều trị đặc hiệu."
+    },
+    {
+        "question": "Tại sao hít FiO2 cao sau sinh ở trẻ sơ sinh có thể gây hại, liên quan đến cơ chế xẹp phổi?",
+        "ground_truth": "Ở trẻ sơ sinh có phổi chưa hoàn thiện với surfactant thiếu hụt, hít FiO2 cao làm tăng nguy cơ xẹp phổi tái hấp thu khi oxy được hấp thu nhanh từ phế nang mà không có nitrogen giữ thể tích. Ngoài ra, nồng độ oxy cao có thể gây độc tính oxy trực tiếp lên tế bào biểu mô phế nang non của trẻ sinh non."
+    },
+    {
+        "question": "Dấu hiệu góc carina giãn rộng (Splayed Carina) trên X-quang ngực chỉ điểm bất thường nào?",
+        "ground_truth": "Góc carina bình thường hẹp. Khi nhĩ trái phình to, nó chèn ép từ bên dưới đẩy phế quản chính trái nâng lên cao và nằm ngang, khiến góc carina mở rộng trên 90 độ. Đây là dấu hiệu kinh điển của nhĩ trái to, thường gặp nhất trong bệnh lý van hai lá (hẹp van hai lá do thấp tim)."
+    },
+    {
+        "question": "Viêm phổi tổ chức hóa (Organizing Pneumonia) có thể giả tượng tổn thương ác tính trên hình ảnh ở điểm nào?",
+        "ground_truth": "Viêm phổi tổ chức hóa có thể tạo ra bờ tủa gai (spiculated margins) giả tượng ung thư phổi, hoặc đám mờ đông đặc khu trú giả tượng ung thư biểu mô tuyến thể bám vách (lepidic). Đặc điểm giúp phân biệt: viêm phổi tổ chức hóa thường có dấu hiệu phế quản khí và đáp ứng tốt với corticosteroid."
+    },
+    {
+        "question": "Bệnh phổi kẽ (ILD) liên quan bệnh tự miễn (CTD-ILD) có các thể bệnh tự miễn nào và cơ chế tổn thương phổi ra sao?",
+        "ground_truth": "CTD-ILD gặp trong viêm khớp dạng thấp, xơ cứng bì hệ thống, viêm đa cơ/viêm da cơ và hội chứng Sjogren. Cơ chế: hệ miễn dịch tấn công trực tiếp vào cấu trúc collagen và mô kẽ phổi thông qua kháng thể tự miễn và tế bào lympho T hoạt hóa, gây viêm và xơ hóa kẽ phổi thứ phát."
+    },
+    {
+        "question": "Nội soi phế quản (Bronchoscopy) có vai trò gì trong điều trị xẹp phổi do nút nhầy?",
+        "ground_truth": "Nội soi phế quản bằng ống soi mềm là tiêu chuẩn vàng trong xẹp phổi do nút nhầy đặc không thể khạc ra, vừa chẩn đoán xác định vị trí tắc nghẽn vừa hút sạch dịch tiết hoặc loại bỏ dị vật, giúp phục hồi thông khí nhanh chóng. Đồng thời có thể sinh thiết để chẩn đoán khối u nội mạc phế quản nếu có."
+    },
+    {
+        "question": "Chỉ số đường kính ngang tim (TCD) trong theo dõi tiến triển bệnh tim có ý nghĩa thế nào?",
+        "ground_truth": "Sự gia tăng TCD từ 1.5 đến 2 cm giữa hai lần chụp liên tiếp trong cùng điều kiện kỹ thuật là dấu hiệu khẳng định chắc chắn có bệnh lý tim mạch tiến triển, bất kể CTR là bao nhiêu. Giá trị bình thường TCD khoảng 13.5-16.5 cm ở nam và 12.5-15.0 cm ở nữ."
+    },
+    {
+        "question": "Tràn khí màng phổi tự phát thứ phát (SSP) nguy hiểm hơn nguyên phát vì lý do nào?",
+        "ground_truth": "SSP là biến chứng của bệnh phổi nền đã có (COPD, lao, xơ phổi, xơ nang), nghĩa là chức năng hô hấp của bệnh nhân đã bị suy giảm từ trước. Do đó, dù chỉ một lượng khí nhỏ tràn vào khoang màng phổi cũng có thể gây suy hô hấp cấp tính nặng, trong khi PSP ở người phổi khỏe có thể dung nạp lượng khí lớn hơn."
+    },
+    {
+        "question": "Bệnh sarcoidosis phổi thường gây đám mờ hạch rốn phổi như thế nào và phân biệt với lao như thế nào?",
+        "ground_truth": "Sarcoidosis thường gây phì đại hạch rốn phổi đối xứng hai bên (hình ảnh 'hạch kép' - bilateral hilar adenopathy), đôi kèm tổn thương nhu mô dạng nốt quanh phế quản mạch. Phân biệt với lao: sarcoidosis thường đối xứng và không kèm đông đặc hoại tử, trong khi lao thường bất đối xứng, kèm đông đặc thùy trên và tạo hang, phổ biến ở bệnh nhân có tiếp xúc nguồn lây."
+    },
+    {
+        "question": "Thành phần cấu tạo của cơ hoành trong phôi thai học liên quan như thế nào đến nguy cơ thoát vị hoành bẩm sinh?",
+        "ground_truth": "Cơ hoành được hình thành từ bốn thành phần: vách trung gian (septum transversum), màng phổi-phúc mạc (pleuroperitoneal membranes), mạc treo thực quản và phần cơ thành ngực. Bất kỳ sự thiếu hụt hoặc chậm trễ nào trong quá trình hợp nhất, đặc biệt màng phổi-phúc mạc không đóng hoàn toàn trong tuần 8-10 thai kỳ, tạo ra các điểm yếu bẩm sinh dễ hình thành thoát vị Bochdalek."
+    },
+    {
+        "question": "Phổi trẻ sơ sinh bị thoát vị Bochdalek có hình ảnh X-quang như thế nào?",
+        "ground_truth": "Phổi trẻ sơ sinh bị thoát vị Bochdalek (thường bên trái) biểu hiện trên X-quang là phế trường bị thay thế hoàn toàn bởi cấu trúc đa nang chứa khí của quai ruột thoát vị. Nếu ruột chứa dịch, sẽ thấy vùng mờ đồng nhất. Trung thất bị đẩy lệch sang bên đối diện. Khoang bụng trống hơi, tạo hình ảnh bụng lõm hình thuyền."
+    },
+    {
+        "question": "U lympho trung thất trước có đặc điểm hình ảnh và triệu chứng hệ thống nào đặc trưng?",
+        "ground_truth": "U lympho trung thất trước biểu hiện là khối đa thùy lớn, phát triển bao vây nhưng không gây tắc hoàn toàn các mạch máu lớn, thường đi kèm tràn dịch màng ngoài tim và màng phổi. Triệu chứng hệ thống B điển hình: sốt không rõ nguyên nhân, sụt cân trên 10% trọng lượng cơ thể và mồ hôi trộm về đêm."
+    },
+    {
+        "question": "Xơ hóa phổi sau điều trị xạ trị ung thư có đặc điểm hình ảnh nào phân biệt với tổn thương ung thư tái phát?",
+        "ground_truth": "Xơ phổi sau xạ trị biểu hiện là đám mờ hoặc lưới mờ khu trú trong vùng chiếu xạ, bờ thẳng theo trường xạ, không vượt qua ranh giới trường xạ và ổn định theo thời gian (không tăng kích thước sau 12-18 tháng). Ung thư tái phát thường có bờ không thẳng, vượt qua ranh giới trường xạ và tăng kích thước theo thời gian theo dõi."
+    },
+    {
+        "question": "Dấu hiệu mức khí-dịch (Air-fluid level) trong thoát vị khe thực quản có ý nghĩa gì về mặt giải phẫu?",
+        "ground_truth": "Mức khí-dịch bên trong khối mờ retrocardiac phản ánh tình trạng dạ dày bị ứ đọng dịch vị và khí ngay phía trên cơ hoành trong thoát vị khe thực quản. Đây là đặc điểm hình ảnh quan trọng nhất để xác chẩn thoát vị khe thực quản trên phim X-quang ngực, vì mức khí-dịch chứng tỏ cấu trúc rỗng chứa dịch và khí (tức dạ dày) đã di lệch lên lồng ngực."
+    },
+    {
+        "question": "Đặc điểm vi trùng học nào của Staphylococcus aureus khiến nó gây viêm phổi hoại tử và tạo pneumatocele?",
+        "ground_truth": "Tụ cầu vàng tiết ra nhiều độc tố phá hủy mô (leucocidin, alpha-toxin) gây hoại tử lan rộng thành phế nang và đường thở nhỏ. Vùng hoại tử này bị tiêu hủy tạo thành các khoang rỗng chứa khí (pneumatoceles - nang khí thành mỏng) và dễ biến chứng tràn mủ màng phổi hoặc tràn khí-mủ màng phổi (pyopneumothorax)."
+    },
+    {
+        "question": "Nốt phổi đơn độc được phát hiện ở người hút thuốc lá dưới 35 tuổi có nguy cơ ác tính như thế nào?",
+        "ground_truth": "Nốt phổi phát hiện ở người dưới 35 tuổi hiếm khi là ung thư, ngay cả khi có tiền sử hút thuốc. Nguy cơ ác tính tăng theo tuổi và tăng gấp đôi sau mỗi thập kỷ, đặc biệt từ 50 tuổi trở lên. Ở người trẻ, nguyên nhân lành tính như u hạt nhiễm trùng (lao, histoplasmosis) hay u lành tính (hamartoma) thường gặp hơn nhiều."
+    },
+    {
+        "question": "Bệnh cơ tim giãn (Dilated cardiomyopathy) do lạm dụng rượu có đặc điểm tiên lượng gì khi bệnh nhân cai rượu?",
+        "ground_truth": "Bệnh cơ tim giãn do rượu là một trong số ít các thể bệnh cơ tim giãn có thể cải thiện hoặc hồi phục một phần khi bệnh nhân ngừng hoàn toàn việc uống rượu ở giai đoạn chưa quá tiến triển. Tuy nhiên, nếu tổn thương cơ tim đã không hồi phục hoàn toàn, bệnh tiếp tục tiến triển dù cai rượu."
+    },
+    {
+        "question": "Phân thùy lưỡi (Lingula) trong xẹp phổi có dấu hiệu X-quang đặc trưng nào?",
+        "ground_truth": "Xẹp phân thùy lưỡi xóa nhòa đường bờ tâm thất trái (bờ tim trái) do cơ chế silhouette sign, tạo đám mờ ở vùng cạnh tim trái trên phim thẳng. Khác với xẹp thùy giữa phổi phải (mất bờ nhĩ phải), xẹp lưỡi phổi trái không tạo ra lực kéo đủ để thay đổi vị trí rốn phổi trái."
+    },
+    {
+        "question": "Bệnh nhân xơ cứng bì hệ thống (Systemic Sclerosis) có biểu hiện phổi nào thường gặp nhất trên X-quang?",
+        "ground_truth": "Xơ cứng bì hệ thống thường gây xơ phổi kẽ (ILD) biểu hiện là tổn thương lưới mờ, kính mờ và tổ ong ở vùng đáy và ngoại vi phổi hai bên. Ngoài ra còn có thể gây tăng áp động mạch phổi thứ phát biểu hiện là thân động mạch phổi giãn to và giãn thất phải trên X-quang."
+    },
+    {
+        "question": "Bullae (bóng khí lớn) trong khí phế thũng khác gì với pneumatocele (nang khí sau nhiễm trùng)?",
+        "ground_truth": "Bullae là vùng thấu quang đen hoàn toàn, không có vân mạch máu, bao quanh bởi đường viền mờ mảnh dưới 1mm, hình thành từ sự phá hủy mạn tính vách phế nang trong khí phế thũng. Pneumatocele là nang khí thành mỏng xuất hiện sau nhiễm trùng (đặc biệt tụ cầu vàng), thường có thành dày hơn và có xu hướng tự thoái triển sau vài tuần đến vài tháng."
+    },
+    {
+        "question": "Tràn khí màng phổi áp lực (Tension Pneumothorax) là cấp cứu y khoa vì cơ chế gì?",
+        "ground_truth": "Trong tràn khí màng phổi áp lực, khí tiếp tục tích tụ trong khoang màng phổi qua cơ chế van một chiều (khí vào khi hít thở nhưng không ra được). Áp lực dương tăng dần đẩy trung thất sang bên đối diện, chèn ép tim và tĩnh mạch chủ, giảm hồi lưu tĩnh mạch về tim phải, gây suy tuần hoàn cấp và tử vong nếu không giải áp khẩn cấp."
+    },
+    {
+        "question": "Aspergilloma (u nấm phổi) trên X-quang ngực có dấu hiệu đặc trưng nào?",
+        "ground_truth": "Aspergilloma biểu hiện là khối mờ tròn hoặc bầu dục nằm trong một hang phổi có sẵn (thường do lao cũ hoặc kén xơ phổi), được bao quanh bởi một viền khí hình liềm (air crescent sign) giữa thành hang và khối nấm. Khối nấm có thể thay đổi vị trí khi chụp ở tư thế khác nhau (dấu hiệu rolling ball)."
+    },
+    {
+        "question": "Phù phổi không do tim (Non-cardiogenic/ARDS) khác với phù phổi do tim trên lâm sàng và X-quang ở những điểm nào?",
+        "ground_truth": "ARDS: xuất hiện sau yếu tố khởi phát (nhiễm trùng huyết, chấn thương, viêm tụy), áp lực tĩnh mạch chủ trên và PCWP bình thường hoặc thấp, đám mờ đối xứng nhưng thường ít rõ phân phối theo tư thế, không có đường Kerley B và ít có tràn dịch màng phổi. Phù phổi tim: có bệnh tim nền, PCWP tăng, đáp ứng nhanh với lợi tiểu, phân phối tư thế rõ hơn."
+    },
+    {
+        "question": "Vôi hóa lệch tâm (Eccentric calcification) trong nốt phổi là dấu hiệu nghi ngờ gì?",
+        "ground_truth": "Vôi hóa lệch tâm hoặc vôi hóa vô định hình trong nốt phổi là dấu hiệu nghi ngờ ác tính cao, biểu thị một khối ung thư biểu mô phế quản đang phát triển bao vây một nốt vôi hóa lành tính có sẵn từ trước (ung thư 'thôn tính' vôi hóa cũ), hoặc bản thân khối u đang bị hoại tử và vôi hóa thứ phát."
+    },
+    {
+        "question": "Bài học từ sai sót chẩn đoán: tại sao lõm ngực (Pectus excavatum) có thể bị nhầm với thâm nhiễm thùy giữa phổi phải?",
+        "ground_truth": "Trong lõm ngực, xương ức bị đẩy ra sau ép vào nhu mô phổi vùng thùy giữa phổi phải và đẩy lệch tim sang trái. Trên phim X-quang ngực thẳng, vùng nhu mô phổi bị ép tạo đám mờ lớn cạnh bờ tim phải, mô phỏng hoàn hảo thâm nhiễm thùy giữa. Chụp thêm phim nghiêng phát hiện xương ức lõm để loại trừ bẫy này."
+    },
+    {
+        "question": "Chỉ số tế bào CD4 ảnh hưởng như thế nào đến hình ảnh X-quang của lao phổi ở bệnh nhân HIV?",
+        "ground_truth": "Ở bệnh nhân HIV có CD4 thấp (dưới 200), lao thường biểu hiện bằng đông đặc thùy dưới, hạch bạch huyết rốn phổi to và tràn dịch màng phổi - hình ảnh giống lao sơ nhiễm. Ở bệnh nhân có miễn dịch còn ổn định (CD4 cao), lao thường gây đông đặc thùy trên kèm tạo hang - hình ảnh lao tái hoạt điển hình."
+    },
+    {
+        "question": "Nốt phổi lành tính do u hamartoma có đặc điểm hình ảnh nào trên CT giúp xác nhận chẩn đoán?",
+        "ground_truth": "U hamartoma phổi có dấu hiệu đặc trưng là vôi hóa dạng bắp rang (popcorn-like calcification) trên CT - do chứa mô sụn vôi hóa - kèm đậm độ mỡ bên trong (density dưới -40 HU). Đây là hai tiêu chí đặc hiệu cao giúp xác nhận hamartoma mà không cần sinh thiết, miễn là không có yếu tố nguy cơ ác tính cao."
+    },
+    {
+        "question": "Ung thư biểu mô tiểu phế quản phế nang (Bronchioloalveolar Carcinoma - BAC) gây xẹp phổi theo cơ chế đặc biệt nào?",
+        "ground_truth": "BAC (nay gọi là ung thư biểu mô tuyến thể bám vách - lepidic adenocarcinoma) gây xẹp phổi theo cơ chế thay thế (replacement atelectasis): tế bào ung thư tăng sinh dọc theo thành phế nang mà không phá hủy cấu trúc, từ từ lấp đầy các khoang phế nang bằng tế bào ác tính thay vì khí, biến không gian chứa khí thành khối đặc tế bào."
+    },
+    {
+        "question": "Trong chụp phim X-quang ngực, bệnh nhân hít vào không đủ sâu ảnh hưởng đến việc đánh giá tim như thế nào?",
+        "ground_truth": "Khi hít vào kém (cơ hoành không hạ xuống ngang cung sườn thứ 6 phía trước), cơ hoành bị đẩy lên cao ép trái tim bè ra theo chiều ngang, làm tăng giả tạo chỉ số TCD (đường kính ngang tim) và CTR. Điều này có thể dẫn đến chẩn đoán giả bóng tim to (pseudocardiomegaly) ở bệnh nhân thực ra có kích thước tim bình thường."
+    },
+    {
+        "question": "Mũ màng phổi đỉnh (Apical cap) một bên không đối xứng gợi ý chẩn đoán gì so với mũ đỉnh đối xứng?",
+        "ground_truth": "Mũ màng phổi đỉnh đối xứng hai bên thường là biểu hiện lành tính do lão hóa hoặc sẹo lao cũ. Mũ màng phổi đỉnh bất đối xứng, đặc biệt một bên, cần cảnh giác với u đỉnh phổi (u Pancoast) - một khối ung thư phổi nguyên phát ở đỉnh phổi có thể xâm lấn đỉnh lồng ngực, gây hội chứng Horner và đau vai cổ tay."
+    },
+    {
+        "question": "Phương trình Starling trong đánh giá phù phổi và tràn dịch màng phổi có vai trò gì trong hệ thống hỗ trợ quyết định lâm sàng?",
+        "ground_truth": "Phương trình Starling giải thích sự tích tụ dịch ngoài mạch qua bốn biến số: tăng áp lực thủy tĩnh mao mạch (suy tim), giảm áp lực keo huyết tương (giảm albumin), tăng tính thấm màng (viêm nhiễm, ARDS), và tắc nghẽn hệ bạch huyết (u ác tính). Hiểu cơ chế giúp hướng điều trị đúng đích: lợi tiểu (tăng áp lực thủy tĩnh), bổ sung albumin (giảm áp keo), kháng sinh/corticoid (tăng tính thấm)."
+    },
+    {
+        "question": "Tại sao ung thư phổi nguyên phát hay xuất hiện ở thùy trên hơn thùy dưới?",
+        "ground_truth": "Khoảng 70% ung thư phổi nguyên phát tập trung ở các thùy trên, đặc biệt thùy trên phổi phải. Điều này được giải thích bởi vùng thùy trên nhận lượng khí hít vào và các chất gây ung thư (từ thuốc lá) nhiều hơn do phân phối thông khí ưu thế ở vùng đỉnh khi đứng, đồng thời lưu lượng dịch bạch huyết chậm hơn ở vùng đỉnh làm chất gây ung thư lưu lại lâu hơn."
+    },
+    {
+        "question": "Xơ nang (Cystic Fibrosis) gây xẹp phổi tắc nghẽn theo cơ chế nào và thường ở vị trí nào?",
+        "ground_truth": "Xơ nang gây rối loạn bài tiết và vận chuyển chất nhầy do đột biến protein CFTR, làm chất nhầy đặc quánh tích tụ trong đường thở. Các nút nhầy đặc này bít tắc phế quản gây xẹp phổi tái hấp thu. Xẹp phổi thường ở thùy trên và phân thùy sau, là vị trí dẫn lưu dịch tiết kém nhất."
+    },
+    {
+        "question": "Điểm nhấn trong quản lý hậu phẫu để phòng ngừa xẹp phổi bao gồm những biện pháp nào?",
+        "ground_truth": "Phòng ngừa xẹp phổi hậu phẫu bao gồm: vật lý trị liệu hô hấp (tập hít thở sâu, khuyến khích ho), vận động sớm sau mổ, tránh thuốc opioid quá mức (ức chế phản xạ ho), sử dụng CPAP hoặc incentive spirometry, dẫn lưu tư thế và vỗ rung lồng ngực, và cai thuốc lá ít nhất 6-8 tuần trước phẫu thuật."
+    },
+    {
+        "question": "Ung thư u carcinoid phổi (Pulmonary Carcinoid) biểu hiện trên X-quang như thế nào và khác gì với ung thư phổi tế bào nhỏ?",
+        "ground_truth": "U carcinoid phổi thường là u nội tiết thần kinh ác tính thấp, biểu hiện là nốt tròn hoặc khối bờ nhẵn ở trung tâm (gây xẹp phổi sau tắc nghẽn) hoặc ngoại vi, thường không kèm hạch to. Ung thư phổi tế bào nhỏ thường biểu hiện khối u lớn ở trung tâm-rốn phổi kèm hạch trung thất lớn, tiến triển rất nhanh và có đặc điểm cận ung thư thần kinh đặc trưng."
+    },
+    {
+        "question": "Bệnh Lymphangiomyomatosis (LAM) gây các tổn thương phổi nào trên hình ảnh?",
+        "ground_truth": "LAM gây sự tăng sinh cơ trơn bất thường dọc theo bạch huyết phổi, tạo ra nhiều kén khí đồng đều, thành mỏng, phân bố lan tỏa cả hai phổi (khác với khí phế thũng thường ưu thế thùy trên). LAM cũng gây tràn dịch dưỡng trấp màng phổi (chylothorax) và thường chỉ gặp ở phụ nữ trong độ tuổi sinh đẻ."
+    },
+    {
+        "question": "Viêm phổi tổ chức hóa mật độ (Cryptogenic Organizing Pneumonia - COP) có đặc điểm hình ảnh nào đặc trưng?",
+        "ground_truth": "COP thường biểu hiện là các đám đông đặc di chuyển (migratory consolidation) - đám mờ xuất hiện ở một vị trí rồi lại tái phát ở vị trí khác - phân bố ưu thế ở vùng dưới và ngoại vi phổi. Dấu hiệu 'vành đảo ngược' (Reversed halo/Atoll sign) - đám kính mờ trung tâm bao quanh bởi vùng đông đặc dày hơn ở ngoại vi - khá đặc trưng trên CT."
+    },
+    {
+        "question": "Khí quản hình bao kiếm (Saber-sheath trachea) trong khí phế thũng mô tả hình thái biến dạng nào?",
+        "ground_truth": "Khí quản hình bao kiếm là biến dạng khí quản trong phần lồng ngực, bị hẹp theo chiều ngang trên phim thẳng (đường kính ngang nhỏ hơn 2/3 đường kính trước sau) nhưng lại rộng ra theo chiều trước-sau trên phim nghiêng. Đây là hệ quả của sự căng phồng phổi mạn tính trong khí phế thũng gây áp lực lên thành bên khí quản."
+    },
+    {
+        "question": "Bệnh Langerhans Cell Histiocytosis (LCH) phổi có hình ảnh X-quang đặc trưng nào và khác gì với LAM?",
+        "ground_truth": "LCH phổi biểu hiện là tổn thương kén khí và nốt mờ phân bố ưu thế ở vùng trên và giữa phổi, thường chừa lại vùng đáy và góc sườn hoành. Khác với LAM (kén đồng đều, phân bố toàn phổi, chỉ ở nữ), LCH hay gặp hơn ở nam giới hút thuốc nhiều, kén thường không đều nhau về hình dạng và kích thước."
+    },
+    {
+        "question": "Thoát vị khe thực quản Type IV biểu hiện như thế nào và tại sao cần phẫu thuật khẩn cấp?",
+        "ground_truth": "Thoát vị khe thực quản Type IV là dạng khổng lồ với toàn bộ dạ dày (dạ dày lộn ngược) cùng các tạng khác (đại tràng, tiểu tràng, mạc nối) chui lên ngực. Trên X-quang, khối mờ choán gần hết nửa dưới lồng ngực với nhiều bóng khí và mức dịch. Cần phẫu thuật khẩn cấp vì nguy cơ hoại tử tạng do thiếu máu (volvulus dạ dày, tắc ruột) rất cao."
+    },
+    {
+        "question": "Dấu Incomplete border sign (bờ không hoàn toàn) giúp phân biệt tổn thương trong và ngoài nhu mô phổi như thế nào?",
+        "ground_truth": "Dấu hiệu bờ không hoàn toàn xuất hiện ở tổn thương ngoài phổi (màng phổi, xương sườn, thành ngực): bờ phía tiếp xúc với nhu mô phổi chứa khí thì rõ nét, trong khi bờ đối diện hòa vào mô mềm thành ngực nên bị xóa mờ. Ngược lại, tổn thương trong nhu mô phổi có bờ rõ nét toàn bộ chu vi vì được bao bọc bởi phế nang chứa khí."
+    },
+    {
+        "question": "Tại sao việc xây dựng hệ thống RAG (Retrieval-Augmented Generation) cho phân tích ảnh X-quang phổi cần chuẩn hóa thuật ngữ theo Hiệp hội Fleischner?",
+        "ground_truth": "Hệ thống RAG cần chuẩn hóa thuật ngữ theo Fleischner Society vì các báo cáo X-quang đến từ nhiều nguồn sử dụng thuật ngữ không đồng nhất. Sự thiếu nhất quán (ví dụ: 'thâm nhiễm' vs 'đám mờ', 'đường Kerley B' vs 'dày vách gian tiểu thùy') làm giảm độ chính xác của vector embedding và khả năng truy xuất ngữ nghĩa. Chuẩn hóa tạo ra ontology y tế nhất quán cho cả indexing lẫn retrieval."
+    },
+    {
+        "question": "Đường viền descending aorta (động mạch chủ xuống) bị xóa mờ trên X-quang ngực chỉ điểm tổn thương ở đâu?",
+        "ground_truth": "Theo nguyên lý silhouette sign, khi đường viền động mạch chủ xuống bị xóa mờ, tổn thương nằm ở khoang ngực sau cùng đậm độ mô mềm tiếp xúc với thành động mạch chủ. Điển hình là xẹp thùy dưới phổi trái - đám mờ thùy dưới nằm phía sau tim và tiếp xúc với động mạch chủ xuống, xóa mờ đường viền của nó."
+    },
+    {
+        "question": "Viêm phổi do Mycoplasma pneumoniae có đặc điểm lâm sàng và hình ảnh nào khác với viêm phổi điển hình?",
+        "ground_truth": "Viêm phổi Mycoplasma hay gặp ở thanh thiếu niên, tiến triển từ từ với ho khan kéo dài nổi bật hơn sốt (viêm phổi 'đi được' - walking pneumonia). Hình ảnh X-quang thường là tổn thương kẽ lan tỏa một hoặc hai thùy dưới, ít gây đông đặc thùy điển hình như phế cầu. Điều trị bằng macrolide hoặc tetracycline, không đáp ứng với beta-lactam."
+    },
+    {
+        "question": "Bướu giáp thòng (Retrosternal goiter) vào trung thất có đặc điểm hình ảnh CT đặc trưng nào?",
+        "ground_truth": "Bướu giáp thòng trên CT có đậm độ tự nhiên cao hơn mô mềm thông thường (do chứa iod), bắt thuốc cản quang rất mạnh, và có liên tục với tuyến giáp ở cổ trên phim. Thường nằm ở trung thất trước trên, đẩy khí quản lệch sang một bên. Vôi hóa kiểu vỏ trứng hoặc không đều có thể thấy trong các vùng thoái hóa."
+    },
+    {
+        "question": "Phân biệt xẹp phổi thụ động (relaxation) do tràn khí màng phổi với xẹp phổi do chèn ép (compressive) do tràn dịch màng phổi về mặt cơ chế và hình ảnh?",
+        "ground_truth": "Xẹp phổi thụ động do tràn khí: áp lực âm khoang màng phổi bị triệt tiêu hoàn toàn, phổi co rút theo đàn hồi tự nhiên, thường xẹp nhanh và toàn bộ. Xẹp phổi do chèn ép do tràn dịch: áp lực dương của dịch từ ngoài vào ép phổi, xẹp theo hướng lực ép từ phía dưới-sau theo trọng lực, thường là xẹp vùng đáy không hoàn toàn, phục hồi khi dẫn lưu dịch."
+    },
+    {
+        "question": "Hội chứng Goodpasture gây đông đặc phổi theo cơ chế miễn dịch nào?",
+        "ground_truth": "Hội chứng Goodpasture là bệnh tự miễn do kháng thể anti-GBM (anti-glomerular basement membrane antibody) tấn công chéo vào màng đáy phế nang-mao mạch phổi, phá hủy hàng rào phế nang-mao mạch, gây xuất huyết phế nang lan tỏa. Hồng cầu tràn ào ạt vào phế nang tạo đám mờ đông đặc và dấu hiệu phế quản khí trên X-quang."
+    },
+    {
+        "question": "Tại sao viêm phổi do Legionella hay gặp ở người sử dụng nước điều hòa không khí?",
+        "ground_truth": "Vi khuẩn Legionella pneumophila sinh trưởng tối ưu trong nước ấm 25-42 độ C, đặc biệt trong hệ thống tháp làm mát, bình nước nóng và đường ống nước bị đọng. Vi khuẩn phát tán vào không khí qua sol khí (aerosol) từ các thiết bị này. Người hít phải sol khí ô nhiễm dễ bị nhiễm Legionella, đặc biệt người cao tuổi, hút thuốc hoặc suy giảm miễn dịch."
+    },
+    {
+        "question": "Bệnh nhân xơ phổi có nguy cơ tràn khí màng phổi từ cơ chế nào?",
+        "ground_truth": "Xơ phổi tạo ra các tổn thương tổ ong (honeycombing) và kén khí ở ngoại vi gần màng phổi. Các kén khí thành xơ này có thể vỡ tự phát hoặc do áp lực ho mạnh, tạo thông thương với khoang màng phổi. Đây là tràn khí màng phổi tự phát thứ phát (SSP) và đặc biệt nguy hiểm vì bệnh nhân đã có chức năng hô hấp suy giảm từ trước."
+    },
+    {
+        "question": "Tiêu chuẩn vàng (Gold standard) để chẩn đoán xác định và đánh giá chức năng tim là gì?",
+        "ground_truth": "Siêu âm tim (Echocardiogram) là tiêu chuẩn vàng không thể thiếu để đánh giá tim, cho phép đo đạc kích thước thực tế từng buồng tim (mm), độ dày vách cơ tim, chức năng các van tim và quan trọng nhất là tính toán Phân suất tống máu (EF - Ejection Fraction) để đánh giá khả năng bơm máu thực tế."
+    },
+    {
+        "question": "Trào ngược dạ dày thực quản (GERD) liên quan đến xơ phổi theo cơ chế nào?",
+        "ground_truth": "GERD gây vi hít sặc mạn tính axit và enzyme tiêu hóa từ dạ dày vào phổi qua cơ chế trào ngược âm thầm, đặc biệt khi ngủ. Axit gây tổn thương lặp đi lặp lại biểu mô phế nang, kích hoạt phản ứng sửa chữa bất thường dẫn đến tích tụ nguyên bào sợi và xơ hóa mô kẽ phổi theo thời gian."
+    },
+    {
+        "question": "Bệnh Pneumocystis jirovecii Pneumonia (PCP) có hình ảnh X-quang đặc trưng nào và hay gặp ở đối tượng nào?",
+        "ground_truth": "PCP gây đám mờ kính mờ (ground-glass opacity) lan tỏa đối xứng hai bên, bắt đầu từ vùng rốn phổi và lan ra ngoại vi, trên nền bệnh nhân không sốt cao như viêm phổi vi khuẩn. Điển hình gặp ở bệnh nhân suy giảm miễn dịch nặng (HIV/AIDS với CD4 dưới 200, hoặc ghép tạng đang dùng ức chế miễn dịch liều cao)."
+    },
+    {
+        "question": "Phân suất tống máu (Ejection Fraction - EF) bình thường là bao nhiêu và ngưỡng EF nào gọi là suy tim chức năng thu tâm giảm?",
+        "ground_truth": "EF bình thường là 55-70%. Suy tim với EF giảm (HFrEF - Heart Failure with reduced Ejection Fraction) được định nghĩa khi EF dưới 40%. EF từ 40-49% là suy tim EF trung gian (HFmrEF), còn EF từ 50% trở lên nhưng có triệu chứng suy tim là suy tim EF bảo tồn (HFpEF)."
+    },
+    {
+        "question": "Thuốc Amiodarone có thể gây độc phổi theo cơ chế nào và hình ảnh X-quang như thế nào?",
+        "ground_truth": "Amiodarone gây độc phổi theo hai cơ chế: độc tính phospholipid trực tiếp lên tế bào biểu mô phế nang và viêm phổi tăng cảm tự miễn. Hình ảnh X-quang: đám mờ đông đặc hoặc kính mờ thường ưu thế ở thùy trên và ngoại vi, có thể kèm xơ hóa lan tỏa. Amiodarone chứa iod nên đôi khi thấy tổn thương có đậm độ cao bất thường trên CT."
+    },
+    {
+        "question": "Ung thư phổi biểu hiện xẹp phổi một bên toàn bộ có điểm nào giúp định hướng nguyên nhân trên X-quang?",
+        "ground_truth": "Khi xẹp phổi một bên toàn bộ do ung thư, trên X-quang thường thấy dấu hiệu S ngược Golden khi khối u ở rốn phổi làm rãnh liên thùy bị kéo tạo đường cong S. Khí quản lệch về bên xẹp, trung thất kéo mạnh về phía bệnh. Siêu âm và CT xác định khối u tắc nghẽn phế quản gốc. Phân biệt với nguyên nhân lành tính (nút nhầy) qua nội soi phế quản."
+    },
+    {
+        "question": "Thoát vị hoành kiểu Bochdalek ở người trưởng thành khác gì so với ở trẻ sơ sinh về mặt biểu hiện lâm sàng?",
+        "ground_truth": "Ở trẻ sơ sinh, thoát vị Bochdalek gây suy hô hấp cấp ngay sau sinh do thiểu sản phổi và tăng áp động mạch phổi, cần phẫu thuật khẩn cấp. Ở người trưởng thành, thoát vị Bochdalek nhỏ bị bỏ sót từ trẻ em hoặc hình thành muộn thường không có triệu chứng hoặc chỉ gây đau ngực, khó thở khi gắng sức, và thường được phát hiện tình cờ khi chụp phim vì lý do khác."
+    },
+    {
+        "question": "Peptide BNP và NT-proBNP trong đánh giá suy tim có ý nghĩa gì?",
+        "ground_truth": "BNP (B-type natriuretic peptide) và NT-proBNP được tiết ra khi cơ tim bị kéo căng quá mức do quá tải thể tích hoặc áp lực. Nồng độ tăng cao trong suy tim cấp và mạn tính, giúp chẩn đoán phân biệt nguyên nhân khó thở do tim hay không do tim, đánh giá mức độ nặng và theo dõi đáp ứng điều trị. NT-proBNP có thời gian bán hủy dài hơn, thuận lợi hơn cho xét nghiệm định kỳ."
+    },
+    {
+        "question": "Bệnh nhân xơ gan có nguy cơ tràn dịch màng phổi theo cơ chế nào?",
+        "ground_truth": "Xơ gan gây tràn dịch màng phổi (thường bên phải) theo hai cơ chế: giảm tổng hợp albumin (giảm áp lực keo huyết tương gây tràn dịch thấm) và dịch cổ trướng ổ bụng thấm qua các lỗ khuyết nhỏ trên cơ hoành vào khoang màng phổi. Tràn dịch màng phổi do xơ gan được gọi là hepatic hydrothorax."
+    },
+    {
+        "question": "Tràn dịch màng phổi ác tính do ung thư di căn thường từ ung thư nguyên phát nào ở nam và nữ?",
+        "ground_truth": "Ở nam giới, tràn dịch màng phổi ác tính thường từ ung thư phổi nguyên phát di căn màng phổi. Ở nữ giới, ung thư vú là nguyên nhân hàng đầu gây tràn dịch màng phổi ác tính. Ngoài ra, u trung biểu mô màng phổi nguyên phát (mesothelioma) liên quan đến phơi nhiễm amiăng là nguyên nhân đặc biệt quan trọng ở cả hai giới."
+    },
+    {
+        "question": "Nội soi phế quản phát hiện u carcinoid phổi trung tâm cần lưu ý điều gì đặc biệt?",
+        "ground_truth": "U carcinoid rất giàu mạch máu, sinh thiết qua nội soi phế quản có nguy cơ chảy máu ồ ạt rất cao. Bác sĩ nội soi cần chuẩn bị sẵn sàng phương tiện cầm máu và không sinh thiết bướu nếu chưa được chuẩn bị kỹ. Ngoài ra, u carcinoid tiết hormone (serotonin, ACTH) có thể gây hội chứng carcinoid cần theo dõi khi sinh thiết."
+    },
+    {
+        "question": "Bệnh nhân tràn dịch màng phổi chylothorax (dưỡng trấp) thường liên quan đến nguyên nhân nào?",
+        "ground_truth": "Chylothorax xảy ra khi ống ngực (thoracic duct) bị tổn thương hoặc tắc nghẽn, làm dưỡng chấp tràn vào khoang màng phổi. Nguyên nhân chính: chấn thương hoặc phẫu thuật lồng ngực làm rách ống ngực, u lympho (đặc biệt lymphoma) xâm lấn hoặc chèn ép ống ngực, và bệnh LAM (Lymphangiomyomatosis) gây giãn và rò rỉ bạch huyết phổi."
+    },
+    {
+        "question": "Trên phim X-quang ngực, làm sao phân biệt đám mờ do bóng vú (Breast shadow) với đám mờ do viêm phổi thùy dưới?",
+        "ground_truth": "Bóng vú có bờ dưới đặc trưng song song và liên tục với cơ hoành, trong khi viêm phổi thường không có ranh giới dưới nhất quán. Viêm phổi thùy dưới có dấu hiệu phế quản khí (air bronchogram), xóa mờ đường viền cơ hoành và góc sườn hoành, còn bóng vú thì không. Chụp phim nghiêng hoặc đánh dấu núm vú giúp xác định bóng vú không di chuyển theo tư thế."
+    },
+    {
+        "question": "Sarcoidosis phổi có các đặc điểm hình ảnh đặc trưng nào trên CT ngực?",
+        "ground_truth": "Sarcoidosis phổi trên CT thường biểu hiện nốt dọc theo bạch mạch (perilymphatic nodules) phân bố quanh phế quản-mạch máu, rãnh liên thùy và màng phổi. Nốt thường 1-5 mm, bờ rõ, phân bố vùng trên và giữa phổi. Kèm theo là hạch rốn phổi và trung thất đối xứng đặc trưng (bilateral symmetric hilar lymphadenopathy)."
+    },
+    {
+        "question": "Hiện tượng V/Q mismatch (bất tương xứng thông khí-tưới máu) trong xẹp phổi gây hậu quả sinh lý gì?",
+        "ground_truth": "Trong xẹp phổi, vùng nhu mô bị xẹp không còn thông khí nhưng vẫn được tưới máu, tạo ra đơn vị phổi với tỷ lệ V/Q=0 (luồng thông nội phổi - intrapulmonary shunt). Máu tĩnh mạch không được oxy hóa qua vùng xẹp hòa vào tĩnh mạch phổi và tuần hoàn hệ thống, gây giảm PaO2 (hypoxemia). Đây là nguyên nhân chính gây thiếu oxy trong xẹp phổi."
+    },
+    {
+        "question": "Tại sao bệnh nhân sau phẫu thuật lồng ngực có nguy cơ xẹp phổi cao?",
+        "ground_truth": "Sau phẫu thuật lồng ngực, nhiều cơ chế phối hợp gây xẹp phổi: đau vết mổ khiến bệnh nhân hạn chế hít thở sâu (splinting), thuốc opioid ức chế phản xạ ho làm ứ đọng dịch tiết gây tắc nghẽn, FRC giảm ở tư thế nằm ngửa gây xẹp vùng đáy do chèn ép, và sử dụng FiO2 cao trong mổ gây xẹp tái hấp thu."
+    },
+    {
+        "question": "Viêm phổi do RSV (Respiratory Syncytial Virus) ở trẻ em có biểu hiện lâm sàng và hình ảnh đặc trưng nào?",
+        "ground_truth": "RSV là nguyên nhân hàng đầu gây nhiễm trùng đường hô hấp dưới ở trẻ nhỏ, gây viêm tiểu phế quản và viêm phổi. Biểu hiện lâm sàng: thở khò khè (wheezing), thở nhanh, rút lõm lồng ngực. Hình ảnh X-quang: căng phồng phổi hai bên (hyperinflation), tăng sáng phế trường, dày thành phế quản (peribronchial cuffing) và có thể có đám mờ đông đặc khi bội nhiễm vi khuẩn."
+    },
+    {
+        "question": "Kỹ thuật chụp X-quang ngực đứng (Erect) và nằm ngửa (Supine) khác nhau như thế nào trong phát hiện tràn dịch màng phổi?",
+        "ground_truth": "Chụp đứng: dịch tự do theo trọng lực xuống đáy phổi tạo đường cong Meniscus rõ và tù góc sườn hoành. Cần khoảng 200-300 mL để phát hiện. Chụp nằm ngửa: dịch lan ra phía sau dọc theo thành ngực tạo đám mờ dạng kính mờ (veil-like opacity) toàn phế trường bên tổn thương, không có đường Meniscus, cần lượng dịch rất lớn (trên 500 mL) mới phát hiện được."
+    },
+    {
+        "question": "Viêm phổi hoại tử do vi khuẩn Gram âm (Gram-negative necrotizing pneumonia) có đặc điểm biến chứng nào trên X-quang?",
+        "ground_truth": "Viêm phổi hoại tử do vi khuẩn Gram âm (Pseudomonas, Klebsiella, Acinetobacter) gây phá hủy mô, tạo các vùng hoại tử và hang trong đám đông đặc. Trên X-quang và CT: xuất hiện các vùng giảm đậm độ hoặc hang trong đám đông đặc, đôi kèm mức khí-dịch trong hang. Biến chứng: tràn mủ màng phổi, tràn khí-mủ màng phổi, áp xe phổi."
+    },
+    {
+        "question": "Bệnh nhân thở máy dài ngày có nguy cơ tràn khí màng phổi do cơ chế nào?",
+        "ground_truth": "Thở máy áp lực dương (Positive Pressure Ventilation) với PEEP cao và áp lực đỉnh lớn có thể gây barotrauma (chấn thương áp lực) làm vỡ phế nang yếu hoặc bullae. Khí thoát ra có thể tạo khí thũng gian kẽ phổi (pulmonary interstitial emphysema - PIE), tràn khí trung thất (pneumomediastinum) và cuối cùng tràn khí màng phổi áp lực (tension pneumothorax)."
+    },
+    {
+        "question": "Tổn thương dạng kính mờ (Ground Glass Opacity - GGO) trên CT ngực khác với đông đặc (Consolidation) ở điểm nào?",
+        "ground_truth": "GGO là vùng tăng đậm độ mờ nhẹ không đủ để xóa mờ các cấu trúc mạch máu và phế quản bên trong, phản ánh tổn thương một phần (dịch kẽ hoặc tổn thương phế nang một phần). Đông đặc là tổn thương đặc hoàn toàn xóa mờ mọi cấu trúc mạch máu và phế quản trong vùng tổn thương (trừ dấu hiệu phế quản khí). GGO thường phản ánh tổn thương ít nặng hơn hoặc giai đoạn sớm."
+    },
+    {
+        "question": "Pleural plaques (mảng màng phổi) do amiăng phân bố ở đâu và chừa vùng nào?",
+        "ground_truth": "Mảng màng phổi do amiăng phân bố chọn lọc ở lá thành màng phổi thành ngực bên, cơ hoành và trung thất, nhưng đặc biệt chừa lại vùng đỉnh phổi và góc sườn hoành. Phân bố này (chừa đỉnh và góc sườn hoành) là đặc điểm giúp phân biệt với các nguyên nhân dày màng phổi khác."
+    },
+    {
+        "question": "Phân biệt hai nguyên nhân tăng sáng phế trường một bên trên X-quang ngực: tràn khí màng phổi và khí phế thũng cạnh vách đơn độc lớn (giant bulla)?",
+        "ground_truth": "Tràn khí màng phổi: vùng tăng sáng không có vân mạch máu, có đường viền màng phổi tạng rõ nét (visceral pleural line) song song với thành ngực, trung thất thường lệch sang bên đối diện khi lượng lớn. Giant bulla: vùng tăng sáng được bao quanh bởi đường viền mỏng của thành bóng khí, vân mạch máu bị đẩy ra ngoại vi, trung thất không lệch vì bulla nằm trong nhu mô phổi."
+    },
+    {
+        "question": "Tổn thương nốt quanh bạch mạch (Perilymphatic nodules) trong sarcoidosis phân bố như thế nào và giúp phân biệt với các thể phân bố nốt khác ra sao?",
+        "ground_truth": "Nốt perilymphatic trong sarcoidosis phân bố dọc theo bạch mạch phổi: quanh phế quản-mạch máu (bronchovascular), dọc rãnh liên thùy và màng phổi. Phân biệt: nốt centrilobular (trung tâm tiểu thùy) thường do viêm phế quản hoặc di căn mạch máu; nốt random (ngẫu nhiên) phân bố đều không theo cấu trúc giải phẫu thường gặp trong di căn hematogenous hay miliary TB."
+    },
+    {
+        "question": "Viêm phổi do nấm Histoplasma capsulatum ở bệnh nhân suy giảm miễn dịch có biểu hiện hình ảnh nào?",
+        "ground_truth": "Ở bệnh nhân suy giảm miễn dịch, histoplasmosis lan tỏa biểu hiện là tổn thương nốt miliary (hạt kê) lan tỏa đồng đều hai phổi, kèm hạch rốn phổi và trung thất to. Ở người miễn dịch bình thường, nhiễm cấp tính gây đám mờ đông đặc một thùy hoặc nhiều ổ; nhiễm mạn tính để lại nốt vôi hóa u hạt cũ và có thể tạo hang ở thùy trên."
+    },
+    {
+        "question": "Dấu hiệu vành tia sáng (Corona radiata / Sunburst sign) trong ung thư phổi xuất hiện do cơ chế gì?",
+        "ground_truth": "Dấu hiệu corona radiata xuất hiện khi tế bào ung thư xâm lấn lan ra ngoài khối u chính theo các vách liên kết kẽ và dải mạch bạch huyết xung quanh tổn thương, tạo ra các tia mờ nhỏ tỏa ra từ bề mặt khối u như vầng hào quang. Trên CT, biểu hiện là bờ tủa gai (spiculated margins) với các tia mờ ngắn hướng vào nhu mô xung quanh."
+    },
+    {
+        "question": "Bệnh nhân sau cắt thùy phổi (Lobectomy) có hình ảnh X-quang ngực bình thường nào cần biết để tránh nhầm lẫn?",
+        "ground_truth": "Sau cắt thùy phổi, khoảng trống do thùy bị cắt được bù lấp bởi: giãn nở bù trừ các thùy còn lại, lệch trung thất về phía bên mổ, nâng cao vòm hoành cùng bên và hẹp khoảng liên sườn. Những thay đổi này là bình thường sau phẫu thuật và không nên nhầm với xẹp phổi bệnh lý hay biến chứng. Chụp phim baseline ngay sau mổ giúp so sánh theo dõi."
+    },
+    {
+        "question": "Viêm màng ngoài tim co thắt (Constrictive Pericarditis) khác với tràn dịch màng ngoài tim trên X-quang ngực như thế nào?",
+        "ground_truth": "Tràn dịch màng ngoài tim tạo bóng tim hình chai nước to nhanh. Viêm màng ngoài tim co thắt thường có vôi hóa màng ngoài tim (pericardial calcification) dạng vỏ trứng quanh bóng tim trên X-quang - dấu hiệu gần như đặc hiệu. Kích thước bóng tim trong co thắt thường không to như tràn dịch. CT hoặc MRI giúp phân biệt rõ hơn."
+    },
+    {
+        "question": "Dưỡng chấp (chylomicrons) trong dịch màng phổi dưỡng trấp (Chylothorax) có đặc điểm sinh hóa nào giúp xác định?",
+        "ground_truth": "Chylothorax được xác định bằng dịch màng phổi có màu trắng đục như sữa (do chứa dưỡng chấp), triglyceride >110 mg/dL, và tỷ lệ triglyceride dịch/huyết thanh >1. Xét nghiệm lipoprotein electrophoresis phát hiện chylomicrons trong dịch. Phân biệt với dịch giả dưỡng trấp (pseudochylothorax) do cholesterol cao: dạng này có cholesterol >200 mg/dL nhưng triglyceride thấp."
+    },
+    {
+        "question": "Bệnh nhân nghi ngờ viêm phổi và xét nghiệm cấy máu âm tính, cần xét nghiệm nào khác để tìm tác nhân vi khuẩn không điển hình?",
+        "ground_truth": "Để phát hiện vi khuẩn không điển hình gây viêm phổi, cần xét nghiệm: xét nghiệm kháng nguyên niệu Legionella (nhanh, đặc hiệu cao), kháng nguyên niệu phế cầu (Streptococcus pneumoniae), PCR đờm cho Mycoplasma pneumoniae và Chlamydia pneumoniae, huyết thanh chẩn đoán cặp đôi (paired serology) với mẫu cấp và mẫu hồi phục, và cấy đờm BAL nếu có nội soi phế quản."
+    },
+    {
+        "question": "Bệnh phổi kẽ liên quan viêm khớp dạng thấp (RA-ILD) có các thể mô bệnh học nào thường gặp nhất?",
+        "ground_truth": "RA-ILD thường biểu hiện dưới hai thể mô bệnh học chính: UIP (Usual Interstitial Pneumonia) - thể có tiên lượng xấu nhất với tổn thương tổ ong vùng đáy, và NSIP (Nonspecific Interstitial Pneumonia) - thể đáp ứng tốt hơn với corticoid, biểu hiện kính mờ và lưới mờ đồng đều vùng đáy. Ngoài ra còn có OP (Organizing Pneumonia) và DIP (Desquamative Interstitial Pneumonia) ít gặp hơn."
+    },
+    {
+        "question": "Khi phát hiện nốt phổi trên CT, ngưỡng kích thước nào theo hướng dẫn Fleischner Society 2017 cần theo dõi và ngưỡng nào cần sinh thiết?",
+        "ground_truth": "Theo Fleischner Society 2017: nốt đặc (solid) <6 mm ở người nguy cơ thấp không cần theo dõi; nốt 6-8 mm cần CT theo dõi sau 6-12 tháng; nốt >8 mm cần CT có cản quang hoặc PET-CT sau 3 tháng và xem xét sinh thiết/cắt bỏ. Nốt bán đặc (part-solid) và kính mờ (GGO) có ngưỡng theo dõi thấp hơn (từ >6 mm) do nguy cơ ác tính ưu thế là ung thư tuyến."
+    },
+    {
+        "question": "Cơ chế tạo tiếng ran nổ cuối thì hít vào (Late inspiratory crackles) trong xơ phổi khác gì với ran nổ sớm trong COPD?",
+        "ground_truth": "Ran nổ cuối thì hít vào (Velcro crackles) trong xơ phổi tạo ra do sự mở ra đột ngột của các phế quản nhỏ và phế nang bị xơ cứng, dính lại bởi mô kẽ dày vào cuối thì hít vào khi áp lực đạt đủ để thắng lực xơ dính. Ran nổ sớm (early inspiratory crackles) trong COPD do dịch nhầy trong đường thở lớn bị bóc tách ngay từ đầu thì hít vào, nghe thô hơn và giống ran nổ trong phế quản."
+    },
+    {
+        "question": "Tràn khí màng phổi dưới da (Subcutaneous emphysema) liên quan đến tràn khí màng phổi như thế nào?",
+        "ground_truth": "Khí từ khoang màng phổi có thể lan vào mô dưới da theo đường bạch huyết và qua các khe hở cân mạc, gây tràn khí màng phổi dưới da (subcutaneous emphysema). Trên X-quang biểu hiện các dải sáng chứa khí trong lớp mô mềm thành ngực và cổ. Đây thường là biểu hiện gián tiếp của tràn khí màng phổi hoặc chấn thương đường thở."
+    },
+    {
+        "question": "Bệnh nhân dùng corticoid dài ngày có nguy cơ đặc biệt nào liên quan đến viêm phổi?",
+        "ground_truth": "Corticoid dài ngày ức chế hệ miễn dịch tế bào và miễn dịch bẩm sinh, đặc biệt làm giảm chức năng đại thực bào phế nang và tế bào lympho T. Điều này tăng nguy cơ viêm phổi do các tác nhân cơ hội: Pneumocystis jirovecii (PCP), nấm Aspergillus (aspergillosis xâm lấn), lao tái hoạt, Nocardia, Strongyloides và CMV (cytomegalovirus)."
+    },
+    {
+        "question": "Siêu âm màng phổi (Thoracic Ultrasound) có ưu điểm nào vượt trội so với X-quang ngực trong đánh giá tràn dịch màng phổi?",
+        "ground_truth": "Siêu âm màng phổi có thể phát hiện dịch từ 5-50 mL (nhạy hơn nhiều so với X-quang cần 200-300 mL), phân biệt tràn dịch tự do với tràn dịch khu trú có vách ngăn (loculated effusion), hướng dẫn chọc dò an toàn, và đánh giá được tức thì bên giường bệnh. Siêu âm cũng phân biệt được đông đặc phổi với tràn dịch và không phát xạ."
+    },
+    {
+        "question": "Amiodarone liều cao điều trị rung nhĩ có thể gây bóng tim to thông qua cơ chế nào?",
+        "ground_truth": "Amiodarone gây tràn dịch màng ngoài tim (pericardial effusion) như một tác dụng phụ hiếm gặp, làm bóng tim to trên X-quang dạng hình chai nước. Ngoài ra, amiodarone có thể gây suy giáp (hypothyroidism) dẫn đến tràn dịch màng ngoài tim và suy tim. Độc tính phổi của amiodarone cũng gây phù phổi không do tim, tạo hình ảnh mờ hai phổi."
+    },
+    {
+        "question": "Viêm phổi do vi khuẩn kỵ khí (Anaerobic bacteria) thường gây biến chứng nào và hình ảnh đặc trưng trên X-quang?",
+        "ground_truth": "Viêm phổi do vi khuẩn kỵ khí (thường do hít sặc nội dung miệng/dạ dày) thường biến chứng áp xe phổi. Hình ảnh X-quang: đám đông đặc thùy dưới hoặc phân thùy sau thùy trên, trong đó xuất hiện hang hoại tử chứa mức khí-dịch (air-fluid level). Tràn mủ màng phổi cùng bên thường gặp. Đặc điểm lâm sàng: diễn tiến chậm nhiều tuần, đờm thối mùi."
+    },
+    {
+        "question": "Chấn thương ngực kín gây dập phổi (Pulmonary contusion) có hình ảnh X-quang như thế nào và tiến triển ra sao?",
+        "ground_truth": "Dập phổi gây đám mờ đông đặc không theo phân bố thùy, thường xuất hiện ngay sau chấn thương hoặc trong vòng 6 giờ đầu và đạt mức độ tối đa trong 24-48 giờ. Đặc trưng của dập phổi là phân bố vùng chịu lực tác động trực tiếp, thường là vùng ngoại vi. Nếu không biến chứng, đám mờ tự hết trong 3-7 ngày. Biến chứng ARDS kéo dài mờ hơn."
+    },
+    {
+        "question": "Các dấu hiệu tiên lượng xấu trên X-quang ngực trong thoát vị Bochdalek sơ sinh là gì?",
+        "ground_truth": "Các dấu hiệu tiên lượng xấu trước mổ gồm: tràn khí màng phổi đối bên (do thông khí cơ học quá áp lực trên phổi thiểu sản), thiếu hoàn toàn hình ảnh nhu mô phổi lành ở cả hai bên, dạ dày di lệch hoàn toàn lên lồng ngực và trung thất lệch nặng sang bên đối diện. Quan sát thấy một phần phổi cùng bên còn chứa khí là dấu hiệu tiên lượng sống sót tốt."
+    },
+    {
+        "question": "Phân biệt mũ màng phổi đỉnh (Apical cap) lành tính với u Pancoast trên X-quang ngực?",
+        "ground_truth": "Mũ màng phổi đỉnh lành tính: thường đối xứng hai bên, bờ dưới nhẵn hoặc lượn sóng, kích thước ổn định qua thời gian, không hủy xương. U Pancoast (ung thư đỉnh phổi): một bên, không đối xứng, bờ không đều, tăng kích thước, thường kèm hủy xương sườn 1-2 hoặc thân đốt sống liền kề, đau vai lan xuống tay và hội chứng Horner (sụp mi, co đồng tử, mất mồ hôi nửa mặt)."
+    },
+    {
+        "question": "Xẹp phổi hậu phẫu xảy ra phổ biến nhất trong khoảng thời gian nào sau phẫu thuật?",
+        "ground_truth": "Xẹp phổi hậu phẫu xảy ra phổ biến nhất trong vòng 72 giờ sau phẫu thuật dưới gây mê toàn thân, với tỷ lệ lên đến 90% bệnh nhân. Thời điểm nguy hiểm nhất là ngay sau phẫu thuật khi bệnh nhân còn hôn mê hoặc mới tỉnh, chưa có phản xạ ho hiệu quả và đang nằm ở tư thế nằm ngửa làm giảm FRC."
+    },
+    {
+        "question": "Bệnh Mesothelioma màng phổi ác tính (Malignant Pleural Mesothelioma) có đặc điểm X-quang nào giúp phân biệt với tràn dịch màng phổi thông thường?",
+        "ground_truth": "Mesothelioma màng phổi ác tính biểu hiện dày màng phổi toàn diện dạng vỏ bọc (circumferential pleural thickening) bao quanh toàn bộ phổi, dày không đều, thường kèm tràn dịch màng phổi lớn nhưng không gây đẩy trung thất sang bên đối diện (vì màng phổi cứng cố định phổi). Khoảng sườn co hẹp và thể tích phế trường giảm đặc trưng cho mesothelioma."
+    },
+    {
+        "question": "Bleomycin và Methotrexate có thể gây độc phổi theo cơ chế nào?",
+        "ground_truth": "Bleomycin gây độc phổi trực tiếp lên tế bào biểu mô phế nang và nguyên bào sợi, kích hoạt sản xuất các gốc oxy tự do phá hủy tế bào và thúc đẩy xơ hóa. Methotrexate gây phản ứng viêm phổi tăng cảm (hypersensitivity pneumonitis), không liên quan đến liều dùng, biểu hiện là đám mờ kính mờ cấp tính đáp ứng tốt với corticoid khi ngừng thuốc."
+    },
+    {
+        "question": "Cơ chế nào giải thích tại sao tràn dịch màng phổi do thuyên tắc phổi (PE) thường là dịch tiết?",
+        "ground_truth": "Thuyên tắc phổi gây nhồi máu nhu mô phổi sát màng phổi thành, tạo ra phản ứng viêm khu trú tại chỗ. Phản ứng viêm này giải phóng các chất trung gian hóa học (prostaglandins, leukotrienes, cytokines) làm tăng tính thấm mao mạch màng phổi, khiến dịch rỉ giàu protein thoát ra khoang màng phổi - đặc điểm của dịch tiết theo tiêu chuẩn Light."
+    },
+    {
+        "question": "Khí phế thũng cạnh vách (Paraseptal emphysema) do hút cần sa mãn tính có đặc điểm phân bố nào?",
+        "ground_truth": "Khí phế thũng cạnh vách do hút cần sa mãn tính phân bố chủ yếu dưới màng phổi (subpleural) và dọc theo vách liên tiểu thùy (interlobular septa) ở vùng trên phổi. Tổn thương thường tạo thành các bullae lớn ở vùng đỉnh phổi, khác với khí phế thũng centrolobular do thuốc lá thông thường tập trung ở trung tâm tiểu thùy."
+    },
+    {
+        "question": "Bệnh nhân đa chấn thương có vết thương ngực hở - nguyên tắc xử trí tràn khí màng phổi hở là gì?",
+        "ground_truth": "Tràn khí màng phổi hở (open pneumothorax) được xử trí bằng băng bịt vết thương ba mặt (three-sided occlusive dressing): ba mặt được dán kín, còn một mặt để hở như van một chiều, cho phép khí thoát ra khi thở ra nhưng không vào khi hít vào. Sau đó cần dẫn lưu màng phổi chính thức và đóng vết thương. Tránh bịt kín hoàn toàn vết thương vì có thể gây tràn khí áp lực."
+    },
+    {
+        "question": "Bệnh nhân COPD giai đoạn IV theo phân loại GOLD có hình ảnh X-quang điển hình nào?",
+        "ground_truth": "COPD giai đoạn IV (rất nặng, FEV1 <30% dự đoán) biểu hiện trên X-quang: cơ hoành dẹt và hạ thấp, lồng ngực hình thùng (đường kính trước-sau tăng), khoảng sáng sau xương ức giãn rộng, tim thon nhỏ hình giọt nước, khí quản hình bao kiếm, bóng khí (bullae) nếu có khí phế thũng, và các dấu hiệu tăng áp phổi (thân động mạch phổi to, cắt cụt mạch ngoại vi)."
+    },
+    {
+        "question": "Viêm phổi do Pseudomonas aeruginosa trong bệnh viện có đặc điểm tiến triển nào trên X-quang?",
+        "ground_truth": "Viêm phổi do Pseudomonas trong ICU thường tiến triển nhanh và hai bên, ban đầu là đám mờ đông đặc thùy dưới hai bên, sau đó lan rộng ra cả hai phổi. Đặc điểm nguy hiểm: tiến triển rất nhanh trong 24-48 giờ, dễ hoại tử và tạo hang, kháng nhiều kháng sinh và có tỷ lệ tử vong cao. Thường đi kèm nhiễm trùng huyết Gram âm."
+    },
+    {
+        "question": "Dấu hiệu 'water bottle sign' (hình chai nước) trong tràn dịch màng ngoài tim được giải thích bởi cơ chế gì?",
+        "ground_truth": "Khi dịch tích tụ trong khoang màng ngoài tim (pericardial effusion) đủ lớn, nó tạo áp lực đều đặn xung quanh toàn bộ trái tim, làm cho bóng tim mở rộng đều đặn về mọi phía tạo hình dạng tròn, dẹt, đối xứng giống hình chai nước. Đặc điểm: bóng tim to nhanh, tất cả các cung tim bình thường bị xóa mờ, góc tâm hoành tù, và hình dạng thay đổi nhanh trên các lần chụp liên tiếp."
+    },
+    {
+        "question": "Biến chứng tràn khí màng phổi sau chọc dò màng phổi (Thoracentesis) xảy ra với tỷ lệ bao nhiêu và thường ở phía nào của lồng ngực?",
+        "ground_truth": "Tràn khí màng phổi sau chọc dò màng phổi (iatrogenic pneumothorax) xảy ra với tỷ lệ khoảng 3-6% khi chọc dò mù và dưới 1% khi có hướng dẫn siêu âm. Thường xảy ra cùng bên với vị trí chọc dò do kim đâm thủng màng phổi tạng. Siêu âm hướng dẫn thực hiện thủ thuật là biện pháp tiêu chuẩn để giảm thiểu biến chứng này."
+    },
+    {
+        "question": "Xơ phổi sau xạ trị (Radiation-induced pulmonary fibrosis) tiến triển theo giai đoạn nào?",
+        "ground_truth": "Xơ phổi sau xạ trị tiến triển qua hai giai đoạn: Viêm phổi do xạ (Radiation pneumonitis) xảy ra 4-12 tuần sau xạ trị, biểu hiện đám mờ kính mờ và đông đặc trong trường xạ, kèm triệu chứng ho, khó thở, sốt nhẹ. Giai đoạn xơ hóa (Radiation fibrosis) bắt đầu 6-12 tháng sau, tổn thương ổn định dưới dạng đám mờ co rút với bờ thẳng theo trường xạ, kéo co các cấu trúc lân cận."
+    },
+    {
+        "question": "Dấu hiệu đường Kerley A trên X-quang ngực khác gì với đường Kerley B?",
+        "ground_truth": "Đường Kerley B là các vạch ngang ngắn (1-2 cm) vuông góc với màng phổi ở đáy phổi, do dịch trong vách gian tiểu thùy. Đường Kerley A là các đường dài (4-5 cm) chạy từ rốn phổi ra ngoại vi theo hướng chéo, do phù bạch huyết trục trung tâm và mô kẽ sâu hơn. Cả hai xuất hiện trong phù mô kẽ nhưng Kerley B thường thấy trước và dễ nhận biết hơn trên phim thường quy."
+    },
+    {
+        "question": "Tại sao bệnh nhân bị xẹp phổi mạn tính không điều trị có thể phát triển tăng áp động mạch phổi?",
+        "ground_truth": "Vùng phổi xẹp thiếu oxy phế nang kích hoạt co thắt mạch máu phổi do thiếu oxy (hypoxic pulmonary vasoconstriction - HPV). Nếu xẹp phổi diện rộng và kéo dài, HPV làm tăng sức cản mạch máu phổi toàn thể, dẫn đến tăng áp động mạch phổi (pulmonary hypertension). Gánh nặng này dội ngược về tâm thất phải, theo thời gian gây giãn, phì đại và cuối cùng là suy tim phải (cor pulmonale)."
+    },
+    {
+        "question": "Độ nhạy của X-quang ngực thẳng trong phát hiện khí phế thũng là bao nhiêu và tại sao CT lại vượt trội hơn?",
+        "ground_truth": "Độ nhạy của X-quang ngực trong phát hiện khí phế thũng chỉ khoảng 40% cho giai đoạn nhẹ đến trung bình. CT lồng ngực (đặc biệt CT độ phân giải cao - HRCT) vượt trội vì có độ phân giải không gian cao hơn nhiều, có thể phát hiện các bóng khí nhỏ (bullae), phân loại type khí phế thũng (centrolobular, panlobular, paraseptal), đánh giá chính xác mức độ lan rộng và phát hiện biến chứng (ung thư phổi trong bullae)."
+    },
+    {
+        "question": "Phân biệt các dạng tràn dịch màng phổi bằng siêu âm như thế nào?",
+        "ground_truth": "Trên siêu âm: dịch thấm (transudate) thường là vùng trống âm (anechoic) đồng nhất. Dịch tiết (exudate) có thể có echo phức tạp với các sợi fibrin nổi, vách ngăn (septa) hoặc echo dày. Tràn mủ màng phổi (empyema): dịch đặc, echo nhiều, có thể thấy mức khí-dịch. Tràn máu màng phổi (hemothorax): dịch có echo hỗn hợp, cục máu đông có thể thấy là khối echo cao. Tràn dưỡng trấp (chylothorax): thường anechoic nhưng đôi có sự phân lớp."
+    },
+    {
+        "question": "Viêm phổi do COVID-19 nặng tiến triển thành ARDS - các tiêu chuẩn chẩn đoán ARDS Berlin là gì?",
+        "ground_truth": "Tiêu chuẩn Berlin định nghĩa ARDS gồm: (1) Khởi phát cấp tính trong vòng 1 tuần sau tác nhân khởi phát; (2) Đám mờ hai bên trên X-quang/CT không do tràn dịch màng phổi, xẹp phổi hoặc nốt; (3) Không giải thích được hoàn toàn bằng suy tim hoặc quá tải dịch; (4) Chỉ số PaO2/FiO2: nhẹ 200-300 mmHg, trung bình 100-200 mmHg, nặng <100 mmHg (đều với PEEP ≥5 cmH2O)."
+    },
+    {
+        "question": "Điểm khác biệt chính về đặc điểm hình ảnh giữa viêm phổi vi khuẩn (Bacterial pneumonia) và viêm phổi virus (Viral pneumonia)?",
+        "ground_truth": "Viêm phổi vi khuẩn điển hình thường gây đông đặc thùy một bên, bờ theo rãnh liên thùy, với dấu hiệu phế quản khí. Viêm phổi virus thường gây tổn thương kẽ lan tỏa hai bên (ngoại trừ viêm phổi virus nặng như COVID-19 gây đông đặc đa ổ), thường đối xứng, phân bố theo phân thùy, kèm dày thành phế quản và căng phồng phổi (đặc biệt ở trẻ em với RSV)."
+    },
+    {
+        "question": "Hệ thống phân loại thoát vị hoành do chấn thương theo thời gian (Type 1, 2, 3) có ý nghĩa lâm sàng gì?",
+        "ground_truth": "Type 1 (Cấp tính): chẩn đoán ngay trong giai đoạn cấp cứu, phẫu thuật sửa chữa sớm dễ thực hiện nhất, ít biến chứng nhất. Type 2 (Trì hoãn): phát hiện trong giai đoạn hồi phục, tạng thoát vị chưa bị nghẹt, phẫu thuật trung bình khó. Type 3 (Biến chứng muộn): bệnh nhân đến muộn với biến chứng tắc nghẽn, thiếu máu hoặc hoại tử tạng, phẫu thuật nguy hiểm nhất và tỷ lệ tử vong cao nhất."
+    },
+    {
+        "question": "Tại sao viêm màng phổi do amiăng (Benign asbestos pleural effusion - BAPE) quan trọng cần phát hiện và theo dõi?",
+        "ground_truth": "BAPE là biểu hiện sớm nhất của phơi nhiễm amiăng tại màng phổi, xuất hiện 10-20 năm sau phơi nhiễm. Mặc dù BAPE tự lành, bệnh nhân có nguy cơ cao sau này phát triển: dày màng phổi lan tỏa, xẹp phổi dạng tròn, và quan trọng nhất là u trung biểu mô màng phổi ác tính (Mesothelioma) có thể xuất hiện 30-40 năm sau phơi nhiễm. Phát hiện sớm BAPE giúp thiết lập chương trình theo dõi dài hạn."
+    },
+    {
+        "question": "Mảng màng phổi (Pleural plaques) có phải là tiền ung thư (precancerous lesion) không? Tại sao cần theo dõi?",
+        "ground_truth": "Mảng màng phổi bản thân không phải là tiền ung thư và không trực tiếp chuyển thành u trung biểu mô (mesothelioma). Tuy nhiên, sự hiện diện của mảng màng phổi là bằng chứng xác nhận bệnh nhân đã phơi nhiễm amiăng đủ nặng, và amiăng mới là tác nhân gây mesothelioma. Do đó cần theo dõi định kỳ bằng CT ngực mỗi 3-5 năm để phát hiện sớm mesothelioma, ung thư phổi hoặc dày màng phổi tiến triển."
+    },
+    {
+        "question": "Nốt phổi đơn độc ở bệnh nhân có tiền sử ung thư ngoài phổi - cần tiếp cận như thế nào?",
+        "ground_truth": "Bệnh nhân có tiền sử ung thư ngoài phổi và phát hiện nốt phổi mới cần được xem xét di căn đơn độc (solitary metastasis) như một khả năng quan trọng. Cần CT toàn thân (whole-body CT hoặc PET-CT) để tìm di căn khác. Nếu nốt đơn độc không kèm di căn nơi khác, sinh thiết qua nội soi phế quản hoặc CT hướng dẫn để phân biệt di căn với ung thư phổi nguyên phát thứ hai, vì điều trị và tiên lượng khác nhau hoàn toàn."
+    },
+    {
+        "question": "Bệnh tích protein phế nang (Pulmonary Alveolar Proteinosis - PAP) gây đông đặc phổi theo cơ chế nào?",
+        "ground_truth": "PAP xảy ra do sự thanh thải bất thường của surfactant bởi đại thực bào phế nang. Chất surfactant (phospholipid và protein) tích tụ trong phế nang tạo thành vật chất PAS-dương (Periodic Acid-Schiff positive) dạng protein-lipid đặc. Trên X-quang: đám mờ đông đặc và kính mờ đối xứng hai bên, phân bố 'cánh dơi' hoặc theo thùy, rất khó phân biệt với phù phổi hay nhiễm trùng. CT cho thấy tổn thương 'crazy paving' đặc trưng."
+    },
+    {
+        "question": "Trong hệ thống đọc phim X-quang ngực bằng AI (Deep Learning), tại sao thông tin metadata về tư thế chụp và mức độ hít vào lại quan trọng không kém dữ liệu hình ảnh?",
+        "ground_truth": "Metadata kỹ thuật ảnh hưởng trực tiếp đến độ chính xác của kết luận AI: tư thế AP so với PA thay đổi kích thước bóng tim (magnification), mức độ hít vào thay đổi thể tích phổi và CTR, xoay lệch bệnh nhân tạo bất đối xứng giả tạo. Các mô hình CNN đào tạo trên phim PA tốt sẽ cho kết quả dương tính giả (cardiomegaly, đám mờ) cao khi áp dụng cho phim AP nếu không điều chỉnh metadata. Điều này đặc biệt quan trọng trong dataset NIH ChestXNet và tương tự."
+    },
+    {
+        "question": "Bệnh nhân được chẩn đoán xơ phổi vô căn (IPF) - các lựa chọn điều trị hiện tại là gì và có chữa khỏi không?",
+        "ground_truth": "IPF hiện không có thuốc chữa khỏi hoàn toàn. Hai thuốc được FDA phê duyệt là Nintedanib (ức chế tyrosine kinase) và Pirfenidone (ức chế TGF-beta), có thể làm chậm tốc độ xơ hóa và giảm suy giảm FVC nhưng không đảo ngược tổn thương. Ghép phổi là lựa chọn triệt để duy nhất cho bệnh nhân tiến triển nhanh đủ tiêu chuẩn. Điều trị hỗ trợ: oxy dài hạn, phục hồi chức năng hô hấp và điều trị trào ngược dạ dày."
+    },
+    {
+        "question": "Viêm phổi do Aspergillus xâm lấn (Invasive Aspergillosis) ở bệnh nhân giảm bạch cầu hạt có dấu hiệu hình ảnh đặc trưng nào?",
+        "ground_truth": "Invasive Aspergillosis ở bệnh nhân giảm bạch cầu hạt nặng có dấu hiệu halo sign trên CT ngực: nốt hoặc khối mờ trung tâm được bao quanh bởi vùng kính mờ (ground-glass halo) phản ánh xuất huyết phế nang quanh nốt nấm xâm lấn. Giai đoạn sau khi bạch cầu hạt phục hồi: nốt có thể tạo hang với air crescent sign (dấu liềm khí) do nhu mô hoại tử co lại. Đây là hai dấu hiệu CT kinh điển quan trọng nhất."
+    },
+    {
+        "question": "Phân biệt xơ phổi vô căn (IPF) với viêm phổi kẽ không đặc hiệu (NSIP) trên CT ngực cao phân giải (HRCT)?",
+        "ground_truth": "IPF/UIP: tổn thương lưới mờ ưu thế vùng đáy và ngoại vi phổi, tổ ong thành dày rõ ràng, giãn phế quản do co kéo, ít hoặc không có kính mờ, phân bố không đồng nhất theo không gian và thời gian. NSIP: ưu thế kính mờ hai bên đối xứng vùng đáy-ngoại vi, ít tổ ong hơn, phân bố tương đối đồng nhất, thường kèm band consolidation sát màng phổi và dải mờ đáy. NSIP có tiên lượng tốt hơn IPF và đáp ứng corticoid tốt hơn."
+    },
+    {
+        "question": "Bệnh nhân xẹp phổi do dị vật đường thở - tại sao dị vật ở trẻ em thường rơi vào phế quản thùy dưới phải?",
+        "ground_truth": "Phế quản chính phải có góc phân nhánh dốc hơn phế quản chính trái (góc khoảng 25 độ so với đường giữa, trong khi phế quản trái khoảng 45 độ), tạo ra đường thẳng gần như thẳng đứng từ khí quản. Điều này khiến dị vật hít vào có xu hướng rơi thẳng vào phế quản phải theo trọng lực và quán tính. Trong phế quản phải, phân nhánh vào thùy dưới cũng thẳng và dốc hơn các phân nhánh trên."
+    },
+    {
+        "question": "Vai trò của PET-CT (Positron Emission Tomography) trong phân biệt nốt phổi lành tính và ác tính là gì?",
+        "ground_truth": "PET-CT sử dụng FDG (fluorodeoxyglucose) phát hiện tế bào ung thư có chuyển hóa glucose tăng cao. Nốt phổi ác tính thường có SUVmax (Standardized Uptake Value) >2.5 (tăng FDG bất thường). Nốt lành tính như u hạt cũ, hamartoma thường không bắt FDG. PET-CT kết hợp CT cho phép đồng thời đánh giá hình thái và chuyển hóa, phân giai đoạn N (hạch) và M (di căn xa) ung thư phổi chính xác hơn."
+    },
+    {
+        "question": "Tràn khí màng phổi nhỏ ở bệnh nhân COPD nặng cần xử trí khác gì so với bệnh nhân phổi khỏe?",
+        "ground_truth": "Ở bệnh nhân COPD nặng với FEV1 đã giảm nặng, ngay cả tràn khí màng phổi nhỏ (<20%) cũng có thể gây suy hô hấp nguy hiểm vì dự trữ hô hấp đã cạn kiệt. Do đó: ưu tiên đặt ống dẫn lưu màng phổi (chest drain) hơn là theo dõi bảo tồn như ở PSP phổi khỏe. Theo dõi sát SpO2 và khí máu động mạch. Nếu tràn khí tái phát, cần xem xét pleurodesis dự phòng để ngăn tái phát."
+    },
+    {
+        "question": "Biến chứng nguy hiểm nhất của xẹp phổi mãn tính không điều trị là gì và cơ chế ra sao?",
+        "ground_truth": "Biến chứng nguy hiểm nhất của xẹp phổi mãn tính là viêm phổi tắc nghẽn (obstructive pneumonia): vùng phổi xẹp ứ đọng dịch tiết là môi trường lý tưởng cho vi khuẩn sinh sản. Tiếp theo là áp xe phổi và cuối cùng là tràn mủ màng phổi (empyema). Về lâu dài, xẹp phổi mãn tính gây tăng áp động mạch phổi và suy tim phải (cor pulmonale) qua cơ chế co thắt mạch máu phổi do thiếu oxy mạn tính."
     }
 ]

@@ -1,4 +1,6 @@
 import logging
+import re
+from math import ceil
 
 import litellm
 from langchain_core.messages import HumanMessage
@@ -15,6 +17,8 @@ from app.services.llm_router_service import (
     get_auto_mode_llm,
     is_auto_mode,
 )
+
+from litellm.exceptions import RateLimitError
 
 # Configure litellm to automatically drop unsupported parameters
 litellm.drop_params = True
@@ -73,7 +77,7 @@ async def validate_llm_config(
     api_base: str | None = None,
     custom_provider: str | None = None,
     litellm_params: dict | None = None,
-) -> tuple[bool, str]:
+) -> tuple[bool, str, int]:
     """
     Validate an LLM configuration by attempting to make a test API call.
 
@@ -89,7 +93,20 @@ async def validate_llm_config(
         Tuple of (is_valid, error_message)
         - is_valid: True if config works, False otherwise
         - error_message: Empty string if valid, error description if invalid
+        - status_code: HTTP status code to use for the validation result
     """
+
+    def _extract_retry_after_seconds(error_text: str) -> int | None:
+        patterns = (
+            r'retryDelay"\s*:\s*"(?P<seconds>[\d.]+)s"',
+            r"Please retry in (?P<seconds>[\d.]+)s",
+        )
+        for pattern in patterns:
+            match = re.search(pattern, error_text, re.IGNORECASE)
+            if match:
+                return max(1, ceil(float(match.group("seconds"))))
+        return None
+
     try:
         # Build the model string for litellm
         if custom_provider:
@@ -156,17 +173,30 @@ async def validate_llm_config(
         # If we got here without exception, the config is valid
         if response and response.content:
             logger.info(f"Successfully validated LLM config for model: {model_string}")
-            return True, ""
+            return True, "", 200
         else:
             logger.warning(
                 f"LLM config validation returned empty response for model: {model_string}"
             )
-            return False, "LLM returned an empty response"
+            return False, "LLM returned an empty response", 400
+
+    except RateLimitError as e:
+        retry_after = _extract_retry_after_seconds(str(e))
+        if retry_after:
+            error_msg = (
+                "LLM provider rate limit exceeded. "
+                f"Please retry in {retry_after}s."
+            )
+        else:
+            error_msg = "LLM provider rate limit exceeded. Please try again later."
+
+        logger.warning(error_msg)
+        return False, error_msg, 429
 
     except Exception as e:
         error_msg = f"Failed to validate LLM configuration: {e!s}"
         logger.error(error_msg)
-        return False, error_msg
+        return False, error_msg, 400
 
 
 async def get_search_space_llm_instance(

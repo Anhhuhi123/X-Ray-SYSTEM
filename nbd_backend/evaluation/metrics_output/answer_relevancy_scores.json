@@ -2,13 +2,13 @@
   "summary": {
     "metric": "answer_relevancy",
     "description": "BERTScore F1 between answer and ground_truth. Semantic similarity at token-level using BERT embeddings.",
-    "mean_bertscore_f1": 0.706,
-    "std_bertscore_f1": 0.0526,
-    "min_bertscore_f1": 0.6408,
+    "mean_bertscore_f1": 0.7595,
+    "std_bertscore_f1": 0.0366,
+    "min_bertscore_f1": 0.723,
     "max_bertscore_f1": 0.7961,
-    "mean_bertscore_precision": 0.6842,
-    "mean_bertscore_recall": 0.7307,
-    "num_items_evaluated": 10,
+    "mean_bertscore_precision": 0.712,
+    "mean_bertscore_recall": 0.8151,
+    "num_items_evaluated": 2,
     "num_items_skipped": 0,
     "model_used": "bert-base-multilingual-cased",
     "language": "vi"
@@ -31,86 +31,6 @@
       "bertscore_precision": 0.6959,
       "bertscore_recall": 0.7522,
       "bertscore_f1": 0.723,
-      "skipped": false,
-      "model_used": "bert-base-multilingual-cased"
-    },
-    {
-      "question": "Dấu hiệu 'Golden S sign' (dấu hiệu S ngược) trên X-quang thường gợi ý bệnh lý gì và tại sao?",
-      "answer": "Dựa trên các ngữ cảnh được cung cấp, không có thông tin nào về dấu hiệu 'Golden S sign' (dấu hiệu S ngược) trên X-quang hay bệnh lý mà nó gợi ý.",
-      "ground_truth": "Dấu hiệu này gợi ý khối u ác tính ở phế quản gốc gây bít tắc thùy trên phổi phải; hình dáng chữ S được tạo thành từ đường bờ lồi của khối u ở phía rốn phổi và đường bờ lõm của rãnh liên thùy bị co kéo về phía đỉnh phổi.",
-      "bertscore_precision": 0.648,
-      "bertscore_recall": 0.6428,
-      "bertscore_f1": 0.6454,
-      "skipped": false,
-      "model_used": "bert-base-multilingual-cased"
-    },
-    {
-      "question": "Dấu hiệu 'Luftsichel sign' là gì và nó giúp chẩn đoán tình trạng nào?",
-      "answer": "Dựa trên các ngữ cảnh được cung cấp, không có thông tin nào về dấu hiệu 'Luftsichel sign'.",
-      "ground_truth": "Đây là hiện tượng một viền sáng (hình lưỡi liềm) chứa khí nằm quanh cung động mạch chủ, xuất hiện do thùy dưới trái trương phồng bù trừ khi toàn bộ thùy trên trái bị xẹp hoàn toàn.",
-      "bertscore_precision": 0.6475,
-      "bertscore_recall": 0.6343,
-      "bertscore_f1": 0.6408,
-      "skipped": false,
-      "model_used": "bert-base-multilingual-cased"
-    },
-    {
-      "question": "Tại sao trong xẹp phổi, trung thất và khí quản lại bị lệch về phía tổn thương?",
-      "answer": "Trong xẹp phổi (Atelectasis), các phế nang bị xẹp xuống, mất đi thể tích khí lưu trữ bên trong, dẫn đến sự co rút thực sự của các vách phế nang và làm suy giảm thể tích tổng thể của vùng nhu mô phổi bị ảnh hưởng. Sự giảm thể tích này tạo ra một lực kéo, làm cho trung thất và khí quản bị lệch về phía phổi bị tổn thương.",
-      "ground_truth": "Do sự sụp đổ của một thùy phổi lớn tạo ra khoảng trống thể tích, làm áp suất âm trong khoang màng phổi tăng lên, tạo lực co kéo cơ học lôi kéo trung thất về phía bên phổi bị xẹp.",
-      "bertscore_precision": 0.754,
-      "bertscore_recall": 0.783,
-      "bertscore_f1": 0.7682,
-      "skipped": false,
-      "model_used": "bert-base-multilingual-cased"
-    },
-    {
-      "question": "Dấu hiệu 'Retrocardiac sail sign' (cánh buồm sau tim) có ý nghĩa gì trong chẩn đoán hình ảnh?",
-      "answer": "Dựa trên các ngữ cảnh được cung cấp, không có thông tin nào về dấu hiệu 'Retrocardiac sail sign' (cánh buồm sau tim) trong chẩn đoán hình ảnh.",
-      "ground_truth": "Đây là dấu hiệu giúp nhận biết xẹp thùy dưới phổi trái; đám mờ hình tam giác nhỏ lấp ló sau bóng tim giúp phát hiện tổn thương vốn rất dễ bị bỏ sót do bị che khuất bởi cấu trúc tim.",
-      "bertscore_precision": 0.6607,
-      "bertscore_recall": 0.6865,
-      "bertscore_f1": 0.6734,
-      "skipped": false,
-      "model_used": "bert-base-multilingual-cased"
-    },
-    {
-      "question": "Sự khác biệt về rung thanh (vocal fremitus) giữa xẹp phổi và đông đặc phổi là gì?",
-      "answer": "Dựa trên các ngữ cảnh được cung cấp, không có thông tin nào về sự khác biệt về rung thanh (vocal fremitus) giữa xẹp phổi (atelectasis) và đông đặc phổi (pulmonary consolidation).",
-      "ground_truth": "Trong xẹp phổi, rung thanh thường giảm do sự gián đoạn luồng khí và giảm thể tích, trong khi trong hội chứng đông đặc phổi, rung thanh thường tăng lên.",
-      "bertscore_precision": 0.6733,
-      "bertscore_recall": 0.7363,
-      "bertscore_f1": 0.7034,
-      "skipped": false,
-      "model_used": "bert-base-multilingual-cased"
-    },
-    {
-      "question": "Cơ chế 'Xẹp phổi do kết dính' (Adhesive Atelectasis) có liên quan đến thành phần nào trong phế nang?",
-      "answer": "Dựa trên các ngữ cảnh được cung cấp, không có thông tin nào về cơ chế 'Xẹp phổi do kết dính' (Adhesive Atelectasis) hay thành phần liên quan trong phế nang. Các ngữ cảnh chỉ đề cập đến \"xẹp phổi do tắc nghẽn (obstructive hoặc resorptive atelectasis)\" và \"xẹp phổi không do tắc nghẽn (non-obstructive atelectasis)\".",
-      "ground_truth": "Liên quan đến sự thiếu hụt hoặc suy giảm chất hoạt diện (surfactant), làm gia tăng sức căng bề mặt khiến các vách phế nang dính chặt vào nhau và không thể mở ra khi hít vào.",
-      "bertscore_precision": 0.6483,
-      "bertscore_recall": 0.6836,
-      "bertscore_f1": 0.6655,
-      "skipped": false,
-      "model_used": "bert-base-multilingual-cased"
-    },
-    {
-      "question": "Tại sao rốn phổi phải có thể bị kéo giật lên cao trong xẹp thùy trên phải?",
-      "answer": "Trong xẹp thùy trên phải, rốn phổi phải có thể bị kéo giật lên cao là do xẹp phổi (Atelectasis) đặc trưng bởi sự co rút thực sự của các vách phế nang, làm suy giảm thể tích tổng thể của vùng nhu mô bị ảnh hưởng. Khi thùy trên phải bị xẹp và mất thể tích, các cấu trúc lân cận, bao gồm rốn phổi, sẽ bị kéo về phía vùng phổi bị xẹp.",
-      "ground_truth": "Khi thùy trên phải bị xẹp, lực co rút mạnh mẽ từ việc mất thể tích nhu mô sẽ kéo rãnh liên thùy bé lên cao và đồng thời kéo cấu trúc rốn phổi đi kèm lên theo vị trí giải phẫu mới.",
-      "bertscore_precision": 0.7586,
-      "bertscore_recall": 0.7779,
-      "bertscore_f1": 0.7681,
-      "skipped": false,
-      "model_used": "bert-base-multilingual-cased"
-    },
-    {
-      "question": "Nêu tiêu chí chẩn đoán phân biệt chính giữa xẹp phổi tắc nghẽn và tràn dịch màng phổi lượng lớn dựa trên sự di lệch trung thất.",
-      "answer": "Dựa trên các ngữ cảnh được cung cấp:\n\n*   **Xẹp phổi (Atelectasis):** Là tình trạng \"sụp đổ một phần hoặc toàn bộ cấu trúc của một lá phổi, dẫn đến sự suy giảm hoặc đình trệ hoàn toàn quá trình trao đổi khí\" và \"các phế nang bị xẹp xuống, mất đi thể tích khí lưu trữ bên trong, biến một cấu trúc xốp chứa khí thành một khối mô đặc.\" Sự \"co rút thực sự của các vách phế nang, làm suy giảm thể tích tổng thể của vùng nhu mô bị ảnh hưởng.\" Điều này ngụ ý rằng xẹp phổi do tắc nghẽn sẽ gây giảm thể tích phổi, có xu hướng kéo trung thất về phía phổi bị xẹp.\n*   **Tràn dịch màng phổi lượng lớn:** Là \"sự tích tụ lượng dịch bất thường bên trong khoang màng phổi.\" Lượng dịch này \"ép xẹp nhu mô phổi lành lân cận.\" Sự tích tụ một lượng lớn dịch sẽ tạo ra áp lực, có xu hướng đẩy trung thất sang phía đối diện (phía phổi lành).\n\nDo đó, tiêu chí chẩn đoán phân biệt chính giữa xẹp phổi tắc nghẽn và tràn dịch màng phổi lượng lớn dựa trên sự di lệch trung thất là:\n\n*   **Xẹp phổi tắc nghẽn:** Gây giảm thể tích phổi, có xu hướng **kéo trung thất về phía phổi bị xẹp**.\n*   **Tràn dịch màng phổi lượng lớn:** Gây tăng thể tích và áp lực trong khoang màng phổi, có xu hướng **đẩy trung thất sang phía đối diện (phía phổi lành)**.",
-      "ground_truth": "Trong xẹp phổi tắc nghẽn, trung thất bị kéo lệch về cùng bên tổn thương (lực kéo vào), trong khi ở tràn dịch màng phổi lượng lớn, trung thất bị đẩy lệch sang phía đối diện (lực đẩy ra).",
-      "bertscore_precision": 0.6275,
-      "bertscore_recall": 0.7327,
-      "bertscore_f1": 0.676,
       "skipped": false,
       "model_used": "bert-base-multilingual-cased"
     }

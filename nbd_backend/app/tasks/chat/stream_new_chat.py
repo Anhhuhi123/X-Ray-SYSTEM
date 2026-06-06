@@ -26,6 +26,7 @@ from langchain_core.messages import HumanMessage
 from sqlalchemy import func
 from sqlalchemy.future import select
 from sqlalchemy.orm import selectinload
+from litellm.exceptions import RateLimitError
 
 from app.agents.new_chat.chat_deepagent import create_nfd_deep_agent
 from app.agents.new_chat.checkpointer import get_checkpointer
@@ -60,6 +61,33 @@ from app.utils.perf import get_perf_logger, log_system_snapshot, trim_native_hea
 _perf_log = get_perf_logger()
 
 _background_tasks: set[asyncio.Task] = set()
+
+
+_RATE_LIMIT_RETRY_PATTERNS = (
+    r'retryDelay"\s*:\s*"(?P<seconds>[\d.]+)s"',
+    r"Please retry in (?P<seconds>[\d.]+)s",
+)
+
+
+def _extract_retry_after_seconds(error_text: str) -> int | None:
+    for pattern in _RATE_LIMIT_RETRY_PATTERNS:
+        match = re.search(pattern, error_text, re.IGNORECASE)
+        if match:
+            return max(1, int(float(match.group("seconds"))))
+    return None
+
+
+def _format_rate_limit_error(exc: Exception, action: str) -> str:
+    retry_after = _extract_retry_after_seconds(str(exc))
+    if retry_after:
+        return (
+            f"{action} was rate-limited by the LLM provider. "
+            f"Please retry in {retry_after}s or switch to Auto mode / another model."
+        )
+    return (
+        f"{action} was rate-limited by the LLM provider. "
+        "Please try again later or switch to Auto mode / another model."
+    )
 
 
 def format_mentioned_documents_as_context(documents: list[Document]) -> str:
@@ -1143,6 +1171,16 @@ async def stream_new_chat(
         yield streaming_service.format_finish()
         yield streaming_service.format_done()
 
+    except RateLimitError as e:
+        error_message = _format_rate_limit_error(e, "Chat generation")
+        print(f"[stream_new_chat] {error_message}")
+        print(f"[stream_new_chat] Exception type: {type(e).__name__}")
+
+        yield streaming_service.format_error(error_message)
+        yield streaming_service.format_finish_step()
+        yield streaming_service.format_finish()
+        yield streaming_service.format_done()
+
     except Exception as e:
         # Handle any errors
         import traceback
@@ -1343,6 +1381,16 @@ async def stream_resume_chat(
             yield streaming_service.format_done()
             return
 
+        yield streaming_service.format_finish_step()
+        yield streaming_service.format_finish()
+        yield streaming_service.format_done()
+
+    except RateLimitError as e:
+        error_message = _format_rate_limit_error(e, "Chat resume")
+        print(f"[stream_resume_chat] {error_message}")
+        print(f"[stream_resume_chat] Exception type: {type(e).__name__}")
+
+        yield streaming_service.format_error(error_message)
         yield streaming_service.format_finish_step()
         yield streaming_service.format_finish()
         yield streaming_service.format_done()

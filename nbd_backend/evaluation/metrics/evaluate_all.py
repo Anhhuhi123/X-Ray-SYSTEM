@@ -147,17 +147,17 @@ def _run_faithfulness(
         return json.load(f)
 
 
-def _run_answer_correctness(
+def _run_answer_relevancy(
     input_file: str,
     output_file: str,
     bertscore_model: str,
     language: str,
 ) -> dict[str, Any]:
-    """Gọi compute_answer_relevancy (thực chất đo Answer Correctness) và trả về output dict."""
+    """Gọi compute_answer_relevancy (thực chất đo Answer Relevancy) và trả về output dict."""
     from evaluate_answer_relevancy import compute_answer_relevancy  # type: ignore
 
     print("\n" + "═" * 60)
-    print("▶  Running: Answer Correctness (BERTScore)")
+    print("▶  Running: Answer Relevancy (BERTScore)")
     print("═" * 60)
     compute_answer_relevancy(
         input_file=input_file,
@@ -632,10 +632,10 @@ def evaluate_all(
             use_ragas=use_ragas,
         )
 
-    if "answer_correctness" not in skip_metrics:
-        ac_output = _run_answer_correctness(
+    if "answer_relevancy" not in skip_metrics:
+        ac_output = _run_answer_relevancy(
             input_file=input_file,
-            output_file=str(out / "answer_correctness_scores.json"),
+            output_file=str(out / "answer_relevancy_scores.json"),
             bertscore_model=bertscore_model,
             language=language,
         )

@@ -167,9 +167,9 @@ def _ragas_faithfulness(
 
     # Build dataset
     dataset_dict = {
-        "question": [it.get("question", "") for it in items],
-        "answer": [it.get("answer", "") for it in items],
-        "contexts": [
+        "user_input": [it.get("question", "") for it in items],
+        "response": [it.get("answer", "") for it in items],
+        "retrieved_contexts": [
             it.get("printed_contexts", it.get("contexts", [])) for it in items
         ],
     }

@@ -134,7 +134,7 @@ async def create_new_llm_config(
         )
 
         # Validate the LLM configuration by making a test API call
-        is_valid, error_message = await validate_llm_config(
+        is_valid, error_message, status_code = await validate_llm_config(
             provider=config_data.provider.value,
             model_name=config_data.model_name,
             api_key=config_data.api_key,
@@ -145,8 +145,8 @@ async def create_new_llm_config(
 
         if not is_valid:
             raise HTTPException(
-                status_code=400,
-                detail=f"Invalid LLM configuration: {error_message}",
+                status_code=status_code,
+                detail=error_message,
             )
 
         # Create the config with user association
@@ -322,7 +322,7 @@ async def update_new_llm_config(
                 ),
             }
 
-            is_valid, error_message = await validate_llm_config(
+            is_valid, error_message, status_code = await validate_llm_config(
                 provider=validation_config["provider"],
                 model_name=validation_config["model_name"],
                 api_key=validation_config["api_key"],
@@ -333,8 +333,8 @@ async def update_new_llm_config(
 
             if not is_valid:
                 raise HTTPException(
-                    status_code=400,
-                    detail=f"Invalid LLM configuration: {error_message}",
+                    status_code=status_code,
+                    detail=error_message,
                 )
 
         # Apply updates

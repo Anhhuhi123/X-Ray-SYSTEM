@@ -2,29 +2,1380 @@
   "summary": {
     "metric": "faithfulness",
     "description": "RAGAS faithfulness: fraction of answer statements supported by contexts. Detects hallucination.",
-    "mean_faithfulness": 0.25,
-    "std_faithfulness": 0.0833,
-    "min": 0.1667,
-    "max": 0.3333,
-    "num_items": 2,
-    "method_used": "ragas",
-    "use_ragas": true,
+    "mean_faithfulness": 0.5482,
+    "std_faithfulness": 0.1231,
+    "min": 0.2778,
+    "max": 1.0,
+    "num_items": 195,
+    "method_used": "heuristic_fallback",
+    "use_ragas": false,
     "model_used": "gpt-4o-mini",
     "language": "vi"
   },
   "results": [
     {
-      "question": "Sự khác biệt cơ bản về mặt mô học giữa xẹp phổi (Atelectasis) và hội chứng đông đặc phổi (Pulmonary consolidation) là gì?",
-      "faithfulness_score": 0.1667,
-      "method": "ragas",
-      "model_used": "gpt-4o-mini",
+      "question": "Sự khác biệt cơ bản về mặt mô học giữa xẹp phổi (Atelectasis) và hội chứng đông đặc phổi (Pulmonary Consolidation) là gì?",
+      "faithfulness_score": 0.6641,
+      "method": "heuristic_fallback",
+      "model_used": null,
       "num_contexts": 10
     },
     {
-      "question": "Tại sao bệnh nhân hít thở FiO2 cao (nồng độ oxy cao) lại có nguy cơ tiến triển xẹp phổi tái hấp thu nhanh hơn?",
+      "question": "Tại sao bệnh nhân hít thở FiO2 cao lại có nguy cơ tiến triển xẹp phổi tái hấp thu nhanh hơn?",
+      "faithfulness_score": 0.5197,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Dấu hiệu S ngược Golden (Golden S sign) trên X-quang ngực xuất hiện trong bối cảnh nào và có ý nghĩa lâm sàng gì?",
+      "faithfulness_score": 0.448,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Dấu hiệu Luftsichel (lưỡi liềm khí) trên X-quang ngực là gì và xuất hiện trong tình huống nào?",
+      "faithfulness_score": 0.7255,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Hội chứng thùy giữa (Middle Lobe Syndrome) có đặc điểm giải phẫu nào khiến vùng này dễ bị xẹp phổi tái diễn?",
+      "faithfulness_score": 0.5077,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Xẹp phổi dạng tròn (Rounded Atelectasis) thường gặp nhất ở bệnh nhân nào và có dấu hiệu hình ảnh đặc trưng gì?",
+      "faithfulness_score": 0.6496,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Điểm khác biệt chính trên X-quang để phân biệt xẹp phổi một bên toàn bộ với tràn dịch màng phổi lượng lớn là gì?",
+      "faithfulness_score": 0.5573,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Cơ chế sinh lý bệnh của xẹp phổi do kết dính (Adhesive Atelectasis) liên quan đến yếu tố nào?",
+      "faithfulness_score": 0.7075,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Tỷ lệ Tim-Ngực (CTR) bình thường trên phim X-quang ngực PA là bao nhiêu và tại sao không áp dụng ngưỡng này cho phim AP?",
+      "faithfulness_score": 0.4789,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Dấu hiệu bờ đôi (Double density sign) trong đánh giá tim trên X-quang ngực chỉ điểm cấu trúc bất thường nào?",
+      "faithfulness_score": 0.45,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Ba giai đoạn tiến triển của suy tim sung huyết trên X-quang ngực biểu hiện như thế nào?",
+      "faithfulness_score": 0.4769,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Hình ảnh 'Boot-shaped heart' (tim hình giày gỗ) trên X-quang ngực đặc trưng cho bệnh lý bẩm sinh nào?",
+      "faithfulness_score": 0.5556,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Bốn nhóm nguyên nhân gây đông đặc phổi phân loại theo bản chất chất lấp đầy phế nang là gì?",
+      "faithfulness_score": 0.6306,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Dấu hiệu phế quản khí (Air Bronchogram) có ý nghĩa gì trong phân biệt đông đặc phổi và xẹp phổi do tắc nghẽn?",
+      "faithfulness_score": 0.7075,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Tiêu chuẩn Light (Light's criteria) dùng để phân loại dịch màng phổi như thế nào?",
+      "faithfulness_score": 0.4388,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Ngưỡng thể tích dịch tối thiểu để phát hiện tràn dịch màng phổi trên X-quang ngực thẳng đứng PA là bao nhiêu?",
+      "faithfulness_score": 0.625,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Tại sao ung thư phổi phân loại giai đoạn T2a trong hệ thống TNM lại liên quan đến xẹp phổi?",
+      "faithfulness_score": 0.6294,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Phù phổi do tim (Cardiogenic Pulmonary Edema) và phù phổi không do tim (Non-cardiogenic) khác nhau ở điểm cơ bản nào?",
+      "faithfulness_score": 0.4961,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Đặc điểm nào trên X-quang giúp phân biệt phù phổi cấp (Pulmonary Edema) với viêm phổi vi khuẩn?",
+      "faithfulness_score": 0.3657,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Bốn tiêu chí chính để chẩn đoán khí phế thũng (Emphysema) trên X-quang ngực là gì?",
+      "faithfulness_score": 0.4545,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Thiếu hụt men Alpha-1 Antitrypsin gây khí phế thũng theo cơ chế nào?",
+      "faithfulness_score": 0.6122,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Dấu hiệu 'tim bay' (Floating heart sign) trong khí phế thũng nặng xuất hiện do cơ chế gì?",
+      "faithfulness_score": 0.5464,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Xơ phổi vô căn (IPF) biểu hiện mô bệnh học dưới dạng nào và có tiên lượng như thế nào?",
+      "faithfulness_score": 0.5556,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Dấu hiệu 'ran Velcro' (Velcro crackles) trong xơ phổi có đặc điểm gì và cơ chế xuất hiện thế nào?",
+      "faithfulness_score": 0.4167,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Hình ảnh tổ ong (Honeycombing) trên X-quang ngực biểu hiện như thế nào và chỉ điểm giai đoạn nào của xơ phổi?",
+      "faithfulness_score": 0.6081,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Thoát vị khe thực quản Type I (Sliding) và Type II (Paraesophageal/Rolling) khác nhau về mặt giải phẫu như thế nào?",
+      "faithfulness_score": 0.4561,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Tại sao thoát vị hoành do chấn thương phần lớn xảy ra ở bên trái?",
+      "faithfulness_score": 0.4605,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Trong thoát vị Bochdalek sơ sinh, tại sao việc sử dụng mặt nạ và bóng để hỗ trợ hô hấp là chống chỉ định tuyệt đối?",
+      "faithfulness_score": 0.4526,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Hiệp hội Fleischner khuyến nghị hạn chế dùng thuật ngữ 'thâm nhiễm' (infiltration) thay bằng thuật ngữ nào và lý do gì?",
+      "faithfulness_score": 1.0,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Dấu hiệu 'cột sống đen hơn' (more black sign) trên phim X-quang ngực nghiêng có ý nghĩa gì?",
+      "faithfulness_score": 0.4732,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Nốt đơn độc phổi (SPN) được định nghĩa như thế nào và khác gì với khối choán chỗ phổi (Mass)?",
+      "faithfulness_score": 0.9171,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Bốn kiểu vôi hóa lành tính kinh điển trong nốt phổi trên CT là gì?",
+      "faithfulness_score": 0.4556,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Quy tắc '5 Ts' trong chẩn đoán phân biệt khối u trung thất trước bao gồm những thực thể nào?",
+      "faithfulness_score": 0.4483,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Dày màng phổi lan tỏa (DPT) gây ra hậu quả chức năng gì cho hệ hô hấp?",
+      "faithfulness_score": 0.6286,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Vôi hóa mảng màng phổi do amiăng có đặc điểm hình ảnh đặc trưng nào trên X-quang?",
+      "faithfulness_score": 0.5116,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Tràn khí màng phổi tự phát nguyên phát (PSP) thường xảy ra ở đối tượng nào và do cơ chế gì?",
+      "faithfulness_score": 0.6389,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Dấu hiệu gõ vang (Hyperresonance) và giảm rì rào phế nang khi khám lâm sàng bệnh nhân tràn khí màng phổi có ý nghĩa gì?",
+      "faithfulness_score": 0.6585,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Dấu hiệu Silhouette sign do bác sĩ Benjamin Felson mô tả được áp dụng thế nào để định vị tổn thương phổi?",
+      "faithfulness_score": 0.5208,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Viêm phổi do Klebsiella pneumoniae có đặc điểm hình ảnh X-quang nào khác biệt so với viêm phổi phế cầu điển hình?",
+      "faithfulness_score": 0.7623,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Đường Kerley B trên X-quang ngực là gì và xuất hiện trong bối cảnh bệnh lý nào?",
+      "faithfulness_score": 0.5375,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Quy tắc 1/3 (Rule of Thirds) của Davidoff trong đánh giá tim trên phim X-quang nghiêng là gì?",
+      "faithfulness_score": 0.4545,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Thoát vị Morgagni-Larrey biểu hiện trên X-quang ngực thẳng và nghiêng như thế nào?",
+      "faithfulness_score": 0.4762,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Bệnh cơ tim giãn (Dilated Cardiomyopathy) biểu hiện trên X-quang ngực khác gì so với tràn dịch màng ngoài tim (Pericardial Effusion)?",
+      "faithfulness_score": 0.7289,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Xẹp phổi do cicatrization (sẹo xơ) khác gì về mặt tiên lượng và đặc điểm hình ảnh so với xẹp phổi do tắc nghẽn?",
+      "faithfulness_score": 0.5257,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Viêm phổi do SARS-CoV-2 (COVID-19) có đặc điểm hình ảnh đặc trưng nào trên X-quang và CT?",
+      "faithfulness_score": 0.6316,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Dấu hiệu 'retrocardiac sail sign' (dấu cánh buồm sau tim) trên X-quang ngực chỉ điểm tổn thương gì?",
+      "faithfulness_score": 0.4308,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Thâm nhiễm phế nang và thâm nhiễm kẽ trên X-quang ngực có đặc điểm hình ảnh khác nhau như thế nào?",
+      "faithfulness_score": 0.7111,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Cơ chế tàn phá phổi của khói thuốc lá trong khí phế thũng là gì?",
+      "faithfulness_score": 0.367,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Tràn dịch màng phổi dịch lympho chỉ điểm nhóm bệnh lý nào?",
+      "faithfulness_score": 0.6667,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Tràn dịch màng phổi ái toan (Eosinophilic effusion) thường liên quan đến những nguyên nhân nào?",
+      "faithfulness_score": 0.375,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Trong phân loại khí phế thũng theo giải phẫu bệnh, thể centrolobular và panlobular khác nhau như thế nào?",
+      "faithfulness_score": 0.4286,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Dấu hiệu Hilum overlay sign (che lấp rốn phổi) và Hilum convergence sign (hội tụ rốn phổi) được sử dụng để phân biệt điều gì?",
+      "faithfulness_score": 0.3947,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Hội chứng Shrinking Lung (Phổi Teo) trong Lupus Ban Đỏ Hệ Thống biểu hiện đặc trưng như thế nào trên X-quang?",
+      "faithfulness_score": 0.4737,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Bệnh nhân bị xẹp phổi thụ động (Passive Atelectasis) do tràn khí màng phổi - cơ chế nào giải thích sự xẹp phổi này?",
+      "faithfulness_score": 0.6019,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Xẹp thùy dưới phổi phải trên X-quang ngực thẳng biểu hiện như thế nào và dễ bị bỏ sót trong trường hợp nào?",
+      "faithfulness_score": 0.4767,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Giãn phế quản do co kéo (Traction Bronchiectasis) trong xơ phổi xuất hiện như thế nào trên X-quang?",
+      "faithfulness_score": 0.5858,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Angiotensin-converting enzyme (ACE) và các xét nghiệm bổ sung nào được dùng để theo dõi điều trị xơ phổi?",
+      "faithfulness_score": 0.3125,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Phù phổi cấp có biểu hiện lâm sàng đặc trưng nào giúp phân biệt ngay với các nguyên nhân khó thở cấp khác?",
+      "faithfulness_score": 0.4677,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Viêm phổi hít sặc (Aspiration Pneumonia) thường biểu hiện ở phân thùy nào của phổi và tại sao?",
+      "faithfulness_score": 0.6102,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Độ dày thành hang phổi trên CT là thông số tiên lượng ác tính như thế nào?",
+      "faithfulness_score": 0.5179,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Thymoma (u tuyến ức) liên quan đến hội chứng cận ung thư nào và biểu hiện trên CT như thế nào?",
+      "faithfulness_score": 0.5088,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Bóng mờ của tuyến vú (Breast shadow) trên X-quang ngực có thể gây nhầm lẫn với tổn thương nào và cách phân biệt?",
+      "faithfulness_score": 0.4737,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Ngón tay dùi trống (Digital clubbing) trong xơ phổi phản ánh cơ chế bệnh sinh nào?",
+      "faithfulness_score": 0.5581,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Cơ chế nào giải thích tại sao người lớn tuổi mắc COPD ít bị xẹp phổi tắc nghẽn hơn trẻ em?",
+      "faithfulness_score": 0.5152,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Viêm phổi thùy (Lobar Pneumonia) do phế cầu có đặc điểm hình ảnh X-quang nào điển hình?",
+      "faithfulness_score": 0.6883,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Tại sao hít thở FiO2 cao trước phẫu thuật được coi là yếu tố nguy cơ gây xẹp phổi hậu phẫu?",
+      "faithfulness_score": 0.555,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Bệnh bụi phổi than (Coal worker's pneumoconiosis) và bệnh bụi phổi silic (Silicosis) có thể gây xơ phổi theo cơ chế nào?",
+      "faithfulness_score": 0.7727,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Phương trình Starling trong sinh lý màng phổi giải thích sự hình thành tràn dịch như thế nào?",
+      "faithfulness_score": 0.4152,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Ung thư biểu mô tuyến phổi (Adenocarcinoma) và ung thư biểu mô tế bào vảy (Squamous cell carcinoma) có phân bố giải phẫu điển hình khác nhau như thế nào?",
+      "faithfulness_score": 0.5231,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Dấu hiệu Bờ tim nham nhở (Shaggy heart border sign) trong xơ phổi xảy ra do cơ chế nào?",
+      "faithfulness_score": 0.5541,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Bệnh nhân xẹp phổi mạn tính do ung thư thường kèm triệu chứng toàn thân nào ngoài các triệu chứng hô hấp?",
+      "faithfulness_score": 0.625,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Tăng thông khí bù trừ (Compensatory Hyperinflation) sau xẹp phổi biểu hiện như thế nào trên X-quang?",
+      "faithfulness_score": 0.6634,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Hội chứng tĩnh mạch chủ trên (SVC Syndrome) biểu hiện lâm sàng nào và thường do nguyên nhân trung thất nào gây ra?",
+      "faithfulness_score": 0.5139,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Thuật ngữ 'phổi chết đuối' (Drowned lung) mô tả tình trạng gì trong xẹp phổi tắc nghẽn kéo dài?",
+      "faithfulness_score": 0.6311,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Phân tích sự khác biệt về đặc điểm đường bờ tổn thương giữa nốt phổi lành tính và ác tính?",
+      "faithfulness_score": 0.693,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Quy trình đánh giá ban đầu bắt buộc khi phát hiện tràn dịch màng phổi là gì và nhằm mục đích gì?",
+      "faithfulness_score": 0.3889,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Tại sao hít FiO2 cao sau sinh ở trẻ sơ sinh có thể gây hại, liên quan đến cơ chế xẹp phổi?",
+      "faithfulness_score": 0.6647,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Dấu hiệu góc carina giãn rộng (Splayed Carina) trên X-quang ngực chỉ điểm bất thường nào?",
+      "faithfulness_score": 0.5526,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Viêm phổi tổ chức hóa (Organizing Pneumonia) có thể giả tượng tổn thương ác tính trên hình ảnh ở điểm nào?",
+      "faithfulness_score": 0.6548,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Bệnh phổi kẽ (ILD) liên quan bệnh tự miễn (CTD-ILD) có các thể bệnh tự miễn nào và cơ chế tổn thương phổi ra sao?",
+      "faithfulness_score": 0.2895,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Nội soi phế quản (Bronchoscopy) có vai trò gì trong điều trị xẹp phổi do nút nhầy?",
+      "faithfulness_score": 0.4476,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Chỉ số đường kính ngang tim (TCD) trong theo dõi tiến triển bệnh tim có ý nghĩa thế nào?",
       "faithfulness_score": 0.3333,
-      "method": "ragas",
-      "model_used": "gpt-4o-mini",
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Tràn khí màng phổi tự phát thứ phát (SSP) nguy hiểm hơn nguyên phát vì lý do nào?",
+      "faithfulness_score": 0.6139,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Bệnh sarcoidosis phổi thường gây đám mờ hạch rốn phổi như thế nào và phân biệt với lao như thế nào?",
+      "faithfulness_score": 0.5,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Thành phần cấu tạo của cơ hoành trong phôi thai học liên quan như thế nào đến nguy cơ thoát vị hoành bẩm sinh?",
+      "faithfulness_score": 0.5,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Phổi trẻ sơ sinh bị thoát vị Bochdalek có hình ảnh X-quang như thế nào?",
+      "faithfulness_score": 0.6186,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "U lympho trung thất trước có đặc điểm hình ảnh và triệu chứng hệ thống nào đặc trưng?",
+      "faithfulness_score": 0.3871,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Xơ hóa phổi sau điều trị xạ trị ung thư có đặc điểm hình ảnh nào phân biệt với tổn thương ung thư tái phát?",
+      "faithfulness_score": 0.6718,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Dấu hiệu mức khí-dịch (Air-fluid level) trong thoát vị khe thực quản có ý nghĩa gì về mặt giải phẫu?",
+      "faithfulness_score": 0.4706,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Đặc điểm vi trùng học nào của Staphylococcus aureus khiến nó gây viêm phổi hoại tử và tạo pneumatocele?",
+      "faithfulness_score": 0.6667,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Nốt phổi đơn độc được phát hiện ở người hút thuốc lá dưới 35 tuổi có nguy cơ ác tính như thế nào?",
+      "faithfulness_score": 0.6364,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Bệnh cơ tim giãn (Dilated cardiomyopathy) do lạm dụng rượu có đặc điểm tiên lượng gì khi bệnh nhân cai rượu?",
+      "faithfulness_score": 0.5,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Phân thùy lưỡi (Lingula) trong xẹp phổi có dấu hiệu X-quang đặc trưng nào?",
+      "faithfulness_score": 0.5962,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Bệnh nhân xơ cứng bì hệ thống (Systemic Sclerosis) có biểu hiện phổi nào thường gặp nhất trên X-quang?",
+      "faithfulness_score": 0.7397,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Bullae (bóng khí lớn) trong khí phế thũng khác gì với pneumatocele (nang khí sau nhiễm trùng)?",
+      "faithfulness_score": 0.6471,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Tràn khí màng phổi áp lực (Tension Pneumothorax) là cấp cứu y khoa vì cơ chế gì?",
+      "faithfulness_score": 0.9182,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Aspergilloma (u nấm phổi) trên X-quang ngực có dấu hiệu đặc trưng nào?",
+      "faithfulness_score": 0.65,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Phù phổi không do tim (Non-cardiogenic/ARDS) khác với phù phổi do tim trên lâm sàng và X-quang ở những điểm nào?",
+      "faithfulness_score": 0.619,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Vôi hóa lệch tâm (Eccentric calcification) trong nốt phổi là dấu hiệu nghi ngờ gì?",
+      "faithfulness_score": 0.625,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Bài học từ sai sót chẩn đoán: tại sao lõm ngực (Pectus excavatum) có thể bị nhầm với thâm nhiễm thùy giữa phổi phải?",
+      "faithfulness_score": 0.7088,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Chỉ số tế bào CD4 ảnh hưởng như thế nào đến hình ảnh X-quang của lao phổi ở bệnh nhân HIV?",
+      "faithfulness_score": 0.6296,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Nốt phổi lành tính do u hamartoma có đặc điểm hình ảnh nào trên CT giúp xác nhận chẩn đoán?",
+      "faithfulness_score": 0.6667,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Ung thư biểu mô tiểu phế quản phế nang (Bronchioloalveolar Carcinoma - BAC) gây xẹp phổi theo cơ chế đặc biệt nào?",
+      "faithfulness_score": 0.58,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Trong chụp phim X-quang ngực, bệnh nhân hít vào không đủ sâu ảnh hưởng đến việc đánh giá tim như thế nào?",
+      "faithfulness_score": 0.4842,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Mũ màng phổi đỉnh (Apical cap) một bên không đối xứng gợi ý chẩn đoán gì so với mũ đỉnh đối xứng?",
+      "faithfulness_score": 0.6237,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Phương trình Starling trong đánh giá phù phổi và tràn dịch màng phổi có vai trò gì trong hệ thống hỗ trợ quyết định lâm sàng?",
+      "faithfulness_score": 0.4502,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Tại sao ung thư phổi nguyên phát hay xuất hiện ở thùy trên hơn thùy dưới?",
+      "faithfulness_score": 0.4318,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Xơ nang (Cystic Fibrosis) gây xẹp phổi tắc nghẽn theo cơ chế nào và thường ở vị trí nào?",
+      "faithfulness_score": 0.4222,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Điểm nhấn trong quản lý hậu phẫu để phòng ngừa xẹp phổi bao gồm những biện pháp nào?",
+      "faithfulness_score": 0.3696,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Ung thư u carcinoid phổi (Pulmonary Carcinoid) biểu hiện trên X-quang như thế nào và khác gì với ung thư phổi tế bào nhỏ?",
+      "faithfulness_score": 0.4355,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Bệnh Lymphangiomyomatosis (LAM) gây các tổn thương phổi nào trên hình ảnh?",
+      "faithfulness_score": 0.4483,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Viêm phổi tổ chức hóa mật độ (Cryptogenic Organizing Pneumonia - COP) có đặc điểm hình ảnh nào đặc trưng?",
+      "faithfulness_score": 0.6437,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Khí quản hình bao kiếm (Saber-sheath trachea) trong khí phế thũng mô tả hình thái biến dạng nào?",
+      "faithfulness_score": 0.6154,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Bệnh Langerhans Cell Histiocytosis (LCH) phổi có hình ảnh X-quang đặc trưng nào và khác gì với LAM?",
+      "faithfulness_score": 0.4444,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Thoát vị khe thực quản Type IV biểu hiện như thế nào và tại sao cần phẫu thuật khẩn cấp?",
+      "faithfulness_score": 0.3737,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Dấu Incomplete border sign (bờ không hoàn toàn) giúp phân biệt tổn thương trong và ngoài nhu mô phổi như thế nào?",
+      "faithfulness_score": 0.669,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Tại sao việc xây dựng hệ thống RAG (Retrieval-Augmented Generation) cho phân tích ảnh X-quang phổi cần chuẩn hóa thuật ngữ theo Hiệp hội Fleischner?",
+      "faithfulness_score": 0.7518,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Đường viền descending aorta (động mạch chủ xuống) bị xóa mờ trên X-quang ngực chỉ điểm tổn thương ở đâu?",
+      "faithfulness_score": 0.7229,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Viêm phổi do Mycoplasma pneumoniae có đặc điểm lâm sàng và hình ảnh nào khác với viêm phổi điển hình?",
+      "faithfulness_score": 0.5805,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Bướu giáp thòng (Retrosternal goiter) vào trung thất có đặc điểm hình ảnh CT đặc trưng nào?",
+      "faithfulness_score": 0.5,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Phân biệt xẹp phổi thụ động (relaxation) do tràn khí màng phổi với xẹp phổi do chèn ép (compressive) do tràn dịch màng phổi về mặt cơ chế và hình ảnh?",
+      "faithfulness_score": 0.595,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Hội chứng Goodpasture gây đông đặc phổi theo cơ chế miễn dịch nào?",
+      "faithfulness_score": 0.6042,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Tại sao viêm phổi do Legionella hay gặp ở người sử dụng nước điều hòa không khí?",
+      "faithfulness_score": 0.6533,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Bệnh nhân xơ phổi có nguy cơ tràn khí màng phổi từ cơ chế nào?",
+      "faithfulness_score": 0.6615,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Tiêu chuẩn vàng (Gold standard) để chẩn đoán xác định và đánh giá chức năng tim là gì?",
+      "faithfulness_score": 0.3333,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Trào ngược dạ dày thực quản (GERD) liên quan đến xơ phổi theo cơ chế nào?",
+      "faithfulness_score": 0.3261,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Bệnh Pneumocystis jirovecii Pneumonia (PCP) có hình ảnh X-quang đặc trưng nào và hay gặp ở đối tượng nào?",
+      "faithfulness_score": 0.5385,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Phân suất tống máu (Ejection Fraction - EF) bình thường là bao nhiêu và ngưỡng EF nào gọi là suy tim chức năng thu tâm giảm?",
+      "faithfulness_score": 0.2778,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Thuốc Amiodarone có thể gây độc phổi theo cơ chế nào và hình ảnh X-quang như thế nào?",
+      "faithfulness_score": 0.48,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Ung thư phổi biểu hiện xẹp phổi một bên toàn bộ có điểm nào giúp định hướng nguyên nhân trên X-quang?",
+      "faithfulness_score": 0.5672,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Thoát vị hoành kiểu Bochdalek ở người trưởng thành khác gì so với ở trẻ sơ sinh về mặt biểu hiện lâm sàng?",
+      "faithfulness_score": 0.4898,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Peptide BNP và NT-proBNP trong đánh giá suy tim có ý nghĩa gì?",
+      "faithfulness_score": 0.4444,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Bệnh nhân xơ gan có nguy cơ tràn dịch màng phổi theo cơ chế nào?",
+      "faithfulness_score": 0.6857,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Tràn dịch màng phổi ác tính do ung thư di căn thường từ ung thư nguyên phát nào ở nam và nữ?",
+      "faithfulness_score": 0.56,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Nội soi phế quản phát hiện u carcinoid phổi trung tâm cần lưu ý điều gì đặc biệt?",
+      "faithfulness_score": 0.5696,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Bệnh nhân tràn dịch màng phổi chylothorax (dưỡng trấp) thường liên quan đến nguyên nhân nào?",
+      "faithfulness_score": 0.5116,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Trên phim X-quang ngực, làm sao phân biệt đám mờ do bóng vú (Breast shadow) với đám mờ do viêm phổi thùy dưới?",
+      "faithfulness_score": 0.6826,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Sarcoidosis phổi có các đặc điểm hình ảnh đặc trưng nào trên CT ngực?",
+      "faithfulness_score": 0.5227,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Hiện tượng V/Q mismatch (bất tương xứng thông khí-tưới máu) trong xẹp phổi gây hậu quả sinh lý gì?",
+      "faithfulness_score": 0.4198,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Tại sao bệnh nhân sau phẫu thuật lồng ngực có nguy cơ xẹp phổi cao?",
+      "faithfulness_score": 0.5145,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Viêm phổi do RSV (Respiratory Syncytial Virus) ở trẻ em có biểu hiện lâm sàng và hình ảnh đặc trưng nào?",
+      "faithfulness_score": 0.5638,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Kỹ thuật chụp X-quang ngực đứng (Erect) và nằm ngửa (Supine) khác nhau như thế nào trong phát hiện tràn dịch màng phổi?",
+      "faithfulness_score": 0.5509,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Viêm phổi hoại tử do vi khuẩn Gram âm (Gram-negative necrotizing pneumonia) có đặc điểm biến chứng nào trên X-quang?",
+      "faithfulness_score": 0.7518,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Bệnh nhân thở máy dài ngày có nguy cơ tràn khí màng phổi do cơ chế nào?",
+      "faithfulness_score": 0.4923,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Tổn thương dạng kính mờ (Ground Glass Opacity - GGO) trên CT ngực khác với đông đặc (Consolidation) ở điểm nào?",
+      "faithfulness_score": 0.6489,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Pleural plaques (mảng màng phổi) do amiăng phân bố ở đâu và chừa vùng nào?",
+      "faithfulness_score": 0.8056,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Phân biệt hai nguyên nhân tăng sáng phế trường một bên trên X-quang ngực: tràn khí màng phổi và khí phế thũng cạnh vách đơn độc lớn (giant bulla)?",
+      "faithfulness_score": 0.519,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Tổn thương nốt quanh bạch mạch (Perilymphatic nodules) trong sarcoidosis phân bố như thế nào và giúp phân biệt với các thể phân bố nốt khác ra sao?",
+      "faithfulness_score": 0.3611,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Viêm phổi do nấm Histoplasma capsulatum ở bệnh nhân suy giảm miễn dịch có biểu hiện hình ảnh nào?",
+      "faithfulness_score": 0.7714,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Dấu hiệu vành tia sáng (Corona radiata / Sunburst sign) trong ung thư phổi xuất hiện do cơ chế gì?",
+      "faithfulness_score": 0.4118,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Bệnh nhân sau cắt thùy phổi (Lobectomy) có hình ảnh X-quang ngực bình thường nào cần biết để tránh nhầm lẫn?",
+      "faithfulness_score": 0.7127,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Viêm màng ngoài tim co thắt (Constrictive Pericarditis) khác với tràn dịch màng ngoài tim trên X-quang ngực như thế nào?",
+      "faithfulness_score": 0.598,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Dưỡng chấp (chylomicrons) trong dịch màng phổi dưỡng trấp (Chylothorax) có đặc điểm sinh hóa nào giúp xác định?",
+      "faithfulness_score": 0.4444,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Bệnh nhân nghi ngờ viêm phổi và xét nghiệm cấy máu âm tính, cần xét nghiệm nào khác để tìm tác nhân vi khuẩn không điển hình?",
+      "faithfulness_score": 0.4911,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Bệnh phổi kẽ liên quan viêm khớp dạng thấp (RA-ILD) có các thể mô bệnh học nào thường gặp nhất?",
+      "faithfulness_score": 0.4877,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Khi phát hiện nốt phổi trên CT, ngưỡng kích thước nào theo hướng dẫn Fleischner Society 2017 cần theo dõi và ngưỡng nào cần sinh thiết?",
+      "faithfulness_score": 0.35,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Cơ chế tạo tiếng ran nổ cuối thì hít vào (Late inspiratory crackles) trong xơ phổi khác gì với ran nổ sớm trong COPD?",
+      "faithfulness_score": 0.5806,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Tràn khí màng phổi dưới da (Subcutaneous emphysema) liên quan đến tràn khí màng phổi như thế nào?",
+      "faithfulness_score": 0.5048,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Bệnh nhân dùng corticoid dài ngày có nguy cơ đặc biệt nào liên quan đến viêm phổi?",
+      "faithfulness_score": 0.4,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Siêu âm màng phổi (Thoracic Ultrasound) có ưu điểm nào vượt trội so với X-quang ngực trong đánh giá tràn dịch màng phổi?",
+      "faithfulness_score": 0.48,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Amiodarone liều cao điều trị rung nhĩ có thể gây bóng tim to thông qua cơ chế nào?",
+      "faithfulness_score": 0.4474,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Viêm phổi do vi khuẩn kỵ khí (Anaerobic bacteria) thường gây biến chứng nào và hình ảnh đặc trưng trên X-quang?",
+      "faithfulness_score": 0.6923,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Chấn thương ngực kín gây dập phổi (Pulmonary contusion) có hình ảnh X-quang như thế nào và tiến triển ra sao?",
+      "faithfulness_score": 0.551,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Các dấu hiệu tiên lượng xấu trên X-quang ngực trong thoát vị Bochdalek sơ sinh là gì?",
+      "faithfulness_score": 0.4111,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Phân biệt mũ màng phổi đỉnh (Apical cap) lành tính với u Pancoast trên X-quang ngực?",
+      "faithfulness_score": 0.566,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Xẹp phổi hậu phẫu xảy ra phổ biến nhất trong khoảng thời gian nào sau phẫu thuật?",
+      "faithfulness_score": 0.4615,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Bệnh Mesothelioma màng phổi ác tính (Malignant Pleural Mesothelioma) có đặc điểm X-quang nào giúp phân biệt với tràn dịch màng phổi thông thường?",
+      "faithfulness_score": 0.5074,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Bleomycin và Methotrexate có thể gây độc phổi theo cơ chế nào?",
+      "faithfulness_score": 0.3103,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Cơ chế nào giải thích tại sao tràn dịch màng phổi do thuyên tắc phổi (PE) thường là dịch tiết?",
+      "faithfulness_score": 0.6639,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Khí phế thũng cạnh vách (Paraseptal emphysema) do hút cần sa mãn tính có đặc điểm phân bố nào?",
+      "faithfulness_score": 0.6129,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Bệnh nhân đa chấn thương có vết thương ngực hở - nguyên tắc xử trí tràn khí màng phổi hở là gì?",
+      "faithfulness_score": 0.4607,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Bệnh nhân COPD giai đoạn IV theo phân loại GOLD có hình ảnh X-quang điển hình nào?",
+      "faithfulness_score": 0.5152,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Viêm phổi do Pseudomonas aeruginosa trong bệnh viện có đặc điểm tiến triển nào trên X-quang?",
+      "faithfulness_score": 0.913,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Dấu hiệu 'water bottle sign' (hình chai nước) trong tràn dịch màng ngoài tim được giải thích bởi cơ chế gì?",
+      "faithfulness_score": 0.3784,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Biến chứng tràn khí màng phổi sau chọc dò màng phổi (Thoracentesis) xảy ra với tỷ lệ bao nhiêu và thường ở phía nào của lồng ngực?",
+      "faithfulness_score": 0.5806,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Xơ phổi sau xạ trị (Radiation-induced pulmonary fibrosis) tiến triển theo giai đoạn nào?",
+      "faithfulness_score": 0.4878,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Dấu hiệu đường Kerley A trên X-quang ngực khác gì với đường Kerley B?",
+      "faithfulness_score": 0.4143,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Tại sao bệnh nhân bị xẹp phổi mạn tính không điều trị có thể phát triển tăng áp động mạch phổi?",
+      "faithfulness_score": 0.5724,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Độ nhạy của X-quang ngực thẳng trong phát hiện khí phế thũng là bao nhiêu và tại sao CT lại vượt trội hơn?",
+      "faithfulness_score": 0.5123,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Phân biệt các dạng tràn dịch màng phổi bằng siêu âm như thế nào?",
+      "faithfulness_score": 0.5233,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Viêm phổi do COVID-19 nặng tiến triển thành ARDS - các tiêu chuẩn chẩn đoán ARDS Berlin là gì?",
+      "faithfulness_score": 0.549,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Điểm khác biệt chính về đặc điểm hình ảnh giữa viêm phổi vi khuẩn (Bacterial pneumonia) và viêm phổi virus (Viral pneumonia)?",
+      "faithfulness_score": 0.6752,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Hệ thống phân loại thoát vị hoành do chấn thương theo thời gian (Type 1, 2, 3) có ý nghĩa lâm sàng gì?",
+      "faithfulness_score": 0.4027,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Tại sao viêm màng phổi do amiăng (Benign asbestos pleural effusion - BAPE) quan trọng cần phát hiện và theo dõi?",
+      "faithfulness_score": 0.5455,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Mảng màng phổi (Pleural plaques) có phải là tiền ung thư (precancerous lesion) không? Tại sao cần theo dõi?",
+      "faithfulness_score": 0.5287,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Nốt phổi đơn độc ở bệnh nhân có tiền sử ung thư ngoài phổi - cần tiếp cận như thế nào?",
+      "faithfulness_score": 0.451,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Bệnh tích protein phế nang (Pulmonary Alveolar Proteinosis - PAP) gây đông đặc phổi theo cơ chế nào?",
+      "faithfulness_score": 0.6395,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Trong hệ thống đọc phim X-quang ngực bằng AI (Deep Learning), tại sao thông tin metadata về tư thế chụp và mức độ hít vào lại quan trọng không kém dữ liệu hình ảnh?",
+      "faithfulness_score": 0.5288,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Bệnh nhân được chẩn đoán xơ phổi vô căn (IPF) - các lựa chọn điều trị hiện tại là gì và có chữa khỏi không?",
+      "faithfulness_score": 0.4024,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Viêm phổi do Aspergillus xâm lấn (Invasive Aspergillosis) ở bệnh nhân giảm bạch cầu hạt có dấu hiệu hình ảnh đặc trưng nào?",
+      "faithfulness_score": 0.4744,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Phân biệt xơ phổi vô căn (IPF) với viêm phổi kẽ không đặc hiệu (NSIP) trên CT ngực cao phân giải (HRCT)?",
+      "faithfulness_score": 0.6029,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Bệnh nhân xẹp phổi do dị vật đường thở - tại sao dị vật ở trẻ em thường rơi vào phế quản thùy dưới phải?",
+      "faithfulness_score": 0.5309,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Vai trò của PET-CT (Positron Emission Tomography) trong phân biệt nốt phổi lành tính và ác tính là gì?",
+      "faithfulness_score": 0.4808,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Tràn khí màng phổi nhỏ ở bệnh nhân COPD nặng cần xử trí khác gì so với bệnh nhân phổi khỏe?",
+      "faithfulness_score": 0.6832,
+      "method": "heuristic_fallback",
+      "model_used": null,
+      "num_contexts": 10
+    },
+    {
+      "question": "Biến chứng nguy hiểm nhất của xẹp phổi mãn tính không điều trị là gì và cơ chế ra sao?",
+      "faithfulness_score": 0.5392,
+      "method": "heuristic_fallback",
+      "model_used": null,
       "num_contexts": 10
     }
   ]

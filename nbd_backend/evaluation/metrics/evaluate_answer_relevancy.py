@@ -292,7 +292,7 @@ def compute_answer_relevancy(
 def main() -> None:
     backend_dir = Path(__file__).resolve().parent.parent.parent
     default_input = str(
-        backend_dir / "evaluation" / "results" / "140_evaluated_gemini.json"
+        backend_dir / "evaluation" / "results" / "140_evaluated_openai.json"
     )
     default_output = str(
         backend_dir / "evaluation" / "metrics_output" / "answer_relevancy_scores.json"

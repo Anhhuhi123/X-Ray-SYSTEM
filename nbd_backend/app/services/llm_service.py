@@ -5,6 +5,7 @@ from math import ceil
 import litellm
 from langchain_core.messages import HumanMessage
 from langchain_litellm import ChatLiteLLM
+from litellm.exceptions import RateLimitError
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.future import select
 
@@ -17,8 +18,6 @@ from app.services.llm_router_service import (
     get_auto_mode_llm,
     is_auto_mode,
 )
-
-from litellm.exceptions import RateLimitError
 
 # Configure litellm to automatically drop unsupported parameters
 litellm.drop_params = True
@@ -184,8 +183,7 @@ async def validate_llm_config(
         retry_after = _extract_retry_after_seconds(str(e))
         if retry_after:
             error_msg = (
-                "LLM provider rate limit exceeded. "
-                f"Please retry in {retry_after}s."
+                f"LLM provider rate limit exceeded. Please retry in {retry_after}s."
             )
         else:
             error_msg = "LLM provider rate limit exceeded. Please try again later."

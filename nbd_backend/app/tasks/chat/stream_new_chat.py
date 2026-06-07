@@ -23,10 +23,10 @@ from uuid import UUID
 
 import anyio
 from langchain_core.messages import HumanMessage
+from litellm.exceptions import RateLimitError
 from sqlalchemy import func
 from sqlalchemy.future import select
 from sqlalchemy.orm import selectinload
-from litellm.exceptions import RateLimitError
 
 from app.agents.new_chat.chat_deepagent import create_nfd_deep_agent
 from app.agents.new_chat.checkpointer import get_checkpointer

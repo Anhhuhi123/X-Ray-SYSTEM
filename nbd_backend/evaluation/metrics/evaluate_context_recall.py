@@ -41,12 +41,11 @@ from pathlib import Path
 from typing import Any
 
 import langchain
-
-langchain.debug = True
-
 from dotenv import load_dotenv
 
 load_dotenv()
+
+langchain.debug = True
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
 logger = logging.getLogger(__name__)
@@ -103,11 +102,11 @@ def _init_llm(model_name: str):
             return ChatGoogleGenerativeAI(
                 model=model_name, temperature=0.0, google_api_key=api_key
             )
-        except ImportError:
+        except ImportError as err:
             raise ImportError(
                 "langchain_google_genai not installed. "
                 "Run: pip install langchain-google-genai"
-            )
+            ) from err
 
     else:  # OpenAI-compatible
         api_key = os.environ.get("OPENAI_API_KEY")
@@ -121,10 +120,10 @@ def _init_llm(model_name: str):
 
             logger.info("Using ChatOpenAI: %s", model_name)
             return ChatOpenAI(model=model_name, temperature=0.0)
-        except ImportError:
+        except ImportError as err:
             raise ImportError(
                 "langchain_openai not installed. Run: pip install langchain-openai"
-            )
+            ) from err
 
 
 # ──────────────────────────────────────────────────────────────────────────────

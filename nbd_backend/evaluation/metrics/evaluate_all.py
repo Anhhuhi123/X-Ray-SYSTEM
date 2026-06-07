@@ -318,13 +318,6 @@ def _export_excel(
     xlsx_path: str,
 ) -> None:
     try:
-        import pandas as pd
-    except ImportError:
-        logger.warning(
-            "pandas not installed — skipping Excel export. pip install pandas"
-        )
-        return
-    try:
         import openpyxl
         from openpyxl.styles import (
             Alignment,
@@ -341,25 +334,25 @@ def _export_excel(
         return
 
     # ── Màu sắc ──────────────────────────────────────────────────────────────
-    COLOR_HIGH = "C6EFCE"  # xanh lá nhạt
-    COLOR_MID = "FFEB9C"  # vàng nhạt
-    COLOR_LOW = "FFC7CE"  # đỏ nhạt
-    COLOR_HEADER = "2E4057"  # xanh đậm header
-    COLOR_SUBHDR = "4A7C94"  # xanh nhạt sub-header
-    COLOR_ALT = "F0F4F8"  # xám nhạt alternate row
+    color_high = "C6EFCE"  # xanh lá nhạt
+    color_mid = "FFEB9C"  # vàng nhạt
+    color_low = "FFC7CE"  # đỏ nhạt
+    color_header = "2E4057"  # xanh đậm header
+    color_subhdr = "4A7C94"  # xanh nhạt sub-header
+    color_alt = "F0F4F8"  # xám nhạt alternate row
 
-    FILL_HIGH = PatternFill("solid", fgColor=COLOR_HIGH)
-    FILL_MID = PatternFill("solid", fgColor=COLOR_MID)
-    FILL_LOW = PatternFill("solid", fgColor=COLOR_LOW)
-    FILL_HEADER = PatternFill("solid", fgColor=COLOR_HEADER)
-    FILL_SUBHDR = PatternFill("solid", fgColor=COLOR_SUBHDR)
-    FILL_ALT = PatternFill("solid", fgColor=COLOR_ALT)
+    fill_high = PatternFill("solid", fgColor=color_high)
+    fill_mid = PatternFill("solid", fgColor=color_mid)
+    fill_low = PatternFill("solid", fgColor=color_low)
+    fill_header = PatternFill("solid", fgColor=color_header)
+    fill_subhdr = PatternFill("solid", fgColor=color_subhdr)
+    fill_alt = PatternFill("solid", fgColor=color_alt)
 
-    FONT_HEADER = Font(bold=True, color="FFFFFF", size=11)
-    FONT_BOLD = Font(bold=True, size=10)
-    FONT_NORMAL = Font(size=10)
+    font_header = Font(bold=True, color="FFFFFF", size=11)
+    font_bold = Font(bold=True, size=10)
+    font_normal = Font(size=10)
 
-    THIN_BORDER = Border(
+    thin_border = Border(
         left=Side(style="thin"),
         right=Side(style="thin"),
         top=Side(style="thin"),
@@ -370,10 +363,10 @@ def _export_excel(
         if val is None:
             return None
         if val >= SCORE_THRESHOLDS["high"]:
-            return FILL_HIGH
+            return fill_high
         if val >= SCORE_THRESHOLDS["mid"]:
-            return FILL_MID
-        return FILL_LOW
+            return fill_mid
+        return fill_low
 
     wb = openpyxl.Workbook()
 
@@ -406,12 +399,12 @@ def _export_excel(
     # Header row
     for col_idx, col_key in enumerate(columns, start=1):
         cell = ws.cell(row=1, column=col_idx, value=col_labels[col_key])
-        cell.fill = FILL_HEADER
-        cell.font = FONT_HEADER
+        cell.fill = fill_header
+        cell.font = font_header
         cell.alignment = Alignment(
             horizontal="center", vertical="center", wrap_text=True
         )
-        cell.border = THIN_BORDER
+        cell.border = thin_border
 
     ws.row_dimensions[1].height = 30
 
@@ -421,8 +414,8 @@ def _export_excel(
         for col_idx, col_key in enumerate(columns, start=1):
             val = item.get(col_key)
             cell = ws.cell(row=row_idx, column=col_idx, value=val)
-            cell.font = FONT_NORMAL
-            cell.border = THIN_BORDER
+            cell.font = font_normal
+            cell.border = thin_border
             cell.alignment = Alignment(
                 horizontal="center" if col_key != "question" else "left",
                 vertical="center",
@@ -435,7 +428,7 @@ def _export_excel(
                 if fill:
                     cell.fill = fill
             elif alt:
-                cell.fill = FILL_ALT
+                cell.fill = fill_alt
 
         ws.row_dimensions[row_idx].height = 45
 
@@ -499,14 +492,14 @@ def _export_excel(
     for r_idx, row in enumerate(summary_rows, start=1):
         for c_idx, val in enumerate(row, start=1):
             cell = ws2.cell(row=r_idx, column=c_idx, value=val)
-            cell.border = THIN_BORDER
+            cell.border = thin_border
             cell.alignment = Alignment(horizontal="center", vertical="center")
 
             if r_idx == 1:  # Header
-                cell.fill = FILL_SUBHDR
-                cell.font = FONT_HEADER
+                cell.fill = fill_subhdr
+                cell.font = font_header
             else:
-                cell.font = FONT_BOLD if c_idx == 1 else FONT_NORMAL
+                cell.font = font_bold if c_idx == 1 else font_normal
                 # Conditional coloring trên cột Mean
                 if c_idx == 2 and isinstance(val, float):
                     fill = _score_fill(val)
@@ -514,12 +507,12 @@ def _export_excel(
                         cell.fill = fill
 
     # Extra info
-    ws2.cell(row=len(summary_rows) + 2, column=1, value="Total Items").font = FONT_BOLD
+    ws2.cell(row=len(summary_rows) + 2, column=1, value="Total Items").font = font_bold
     ws2.cell(row=len(summary_rows) + 2, column=2, value=summary["num_items"])
     if summary["skipped_metrics"]:
         ws2.cell(
             row=len(summary_rows) + 3, column=1, value="Skipped Metrics"
-        ).font = FONT_BOLD
+        ).font = font_bold
         ws2.cell(
             row=len(summary_rows) + 3,
             column=2,
@@ -534,19 +527,19 @@ def _export_excel(
 
     # ── Legend ───────────────────────────────────────────────────────────────
     legend_start = len(summary_rows) + 5
-    ws2.cell(row=legend_start, column=1, value="Legend").font = FONT_BOLD
+    ws2.cell(row=legend_start, column=1, value="Legend").font = font_bold
     legends = [
-        (FILL_HIGH, f"≥ {SCORE_THRESHOLDS['high']}  — Good"),
-        (FILL_MID, f"≥ {SCORE_THRESHOLDS['mid']}  — Medium"),
-        (FILL_LOW, f"<  {SCORE_THRESHOLDS['mid']}  — Low"),
+        (fill_high, f"≥ {SCORE_THRESHOLDS['high']}  — Good"),
+        (fill_mid, f"≥ {SCORE_THRESHOLDS['mid']}  — Medium"),
+        (fill_low, f"<  {SCORE_THRESHOLDS['mid']}  — Low"),
     ]
     for i, (fill, label) in enumerate(legends):
         r = legend_start + 1 + i
         color_cell = ws2.cell(row=r, column=1)
         color_cell.fill = fill
-        color_cell.border = THIN_BORDER
+        color_cell.border = thin_border
         color_cell.alignment = Alignment(horizontal="center")
-        ws2.cell(row=r, column=2, value=label).font = FONT_NORMAL
+        ws2.cell(row=r, column=2, value=label).font = font_normal
 
     # ── Save ─────────────────────────────────────────────────────────────────
     Path(xlsx_path).parent.mkdir(parents=True, exist_ok=True)

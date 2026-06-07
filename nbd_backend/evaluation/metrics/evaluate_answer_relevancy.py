@@ -126,7 +126,7 @@ def _compute_bertscore(
     }
 
     try:
-        P_tensor, R_tensor, F1_tensor = bert_score_fn(**score_kwargs)
+        p_tensor, r_tensor, f1_tensor = bert_score_fn(**score_kwargs)
     except KeyError:
         num_layers = _resolve_num_layers(model_name)
         if num_layers is None:
@@ -136,14 +136,14 @@ def _compute_bertscore(
             f"[WARN] BERTScore has no built-in layer mapping for {model_name}; "
             f"retrying with num_layers={num_layers}"
         )
-        P_tensor, R_tensor, F1_tensor = bert_score_fn(
+        p_tensor, r_tensor, f1_tensor = bert_score_fn(
             **score_kwargs,
             num_layers=num_layers,
         )
 
-    precisions: list[float] = P_tensor.tolist()
-    recalls: list[float] = R_tensor.tolist()
-    f1s: list[float] = F1_tensor.tolist()
+    precisions: list[float] = p_tensor.tolist()
+    recalls: list[float] = r_tensor.tolist()
+    f1s: list[float] = f1_tensor.tolist()
 
     return precisions, recalls, f1s
 

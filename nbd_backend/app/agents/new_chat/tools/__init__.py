@@ -7,8 +7,6 @@ To add a new tool, see the documentation in registry.py.
 Available tools:
 - search_knowledge_base: Search the user's personal knowledge base
 - search_nfd_docs: Search NFD documentation for usage help
-- save_memory: Store facts/preferences about the user
-- recall_memory: Retrieve relevant user memories
 """
 
 # Registry exports
@@ -28,7 +26,6 @@ from .registry import (
     get_tool_by_name,
 )
 from .search_nfd_docs import create_search_nfd_docs_tool
-from .user_memory import create_recall_memory_tool, create_save_memory_tool
 
 __all__ = [
     # Registry
@@ -38,8 +35,6 @@ __all__ = [
     "ToolDefinition",
     "build_tools",
     # Tool factories
-    "create_recall_memory_tool",
-    "create_save_memory_tool",
     "create_search_knowledge_base_tool",
     "create_search_nfd_docs_tool",
     "format_documents_for_context",

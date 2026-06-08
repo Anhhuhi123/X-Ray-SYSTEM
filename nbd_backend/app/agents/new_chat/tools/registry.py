@@ -49,11 +49,6 @@ from .knowledge_base import create_search_knowledge_base_tool
 from .mcp_tool import load_mcp_tools
 from .report import create_generate_report_tool
 from .search_nfd_docs import create_search_nfd_docs_tool
-from .shared_memory import (
-    create_recall_shared_memory_tool,
-    create_save_shared_memory_tool,
-)
-from .user_memory import create_recall_memory_tool, create_save_memory_tool
 
 
 # -----------------------------------------------------------------------------
@@ -156,44 +151,6 @@ BUILTIN_TOOLS: list[ToolDefinition] = [
             db_session=deps["db_session"],
         ),
         requires=["db_session"],
-    ),
-    # =========================================================================
-    # USER MEMORY TOOLS - private or team store by thread_visibility
-    # =========================================================================
-    ToolDefinition(
-        name="save_memory",
-        description="Save facts, preferences, or context for personalized or team responses",
-        factory=lambda deps: (
-            create_save_shared_memory_tool(
-                search_space_id=deps["search_space_id"],
-                created_by_id=deps["user_id"],
-                db_session=deps["db_session"],
-            )
-            if deps["thread_visibility"] == ChatVisibility.SEARCH_SPACE
-            else create_save_memory_tool(
-                user_id=deps["user_id"],
-                search_space_id=deps["search_space_id"],
-                db_session=deps["db_session"],
-            )
-        ),
-        requires=["user_id", "search_space_id", "db_session", "thread_visibility"],
-    ),
-    ToolDefinition(
-        name="recall_memory",
-        description="Recall relevant memories (personal or team) for context",
-        factory=lambda deps: (
-            create_recall_shared_memory_tool(
-                search_space_id=deps["search_space_id"],
-                db_session=deps["db_session"],
-            )
-            if deps["thread_visibility"] == ChatVisibility.SEARCH_SPACE
-            else create_recall_memory_tool(
-                user_id=deps["user_id"],
-                search_space_id=deps["search_space_id"],
-                db_session=deps["db_session"],
-            )
-        ),
-        requires=["user_id", "search_space_id", "db_session", "thread_visibility"],
     ),
     # =========================================================================
     # GOOGLE DRIVE TOOLS - create files, delete files (WIP - hidden from UI)

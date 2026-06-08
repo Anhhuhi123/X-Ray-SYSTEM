@@ -40,7 +40,6 @@ import {
 	CreateGoogleDriveFileToolUI,
 	DeleteGoogleDriveFileToolUI,
 } from "@/components/tool-ui/google-drive";
-import { RecallMemoryToolUI, SaveMemoryToolUI } from "@/components/tool-ui/user-memory";
 import { Skeleton } from "@/components/ui/skeleton";
 import { ChatSessionStateSync } from "@/hooks/use-chat-session-state";
 import { useMessagesElectric } from "@/hooks/use-messages-electric";
@@ -1842,8 +1841,6 @@ export default function NewChatPage() {
 		<AssistantRuntimeProvider runtime={runtime}>
 			<ChatSessionStateSync threadId={threadId} />
 			<GenerateReportToolUI />
-			<SaveMemoryToolUI />
-			<RecallMemoryToolUI />
 			<CreateGoogleDriveFileToolUI />
 			<DeleteGoogleDriveFileToolUI />
 			{/* <WriteTodosToolUI /> Disabled for now */}

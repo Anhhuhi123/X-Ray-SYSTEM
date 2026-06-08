@@ -123,10 +123,8 @@ async def create_nfd_deep_agent(
 
     The agent comes with built-in tools that can be configured:
     - search_knowledge_base: Search the user's personal knowledge base
-    - link_preview: Fetch rich previews for URLs
-    - scrape_webpage: Extract content from webpages
-    - save_memory: Store facts/preferences about the user
-    - recall_memory: Retrieve relevant user memories
+    - search_nfd_docs: Search NFD documentation
+    - generate_report: Generate structured reports
 
     The agent also includes TodoListMiddleware by default (via create_deep_agent) which provides:
     - write_todos: Create and update planning/todo lists for complex tasks

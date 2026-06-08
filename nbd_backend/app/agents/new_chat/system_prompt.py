@@ -152,120 +152,6 @@ _TOOL_INSTRUCTIONS["generate_report"] = """
   - AFTER CALLING THIS TOOL: Do NOT repeat, summarize, or reproduce the report content in the chat. The report is already displayed as an interactive card that the user can open, read, copy, and export. Simply confirm that the report was generated (e.g., "I've generated your report on [topic]. You can view the Markdown report now, and export it in various formats from the card."). NEVER write out the report text in the chat.
 """
 
-# Memory tool instructions have private and shared variants.
-# We store them keyed as "save_memory" / "recall_memory" with sub-keys.
-_MEMORY_TOOL_INSTRUCTIONS: dict[str, dict[str, str]] = {
-    "save_memory": {
-        "private": """
-- save_memory: Save facts, preferences, or context for personalized responses.
-  - Use this when the user explicitly or implicitly shares information worth remembering.
-  - Trigger scenarios:
-    * User says "remember this", "keep this in mind", "note that", or similar
-    * User shares personal preferences (e.g., "I prefer Python over JavaScript")
-    * User shares facts about themselves (e.g., "I'm a senior developer at Company X")
-    * User gives standing instructions (e.g., "always respond in bullet points")
-    * User shares project context (e.g., "I'm working on migrating our codebase to TypeScript")
-  - Args:
-    - content: The fact/preference to remember. Phrase it clearly:
-      * "User prefers dark mode for all interfaces"
-      * "User is a senior Python developer"
-      * "User wants responses in bullet point format"
-      * "User is working on project called ProjectX"
-    - category: Type of memory:
-      * "preference": User preferences (coding style, tools, formats)
-      * "fact": Facts about the user (role, expertise, background)
-      * "instruction": Standing instructions (response format, communication style)
-      * "context": Current context (ongoing projects, goals, challenges)
-  - Returns: Confirmation of saved memory
-  - IMPORTANT: Only save information that would be genuinely useful for future conversations.
-    Don't save trivial or temporary information.
-""",
-        "shared": """
-- save_memory: Save a fact, preference, or context to the team's shared memory for future reference.
-  - Use this when the user or a team member says "remember this", "keep this in mind", or similar in this shared chat.
-  - Use when the team agrees on something to remember (e.g., decisions, conventions).
-  - Someone shares a preference or fact that should be visible to the whole team.
-  - The saved information will be available in future shared conversations in this space.
-  - Args:
-    - content: The fact/preference/context to remember. Phrase it clearly, e.g. "API keys are stored in Vault", "The team prefers weekly demos on Fridays"
-    - category: Type of memory. One of:
-      * "preference": Team or workspace preferences
-      * "fact": Facts the team agreed on (e.g., processes, locations)
-      * "instruction": Standing instructions for the team
-      * "context": Current context (e.g., ongoing projects, goals)
-  - Returns: Confirmation of saved memory; returned context may include who added it (added_by).
-  - IMPORTANT: Only save information that would be genuinely useful for future team conversations in this space.
-""",
-    },
-    "recall_memory": {
-        "private": """
-- recall_memory: Retrieve relevant memories about the user for personalized responses.
-  - Use this to access stored information about the user.
-  - Trigger scenarios:
-    * You need user context to give a better, more personalized answer
-    * User references something they mentioned before
-    * User asks "what do you know about me?" or similar
-    * Personalization would significantly improve response quality
-    * Before making recommendations that should consider user preferences
-  - Args:
-    - query: Optional search query to find specific memories (e.g., "programming preferences")
-    - category: Optional filter by category ("preference", "fact", "instruction", "context")
-    - top_k: Number of memories to retrieve (default: 5)
-  - Returns: Relevant memories formatted as context
-  - IMPORTANT: Use the recalled memories naturally in your response without explicitly
-    stating "Based on your memory..." - integrate the context seamlessly.
-""",
-        "shared": """
-- recall_memory: Recall relevant team memories for this space to provide contextual responses.
-  - Use when you need team context to answer (e.g., "where do we store X?", "what did we decide about Y?").
-  - Use when someone asks about something the team agreed to remember.
-  - Use when team preferences or conventions would improve the response.
-  - Args:
-    - query: Optional search query to find specific memories. If not provided, returns the most recent memories.
-    - category: Optional filter by category ("preference", "fact", "instruction", "context")
-    - top_k: Number of memories to retrieve (default: 5, max: 20)
-  - Returns: Relevant team memories and formatted context (may include added_by). Integrate naturally without saying "Based on team memory...".
-""",
-    },
-}
-
-_MEMORY_TOOL_EXAMPLES: dict[str, dict[str, str]] = {
-    "save_memory": {
-        "private": """
-- User: "Remember that I prefer TypeScript over JavaScript"
-  - Call: `save_memory(content="User prefers TypeScript over JavaScript for development", category="preference")`
-- User: "I'm a data scientist working on ML pipelines"
-  - Call: `save_memory(content="User is a data scientist working on ML pipelines", category="fact")`
-- User: "Always give me code examples in Python"
-  - Call: `save_memory(content="User wants code examples to be written in Python", category="instruction")`
-""",
-        "shared": """
-- User: "Remember that API keys are stored in Vault"
-  - Call: `save_memory(content="API keys are stored in Vault", category="fact")`
-- User: "Let's remember that the team prefers weekly demos on Fridays"
-  - Call: `save_memory(content="The team prefers weekly demos on Fridays", category="preference")`
-""",
-    },
-    "recall_memory": {
-        "private": """
-- User: "What programming language should I use for this project?"
-  - First recall: `recall_memory(query="programming language preferences")`
-  - Then provide a personalized recommendation based on their preferences
-- User: "What do you know about me?"
-  - Call: `recall_memory(top_k=10)`
-  - Then summarize the stored memories
-""",
-        "shared": """
-- User: "What did we decide about the release date?"
-  - First recall: `recall_memory(query="release date decision")`
-  - Then answer based on the team memories
-- User: "Where do we document onboarding?"
-  - Call: `recall_memory(query="onboarding documentation")`
-  - Then answer using the recalled team context
-""",
-    },
-}
-
 # Per-tool examples keyed by tool name. Only examples for enabled tools are included.
 _TOOL_EXAMPLES: dict[str, str] = {}
 
@@ -330,8 +216,6 @@ _ALL_TOOL_NAMES_ORDERED = [
     "generate_report",
     "link_preview",
     "scrape_webpage",
-    "save_memory",
-    "recall_memory",
 ]
 
 
@@ -348,18 +232,13 @@ def _get_tools_instructions(
     """Build tools instructions containing only the enabled tools.
 
     Args:
-        thread_visibility: Private vs shared — affects memory tool wording.
+        thread_visibility: Private vs shared — affects tool wording.
         enabled_tool_names: Set of tool names that are actually bound to the agent.
             When None, all tools are included (backward-compatible default).
         disabled_tool_names: Set of tool names that the user explicitly disabled.
             When provided, a note is appended telling the model about these tools
             so it can inform the user they can re-enable them.
     """
-    visibility = thread_visibility or ChatVisibility.PRIVATE
-    memory_variant = (
-        "shared" if visibility == ChatVisibility.SEARCH_SPACE else "private"
-    )
-
     parts: list[str] = [_TOOLS_PREAMBLE]
     examples: list[str] = []
 
@@ -369,13 +248,9 @@ def _get_tools_instructions(
 
         if tool_name in _TOOL_INSTRUCTIONS:
             parts.append(_TOOL_INSTRUCTIONS[tool_name])
-        elif tool_name in _MEMORY_TOOL_INSTRUCTIONS:
-            parts.append(_MEMORY_TOOL_INSTRUCTIONS[tool_name][memory_variant])
 
         if tool_name in _TOOL_EXAMPLES:
             examples.append(_TOOL_EXAMPLES[tool_name])
-        elif tool_name in _MEMORY_TOOL_EXAMPLES:
-            examples.append(_MEMORY_TOOL_EXAMPLES[tool_name][memory_variant])
 
     # Append a note about user-disabled tools so the model can inform the user
     known_disabled = (

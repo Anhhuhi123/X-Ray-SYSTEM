@@ -4,7 +4,7 @@ Revision ID: 33
 Revises: 32
 
 Changes:
-1. Add pages_limit column (Integer, default 500)
+1. Add pages_limit column (Integer, default 1000)
 2. Add pages_used column (Integer, default 0)
 """
 
@@ -40,7 +40,7 @@ def upgrade() -> None:
                 "pages_limit",
                 sa.Integer(),
                 nullable=False,
-                server_default="500",
+                server_default="1000",
             ),
         )
 

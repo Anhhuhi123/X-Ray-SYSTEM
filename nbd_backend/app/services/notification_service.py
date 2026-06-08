@@ -1011,7 +1011,7 @@ class PageLimitNotificationHandler(BaseNotificationHandler):
             document_name[:40] + "..." if len(document_name) > 40 else document_name
         )
         title = f"Page limit exceeded: {display_name}"
-        message = f"This document has ~{pages_to_add} page(s) but you've used {pages_used}/{pages_limit} pages. Upgrade to process more documents."
+        message = f"This document has ~{pages_to_add} page(s) but you've used {pages_used}/{pages_limit} pages. Please contact your administrator to increase your page limit."
 
         metadata = {
             "operation_id": operation_id,

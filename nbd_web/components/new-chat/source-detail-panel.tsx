@@ -144,6 +144,10 @@ export function SourceDetailPanel({
 		},
 		enabled: !!chunkId && open,
 		staleTime: 5 * 60 * 1000,
+		retry: (failureCount, error) => {
+			if ((error as { status?: number }).status === 404) return false;
+			return failureCount < 3;
+		},
 	});
 
 	const isDirectRenderSource =
@@ -396,13 +400,26 @@ export function SourceDetailPanel({
 										<X className="h-10 w-10 text-destructive" />
 									</div>
 									<div>
-										<p className="font-semibold text-destructive text-lg">
-											Failed to load document
-										</p>
-										<p className="text-sm text-muted-foreground mt-2 max-w-md">
-											{documentByChunkFetchingError.message ||
-												"An unexpected error occurred. Please try again."}
-										</p>
+										{(documentByChunkFetchingError as { status?: number }).status === 404 ? (
+											<>
+												<p className="font-semibold text-muted-foreground text-lg">
+													Document no longer available
+												</p>
+												<p className="text-sm text-muted-foreground mt-2 max-w-md">
+													This source was deleted or is no longer accessible.
+												</p>
+											</>
+										) : (
+											<>
+												<p className="font-semibold text-destructive text-lg">
+													Failed to load document
+												</p>
+												<p className="text-sm text-muted-foreground mt-2 max-w-md">
+													{documentByChunkFetchingError.message ||
+														"An unexpected error occurred. Please try again."}
+												</p>
+											</>
+										)}
 									</div>
 									<Button variant="outline" onClick={() => onOpenChange(false)} className="mt-2">
 										Close Panel

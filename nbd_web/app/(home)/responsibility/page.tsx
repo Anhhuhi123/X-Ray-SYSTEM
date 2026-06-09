@@ -1,5 +1,3 @@
-import Link from "next/link";
-
 export default function ResponsibilityPage() {
 	return (
 		<div className="mx-auto w-full max-w-4xl px-6 py-20 md:py-28">
@@ -12,9 +10,9 @@ export default function ResponsibilityPage() {
 						NBDoctor supports clinical reasoning, but does not replace medical judgment.
 					</h1>
 					<p className="text-base leading-7 text-neutral-600 dark:text-neutral-300">
-						NBDoctor is an assistant for information synthesis and decision support. Final
-						medical decisions, diagnoses, treatment plans, and patient care actions must
-						always be reviewed and approved by a licensed physician.
+						NBDoctor is an assistant for information synthesis and decision support. Final medical
+						decisions, diagnoses, treatment plans, and patient care actions must always be reviewed
+						and approved by a licensed physician.
 					</p>
 				</div>
 
@@ -24,26 +22,22 @@ export default function ResponsibilityPage() {
 					</h2>
 					<ul className="mt-4 space-y-3 text-sm leading-6 text-neutral-600 dark:text-neutral-300">
 						<li>
-							NBDoctor may generate incomplete or incorrect suggestions and should not be
-							used as the sole basis for patient decisions.
+							NBDoctor may generate incomplete or incorrect suggestions and should not be used as
+							the sole basis for patient decisions.
 						</li>
 						<li>
-							Clinicians are responsible for validating all outputs against clinical
-							guidelines, medical records, and direct patient assessment.
+							Clinicians are responsible for validating all outputs against clinical guidelines,
+							medical records, and direct patient assessment.
 						</li>
 						<li>
-							Emergency and high-risk decisions must follow institutional protocols and
-							human-led escalation paths.
+							Emergency and high-risk decisions must follow institutional protocols and human-led
+							escalation paths.
 						</li>
 					</ul>
 				</div>
 
 				<div className="text-sm text-neutral-600 dark:text-neutral-300">
-					Need clarification for your organization?{" "}
-					<Link href="/contact" className="font-semibold text-neutral-900 underline dark:text-neutral-100">
-						Contact us
-					</Link>
-					.
+					Need clarification for your organization? Please consult your local administrator.
 				</div>
 			</div>
 		</div>

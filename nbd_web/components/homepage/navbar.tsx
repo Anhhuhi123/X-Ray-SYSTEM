@@ -12,10 +12,7 @@ import { cn } from "@/lib/utils";
 export const Navbar = () => {
 	const [isScrolled, setIsScrolled] = useState(false);
 
-	const navItems = [
-		{ name: "Project Responsibility", link: "/responsibility" },
-		{ name: "Contact", link: "/contact" },
-	];
+	const navItems = [{ name: "Project Responsibility", link: "/responsibility" }];
 
 	useEffect(() => {
 		if (typeof window === "undefined") return;

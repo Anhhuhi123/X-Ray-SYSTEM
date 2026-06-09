@@ -1,8 +1,4 @@
-import {
-	IconBrandGithub,
-	IconBrandLinkedin,
-	IconBrandTwitter,
-} from "@tabler/icons-react";
+import { IconBrandGithub, IconBrandLinkedin, IconBrandFacebook } from "@tabler/icons-react";
 import Link from "next/link";
 import { Logo } from "@/components/Logo";
 
@@ -25,10 +21,6 @@ export function FooterNew() {
 			href: "/docs",
 		},
 		{
-			title: "Contact Us",
-			href: "/contact",
-		},
-		{
 			title: "Announcements",
 			href: "/announcements",
 		},
@@ -36,18 +28,18 @@ export function FooterNew() {
 
 	const socials = [
 		{
-			title: "Twitter",
-			href: "https://x.com/mod_setter",
-			icon: IconBrandTwitter,
+			title: "Facebook",
+			href: "https://web.facebook.com/anh.nguyenquoc.98478672",
+			icon: IconBrandFacebook,
 		},
 		{
 			title: "LinkedIn",
-			href: "https://www.linkedin.com/company/surfsense/",
+			href: "https://www.linkedin.com/in/anh-nguy%E1%BB%85n-38ba45302/",
 			icon: IconBrandLinkedin,
 		},
 		{
 			title: "GitHub",
-			href: "https://github.com/MODSetter",
+			href: "https://github.com/Anhhuhi123",
 			icon: IconBrandGithub,
 		},
 	];

@@ -4,7 +4,6 @@ import Link from "next/link";
 import type React from "react";
 import { useEffect, useRef, useState } from "react";
 import Balancer from "react-wrap-balancer";
-import { HeroCarousel } from "@/components/ui/hero-carousel";
 import { AUTH_TYPE, BACKEND_URL } from "@/lib/env-config";
 import { trackLoginAttempt } from "@/lib/posthog/events";
 import { cn } from "@/lib/utils";
@@ -44,7 +43,6 @@ function useIsDesktop(breakpoint = 1024) {
 }
 
 export function HeroSection() {
-	const containerRef = useRef<HTMLDivElement>(null);
 	const parentRef = useRef<HTMLDivElement>(null);
 	const isDesktop = useIsDesktop();
 
@@ -109,9 +107,6 @@ export function HeroSection() {
 			<div className="mb-6 mt-6 flex w-full flex-col items-center justify-center gap-4 px-8 sm:flex-row md:mb-10">
 				<GetStartedButton />
 				{/* <ContactSalesButton /> */}
-			</div>
-			<div ref={containerRef} className="relative w-full z-51">
-				<HeroCarousel />
 			</div>
 		</div>
 	);

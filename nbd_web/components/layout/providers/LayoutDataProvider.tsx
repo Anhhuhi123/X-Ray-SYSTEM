@@ -218,7 +218,7 @@ export function LayoutDataProvider({ searchSpaceId, children }: LayoutDataProvid
 
 			const actionUrl = isPageLimitExceededMetadata(notification.metadata)
 				? notification.metadata.action_url
-				: "/contact";
+				: "/";
 
 			toast.error(notification.title, {
 				description: notification.message,

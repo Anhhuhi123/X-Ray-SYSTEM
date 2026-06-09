@@ -20,6 +20,7 @@ COPY source.config.ts ./
 COPY content ./content
 
 # Install dependencies with frozen lockfile
+ENV CI=true
 RUN pnpm i --frozen-lockfile
 
 

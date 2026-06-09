@@ -712,6 +712,7 @@ export function LayoutDataProvider({ searchSpaceId, children }: LayoutDataProvid
 					email: user?.email || "",
 					name: user?.display_name || user?.email?.split("@")[0],
 					avatarUrl: user?.avatar_url || undefined,
+					is_superuser: user?.is_superuser,
 				}}
 				onSettings={handleSettings}
 				onManageMembers={handleManageMembers}

@@ -98,24 +98,24 @@ services:
       - PYTHONPATH=/app
       - SERVICE_ROLE=worker
 
-  celery_beat:
-    build: ../nbd_backend
-    env_file:
-      - ../nbd_backend/.env
-    environment:
-      - DATABASE_URL=${DATABASE_URL:-postgresql+asyncpg://${DB_USER:-postgres}:${DB_PASSWORD:-postgres}@${DB_HOST:-db}:${DB_PORT:-5432}/${DB_NAME:-nfd}}
-      - CELERY_BROKER_URL=${REDIS_URL:-redis://redis:6379/0}
-      - CELERY_RESULT_BACKEND=${REDIS_URL:-redis://redis:6379/0}
-      - CELERY_TASK_DEFAULT_QUEUE=nfd
-      - PYTHONPATH=/app
-      - SERVICE_ROLE=beat
-    depends_on:
-      db:
-        condition: service_healthy
-      redis:
-        condition: service_healthy
-      celery_worker:
-        condition: service_started
+  # celery_beat:
+  #   build: ../nbd_backend
+  #   env_file:
+  #     - ../nbd_backend/.env
+  #   environment:
+  #     - DATABASE_URL=${DATABASE_URL:-postgresql+asyncpg://${DB_USER:-postgres}:${DB_PASSWORD:-postgres}@${DB_HOST:-db}:${DB_PORT:-5432}/${DB_NAME:-nfd}}
+  #     - CELERY_BROKER_URL=${REDIS_URL:-redis://redis:6379/0}
+  #     - CELERY_RESULT_BACKEND=${REDIS_URL:-redis://redis:6379/0}
+  #     - CELERY_TASK_DEFAULT_QUEUE=nfd
+  #     - PYTHONPATH=/app
+  #     - SERVICE_ROLE=beat
+  #   depends_on:
+  #     db:
+  #       condition: service_healthy
+  #     redis:
+  #       condition: service_healthy
+  #     celery_worker:
+  #       condition: service_started
 
   frontend:
     build:

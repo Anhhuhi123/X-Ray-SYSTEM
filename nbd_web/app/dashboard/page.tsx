@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import { searchSpacesAtom } from "@/atoms/search-spaces/search-space-query.atoms";
+import { currentUserAtom } from "@/atoms/user/user-query.atoms";
 import { CreateSearchSpaceDialog } from "@/components/layout";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
@@ -93,17 +94,23 @@ export default function DashboardPage() {
 
 	const t = useTranslations("dashboard");
 	const { data: searchSpaces = [], isLoading, error } = useAtomValue(searchSpacesAtom);
+	const { data: user, isLoading: isUserLoading } = useAtomValue(currentUserAtom);
 
 	useEffect(() => {
-		if (isLoading) return;
+		if (isLoading || isUserLoading) return;
+
+		if (user?.is_superuser) {
+			router.replace("/admin");
+			return;
+		}
 
 		if (searchSpaces.length > 0) {
 			router.replace(`/dashboard/${searchSpaces[0].id}/new-chat`);
 		}
-	}, [isLoading, searchSpaces, router]);
+	}, [isLoading, isUserLoading, searchSpaces, user, router]);
 
 	// Show loading while fetching or while we have spaces and are about to redirect
-	const shouldShowLoading = isLoading || searchSpaces.length > 0;
+	const shouldShowLoading = isLoading || isUserLoading || !!user?.is_superuser || searchSpaces.length > 0;
 
 	// Use global loading screen - spinner animation won't reset
 	useGlobalLoadingEffect(shouldShowLoading);

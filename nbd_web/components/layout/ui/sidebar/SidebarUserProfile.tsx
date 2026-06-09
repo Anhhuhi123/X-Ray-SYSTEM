@@ -9,6 +9,7 @@ import {
 	Moon,
 	Sun,
 	UserCog,
+	ShieldAlert,
 } from "lucide-react";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
@@ -199,6 +200,13 @@ export function SidebarUserProfile({
 							{t("user_settings")}
 						</DropdownMenuItem>
 
+						{user.is_superuser && (
+							<DropdownMenuItem onClick={() => window.location.href = '/admin'}>
+								<ShieldAlert className="h-4 w-4" />
+								Admin Dashboard
+							</DropdownMenuItem>
+						)}
+
 						{setTheme && (
 							<DropdownMenuSub>
 								<DropdownMenuSubTrigger>
@@ -320,6 +328,13 @@ export function SidebarUserProfile({
 						<UserCog className="h-4 w-4" />
 						{t("user_settings")}
 					</DropdownMenuItem>
+
+					{user.is_superuser && (
+						<DropdownMenuItem onClick={() => window.location.href = '/admin'}>
+							<ShieldAlert className="h-4 w-4" />
+							Admin Dashboard
+						</DropdownMenuItem>
+					)}
 
 					{setTheme && (
 						<DropdownMenuSub>

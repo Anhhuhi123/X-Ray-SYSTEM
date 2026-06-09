@@ -52,9 +52,7 @@ from app.schemas import (
 )
 from app.services.composio_service import ComposioService, get_composio_service
 from app.services.notification_service import NotificationService
-from app.tasks.connector_indexers import (
-    index_crawled_urls,
-)
+
 from app.users import current_active_user
 from app.utils.decommissioned_connectors import DECOMMISSIONED_CONNECTOR_TYPES
 from app.utils.indexing_locks import (
@@ -1240,54 +1238,6 @@ async def _run_indexing_with_notifications(
                 release_connector_indexing_lock(connector_id)
 
 
-# Add new helper functions for crawled web page indexing
-async def run_web_page_indexing_with_new_session(
-    connector_id: int,
-    search_space_id: int,
-    user_id: str,
-    start_date: str,
-    end_date: str,
-):
-    """
-    Create a new session and run the Web page indexing task.
-    This prevents session leaks by creating a dedicated session for the background task.
-    """
-    async with async_session_maker() as session:
-        await run_web_page_indexing(
-            session, connector_id, search_space_id, user_id, start_date, end_date
-        )
-
-
-async def run_web_page_indexing(
-    session: AsyncSession,
-    connector_id: int,
-    search_space_id: int,
-    user_id: str,
-    start_date: str,
-    end_date: str,
-):
-    """
-    Background task to run Web page indexing.
-
-    Args:
-        session: Database session
-        connector_id: ID of the webcrawler connector
-        search_space_id: ID of the search space
-        user_id: ID of the user
-        start_date: Start date for indexing
-        end_date: End date for indexing
-    """
-    await _run_indexing_with_notifications(
-        session=session,
-        connector_id=connector_id,
-        search_space_id=search_space_id,
-        user_id=user_id,
-        start_date=start_date,
-        end_date=end_date,
-        indexing_function=index_crawled_urls,
-        update_timestamp_func=_update_connector_timestamp_by_id,
-        supports_heartbeat_callback=True,
-    )
 
 
 # Add new helper functions for Obsidian indexing

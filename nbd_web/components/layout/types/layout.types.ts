@@ -14,6 +14,7 @@ export interface User {
 	email: string;
 	name?: string;
 	avatarUrl?: string;
+	is_superuser?: boolean;
 }
 
 export interface NavItem {

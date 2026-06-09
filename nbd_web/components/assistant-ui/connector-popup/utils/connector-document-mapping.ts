@@ -11,7 +11,6 @@
 export const CONNECTOR_TO_DOCUMENT_TYPE: Record<string, string> = {
 	// Special mappings (connector type differs from document type)
 	GOOGLE_DRIVE_CONNECTOR: "GOOGLE_DRIVE_FILE",
-	WEBCRAWLER_CONNECTOR: "CRAWLED_URL",
 	// Composio connectors map to their own document types
 	COMPOSIO_GOOGLE_DRIVE_CONNECTOR: "COMPOSIO_GOOGLE_DRIVE_CONNECTOR",
 };

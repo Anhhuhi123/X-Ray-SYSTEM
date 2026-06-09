@@ -19,7 +19,6 @@ logger = logging.getLogger(__name__)
 # Mapping of connector types to their corresponding Celery task names
 CONNECTOR_TASK_MAP = {
     SearchSourceConnectorType.COMPOSIO_GOOGLE_DRIVE_CONNECTOR: "index_composio_connector",
-    SearchSourceConnectorType.WEBCRAWLER_CONNECTOR: "index_crawled_urls",
     SearchSourceConnectorType.OBSIDIAN_CONNECTOR: "index_obsidian_vault",
 }
 
@@ -52,18 +51,7 @@ def create_periodic_schedule(
     """
     try:
         # Special handling for connectors that require config validation
-        if connector_type == SearchSourceConnectorType.WEBCRAWLER_CONNECTOR:
-            from app.utils.webcrawler_utils import parse_webcrawler_urls
-
-            config = connector_config or {}
-            urls = parse_webcrawler_urls(config.get("INITIAL_URLS"))
-
-            if not urls:
-                logger.info(
-                    f"Webcrawler connector {connector_id} has no URLs configured, "
-                    "skipping first indexing run (will run when URLs are added)"
-                )
-                return True  # Return success - schedule is created, just no first run
+        # (none currently implemented)
 
         logger.info(
             f"Periodic indexing enabled for connector {connector_id} "
@@ -73,14 +61,12 @@ def create_periodic_schedule(
         # Import all indexing tasks
         from app.tasks.celery_tasks.connector_tasks import (
             index_composio_connector_task,
-            index_crawled_urls_task,
             index_obsidian_vault_task,
         )
 
         # Map connector type to task
         task_map = {
             SearchSourceConnectorType.COMPOSIO_GOOGLE_DRIVE_CONNECTOR: index_composio_connector_task,
-            SearchSourceConnectorType.WEBCRAWLER_CONNECTOR: index_crawled_urls_task,
             SearchSourceConnectorType.OBSIDIAN_CONNECTOR: index_obsidian_vault_task,
         }
 

@@ -121,7 +121,6 @@ export const ConnectorIndicator = forwardRef<ConnectorIndicatorHandle, Connector
 			handleScroll,
 			handleConnectOAuth,
 			handleConnectNonOAuth,
-			handleCreateWebcrawler,
 			handleCreateYouTubeCrawler,
 			handleSubmitConnectForm,
 			handleStartIndexing,
@@ -418,9 +417,6 @@ export const ConnectorIndicator = forwardRef<ConnectorIndicatorHandle, Connector
 												indexingConnectorIds={indexingConnectorIds}
 												onConnectOAuth={hasDocumentSummaryLLM ? handleConnectOAuth : () => {}}
 												onConnectNonOAuth={hasDocumentSummaryLLM ? handleConnectNonOAuth : () => {}}
-												onCreateWebcrawler={
-													hasDocumentSummaryLLM ? handleCreateWebcrawler : () => {}
-												}
 												onCreateYouTubeCrawler={
 													hasDocumentSummaryLLM ? handleCreateYouTubeCrawler : () => {}
 												}

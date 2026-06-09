@@ -558,14 +558,6 @@ def validate_connector_config(
         #     "required": ["AIRTABLE_API_KEY", "AIRTABLE_BASE_ID"],
         #     "validators": {}
         # },
-        "WEBCRAWLER_CONNECTOR": {
-            "required": [],  # No required fields - API key is optional
-            "optional": ["FIRECRAWL_API_KEY", "INITIAL_URLS"],
-            "validators": {
-                "FIRECRAWL_API_KEY": lambda: validate_firecrawl_api_key_format(),
-                "INITIAL_URLS": lambda: validate_initial_urls(),
-            },
-        },
     }
 
     rules = connector_rules.get(connector_type_str)

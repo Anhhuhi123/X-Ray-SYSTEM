@@ -813,11 +813,6 @@ async def stream_new_chat(
         connector_service = ConnectorService(session, search_space_id=search_space_id)
 
         firecrawl_api_key = None
-        webcrawler_connector = await connector_service.get_connector_by_type(
-            SearchSourceConnectorType.WEBCRAWLER_CONNECTOR, search_space_id
-        )
-        if webcrawler_connector and webcrawler_connector.config:
-            firecrawl_api_key = webcrawler_connector.config.get("FIRECRAWL_API_KEY")
         _perf_log.info(
             "[stream_new_chat] Connector service + firecrawl key in %.3fs",
             time.perf_counter() - _t0,
@@ -1296,11 +1291,6 @@ async def stream_resume_chat(
         connector_service = ConnectorService(session, search_space_id=search_space_id)
 
         firecrawl_api_key = None
-        webcrawler_connector = await connector_service.get_connector_by_type(
-            SearchSourceConnectorType.WEBCRAWLER_CONNECTOR, search_space_id
-        )
-        if webcrawler_connector and webcrawler_connector.config:
-            firecrawl_api_key = webcrawler_connector.config.get("FIRECRAWL_API_KEY")
         _perf_log.info(
             "[stream_resume] Connector service + firecrawl key in %.3fs",
             time.perf_counter() - _t0,

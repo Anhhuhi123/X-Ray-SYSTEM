@@ -43,7 +43,6 @@ _perf_log = get_perf_logger()
 _CONNECTOR_TYPE_TO_SEARCHABLE: dict[str, str] = {
     # Direct mappings (connector type == searchable type)
     "GOOGLE_DRIVE_CONNECTOR": "GOOGLE_DRIVE_FILE",  # Connector type differs from document type
-    "WEBCRAWLER_CONNECTOR": "CRAWLED_URL",  # Maps to document type
     "OBSIDIAN_CONNECTOR": "OBSIDIAN_CONNECTOR",
     # Composio connectors
     "COMPOSIO_GOOGLE_DRIVE_CONNECTOR": "COMPOSIO_GOOGLE_DRIVE_CONNECTOR",

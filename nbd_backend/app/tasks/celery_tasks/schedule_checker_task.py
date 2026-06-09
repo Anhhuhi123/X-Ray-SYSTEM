@@ -55,13 +55,11 @@ async def _check_and_trigger_schedules():
             # Import all indexing tasks
             from app.tasks.celery_tasks.connector_tasks import (
                 index_composio_connector_task,
-                index_crawled_urls_task,
             )
 
             # Map connector types to their tasks
             task_map = {
                 SearchSourceConnectorType.COMPOSIO_GOOGLE_DRIVE_CONNECTOR: index_composio_connector_task,
-                SearchSourceConnectorType.WEBCRAWLER_CONNECTOR: index_crawled_urls_task,
             }
 
             # Trigger indexing for each due connector
@@ -107,48 +105,13 @@ async def _check_and_trigger_schedules():
                         f"({connector.connector_type.value})"
                     )
 
-                    # Special handling for Webcrawler - skip if no URLs configured
-                    if (
-                        connector.connector_type
-                        == SearchSourceConnectorType.WEBCRAWLER_CONNECTOR
-                    ):
-                        from app.utils.webcrawler_utils import parse_webcrawler_urls
-
-                        connector_config = connector.config or {}
-                        urls = parse_webcrawler_urls(
-                            connector_config.get("INITIAL_URLS")
-                        )
-
-                        if urls:
-                            task.delay(
-                                connector.id,
-                                connector.search_space_id,
-                                str(connector.user_id),
-                                None,  # start_date
-                                None,  # end_date
-                            )
-                        else:
-                            # No URLs configured - skip indexing but still update next_scheduled_at
-                            logger.info(
-                                f"Webcrawler connector {connector.id} has no URLs configured, "
-                                "skipping periodic indexing (will check again at next scheduled time)"
-                            )
-                            from datetime import timedelta
-
-                            connector.next_scheduled_at = now + timedelta(
-                                minutes=connector.indexing_frequency_minutes
-                            )
-                            await session.commit()
-                            continue
-
-                    else:
-                        task.delay(
-                            connector.id,
-                            connector.search_space_id,
-                            str(connector.user_id),
-                            None,  # start_date - uses last_indexed_at
-                            None,  # end_date - uses now
-                        )
+                    task.delay(
+                        connector.id,
+                        connector.search_space_id,
+                        str(connector.user_id),
+                        None,  # start_date - uses last_indexed_at
+                        None,  # end_date - uses now
+                    )
 
                     # Update next_scheduled_at for next run
                     from datetime import timedelta

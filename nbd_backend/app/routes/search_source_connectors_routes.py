@@ -675,7 +675,6 @@ async def index_connector_content(
 
     Currently supports:
     - COMPOSIO_GOOGLE_DRIVE_CONNECTOR: Indexes files from Composio Google Drive
-    - WEBCRAWLER_CONNECTOR: Indexes web pages from crawled websites
     - OBSIDIAN_CONNECTOR: Indexes notes from Obsidian vaults
 
     Args:
@@ -750,35 +749,7 @@ async def index_connector_content(
         # For supported connectors, cap end date at today by default.
         indexing_to = end_date if end_date else today_str
 
-        if connector.connector_type == SearchSourceConnectorType.WEBCRAWLER_CONNECTOR:
-            from app.tasks.celery_tasks.connector_tasks import index_crawled_urls_task
-            from app.utils.webcrawler_utils import parse_webcrawler_urls
-
-            # Check if URLs are configured before triggering indexing
-            connector_config = connector.config or {}
-            urls = parse_webcrawler_urls(connector_config.get("INITIAL_URLS"))
-
-            if not urls:
-                # URLs are optional - skip indexing gracefully
-                logger.info(
-                    f"Webcrawler connector {connector_id} has no URLs configured, skipping indexing"
-                )
-                response_message = "No URLs configured for this connector. Add URLs in the connector settings to enable indexing."
-                indexing_started = False
-            else:
-                logger.info(
-                    f"Triggering web pages indexing for connector {connector_id} into search space {search_space_id} from {indexing_from} to {indexing_to}"
-                )
-                index_crawled_urls_task.delay(
-                    connector_id,
-                    search_space_id,
-                    str(user.id),
-                    indexing_from,
-                    indexing_to,
-                )
-                response_message = "Web page indexing started in the background."
-
-        elif connector.connector_type == SearchSourceConnectorType.OBSIDIAN_CONNECTOR:
+        if connector.connector_type == SearchSourceConnectorType.OBSIDIAN_CONNECTOR:
             from app.config import config as app_config
             from app.tasks.celery_tasks.connector_tasks import index_obsidian_vault_task
 

@@ -29,7 +29,6 @@ import { SidebarSlideOutPanel } from "./SidebarSlideOutPanel";
 const SHOWCASE_CONNECTORS = [
 	{ type: "GOOGLE_DRIVE_CONNECTOR", label: "Google Drive" },
 	{ type: "COMPOSIO_GOOGLE_DRIVE_CONNECTOR", label: "Composio Google Drive" },
-	{ type: "WEBCRAWLER_CONNECTOR", label: "Web Pages" },
 ] as const;
 
 interface DocumentsSidebarProps {

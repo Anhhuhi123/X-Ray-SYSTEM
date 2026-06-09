@@ -23,8 +23,6 @@ export const getConnectorIcon = (connectorType: EnumConnectorName | string, clas
 	};
 
 	switch (connectorType) {
-		case EnumConnectorName.WEBCRAWLER_CONNECTOR:
-			return <Globe {...iconProps} />;
 		case EnumConnectorName.MCP_CONNECTOR:
 			return <Image src="/connectors/modelcontextprotocol.svg" alt="MCP" {...imgProps} />;
 		case EnumConnectorName.OBSIDIAN_CONNECTOR:

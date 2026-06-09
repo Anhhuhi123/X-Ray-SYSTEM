@@ -160,10 +160,9 @@ export const IndexingConfigurationView: FC<IndexingConfigurationViewProps> = ({
 								{/* AI Summary toggle */}
 								<SummaryConfig enabled={enableSummary} onEnabledChange={onEnableSummaryChange} />
 
-								{/* Date range selector - not shown for Google Drive (regular and Composio) or Webcrawler */}
+								{/* Date range selector - not shown for Google Drive (regular and Composio) */}
 								{config.connectorType !== "GOOGLE_DRIVE_CONNECTOR" &&
 									config.connectorType !== "COMPOSIO_GOOGLE_DRIVE_CONNECTOR" &&
-									config.connectorType !== "WEBCRAWLER_CONNECTOR" &&
 									(
 										<DateRangeSelector
 											startDate={startDate}

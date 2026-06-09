@@ -100,7 +100,6 @@ function getConnectorTypeDisplayName(connectorType: string): string {
 		CONFLUENCE_CONNECTOR: "Confluence",
 		CLICKUP_CONNECTOR: "ClickUp",
 		AIRTABLE_CONNECTOR: "Airtable",
-		WEBCRAWLER_CONNECTOR: "Web Crawler",
 		YOUTUBE_CONNECTOR: "YouTube",
 		CIRCLEBACK_CONNECTOR: "Circleback",
 		MCP_CONNECTOR: "MCP",

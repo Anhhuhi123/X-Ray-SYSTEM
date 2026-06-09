@@ -12,14 +12,7 @@ export const OAUTH_CONNECTORS = [
 ] as const;
 
 // Content Sources (tools that extract and import content from external sources)
-export const CRAWLERS = [
-	{
-		id: "webcrawler-connector",
-		title: "Web Pages",
-		description: "Index and periodically sync web content",
-		connectorType: EnumConnectorName.WEBCRAWLER_CONNECTOR,
-	},
-] as const;
+export const CRAWLERS = [] as const;
 
 // Non-OAuth Connectors (redirect to old connector config pages)
 export const OTHER_CONNECTORS: Array<{

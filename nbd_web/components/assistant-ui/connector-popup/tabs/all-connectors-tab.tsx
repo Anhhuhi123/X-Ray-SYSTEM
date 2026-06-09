@@ -35,8 +35,6 @@ interface AllConnectorsTabProps {
 	onConnectOAuth: (
 		connector: (typeof OAUTH_CONNECTORS)[number] | (typeof COMPOSIO_CONNECTORS)[number]
 	) => void;
-	onConnectNonOAuth?: (connectorType: string) => void;
-	onCreateWebcrawler?: () => void;
 	onCreateYouTubeCrawler?: () => void;
 	onManage?: (connector: SearchSourceConnector) => void;
 	onViewAccountsList?: (connectorType: string, connectorTitle: string) => void;
@@ -51,7 +49,6 @@ export const AllConnectorsTab: FC<AllConnectorsTabProps> = ({
 	indexingConnectorIds,
 	onConnectOAuth,
 	onConnectNonOAuth,
-	onCreateWebcrawler,
 	onCreateYouTubeCrawler: _onCreateYouTubeCrawler,
 	onManage,
 	onViewAccountsList,
@@ -203,9 +200,6 @@ export const AllConnectorsTab: FC<AllConnectorsTabProps> = ({
 					</div>
 					<div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
 						{filteredCrawlers.map((crawler) => {
-							const isWebcrawler = crawler.id === "webcrawler-connector";
-
-							// For crawlers that are actual connectors, check connection status
 							const isConnected = crawler.connectorType
 								? connectedTypes.has(crawler.connectorType)
 								: false;
@@ -224,10 +218,7 @@ export const AllConnectorsTab: FC<AllConnectorsTabProps> = ({
 								: undefined;
 							const isIndexing = actualConnector && indexingConnectorIds?.has(actualConnector.id);
 
-							const handleConnect =
-								isWebcrawler && onCreateWebcrawler
-										? onCreateWebcrawler
-										: crawler.connectorType && onConnectNonOAuth
+							const handleConnect = crawler.connectorType && onConnectNonOAuth
 											? () => {
 													if (crawler.connectorType) {
 														onConnectNonOAuth(crawler.connectorType);

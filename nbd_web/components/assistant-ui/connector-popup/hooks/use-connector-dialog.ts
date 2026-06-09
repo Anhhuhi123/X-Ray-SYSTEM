@@ -580,70 +580,6 @@ export const useConnectorDialog = () => {
 		window.history.pushState({ modal: true }, "", url.toString());
 	}, [searchSpaceId]);
 
-	// Handle creating webcrawler connector
-	const handleCreateWebcrawler = useCallback(async () => {
-		if (!searchSpaceId) return;
-
-		setConnectingId("webcrawler-connector");
-		try {
-			await createConnector({
-				data: {
-					name: "Web Pages",
-					connector_type: EnumConnectorName.WEBCRAWLER_CONNECTOR,
-					config: {},
-					is_indexable: true,
-					is_active: true,
-					last_indexed_at: null,
-					periodic_indexing_enabled: false,
-					indexing_frequency_minutes: null,
-					next_scheduled_at: null,
-					enable_summary: false,
-				},
-				queryParams: {
-					search_space_id: searchSpaceId,
-				},
-			});
-
-			// Refetch connectors to get the new one
-			const result = await refetchAllConnectors();
-			if (result.data) {
-				const connector = result.data.find(
-					(c: SearchSourceConnector) => c.connector_type === EnumConnectorName.WEBCRAWLER_CONNECTOR
-				);
-				if (connector) {
-					const connectorValidation = searchSourceConnector.safeParse(connector);
-					if (connectorValidation.success) {
-						// Track webcrawler connector connected
-						trackConnectorConnected(
-							Number(searchSpaceId),
-							EnumConnectorName.WEBCRAWLER_CONNECTOR,
-							connector.id
-						);
-
-						const config = validateIndexingConfigState({
-							connectorType: EnumConnectorName.WEBCRAWLER_CONNECTOR,
-							connectorId: connector.id,
-							connectorTitle: "Web Pages",
-						});
-						setIndexingConfig(config);
-						setIndexingConnector(connector);
-						setIndexingConnectorConfig(connector.config || {});
-						setIsOpen(true);
-						const url = new URL(window.location.href);
-						url.searchParams.set("modal", "connectors");
-						url.searchParams.set("view", "configure");
-						window.history.pushState({ modal: true }, "", url.toString());
-					}
-				}
-			}
-		} catch (error) {
-			console.error("Error creating webcrawler connector:", error);
-			toast.error("Failed to create web crawler connector");
-		} finally {
-			setConnectingId(null);
-		}
-	}, [searchSpaceId, createConnector, refetchAllConnectors, setIsOpen]);
-
 	// Handle connecting non-OAuth connectors (like Tavily API)
 	const handleConnectNonOAuth = useCallback(
 		(connectorType: string) => {
@@ -1007,11 +943,9 @@ export const useConnectorDialog = () => {
 		async (refreshConnectors: () => void) => {
 			if (!indexingConfig || !searchSpaceId) return;
 
-			// Validate date range (skip for Google Drive, Composio Drive, and Webcrawler)
 			if (
 				indexingConfig.connectorType !== "GOOGLE_DRIVE_CONNECTOR" &&
-				indexingConfig.connectorType !== "COMPOSIO_GOOGLE_DRIVE_CONNECTOR" &&
-				indexingConfig.connectorType !== "WEBCRAWLER_CONNECTOR"
+				indexingConfig.connectorType !== "COMPOSIO_GOOGLE_DRIVE_CONNECTOR"
 			) {
 				const dateRangeValidation = dateRangeSchema.safeParse({ startDate, endDate });
 				if (!dateRangeValidation.success) {
@@ -1101,14 +1035,6 @@ export const useConnectorDialog = () => {
 						setIsStartingIndexing(false);
 						return;
 					}
-				} else if (indexingConfig.connectorType === "WEBCRAWLER_CONNECTOR") {
-					// Webcrawler doesn't use date ranges, just uses config (API key and URLs)
-					await indexConnector({
-						connector_id: indexingConfig.connectorId,
-						queryParams: {
-							search_space_id: searchSpaceId,
-						},
-					});
 				} else {
 					await indexConnector({
 						connector_id: indexingConfig.connectorId,
@@ -1262,11 +1188,10 @@ export const useConnectorDialog = () => {
 		async (refreshConnectors: () => void) => {
 			if (!editingConnector || !searchSpaceId || isSaving) return;
 
-			// Validate date range (skip for Google Drive which uses folder selection, Webcrawler which uses config, and non-indexable connectors)
+			// Validate date range (skip for Google Drive which uses folder selection and non-indexable connectors)
 			if (
 				editingConnector.is_indexable &&
-				editingConnector.connector_type !== "GOOGLE_DRIVE_CONNECTOR" &&
-				editingConnector.connector_type !== "WEBCRAWLER_CONNECTOR"
+				editingConnector.connector_type !== "GOOGLE_DRIVE_CONNECTOR"
 			) {
 				const dateRangeValidation = dateRangeSchema.safeParse({ startDate, endDate });
 				if (!dateRangeValidation.success) {
@@ -1376,15 +1301,6 @@ export const useConnectorDialog = () => {
 						const totalItems = (selectedFolders?.length || 0) + (selectedFiles?.length || 0);
 						indexingDescription = `Re-indexing started for ${totalItems} item(s).`;
 					}
-				} else if (editingConnector.connector_type === "WEBCRAWLER_CONNECTOR") {
-					// Webcrawler uses config (API key and URLs), not date ranges
-					await indexConnector({
-						connector_id: editingConnector.id,
-						queryParams: {
-							search_space_id: searchSpaceId,
-						},
-					});
-					indexingDescription = "Re-indexing started with updated configuration.";
 				} else if (startDateStr || endDateStr) {
 					// Other connectors use date ranges
 					await indexConnector({
@@ -1720,7 +1636,6 @@ export const useConnectorDialog = () => {
 		handleScroll,
 		handleConnectOAuth,
 		handleConnectNonOAuth,
-		handleCreateWebcrawler,
 		handleCreateYouTubeCrawler,
 		handleSubmitConnectForm,
 		handleAutoIndex,

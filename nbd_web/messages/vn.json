@@ -337,8 +337,7 @@
         "calendar_desc": "Kết nối với Google Calendar để tìm kiếm sự kiện, cuộc họp và lịch trình.",
         "gmail_desc": "Kết nối với Gmail để tìm kiếm email.",
         "google_drive_desc": "Kết nối với Google Drive để tìm kiếm và lập chỉ mục tệp của bạn.",
-        "zoom_desc": "Kết nối với Zoom để truy cập bản ghi cuộc họp và bản ghi lời thoại.",
-        "webcrawler_desc": "Thu thập và lập chỉ mục nội dung từ bất kỳ trang web công cộng nào."
+        "zoom_desc": "Kết nối với Zoom để truy cập bản ghi cuộc họp và bản ghi lời thoại."
     },
     "upload_documents": {
         "title": "Tải tài liệu lên",

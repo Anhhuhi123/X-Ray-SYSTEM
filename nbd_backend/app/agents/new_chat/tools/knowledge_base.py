@@ -150,7 +150,6 @@ _ALL_CONNECTORS: list[str] = [
     "YOUTUBE_VIDEO",
     "GOOGLE_DRIVE_FILE",
     "NOTE",
-    "CRAWLED_URL",
     "OBSIDIAN_CONNECTOR",
     # Composio connectors
     "COMPOSIO_GOOGLE_DRIVE_CONNECTOR",
@@ -164,8 +163,6 @@ CONNECTOR_DESCRIPTIONS: dict[str, str] = {
     "NOTE": "NFD Notes (notes created inside NFD)",
     "YOUTUBE_VIDEO": "YouTube video transcripts and metadata (personally saved videos)",
     "GOOGLE_DRIVE_FILE": "Google Drive files and documents (personal cloud storage)",
-    "WEBCRAWLER_CONNECTOR": "Webpages indexed by NFD (personally selected websites)",
-    "CRAWLED_URL": "Webpages indexed by NFD (personally selected websites)",
     "OBSIDIAN_CONNECTOR": "Obsidian vault notes and markdown files (personal notes)",
     # Composio connectors
     "COMPOSIO_GOOGLE_DRIVE_CONNECTOR": "Google Drive files via Composio (personal cloud storage)",
@@ -185,7 +182,7 @@ def _normalize_connectors(
     """
     Normalize connectors provided by the model.
 
-    - Accepts user-facing enums like WEBCRAWLER_CONNECTOR and maps them to canonical
+    - Accepts user-facing enums and maps them to canonical
       ConnectorService types.
     - Drops unknown values.
     - If available_connectors is provided, only includes connectors from that list.
@@ -217,8 +214,6 @@ def _normalize_connectors(
         if not c:
             continue
         # Map user-facing aliases to canonical names
-        if c == "WEBCRAWLER_CONNECTOR":
-            c = "CRAWLED_URL"
         normalized.append(c)
 
     # de-dupe while preserving order + filter to valid connectors
@@ -520,14 +515,8 @@ def _build_connector_docstring(available_connectors: list[str] | None) -> str:
 
     lines = []
     for connector in connectors:
-        # Skip internal names, prefer user-facing aliases
-        if connector == "CRAWLED_URL":
-            # Show as WEBCRAWLER_CONNECTOR for user-facing docs
-            description = CONNECTOR_DESCRIPTIONS.get(connector, connector)
-            lines.append(f"- WEBCRAWLER_CONNECTOR: {description}")
-        else:
-            description = CONNECTOR_DESCRIPTIONS.get(connector, connector)
-            lines.append(f"- {connector}: {description}")
+        description = CONNECTOR_DESCRIPTIONS.get(connector, connector)
+        lines.append(f"- {connector}: {description}")
 
     return "\n".join(lines)
 
@@ -625,9 +614,7 @@ IMPORTANT:
 
 ## Available connector enums for `connectors_to_search`
 
-{connector_docs}
-
-NOTE: `WEBCRAWLER_CONNECTOR` is mapped internally to the canonical document type `CRAWLED_URL`."""
+{connector_docs}"""
 
     # Capture for closure
     _available_connectors = available_connectors

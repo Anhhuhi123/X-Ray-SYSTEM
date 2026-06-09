@@ -47,7 +47,6 @@ class DocumentType(StrEnum):
 
 class SearchSourceConnectorType(StrEnum):
     SERPER_API = "SERPER_API"  # NOT IMPLEMENTED YET : DON'T REMEMBER WHY : MOST PROBABLY BECAUSE WE NEED TO CRAWL THE RESULTS RETURNED BY IT
-    WEBCRAWLER_CONNECTOR = "WEBCRAWLER_CONNECTOR"
     OBSIDIAN_CONNECTOR = (
         "OBSIDIAN_CONNECTOR"  # Self-hosted only - Local Obsidian vault indexing
     )

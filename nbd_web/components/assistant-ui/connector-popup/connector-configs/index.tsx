@@ -19,7 +19,6 @@ import { SearxngConfig } from "./components/searxng-config";
 import { SlackConfig } from "./components/slack-config";
 import { TavilyApiConfig } from "./components/tavily-api-config";
 import { TeamsConfig } from "./components/teams-config";
-import { WebcrawlerConfig } from "./components/webcrawler-config";
 
 export interface ConnectorConfigProps {
 	connector: SearchSourceConnector;
@@ -47,8 +46,6 @@ export function getConnectorConfigComponent(
 			return LinkupApiConfig;
 		case "BAIDU_SEARCH_API":
 			return BaiduSearchApiConfig;
-		case "WEBCRAWLER_CONNECTOR":
-			return WebcrawlerConfig;
 		case "SLACK_CONNECTOR":
 			return SlackConfig;
 		case "DISCORD_CONNECTOR":

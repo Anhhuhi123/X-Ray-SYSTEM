@@ -19,7 +19,6 @@ export const getConnectorTypeDisplay = (type: string): string => {
 		COMPOSIO_GMAIL_CONNECTOR: "Gmail",
 		COMPOSIO_GOOGLE_CALENDAR_CONNECTOR: "Google Calendar",
 		AIRTABLE_CONNECTOR: "Airtable",
-		WEBCRAWLER_CONNECTOR: "Web Pages",
 		YOUTUBE_CONNECTOR: "YouTube",
 		CIRCLEBACK_CONNECTOR: "Circleback",
 		OBSIDIAN_CONNECTOR: "Obsidian",

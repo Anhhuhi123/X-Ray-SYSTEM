@@ -1,10 +1,5 @@
 {
 	"connectorStatuses": {
-		"WEBCRAWLER_CONNECTOR": {
-			"enabled": true,
-			"status": "warning",
-			"statusMessage": "Some requests may be blocked if not using Firecrawl."
-		}
 	},
 	"globalSettings": {
 		"showWarnings": true,

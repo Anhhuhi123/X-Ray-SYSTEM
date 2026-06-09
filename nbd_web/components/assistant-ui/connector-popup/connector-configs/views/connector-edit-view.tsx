@@ -220,10 +220,9 @@ export const ConnectorEditView: FC<ConnectorEditViewProps> = ({
 								{/* AI Summary toggle */}
 								<SummaryConfig enabled={enableSummary} onEnabledChange={onEnableSummaryChange} />
 
-								{/* Date range selector - not shown for Google Drive (regular and Composio) or Webcrawler */}
+								{/* Date range selector - not shown for Google Drive (regular and Composio) */}
 								{connector.connector_type !== "GOOGLE_DRIVE_CONNECTOR" &&
 									connector.connector_type !== "COMPOSIO_GOOGLE_DRIVE_CONNECTOR" &&
-									connector.connector_type !== "WEBCRAWLER_CONNECTOR" &&
 									(
 										<DateRangeSelector
 											startDate={startDate}

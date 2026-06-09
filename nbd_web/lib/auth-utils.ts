@@ -15,11 +15,8 @@ const PUBLIC_ROUTE_PREFIXES = [
 	"/login",
 	"/register",
 	"/auth",
-	"/docs",
 	"/public",
 	"/invite",
-	"/privacy",
-	"/terms",
 	"/changelog",
 ];
 

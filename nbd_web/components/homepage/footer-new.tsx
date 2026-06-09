@@ -1,31 +1,8 @@
-import { IconBrandGithub, IconBrandLinkedin, IconBrandFacebook } from "@tabler/icons-react";
+import { IconBrandFacebook, IconBrandGithub, IconBrandLinkedin } from "@tabler/icons-react";
 import Link from "next/link";
 import { Logo } from "@/components/Logo";
 
 export function FooterNew() {
-	const pages = [
-		// {
-		//   title: "All Products",
-		//   href: "#",
-		// },
-		// {
-		//   title: "Studio",
-		//   href: "#",
-		// },
-		// {
-		//   title: "Clients",
-		//   href: "#",
-		// },
-		{
-			title: "Docs",
-			href: "/docs",
-		},
-		{
-			title: "Announcements",
-			href: "/announcements",
-		},
-	];
-
 	const socials = [
 		{
 			title: "Facebook",
@@ -42,20 +19,6 @@ export function FooterNew() {
 			href: "https://github.com/Anhhuhi123",
 			icon: IconBrandGithub,
 		},
-	];
-	const legals = [
-		{
-			title: "Privacy Policy",
-			href: "/privacy",
-		},
-		{
-			title: "Terms of Service",
-			href: "/terms",
-		},
-		// {
-		//   title: "Cookie Policy",
-		//   href: "#",
-		// },
 	];
 
 	const signups = [
@@ -81,22 +44,7 @@ export function FooterNew() {
 						<span className="dark:text-white/90 text-gray-800 text-lg font-bold">NFDoctor</span>
 					</div>
 				</div>
-				<div className="grid grid-cols-2 lg:grid-cols-4 gap-10 items-start mt-10 sm:mt-0 md:mt-0">
-					<div className="flex justify-center space-y-4 flex-col w-full">
-						<p className="transition-colors hover:text-text-neutral-800 text-neutral-600 dark:text-neutral-300 font-bold">
-							Pages
-						</p>
-						<ul className="transition-colors hover:text-text-neutral-800 text-neutral-600 dark:text-neutral-300 list-none space-y-4">
-							{pages.map((page, idx) => (
-								<li key={"pages" + idx} className="list-none">
-									<Link className="transition-colors hover:text-text-neutral-800 " href={page.href}>
-										{page.title}
-									</Link>
-								</li>
-							))}
-						</ul>
-					</div>
-
+				<div className="grid grid-cols-2 gap-10 items-start mt-10 sm:mt-0 md:mt-0">
 					<div className="flex justify-center space-y-4 flex-col">
 						<p className="transition-colors hover:text-text-neutral-800 text-neutral-600 dark:text-neutral-300 font-bold">
 							Socials
@@ -121,23 +69,6 @@ export function FooterNew() {
 						</ul>
 					</div>
 
-					<div className="flex justify-center space-y-4 flex-col">
-						<p className="transition-colors hover:text-text-neutral-800 text-neutral-600 dark:text-neutral-300 font-bold">
-							Legal
-						</p>
-						<ul className="transition-colors hover:text-text-neutral-800 text-neutral-600 dark:text-neutral-300 list-none space-y-4">
-							{legals.map((legal, idx) => (
-								<li key={"legal" + idx} className="list-none">
-									<Link
-										className="transition-colors hover:text-text-neutral-800 "
-										href={legal.href}
-									>
-										{legal.title}
-									</Link>
-								</li>
-							))}
-						</ul>
-					</div>
 					<div className="flex justify-center space-y-4 flex-col">
 						<p className="transition-colors hover:text-text-neutral-800 text-neutral-600 dark:text-neutral-300 font-bold">
 							Register

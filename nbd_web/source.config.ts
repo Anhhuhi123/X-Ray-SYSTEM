@@ -1,10 +1,6 @@
 import { defineConfig, defineDocs, frontmatterSchema } from "fumadocs-mdx/config";
 import { z } from "zod";
 
-export const docs = defineDocs({
-	dir: "content/docs",
-});
-
 export const changelog = defineDocs({
 	dir: "changelog/content",
 	docs: {

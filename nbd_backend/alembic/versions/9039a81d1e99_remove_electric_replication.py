@@ -5,17 +5,18 @@ Revises: 120
 Create Date: 2026-06-09 11:25:14.471645
 
 """
-from typing import Sequence, Union
 
-from alembic import op
+from collections.abc import Sequence
+
 import sqlalchemy as sa
 
+from alembic import op
 
 # revision identifiers, used by Alembic.
-revision: str = '9039a81d1e99'
-down_revision: Union[str, None] = '120'
-branch_labels: Union[str, Sequence[str], None] = None
-depends_on: Union[str, Sequence[str], None] = None
+revision: str = "9039a81d1e99"
+down_revision: str | None = "120"
+branch_labels: str | Sequence[str] | None = None
+depends_on: str | Sequence[str] | None = None
 
 
 def upgrade() -> None:
@@ -24,7 +25,12 @@ def upgrade() -> None:
     op.execute("DROP PUBLICATION IF EXISTS electric_publication_default;")
 
     # Reset replica identity back to DEFAULT for replicated tables
-    tables = ["notifications", "chat_session_state", "new_chat_messages", "chat_comments"]
+    tables = [
+        "notifications",
+        "chat_session_state",
+        "new_chat_messages",
+        "chat_comments",
+    ]
     for table in tables:
         op.execute(sa.text(f"ALTER TABLE {table} REPLICA IDENTITY DEFAULT;"))
 
@@ -89,8 +95,12 @@ def downgrade() -> None:
     op.execute("GRANT USAGE ON SCHEMA public TO electric;")
     op.execute("GRANT SELECT ON ALL TABLES IN SCHEMA public TO electric;")
     op.execute("GRANT SELECT ON ALL SEQUENCES IN SCHEMA public TO electric;")
-    op.execute("ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT SELECT ON TABLES TO electric;")
-    op.execute("ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT SELECT ON SEQUENCES TO electric;")
+    op.execute(
+        "ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT SELECT ON TABLES TO electric;"
+    )
+    op.execute(
+        "ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT SELECT ON SEQUENCES TO electric;"
+    )
 
     # Re-create publication
     op.execute(
@@ -106,7 +116,12 @@ def downgrade() -> None:
     )
 
     # Reset replica identity to FULL for replicated tables and add to publication
-    tables = ["notifications", "chat_session_state", "new_chat_messages", "chat_comments"]
+    tables = [
+        "notifications",
+        "chat_session_state",
+        "new_chat_messages",
+        "chat_comments",
+    ]
     for table in tables:
         op.execute(sa.text(f"ALTER TABLE {table} REPLICA IDENTITY FULL;"))
         op.execute(

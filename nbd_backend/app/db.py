@@ -1000,7 +1000,6 @@ class SearchSpace(BaseModel, TimestampMixin):
     )
 
 
-
 class SearchSourceConnector(BaseModel, TimestampMixin):
     __tablename__ = "search_source_connectors"
     __table_args__ = (

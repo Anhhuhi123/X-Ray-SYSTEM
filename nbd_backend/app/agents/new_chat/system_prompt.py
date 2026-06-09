@@ -86,6 +86,7 @@ _TOOL_INSTRUCTIONS["search_nfd_docs"] = """
 _TOOL_INSTRUCTIONS["search_knowledge_base"] = """
 - search_knowledge_base: Search the user's personal knowledge base for relevant information.
   - DEFAULT ACTION: You MUST call this tool for EVERY question the user asks. NEVER answer directly from memory without calling this tool first. Search EVERYTHING.
+  - IMPORTANT CITATION RULE: If you use ANY information from the search results, you MUST cite it using the chunk ID provided. Do not use information without citing it.
   - IMPORTANT: When searching for information (meetings, schedules, notes, tasks, etc.), ALWAYS search broadly 
     across ALL sources first by omitting connectors_to_search. The user may store information in various places
     including calendar apps, note-taking apps (Obsidian, Notion), chat apps (Slack, Discord), and more.
@@ -399,6 +400,14 @@ Your goal is to provide helpful, informative answers in a clean, readable format
 </citation_instructions>
 """
 
+_FINAL_RESPONSE_GUIDELINES = """
+<response_guidelines>
+RESPONSE GUIDELINES:
+1. Provide comprehensive, detailed, and thorough answers. Expand on key points instead of keeping it brief.
+2. Follow-up questions: At the very end of EVERY response, you MUST provide exactly 5 suggested follow-up questions that the user can ask next to explore the topic further. Format them as a bulleted list under a heading like '### Gợi ý câu hỏi tiếp theo'.
+</response_guidelines>
+"""
+
 
 def build_nfd_system_prompt(
     today: datetime | None = None,
@@ -432,7 +441,7 @@ def build_nfd_system_prompt(
         visibility, enabled_tool_names, disabled_tool_names
     )
     citation_instructions = NFD_CITATION_INSTRUCTIONS
-    return system_instructions + tools_instructions + citation_instructions
+    return system_instructions + tools_instructions + citation_instructions + _FINAL_RESPONSE_GUIDELINES
 
 
 def build_configurable_system_prompt(
@@ -492,7 +501,7 @@ def build_configurable_system_prompt(
         NFD_CITATION_INSTRUCTIONS if citations_enabled else NFD_NO_CITATION_INSTRUCTIONS
     )
 
-    return system_instructions + tools_instructions + citation_instructions
+    return system_instructions + tools_instructions + citation_instructions + _FINAL_RESPONSE_GUIDELINES
 
 
 def get_default_system_instructions() -> str:

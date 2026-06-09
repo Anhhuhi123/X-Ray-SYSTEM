@@ -553,7 +553,7 @@ class ChatComment(BaseModel, TimestampMixin):
         nullable=False,
         index=True,
     )
-    # Denormalized thread_id for efficient Electric SQL subscriptions (one per thread)
+    # Denormalized thread_id for query optimization (one per thread)
     thread_id = Column(
         Integer,
         ForeignKey("new_chat_threads.id", ondelete="CASCADE"),
@@ -623,7 +623,7 @@ class ChatCommentMention(BaseModel, TimestampMixin):
 class ChatSessionState(BaseModel):
     """
     Tracks real-time session state for shared chat collaboration.
-    One record per thread, synced via Electric SQL.
+    One record per thread.
     """
 
     __tablename__ = "chat_session_state"

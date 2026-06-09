@@ -757,7 +757,7 @@ async def _process_file_with_document(
         )
 
         try:
-            # Set status to PROCESSING (shows spinner in UI via ElectricSQL)
+            # Set status to PROCESSING (shows spinner in UI)
             document.status = DocumentStatus.processing()
             await session.commit()
             logger.info(
@@ -821,7 +821,7 @@ async def _process_file_with_document(
             ):
                 page_limit_error = e.__cause__
 
-            # Mark document as failed (shows error in UI via ElectricSQL)
+            # Mark document as failed (shows error in UI)
             error_message = str(e)[:500]
             document.status = DocumentStatus.failed(error_message)
             document.updated_at = get_current_timestamp()

@@ -17,15 +17,6 @@ importers:
       '@assistant-ui/react-markdown':
         specifier: ^0.11.9
         version: 0.11.10(@assistant-ui/react@0.11.58(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(immer@10.2.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(use-sync-external-store@1.6.0(react@19.2.4)))(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
-      '@electric-sql/pglite':
-        specifier: ^0.3.14
-        version: 0.3.15
-      '@electric-sql/pglite-sync':
-        specifier: ^0.4.0
-        version: 0.4.1(@electric-sql/pglite@0.3.15)
-      '@electric-sql/react':
-        specifier: ^1.0.26
-        version: 1.0.36(react@19.2.4)
       '@hookform/resolvers':
         specifier: ^5.2.2
         version: 5.2.2(react-hook-form@7.71.2(react@19.2.4))
@@ -1037,29 +1028,8 @@ packages:
   '@drizzle-team/brocli@0.10.2':
     resolution: {integrity: sha512-z33Il7l5dKjUgGULTqBsQBQwckHh5AbIuxhdsIxDDiZAzBOrZO6q9ogcWC65kU382AfynTfgNumVcNIjuIua6w==}
 
-  '@electric-sql/client@1.5.7':
-    resolution: {integrity: sha512-jeKLlooV/wIBVkZV6d3opT+eoDLds9qDzHtUYezfl6BzAPY1v5mApgjlG/evbvBBZKYW778wOIBUfq16SMnr7w==}
-
-  '@electric-sql/experimental@1.0.14':
-    resolution: {integrity: sha512-Wpv9UC7r4JYnQO4GbtQve7SVIX/VcBwAP12Xx11ObK2TBI+NJHtDRimUEKKQorq9Kr6yTAJ3BYOKCINxFsbDIg==}
-    peerDependencies:
-      '@electric-sql/client': 1.0.14
-
-  '@electric-sql/pglite-sync@0.4.1':
-    resolution: {integrity: sha512-6BWUZbaLNRd4HG5tB4QGDzD4GlJ94Q+gfygotRxCo8hsYjjUowAlnKAB6QTtbEly4R9Q1xqCqCpifiVvWXaO5Q==}
-    peerDependencies:
-      '@electric-sql/pglite': 0.3.15
-
   '@electric-sql/pglite@0.3.15':
     resolution: {integrity: sha512-Cj++n1Mekf9ETfdc16TlDi+cDDQF0W7EcbyRHYOAeZdsAe8M/FJg18itDTSwyHfar2WIezawM9o0EKaRGVKygQ==}
-
-  '@electric-sql/react@1.0.36':
-    resolution: {integrity: sha512-vowuzMdyRtyI+ycUoqP9bqd0+hyYLHYZBC2sV2BGaGToQy+1vrZO1pPXDD8gTcajpd6lP9k08OTp8VP+yW4uOw==}
-    peerDependencies:
-      react: '>=18.3.1 <20.0.0'
-    peerDependenciesMeta:
-      react:
-        optional: true
 
   '@emnapi/core@1.8.1':
     resolution: {integrity: sha512-AvT9QFpxK0Zd8J0jopedNm+w/2fIzvtPKPjqyw9jwvBaReTTqPBk9Hixaz7KbjimP+QNz605/XnjFcDAL2pqBg==}
@@ -1799,9 +1769,6 @@ packages:
 
   '@mdx-js/mdx@3.1.1':
     resolution: {integrity: sha512-f6ZO2ifpwAQIpzGWaBQT2TXxPv6z3RBzQKpVftEWN78Vl/YweF1uwussDx8ECAXVtr3Rs89fKyG9YlzUs9DyGQ==}
-
-  '@microsoft/fetch-event-source@2.0.1':
-    resolution: {integrity: sha512-W6CLUJ2eBMw3Rec70qrsEW0jOm/3twwJv21mrmj2yORiaVmVYGS4sSS5yUwvQc1ZlDLYGPnClVWmUUMagKNsfA==}
 
   '@napi-rs/wasm-runtime@0.2.12':
     resolution: {integrity: sha512-ZVWUcfwY4E/yPitQJl481FjFo3K22D6qF0DuFH6Y/nbnE11GY5uguDxZMGXPQ8WQ0128MXQD7TnfHyK4oWoIJQ==}
@@ -7758,32 +7725,8 @@ snapshots:
 
   '@drizzle-team/brocli@0.10.2': {}
 
-  '@electric-sql/client@1.5.7':
-    dependencies:
-      '@microsoft/fetch-event-source': 2.0.1
-    optionalDependencies:
-      '@rollup/rollup-darwin-arm64': 4.59.0
-
-  '@electric-sql/experimental@1.0.14(@electric-sql/client@1.5.7)':
-    dependencies:
-      '@electric-sql/client': 1.5.7
-    optionalDependencies:
-      '@rollup/rollup-darwin-arm64': 4.59.0
-
-  '@electric-sql/pglite-sync@0.4.1(@electric-sql/pglite@0.3.15)':
-    dependencies:
-      '@electric-sql/client': 1.5.7
-      '@electric-sql/experimental': 1.0.14(@electric-sql/client@1.5.7)
-      '@electric-sql/pglite': 0.3.15
-
-  '@electric-sql/pglite@0.3.15': {}
-
-  '@electric-sql/react@1.0.36(react@19.2.4)':
-    dependencies:
-      '@electric-sql/client': 1.5.7
-      use-sync-external-store: 1.6.0(react@19.2.4)
-    optionalDependencies:
-      react: 19.2.4
+  '@electric-sql/pglite@0.3.15':
+    optional: true
 
   '@emnapi/core@1.8.1':
     dependencies:
@@ -8300,8 +8243,6 @@ snapshots:
       vfile: 6.0.3
     transitivePeerDependencies:
       - supports-color
-
-  '@microsoft/fetch-event-source@2.0.1': {}
 
   '@napi-rs/wasm-runtime@0.2.12':
     dependencies:

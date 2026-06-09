@@ -486,8 +486,6 @@ async def mark_notification_as_read(
 ) -> MarkReadResponse:
     """
     Mark a single notification as read.
-
-    Electric SQL will automatically sync this change to all connected clients.
     """
     # Verify the notification belongs to the user
     result = await session.execute(
@@ -527,8 +525,6 @@ async def mark_all_notifications_as_read(
 ) -> MarkAllReadResponse:
     """
     Mark all notifications as read for the current user.
-
-    Electric SQL will automatically sync these changes to all connected clients.
     """
     # Update all unread notifications for the user
     result = await session.execute(

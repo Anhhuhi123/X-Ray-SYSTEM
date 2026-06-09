@@ -41,8 +41,6 @@ import {
 	DeleteGoogleDriveFileToolUI,
 } from "@/components/tool-ui/google-drive";
 import { Skeleton } from "@/components/ui/skeleton";
-import { ChatSessionStateSync } from "@/hooks/use-chat-session-state";
-import { useMessagesElectric } from "@/hooks/use-messages-electric";
 import { documentsApiService } from "@/lib/apis/documents-api.service";
 // import { WriteTodosToolUI } from "@/components/tool-ui/write-todos";
 import { getBearerToken } from "@/lib/auth-utils";
@@ -243,82 +241,7 @@ export default function NewChatPage() {
 
 	const { data: membersData } = useAtomValue(membersAtom);
 
-	const handleElectricMessagesUpdate = useCallback(
-		(
-			electricMessages: {
-				id: number;
-				thread_id: number;
-				role: string;
-				content: unknown;
-				author_id: string | null;
-				created_at: string;
-			}[]
-		) => {
-			if (isRunning) {
-				return;
-			}
 
-			setMessages((prev) => {
-				if (electricMessages.length < prev.length) {
-					return prev;
-				}
-
-				return electricMessages.map((msg) => {
-					const member = msg.author_id
-						? membersData?.find((m) => m.user_id === msg.author_id)
-						: null;
-
-					// Preserve existing author info if member lookup fails (e.g., cloned chats)
-					const existingMsg = prev.find((m) => m.id === `msg-${msg.id}`);
-					const existingAuthor = existingMsg?.metadata?.custom?.author as
-						| { displayName?: string | null; avatarUrl?: string | null }
-						| undefined;
-
-					return convertToThreadMessage({
-						id: msg.id,
-						thread_id: msg.thread_id,
-						role: msg.role.toLowerCase() as "user" | "assistant" | "system",
-						content: msg.content,
-						author_id: msg.author_id,
-						created_at: msg.created_at,
-						author_display_name: member?.user_display_name ?? existingAuthor?.displayName ?? null,
-						author_avatar_url: member?.user_avatar_url ?? existingAuthor?.avatarUrl ?? null,
-					});
-				});
-			});
-
-			const restoredAttachmentsMap: Record<string, ChatImageAttachmentInfo[]> = {};
-			const restoredInferenceOutputsMap: Record<string, ChatInferenceOutputInfo[]> = {};
-			for (const msg of electricMessages) {
-				if (msg.role === "user") {
-					const attachments = extractImageAttachments(msg.content);
-					if (attachments.length > 0) {
-						restoredAttachmentsMap[`msg-${msg.id}`] = attachments;
-					}
-				} else if (msg.role === "assistant") {
-					const inferenceOutputs = extractInferenceOutputs(msg.content);
-					if (inferenceOutputs.length > 0) {
-						restoredInferenceOutputsMap[`msg-${msg.id}`] = inferenceOutputs;
-					}
-				}
-			}
-			if (Object.keys(restoredAttachmentsMap).length > 0) {
-				setMessageImageAttachmentsMap((prev) => ({
-					...prev,
-					...restoredAttachmentsMap,
-				}));
-			}
-			if (Object.keys(restoredInferenceOutputsMap).length > 0) {
-				setMessageInferenceOutputsMap((prev) => ({
-					...prev,
-					...restoredInferenceOutputsMap,
-				}));
-			}
-		},
-		[isRunning, membersData, setMessageImageAttachmentsMap, setMessageInferenceOutputsMap]
-	);
-
-	useMessagesElectric(threadId, handleElectricMessagesUpdate);
 
 	// Extract search_space_id from URL params
 	const searchSpaceId = useMemo(() => {
@@ -1839,7 +1762,6 @@ export default function NewChatPage() {
 
 	return (
 		<AssistantRuntimeProvider runtime={runtime}>
-			<ChatSessionStateSync threadId={threadId} />
 			<GenerateReportToolUI />
 			<CreateGoogleDriveFileToolUI />
 			<DeleteGoogleDriveFileToolUI />

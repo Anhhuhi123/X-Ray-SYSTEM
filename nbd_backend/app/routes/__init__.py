@@ -32,6 +32,6 @@ router.include_router(new_llm_config_router)  # LLM configs with prompt configur
 router.include_router(model_list_router)  # Dynamic LLM model catalogue from OpenRouter
 router.include_router(logs_router)
 router.include_router(nfd_docs_router)  # NFD documentation for citations
-router.include_router(notifications_router)  # Notifications with Electric SQL sync
+router.include_router(notifications_router)  # Notifications routing
 router.include_router(composio_router)  # Composio OAuth and toolkit management
 router.include_router(public_chat_router)  # Public chat sharing and cloning

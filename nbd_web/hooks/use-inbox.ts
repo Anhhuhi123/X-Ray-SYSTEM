@@ -3,8 +3,6 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import type { InboxItem, NotificationCategory } from "@/contracts/types/inbox.types";
 import { notificationsApiService } from "@/lib/apis/notifications-api.service";
-import { filterNewElectricItems, getNewestTimestamp } from "@/lib/electric/baseline";
-import { useElectricClient } from "@/lib/electric/context";
 
 export type {
 	InboxItem,
@@ -61,8 +59,6 @@ export function useInbox(
 	prefetchedUnread?: { total_unread: number; recent_unread: number } | null,
 	prefetchedUnreadReady = true
 ) {
-	const electricClient = useElectricClient();
-
 	const [inboxItems, setInboxItems] = useState<InboxItem[]>([]);
 	const [loading, setLoading] = useState(true);
 	const [loadingMore, setLoadingMore] = useState(false);
@@ -71,13 +67,6 @@ export function useInbox(
 	const [unreadCount, setUnreadCount] = useState(0);
 
 	const initialLoadDoneRef = useRef(false);
-	const electricBaselineIdsRef = useRef<Set<number> | null>(null);
-	const newestApiTimestampRef = useRef<string | null>(null);
-	const liveQueryRef = useRef<{ unsubscribe?: () => void } | null>(null);
-	const unreadLiveQueryRef = useRef<{ unsubscribe?: () => void } | null>(null);
-
-	const olderUnreadOffsetRef = useRef<number | null>(null);
-	const apiUnreadTotalRef = useRef(0);
 
 	// EFFECT 1: Fetch first page + unread count from API with category filter.
 	// When prefetchedUnreadReady=false, we wait for the batch query to settle
@@ -92,10 +81,6 @@ export function useInbox(
 		setInboxItems([]);
 		setHasMore(false);
 		initialLoadDoneRef.current = false;
-		electricBaselineIdsRef.current = null;
-		newestApiTimestampRef.current = null;
-		olderUnreadOffsetRef.current = null;
-		apiUnreadTotalRef.current = 0;
 
 		const fetchInitialData = async () => {
 			try {
@@ -122,8 +107,6 @@ export function useInbox(
 				setInboxItems(notificationsResponse.items);
 				setHasMore(notificationsResponse.has_more);
 				setUnreadCount(unreadResponse.total_unread);
-				apiUnreadTotalRef.current = unreadResponse.total_unread;
-				newestApiTimestampRef.current = getNewestTimestamp(notificationsResponse.items);
 				setError(null);
 				initialLoadDoneRef.current = true;
 			} catch (err) {
@@ -141,208 +124,7 @@ export function useInbox(
 		};
 	}, [userId, searchSpaceId, category, prefetchedUnread, prefetchedUnreadReady]);
 
-	// EFFECT 2: Electric sync (shared shape) + per-instance type-filtered live queries
-	useEffect(() => {
-		if (!userId || !searchSpaceId || !electricClient) return;
 
-		const uid = userId;
-		const spaceId = searchSpaceId;
-		const client = electricClient;
-		const typeFilter = CATEGORY_TYPE_SQL[category];
-		let mounted = true;
-
-		async function setupElectricRealtime() {
-			// Clean up previous live queries (NOT the sync shape — it's shared)
-			if (liveQueryRef.current) {
-				try {
-					liveQueryRef.current.unsubscribe?.();
-				} catch {
-					/* PGlite may be closed */
-				}
-				liveQueryRef.current = null;
-			}
-			if (unreadLiveQueryRef.current) {
-				try {
-					unreadLiveQueryRef.current.unsubscribe?.();
-				} catch {
-					/* PGlite may be closed */
-				}
-				unreadLiveQueryRef.current = null;
-			}
-
-			try {
-				const cutoffDate = getSyncCutoffDate();
-
-				// Sync shape is cached by the Electric client — multiple hook instances
-				// calling syncShape with the same params get the same handle.
-				const handle = await client.syncShape({
-					table: "notifications",
-					where: `user_id = '${uid}' AND created_at > '${cutoffDate}'`,
-					primaryKey: ["id"],
-				});
-
-				if (!mounted) return;
-
-				if (!handle.isUpToDate && handle.initialSyncPromise) {
-					await Promise.race([
-						handle.initialSyncPromise,
-						new Promise((resolve) => setTimeout(resolve, 5000)),
-					]);
-				}
-
-				if (!mounted) return;
-
-				const db = client.db as {
-					live?: {
-						query: <T>(
-							sql: string,
-							params?: (number | string)[]
-						) => Promise<{
-							subscribe: (cb: (result: { rows: T[] }) => void) => void;
-							unsubscribe?: () => void;
-						}>;
-					};
-				};
-
-				if (!db.live?.query) return;
-
-				// Per-instance live query filtered by category types
-				const itemsQuery = `SELECT * FROM notifications 
-					WHERE user_id = $1 
-					AND (search_space_id = $2 OR search_space_id IS NULL)
-					AND created_at > '${cutoffDate}'
-					${typeFilter}
-					ORDER BY created_at DESC`;
-
-				const liveQuery = await db.live.query<InboxItem>(itemsQuery, [uid, spaceId]);
-
-				if (!mounted) {
-					liveQuery.unsubscribe?.();
-					return;
-				}
-
-				liveQuery.subscribe((result: { rows: InboxItem[] }) => {
-					if (!mounted || !result.rows || !initialLoadDoneRef.current) return;
-
-					const validItems = result.rows.filter((item) => item.id != null && item.title != null);
-					const cutoff = new Date(getSyncCutoffDate());
-
-					const liveItemMap = new Map(validItems.map((d) => [d.id, d]));
-					const liveIds = new Set(liveItemMap.keys());
-
-					setInboxItems((prev) => {
-						const prevIds = new Set(prev.map((d) => d.id));
-
-						const newItems = filterNewElectricItems(
-							validItems,
-							liveIds,
-							prevIds,
-							electricBaselineIdsRef,
-							newestApiTimestampRef.current
-						);
-
-						let updated = prev.map((item) => {
-							const liveItem = liveItemMap.get(item.id);
-							if (liveItem) return liveItem;
-							return item;
-						});
-
-						const isFullySynced = handle.isUpToDate;
-						if (isFullySynced) {
-							updated = updated.filter((item) => {
-								if (new Date(item.created_at) < cutoff) return true;
-								return liveIds.has(item.id);
-							});
-						}
-
-						if (newItems.length > 0) {
-							return [...newItems, ...updated];
-						}
-
-						return updated;
-					});
-
-					// Calibrate the older-unread offset using baseline items
-					// (items present in both Electric and the API-loaded list).
-					// This avoids the timing bug where new items arriving between
-					// the API fetch and Electric's first callback would be absorbed
-					// into the offset, making the count appear unchanged.
-					const baseline = electricBaselineIdsRef.current;
-					if (olderUnreadOffsetRef.current === null && baseline !== null) {
-						const baselineUnreadCount = validItems.filter(
-							(item) => baseline.has(item.id) && !item.read
-						).length;
-						olderUnreadOffsetRef.current = Math.max(
-							0,
-							apiUnreadTotalRef.current - baselineUnreadCount
-						);
-					}
-
-					// Derive unread count from all Electric items + the older offset
-					if (olderUnreadOffsetRef.current !== null) {
-						const electricUnreadCount = validItems.filter((item) => !item.read).length;
-						setUnreadCount(olderUnreadOffsetRef.current + electricUnreadCount);
-					}
-				});
-
-				liveQueryRef.current = liveQuery;
-
-				// Per-instance unread count live query filtered by category types.
-				// Acts as a secondary reactive path for read-status changes that
-				// may not trigger the items live query in all edge cases.
-				const countQuery = `SELECT COUNT(*) as count FROM notifications 
-					WHERE user_id = $1 
-					AND (search_space_id = $2 OR search_space_id IS NULL)
-					AND created_at > '${cutoffDate}'
-					AND read = false
-					${typeFilter}`;
-
-				const countLiveQuery = await db.live.query<{ count: number | string }>(countQuery, [
-					uid,
-					spaceId,
-				]);
-
-				if (!mounted) {
-					countLiveQuery.unsubscribe?.();
-					return;
-				}
-
-				countLiveQuery.subscribe((result: { rows: Array<{ count: number | string }> }) => {
-					if (!mounted || !result.rows?.[0] || !initialLoadDoneRef.current) return;
-					if (olderUnreadOffsetRef.current === null) return;
-					const liveRecentUnread = Number(result.rows[0].count) || 0;
-					setUnreadCount(olderUnreadOffsetRef.current + liveRecentUnread);
-				});
-
-				unreadLiveQueryRef.current = countLiveQuery;
-			} catch (err) {
-				console.error(`[useInbox:${category}] Electric setup failed:`, err);
-			}
-		}
-
-		setupElectricRealtime();
-
-		return () => {
-			mounted = false;
-			// Only clean up live queries — sync shape is shared across instances
-			if (liveQueryRef.current) {
-				try {
-					liveQueryRef.current.unsubscribe?.();
-				} catch {
-					/* PGlite may be closed */
-				}
-				liveQueryRef.current = null;
-			}
-			if (unreadLiveQueryRef.current) {
-				try {
-					unreadLiveQueryRef.current.unsubscribe?.();
-				} catch {
-					/* PGlite may be closed */
-				}
-				unreadLiveQueryRef.current = null;
-			}
-		};
-	}, [userId, searchSpaceId, electricClient, category]);
 
 	// Load more pages via API (cursor-based using before_date)
 	const loadMore = useCallback(async () => {
@@ -383,33 +165,20 @@ export function useInbox(
 			const item = inboxItems.find((i) => i.id === itemId);
 			if (!item || item.read) return true;
 
-			const cutoff = new Date(getSyncCutoffDate());
-			const isOlderItem = new Date(item.created_at) < cutoff;
-
 			setInboxItems((prev) => prev.map((i) => (i.id === itemId ? { ...i, read: true } : i)));
 			setUnreadCount((prev) => Math.max(0, prev - 1));
-
-			if (isOlderItem && olderUnreadOffsetRef.current !== null) {
-				olderUnreadOffsetRef.current = Math.max(0, olderUnreadOffsetRef.current - 1);
-			}
 
 			try {
 				const result = await notificationsApiService.markAsRead({ notificationId: itemId });
 				if (!result.success) {
 					setInboxItems((prev) => prev.map((i) => (i.id === itemId ? { ...i, read: false } : i)));
 					setUnreadCount((prev) => prev + 1);
-					if (isOlderItem && olderUnreadOffsetRef.current !== null) {
-						olderUnreadOffsetRef.current += 1;
-					}
 				}
 				return result.success;
 			} catch (err) {
 				console.error("Failed to mark as read:", err);
 				setInboxItems((prev) => prev.map((i) => (i.id === itemId ? { ...i, read: false } : i)));
 				setUnreadCount((prev) => prev + 1);
-				if (isOlderItem && olderUnreadOffsetRef.current !== null) {
-					olderUnreadOffsetRef.current += 1;
-				}
 				return false;
 			}
 		},
@@ -420,25 +189,21 @@ export function useInbox(
 	const markAllAsRead = useCallback(async () => {
 		const prevItems = inboxItems;
 		const prevCount = unreadCount;
-		const prevOffset = olderUnreadOffsetRef.current;
 
 		setInboxItems((prev) => prev.map((item) => ({ ...item, read: true })));
 		setUnreadCount(0);
-		olderUnreadOffsetRef.current = 0;
 
 		try {
 			const result = await notificationsApiService.markAllAsRead();
 			if (!result.success) {
 				setInboxItems(prevItems);
 				setUnreadCount(prevCount);
-				olderUnreadOffsetRef.current = prevOffset;
 			}
 			return result.success;
 		} catch (err) {
 			console.error("Failed to mark all as read:", err);
 			setInboxItems(prevItems);
 			setUnreadCount(prevCount);
-			olderUnreadOffsetRef.current = prevOffset;
 			return false;
 		}
 	}, [inboxItems, unreadCount]);

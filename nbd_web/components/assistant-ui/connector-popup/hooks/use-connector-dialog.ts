@@ -1741,5 +1741,6 @@ export const useConnectorDialog = () => {
 		connectorConfig,
 		setConnectorConfig,
 		setIndexingConnectorConfig,
+		refetchAllConnectors,
 	};
 };

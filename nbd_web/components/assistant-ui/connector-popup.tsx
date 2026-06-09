@@ -20,7 +20,6 @@ import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { Spinner } from "@/components/ui/spinner";
 import { Tabs, TabsContent } from "@/components/ui/tabs";
 import type { SearchSourceConnector } from "@/contracts/types/connector.types";
-import { useConnectorsElectric } from "@/hooks/use-connectors-electric";
 import { PICKER_CLOSE_EVENT, PICKER_OPEN_EVENT } from "@/hooks/use-google-picker";
 import { cn } from "@/lib/utils";
 import { ConnectorDialogHeader } from "./connector-popup/components/connector-dialog-header";
@@ -142,6 +141,7 @@ export const ConnectorIndicator = forwardRef<ConnectorIndicatorHandle, Connector
 			setConnectorConfig,
 			setIndexingConnectorConfig,
 			setConnectorName,
+			refetchAllConnectors,
 		} = useConnectorDialog();
 
 		const [pickerOpen, setPickerOpen] = useState(false);
@@ -156,40 +156,20 @@ export const ConnectorIndicator = forwardRef<ConnectorIndicatorHandle, Connector
 			};
 		}, []);
 
-		// Fetch connectors using Electric SQL + PGlite for real-time updates
-		// This provides instant updates when connectors change, without polling
-		const {
-			connectors: connectorsFromElectric = [],
-			loading: connectorsLoading,
-			error: connectorsError,
-			refreshConnectors: refreshConnectorsElectric,
-		} = useConnectorsElectric(searchSpaceId);
+		const connectors = allConnectors || [];
 
-		// Fallback to API if Electric is not available or fails
-		// Use Electric data if: 1) we have data, or 2) still loading without error
-		// Use API data if: Electric failed (has error) or finished loading with no data
-		const useElectricData =
-			connectorsFromElectric.length > 0 || (connectorsLoading && !connectorsError);
-		const connectors = useElectricData ? connectorsFromElectric : allConnectors || [];
-
-		// Manual refresh function that works with both Electric and API
+		// Manual refresh function
 		const refreshConnectors = async () => {
-			if (useElectricData) {
-				await refreshConnectorsElectric();
-			} else {
-				// Fallback: use allConnectors from useConnectorDialog (which uses connectorsAtom)
-				// The connectorsAtom will handle refetching if needed
-			}
+			await refetchAllConnectors();
 		};
 
-		// Track indexing state locally - clears automatically when Electric SQL detects last_indexed_at changed
-		// Also clears when failed notifications are detected
+		// Track indexing state locally
 		const { indexingConnectorIds, startIndexing, stopIndexing } = useIndexingConnectors(
 			connectors as SearchSourceConnector[],
 			inboxItems
 		);
 
-		const isLoading = connectorsLoading || documentTypesLoading;
+		const isLoading = !allConnectors || documentTypesLoading;
 
 		// Get document types that have documents in the search space
 		const activeDocumentTypes = documentTypeCounts

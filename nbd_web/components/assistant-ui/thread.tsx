@@ -84,7 +84,6 @@ import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip
 import { getConnectorIcon } from "@/contracts/enums/connectorIcons";
 import type { Document } from "@/contracts/types/document.types";
 import { useBatchCommentsPreload } from "@/hooks/use-comments";
-import { useCommentsElectric } from "@/hooks/use-comments-electric";
 import { useMediaQuery } from "@/hooks/use-media-query";
 import { cn } from "@/lib/utils";
 
@@ -369,9 +368,6 @@ const Composer: FC = () => {
 	const isAiResponding = sessionState?.isAiResponding ?? false;
 	const respondingToUserId = sessionState?.respondingToUserId ?? null;
 	const isBlockedByOtherUser = isAiResponding && respondingToUserId !== currentUser?.id;
-
-	// Sync comments for the entire thread via Electric SQL (one subscription per thread)
-	useCommentsElectric(threadId);
 
 	// Batch-prefetch comments for all assistant messages so individual useComments
 	// hooks never fire their own network requests (eliminates N+1 API calls).

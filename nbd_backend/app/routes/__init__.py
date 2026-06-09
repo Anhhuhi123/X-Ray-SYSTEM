@@ -1,5 +1,6 @@
 from fastapi import APIRouter
 
+from .admin_routes import router as admin_router
 from .chat_comments_routes import router as chat_comments_router
 from .composio_routes import router as composio_router
 from .documents_routes import router as documents_router
@@ -16,8 +17,6 @@ from .rbac_routes import router as rbac_router
 from .reports_routes import router as reports_router
 from .search_source_connectors_routes import router as search_source_connectors_router
 from .search_spaces_routes import router as search_spaces_router
-
-from .admin_routes import router as admin_router
 
 router = APIRouter()
 

@@ -52,7 +52,6 @@ from app.schemas import (
 )
 from app.services.composio_service import ComposioService, get_composio_service
 from app.services.notification_service import NotificationService
-
 from app.users import current_active_user
 from app.utils.decommissioned_connectors import DECOMMISSIONED_CONNECTOR_TYPES
 from app.utils.indexing_locks import (
@@ -1236,8 +1235,6 @@ async def _run_indexing_with_notifications(
         if connector_lock_acquired:
             with suppress(Exception):
                 release_connector_indexing_lock(connector_id)
-
-
 
 
 # Add new helper functions for Obsidian indexing

@@ -1,7 +1,6 @@
-import asyncio
 from datetime import UTC, datetime, timedelta
 
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends
 from pydantic import BaseModel
 from sqlalchemy import func, select
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -14,6 +13,7 @@ router = APIRouter(
     tags=["admin"],
     dependencies=[Depends(current_superuser)],
 )
+
 
 class OverviewStats(BaseModel):
     total_users: int
@@ -53,7 +53,9 @@ async def get_overview_stats(
 
     # Let's say "active" means updated in the last 24 hours
     active_convs_result = await session.execute(
-        select(func.count(NewChatThread.id)).where(NewChatThread.updated_at >= today_start)
+        select(func.count(NewChatThread.id)).where(
+            NewChatThread.updated_at >= today_start
+        )
     )
     active_conversations = active_convs_result.scalar_one_or_none() or 0
 
@@ -75,6 +77,7 @@ async def get_overview_stats(
         total_tokens=1800000,
     )
 
+
 class AdminUserItem(BaseModel):
     id: str
     email: str
@@ -85,11 +88,13 @@ class AdminUserItem(BaseModel):
     total_conversations: int
     total_requests: int
 
+
 class AdminUsersResponse(BaseModel):
     items: list[AdminUserItem]
     total: int
     page: int
     page_size: int
+
 
 @router.get("/users", response_model=AdminUsersResponse)
 async def get_admin_users(
@@ -99,16 +104,20 @@ async def get_admin_users(
     session: AsyncSession = Depends(get_async_session),
 ):
     query = select(User)
-    
+
     if search:
         query = query.where(User.email.ilike(f"%{search}%"))
 
     # Get total count
-    total_result = await session.execute(select(func.count()).select_from(query.subquery()))
+    total_result = await session.execute(
+        select(func.count()).select_from(query.subquery())
+    )
     total = total_result.scalar_one_or_none() or 0
 
     # Get paginated users
-    query = query.order_by(User.email.asc()).offset((page - 1) * page_size).limit(page_size)
+    query = (
+        query.order_by(User.email.asc()).offset((page - 1) * page_size).limit(page_size)
+    )
     result = await session.execute(query)
     users = result.scalars().all()
 
@@ -116,7 +125,9 @@ async def get_admin_users(
     for user in users:
         # Get conversation count for this user
         conv_result = await session.execute(
-            select(func.count(NewChatThread.id)).where(NewChatThread.created_by_id == user.id)
+            select(func.count(NewChatThread.id)).where(
+                NewChatThread.created_by_id == user.id
+            )
         )
         conv_count = conv_result.scalar_one_or_none() or 0
 
@@ -127,9 +138,9 @@ async def get_admin_users(
                 name=user.display_name,
                 status="Active" if user.is_active else "Inactive",
                 joined_date=datetime.now(UTC),  # User table has no created_at
-                last_active=getattr(user, 'last_login', None),
+                last_active=getattr(user, "last_login", None),
                 total_conversations=conv_count,
-                total_requests=conv_count * 10, # Mocked
+                total_requests=conv_count * 10,  # Mocked
             )
         )
 
@@ -140,10 +151,12 @@ async def get_admin_users(
         page_size=page_size,
     )
 
+
 class TokenUsage(BaseModel):
     input: int
     output: int
     total: int
+
 
 class AdminConversationItem(BaseModel):
     id: str
@@ -159,11 +172,13 @@ class AdminConversationItem(BaseModel):
     status: str
     fullAnswer: str | None
 
+
 class AdminConversationsResponse(BaseModel):
     items: list[AdminConversationItem]
     total: int
     page: int
     page_size: int
+
 
 @router.get("/conversations", response_model=AdminConversationsResponse)
 async def get_admin_conversations(
@@ -172,17 +187,25 @@ async def get_admin_conversations(
     search: str | None = None,
     session: AsyncSession = Depends(get_async_session),
 ):
-    query = select(NewChatThread, User).outerjoin(User, NewChatThread.created_by_id == User.id)
+    query = select(NewChatThread, User).outerjoin(
+        User, NewChatThread.created_by_id == User.id
+    )
 
     if search:
         query = query.where(NewChatThread.title.ilike(f"%{search}%"))
 
     # Get total count
-    total_result = await session.execute(select(func.count()).select_from(query.subquery()))
+    total_result = await session.execute(
+        select(func.count()).select_from(query.subquery())
+    )
     total = total_result.scalar_one_or_none() or 0
 
     # Get paginated threads
-    query = query.order_by(NewChatThread.created_at.desc()).offset((page - 1) * page_size).limit(page_size)
+    query = (
+        query.order_by(NewChatThread.created_at.desc())
+        .offset((page - 1) * page_size)
+        .limit(page_size)
+    )
     result = await session.execute(query)
     threads_with_user = result.all()
 
@@ -190,21 +213,26 @@ async def get_admin_conversations(
     for thread, user in threads_with_user:
         # Fetch real messages from the thread to make it accurate.
         from app.db import NewChatMessage
+
         messages_result = await session.execute(
             select(NewChatMessage)
             .where(NewChatMessage.thread_id == thread.id)
             .order_by(NewChatMessage.created_at.asc())
         )
         messages = messages_result.scalars().all()
-        
+
         question = thread.title
         full_answer = "No response yet."
         msg_id = ""
-        
+
         for msg in reversed(messages):
             if msg.role == "assistant":
                 content = msg.content
-                if isinstance(content, list) and len(content) > 0 and "text" in content[0]:
+                if (
+                    isinstance(content, list)
+                    and len(content) > 0
+                    and "text" in content[0]
+                ):
                     full_answer = content[0]["text"]
                 elif isinstance(content, str):
                     full_answer = content
@@ -212,17 +240,23 @@ async def get_admin_conversations(
                     full_answer = str(content)
                 msg_id = str(msg.id)
                 break
-        
+
         for msg in messages:
             if msg.role == "user":
                 content = msg.content
-                if isinstance(content, list) and len(content) > 0 and "text" in content[0]:
+                if (
+                    isinstance(content, list)
+                    and len(content) > 0
+                    and "text" in content[0]
+                ):
                     question = content[0]["text"]
                 elif isinstance(content, str):
                     question = content
                 break
-                
-        answer_preview = full_answer[:50] + "..." if len(full_answer) > 50 else full_answer
+
+        answer_preview = (
+            full_answer[:50] + "..." if len(full_answer) > 50 else full_answer
+        )
 
         items.append(
             AdminConversationItem(
@@ -247,5 +281,3 @@ async def get_admin_conversations(
         page=page,
         page_size=page_size,
     )
-
-

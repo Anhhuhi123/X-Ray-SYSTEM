@@ -1,4 +1,4 @@
-import { IconBrandFacebook, IconBrandGithub, IconBrandLinkedin } from "@tabler/icons-react";
+import { Facebook as IconBrandFacebook, Github as IconBrandGithub, Linkedin as IconBrandLinkedin } from "lucide-react";
 import Link from "next/link";
 import { Logo } from "@/components/Logo";
 

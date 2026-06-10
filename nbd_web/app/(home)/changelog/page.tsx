@@ -1,34 +1,8 @@
-import { loader } from "fumadocs-core/source";
-import { changelog } from "@/.source/server";
 import { formatDate } from "@/lib/utils";
-import { getMDXComponents } from "@/mdx-components";
-
-const source = loader({
-	baseUrl: "/changelog",
-	source: changelog.toFumadocsSource(),
-});
-
-interface ChangelogData {
-	title: string;
-	date: string;
-	version?: string;
-	tags?: string[];
-	body: React.ComponentType<{ components?: Record<string, React.ComponentType> }>;
-}
-
-interface ChangelogPageItem {
-	url: string;
-	data: ChangelogData;
-}
+import changelogs from "./changelog-data.json";
+import ReactMarkdown from "react-markdown";
 
 export default async function ChangelogPage() {
-	const allPages = source.getPages() as ChangelogPageItem[];
-	const sortedChangelogs = allPages.sort((a, b) => {
-		const dateA = new Date(a.data.date).getTime();
-		const dateB = new Date(b.data.date).getTime();
-		return dateB - dateA;
-	});
-
 	return (
 		<div className="min-h-screen relative pt-20">
 			{/* Header */}
@@ -50,8 +24,7 @@ export default async function ChangelogPage() {
 			{/* Timeline */}
 			<div className="max-w-5xl mx-auto px-6 lg:px-10 pt-10 pb-20">
 				<div className="relative">
-					{sortedChangelogs.map((changelog) => {
-						const MDX = changelog.data.body;
+					{changelogs.map((changelog) => {
 						const date = new Date(changelog.data.date);
 						const formattedDate = formatDate(date);
 
@@ -101,7 +74,7 @@ export default async function ChangelogPage() {
 												)}
 											</div>
 											<div className="prose dark:prose-invert max-w-none prose-headings:scroll-mt-8 prose-headings:font-semibold prose-a:no-underline prose-headings:tracking-tight prose-headings:text-balance prose-p:tracking-tight prose-p:text-balance prose-img:rounded-xl prose-img:shadow-lg">
-												<MDX components={getMDXComponents()} />
+												<ReactMarkdown>{changelog.data.body}</ReactMarkdown>
 											</div>
 										</div>
 									</div>

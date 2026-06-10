@@ -1,6 +1,5 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
-import { RootProvider } from "fumadocs-ui/provider/next";
 import { Roboto } from "next/font/google";
 import { AnnouncementToastProvider } from "@/components/announcements/AnnouncementToastProvider";
 import { GlobalLoadingProvider } from "@/components/providers/GlobalLoadingProvider";
@@ -137,13 +136,11 @@ export default function RootLayout({
 								disableTransitionOnChange
 								defaultTheme="system"
 							>
-								<RootProvider>
-									<ReactQueryClientProvider>
-										<GlobalLoadingProvider>{children}</GlobalLoadingProvider>
-									</ReactQueryClientProvider>
-									<Toaster />
-									<AnnouncementToastProvider />
-								</RootProvider>
+								<ReactQueryClientProvider>
+									<GlobalLoadingProvider>{children}</GlobalLoadingProvider>
+								</ReactQueryClientProvider>
+								<Toaster />
+								<AnnouncementToastProvider />
 							</ThemeProvider>
 						</I18nProvider>
 					</LocaleProvider>

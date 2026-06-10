@@ -1,6 +1,6 @@
 "use client";
 
-import { IconBrandYoutube } from "@tabler/icons-react";
+import { Youtube as IconBrandYoutube } from "lucide-react";
 import { FileText } from "lucide-react";
 import type { FC } from "react";
 import { Button } from "@/components/ui/button";

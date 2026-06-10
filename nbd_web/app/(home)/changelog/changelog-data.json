@@ -1,0 +1,67 @@
+[
+  {
+    "url": "/changelog/2026-02-09",
+    "data": {
+      "title": "SurfSense v0.0.13 - Public Sharing, Image Generation & Redesigned Documents",
+      "description": "SurfSense v0.0.13 introduces public chat sharing with permissions, image generation support, an auto load-balanced model mode, a redesigned Documents page, and numerous bug fixes across connectors and UI.",
+      "date": "2026-02-09",
+      "tags": [
+        "Public Sharing",
+        "Image Generation",
+        "Documents",
+        "UI",
+        "Bug Fixes"
+      ],
+      "version": "0.0.13",
+      "body": "## What's New in v0.0.13\n\nThis update brings **public sharing, image generation**, a redesigned Documents page, and numerous bug fixes.\n\n### Features & Improvements\n\n#### Image Generation\n\n- **Image Generation**: Generate images directly in chat with custom model and provider configurations.\n\n#### Public Sharing\n\n- **Public Chat Links**: Share snapshots of chats via public links.\n- **Sharing Permissions**: Search Space owners control who can create and manage public links.\n- **Link Management Page**: View and revoke all public chat links from Search Space Settings.\n\n#### Auto (Load Balanced) Mode\n\n- **Auto Model Selection**: The default cloud model now automatically picks the lowest-load model for faster responses.\n\n#### Redesigned Documents Page\n\n- **Unified Page**: Merged Logs and Documents into one page with real-time statuses.\n- **Inline Connector Management**: Configure and monitor connectors alongside your documents.\n\n#### UI & UX Polish\n\n- **Inbox Refresh**: Cleaner inbox layout for easier scanning.\n- **Streamlined Login**: Consolidated loading screens into a single unified flow.\n- **Chat UI Tweaks**: Small refinements for a cleaner, more consistent chat experience.\n- **Prompt Suggestions**: Empty chat windows now show contextual suggestions.\n\n#### Documentation\n\n- **New Connector Docs**: Added docs for Luma, Circleback, Elasticsearch, Bookstack, and Obsidian connectors.\n\n\n  \n    Bug Fixes</AccordionTrigger>\n    \n      <ul >\n        <li>Fixed cloud scaling issues where document queue congestion occurred under high load</li>\n        <li>Documents now correctly attribute to the uploading user and de-index on disconnect or deletion</li>\n        <li>Fixed common backend errors in indexing and large file handling</li>\n        <li>Fixed Notion indexing failures caused by transcription blocks</li>\n        <li>Chat refresh button now correctly regenerates AI responses</li>\n        <li>Restored the previously disabled Role Editor</li>\n        <li>Fixed Mentions tab appearing empty when document notifications pushed mentions out of the pagination window</li>\n        <li>Bundled git in the Docker image to fix GitHub connector failures with gitingest</li>\n        <li>Fixed Google Calendar default date range errors and aligned backend defaults with the frontend</li>\n      </ul>\n    \n  \n  \n    Technical Improvements</AccordionTrigger>\n    \n      <ul >\n        <li>Rebuilt the GitHub connector on gitingest for more efficient, lower-cost repository fetching</li>\n      </ul>\n    \n  \n\n\nSurfSense is your AI-powered federated search solution, connecting all your knowledge sources in one place."
+    }
+  },
+  {
+    "url": "/changelog/2026-01-26",
+    "data": {
+      "title": "SurfSense v0.0.12 - New Main UI, Real-time Collaboration and Comments",
+      "description": "SurfSense v0.0.12 transforms the platform with a redesigned chat-first interface, real-time collaboration features, comment threads with @mentions, and instant notifications powered by ElectricSQL + PGlite.",
+      "date": "2026-01-26",
+      "tags": [
+        "UX",
+        "UI",
+        "Real-time chat",
+        "Collaboration",
+        "Comments"
+      ],
+      "version": "0.0.12",
+      "body": "<img src=\"/changelog/0.0.12/header.gif\" alt=\"SurfSense v0.0.12 - New Main UI, Real-time Collaboration and Comments\"  />\n\n## What's New in v0.0.12\n\nThis release brings major improvements to **collaboration and user experience**. We've completely redesigned the main interface to be chat-first, introduced real-time notifications and live collaboration features, and added a powerful commenting system with @mentions. These changes make SurfSense faster, more intuitive, and better for team collaboration.\n\n### Major UX/UI Overhaul\n\n#### New Chat-First Interface\n\n- **Dashboard Removed**: Users now land directly in a chat for faster access\n- **Redesigned Search Spaces**: Moved to a left column with color-coded icons and hover tooltips\n- **Collapsible Sidebar**: New sidebar design with collapsible sections for private and group chats\n- **Streamlined Settings**: Accessible through intuitive dropdown menus\n- **Mobile-Responsive Design**: Better experience on all devices\n- **Single-Click Google Login**: Replaces the old two-step process\n\n### Real-Time Collaboration Features\n\n#### Live Shared Chats\n\n- **Multi-User Collaboration**: Multiple users can now collaborate in the same chat in real-time\n- **Status Indicators**: See when the AI is responding to another team member\n- **Instant Sync**: Changes sync instantly across all open tabs and users\n\n#### Chat Comments with @Mentions\n\n- **Comment on AI Responses**: Discuss responses directly with your team\n- **Single-Level Threading**: Reply to comments with organized threads\n- **@Mentions**: Tag teammates to get their attention\n- **Real-Time Notifications**: Receive instant alerts when someone mentions you\n\n#### Real-Time Notifications\n\n- **Instant Updates**: Replaced slow polling with instant notifications using ElectricSQL + PGlite\n- **New Inbox**: See connector indexing, document processing, and system events immediately\n- **Cross-Tab Sync**: Syncs across all your browser tabs in real-time\n\n### Connector Enhancements\n\n#### OAuth Migration for Better Security\n\n- **New OAuth Connectors**: Migrated Linear, Slack, Notion, Discord, Confluence, and Jira to OAuth-based authentication\n- **Circleback Integration**: Connect your AI meeting notes from Circleback\n- **Future Date Indexing**: Index future dates for calendar-based connectors to plan ahead\n- **5-Minute Periodic Syncing**: Near-real-time updates option\n- **Real-Time UI Updates**: See connector indexing progress without page refreshes\n\n\n  \n    Bug Fixes</AccordionTrigger>\n    \n      <ul >\n        <li>Syncs with no new content now show \"Already up to date!\" instead of falsely reporting failures</li>\n        <li>Restored missing indexing options page for Google Drive connector</li>\n        <li>File mention picker now handles large document counts with server-side search and pagination</li>\n        <li>Reasoning steps no longer overlap with chat input field</li>\n        <li>File upload modal is now scrollable when adding many files</li>\n        <li>OAuth connectors now display properly on mobile devices</li>\n      </ul>\n    \n  \n  \n    Technical Improvements</AccordionTrigger>\n    \n      <ul >\n        <li>Made Alembic migrations idempotent for safer deployments</li>\n        <li>Migrations now work on fresh databases from scratch</li>\n        <li>Major refactoring of chat components for better maintainability</li>\n        <li>Streamlined sidebar and connector page code</li>\n        <li>Fixed legacy route handling</li>\n        <li>Fixed hardcoded Docker values for complex deployments</li>\n      </ul>\n    \n  \n\n\nThis release transforms SurfSense into a truly collaborative, real-time platform with a redesigned interface that puts chat front and center. The addition of comments, @mentions, and live collaboration features makes it easier than ever for teams to work together without leaving the app.\n\nSurfSense is your AI-powered federated search solution, connecting all your knowledge sources in one place."
+    }
+  },
+  {
+    "url": "/changelog/2026-01-08",
+    "data": {
+      "title": "SurfSense v0.0.11 - Connectors And More Connectors",
+      "description": "SurfSense v0.0.11 delivers powerful new integrations for our AI enterprise search platform, including Google Drive and Circleback connectors, multi-account support, and a fully responsive mobile interface.",
+      "date": "2026-01-08",
+      "tags": [
+        "Mobile",
+        "UX",
+        "Integrations",
+        "Connectors"
+      ],
+      "version": "0.0.11",
+      "body": "<img src=\"/changelog/0.0.11/header.gif\" alt=\"SurfSense v0.0.11 - Connectors And More Connectors\"  />\n\n## What's New in v0.0.11\n\nThis release focuses on **connectivity and ease of use** for your enterprise search software. We've begun a comprehensive UX overhaul, streamlining how you connect your data sources, alongside a fully responsive mobile interface that lets you access SurfSense's AI enterprise search capabilities from anywhere.\n\n### New Features\n\n- **Mobile-Ready Interface**: A fully responsive UI implementation allows you to search and collaborate seamlessly from your mobile device, bringing enterprise search solutions to your pocket.\n- **Streamlined Connector Management**: We've simplified the connector setup and management pages as part of a larger, ongoing UX overhaul for a smoother experience.\n- **Google Drive Integration**: Added a dedicated connector for Google Drive, featuring granular file selection to index only what you need for precise enterprise search.\n- **Circleback Support**: Introducing a new connector for Circleback to integrate your meeting notes and insights into your unified knowledge base.\n- **Simplified OAuth Authentication**: All supported connectors have been migrated to OAuth, making setup faster and more secure across your enterprise search software stack.\n- **Multi-Account Support**: Connect multiple accounts for the same service (e.g., Personal and Work Google Drives) to unify all your data sources in one AI-powered search hub.\n\n\n  \n    Bug Fixes</AccordionTrigger>\n    \n      <ul >\n        <li>Fixed a login issue affecting specific Google accounts on surfsense.com</li>\n        <li>Resolved most Docker self-hosting configuration issues for easier deployment</li>\n      </ul>\n    \n  \n  \n    For Self-Hosters</AccordionTrigger>\n    \n      <ul >\n        <li>Docker configuration has been streamlined for smoother self-hosted deployments</li>\n        <li>OAuth setup is now consistent across all connectors</li>\n      </ul>\n    \n  \n\n\nSurfSense is an open-source AI enterprise search solution that connects all your knowledge sources, from Google Drive to Slack to meeting notes, in one intelligent, federated search platform. Whether you're looking for enterprise search software for your team or a personal knowledge assistant, SurfSense delivers powerful enterprise search solutions with the flexibility of self-hosting.\n\n🚀 Connect more, search smarter!"
+    }
+  },
+  {
+    "url": "/changelog/2025-12-24",
+    "data": {
+      "title": "SurfSense v0.0.9 - Introducing the Agentic Architecture",
+      "description": "SurfSense v0.0.9 introduces a new agentic architecture with intelligent source selection, temporal query understanding, and MCP compatibility.",
+      "date": "2025-12-24",
+      "tags": [
+        "Agentic",
+        "Agent",
+        "MCP"
+      ],
+      "version": "0.0.9",
+      "body": "<Video src=\"/demo.mp4\" />\n\n## What's New in v0.0.9\n\nThis release introduces the **SurfSense Agent**, a shift from pre-determined workflows (DAG) to dynamic, LLM-driven decision making.\n\n- **Smarter Source Selection**: Intelligently searches all connected sources based on your query, not just the ones you specify\n- **Temporal Queries**: Understands time-based questions like *\"Slack messages from last week\"*\n- **Reasoning & Refinement**: Iteratively refines answers for better accuracy\n- **Better Prompt Handling**: Knows when to respond in chat vs generate a podcast\n- **Faster Indexing**: Improved speed when syncing connected sources\n- **MCP Compatibility**: Extensible architecture supporting Model Context Protocol servers\n\n\n  \n    For Developers</AccordionTrigger>\n    \n      <ul >\n        <li>More extensible architecture for adding connectors and tools</li>\n        <li>Supports long-running agents for complex tasks</li>\n        <li>Cleaner codebase enables faster contributions</li>\n      </ul>\n    \n  \n  \n    Notes</AccordionTrigger>\n    \n      <ul >\n        <li>May increase API costs due to dynamic LLM calls</li>\n        <li>Users with small local models may see varied performance</li>\n      </ul>\n    \n  \n\n\nSurfSense is an AI-powered federated search solution that connects all your knowledge sources in one place.\n\n🎄 Merry Christmas from the SurfSense team!"
+    }
+  }
+]

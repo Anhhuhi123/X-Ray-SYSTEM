@@ -1,4 +1,4 @@
-import { IconMessage, IconMicrophone, IconSearch, IconUsers } from "@tabler/icons-react";
+import { MessageCircle as IconMessage, Mic as IconMicrophone, Search as IconSearch, Users as IconUsers } from "lucide-react";
 import Image from "next/image";
 import React from "react";
 import { BentoGrid, BentoGridItem } from "@/components/ui/bento-grid";

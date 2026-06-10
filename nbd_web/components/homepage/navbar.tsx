@@ -1,6 +1,6 @@
 "use client";
 
-import { IconMenu2, IconX } from "@tabler/icons-react";
+import { Menu as IconMenu2, X as IconX } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";

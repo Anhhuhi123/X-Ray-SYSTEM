@@ -15,9 +15,6 @@ RUN corepack enable pnpm
 COPY package.json pnpm-lock.yaml* .npmrc* ./
 COPY pnpm-workspace.yaml ./
 
-# First copy the config file and content to avoid fumadocs-mdx postinstall error
-COPY source.config.ts ./
-COPY content ./content
 
 # Install dependencies with frozen lockfile
 ENV CI=true

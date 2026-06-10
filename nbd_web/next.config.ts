@@ -6,6 +6,22 @@ const withNextIntl = createNextIntlPlugin("./i18n/request.ts");
 
 const nextConfig: NextConfig = {
 	output: "standalone",
+	async rewrites() {
+		// Server-side proxy: browser calls /api/proxy/* over HTTPS, Next.js server
+		// forwards to the backend over HTTP (no mixed-content restriction server-side).
+		// On Vercel set FASTAPI_BACKEND_URL=http://<ip>:8000 (private) and
+		// NEXT_PUBLIC_FASTAPI_BACKEND_URL=/api/proxy (public, embedded in JS bundle).
+		const backendUrl =
+			process.env.FASTAPI_BACKEND_URL ||
+			process.env.NEXT_PUBLIC_FASTAPI_BACKEND_URL ||
+			"http://localhost:8000";
+		return [
+			{
+				source: "/api/proxy/:path*",
+				destination: `${backendUrl}/:path*`,
+			},
+		];
+	},
 	reactStrictMode: false,
 	typescript: {
 		ignoreBuildErrors: true,

@@ -1,4 +1,3 @@
-# Force asyncio to use standard event loop before unstructured imports
 import asyncio
 
 from fastapi import APIRouter, Depends, Form, HTTPException, UploadFile
@@ -31,16 +30,6 @@ from app.schemas import (
 from app.services.task_dispatcher import TaskDispatcher, get_task_dispatcher
 from app.users import current_active_user
 from app.utils.rbac import check_permission
-
-try:
-    asyncio.set_event_loop_policy(asyncio.DefaultEventLoopPolicy())
-except RuntimeError as e:
-    print("Error setting event loop policy", e)
-    pass
-
-import os
-
-os.environ["UNSTRUCTURED_HAS_PATCHED_LOOP"] = "1"
 
 
 router = APIRouter()

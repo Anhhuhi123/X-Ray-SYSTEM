@@ -16,11 +16,9 @@ Available processors:
 # Extension processor
 from .extension_processor import add_extension_received_document
 
-# File processors
 from .file_processors import (
     add_received_file_document_using_docling,
     add_received_file_document_using_llamacloud,
-    add_received_file_document_using_unstructured,
 )
 
 # Markdown processor
@@ -31,8 +29,6 @@ __all__ = [
     "add_extension_received_document",
     "add_received_file_document_using_docling",
     "add_received_file_document_using_llamacloud",
-    # File processing with different ETL services
-    "add_received_file_document_using_unstructured",
     # Markdown file processing
     "add_received_markdown_file_document",
 ]

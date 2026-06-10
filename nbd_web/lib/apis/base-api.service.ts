@@ -96,8 +96,12 @@ class BaseApiService {
 				throw new AuthenticationError("You are not authenticated. Please login again.");
 			}
 
-			// Construct the full URL
-			const fullUrl = new URL(url, this.baseUrl).toString();
+			// Construct the full URL using string concatenation so that a proxy
+			// base path like "/api/proxy" is preserved (new URL() would strip it
+			// when url starts with "/").
+			const fullUrl = this.baseUrl
+				? `${this.baseUrl.replace(/\/$/, "")}${url}`
+				: url;
 
 			// Prepare fetch options
 			const fetchOptions: RequestInit = {

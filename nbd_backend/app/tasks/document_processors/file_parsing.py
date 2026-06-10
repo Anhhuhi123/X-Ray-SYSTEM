@@ -10,22 +10,6 @@ from app.services.docling_service import create_docling_service
 from app.utils.document_converters import convert_document_to_markdown
 
 
-async def _parse_with_unstructured(file_path: str) -> str:
-    from langchain_unstructured import UnstructuredLoader
-
-    loader = UnstructuredLoader(
-        file_path,
-        mode="elements",
-        post_processors=[],
-        languages=["eng"],
-        include_orig_elements=False,
-        include_metadata=False,
-        strategy="auto",
-    )
-    docs = await loader.aload()
-    return await convert_document_to_markdown(docs)
-
-
 async def _parse_with_llamacloud(file_path: str) -> str:
     # Reuse existing retry logic from upload pipeline.
     from app.tasks.document_processors.file_processors import (
@@ -67,7 +51,7 @@ async def parse_file_to_markdown(file_path: str, filename: str) -> tuple[str, st
 
     etl_service = (app_config.ETL_SERVICE or "").upper()
     if etl_service == "UNSTRUCTURED":
-        return await _parse_with_unstructured(file_path), "UNSTRUCTURED"
+        raise RuntimeError("UNSTRUCTURED ETL service is no longer supported. Please use DOCLING or LLAMACLOUD.")
 
     if etl_service == "LLAMACLOUD":
         return await _parse_with_llamacloud(file_path), "LLAMACLOUD"
@@ -76,6 +60,5 @@ async def parse_file_to_markdown(file_path: str, filename: str) -> tuple[str, st
         return await _parse_with_docling(file_path), "DOCLING"
 
     raise RuntimeError(
-        "Unsupported or missing ETL_SERVICE. Set ETL_SERVICE to UNSTRUCTURED, "
-        "LLAMACLOUD, or DOCLING for non-markdown files."
+        "Unsupported or missing ETL_SERVICE. Set ETL_SERVICE to DOCLING or LLAMACLOUD."
     )

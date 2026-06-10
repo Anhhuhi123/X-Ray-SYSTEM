@@ -55,18 +55,12 @@ RUN CERTIFI_PATH=$(python -c "import certifi; print(certifi.where())") && \
 ENV SSL_CERT_FILE=/usr/local/lib/python3.12/site-packages/certifi/cacert.pem
 ENV REQUESTS_CA_BUNDLE=/usr/local/lib/python3.12/site-packages/certifi/cacert.pem
 
-# Pre-download EasyOCR models to avoid runtime SSL issues
-RUN mkdir -p /root/.EasyOCR/model
-RUN wget --no-check-certificate https://github.com/JaidedAI/EasyOCR/releases/download/v1.3/english_g2.zip -O /root/.EasyOCR/model/english_g2.zip || true
-RUN wget --no-check-certificate https://github.com/JaidedAI/EasyOCR/releases/download/pre-v1.1.6/craft_mlt_25k.zip -O /root/.EasyOCR/model/craft_mlt_25k.zip || true
-RUN cd /root/.EasyOCR/model && (unzip -o english_g2.zip || true) && (unzip -o craft_mlt_25k.zip || true)
+# EasyOCR models removed to save space
 
 # Pre-download Docling models
 RUN python -c "try:\n    from docling.document_converter import DocumentConverter\n    conv = DocumentConverter()\nexcept:\n    pass" || true
 
-# Install Playwright browsers for web scraping if needed
-RUN pip install playwright && \
-    playwright install chromium --with-deps
+# Playwright installation removed to save space
 
 # Copy source code
 COPY . .

@@ -16,7 +16,7 @@ async def test_sets_status_ready(db_session, db_search_space, db_user, mocker):
     await adapter.index(
         markdown_content="## Hello\n\nSome content.",
         filename="test.pdf",
-        etl_service="UNSTRUCTURED",
+        etl_service="DOCLING",
         search_space_id=db_search_space.id,
         user_id=str(db_user.id),
         llm=mocker.Mock(),
@@ -39,7 +39,7 @@ async def test_content_is_summary(db_session, db_search_space, db_user, mocker):
     await adapter.index(
         markdown_content="## Hello\n\nSome content.",
         filename="test.pdf",
-        etl_service="UNSTRUCTURED",
+        etl_service="DOCLING",
         search_space_id=db_search_space.id,
         user_id=str(db_user.id),
         llm=mocker.Mock(),
@@ -63,7 +63,7 @@ async def test_chunks_written_to_db(db_session, db_search_space, db_user, mocker
     await adapter.index(
         markdown_content="## Hello\n\nSome content.",
         filename="test.pdf",
-        etl_service="UNSTRUCTURED",
+        etl_service="DOCLING",
         search_space_id=db_search_space.id,
         user_id=str(db_user.id),
         llm=mocker.Mock(),
@@ -93,7 +93,7 @@ async def test_raises_on_indexing_failure(db_session, db_search_space, db_user, 
         await adapter.index(
             markdown_content="## Hello\n\nSome content.",
             filename="test.pdf",
-            etl_service="UNSTRUCTURED",
+            etl_service="DOCLING",
             search_space_id=db_search_space.id,
             user_id=str(db_user.id),
             llm=mocker.Mock(),
@@ -115,7 +115,7 @@ async def test_reindex_updates_content(db_session, db_search_space, db_user, moc
     await adapter.index(
         markdown_content="## Original\n\nOriginal content.",
         filename="test.pdf",
-        etl_service="UNSTRUCTURED",
+        etl_service="DOCLING",
         search_space_id=db_search_space.id,
         user_id=str(db_user.id),
         llm=mocker.Mock(),
@@ -146,7 +146,7 @@ async def test_reindex_updates_content_hash(
     await adapter.index(
         markdown_content="## Original\n\nOriginal content.",
         filename="test.pdf",
-        etl_service="UNSTRUCTURED",
+        etl_service="DOCLING",
         search_space_id=db_search_space.id,
         user_id=str(db_user.id),
         llm=mocker.Mock(),
@@ -176,7 +176,7 @@ async def test_reindex_sets_status_ready(db_session, db_search_space, db_user, m
     await adapter.index(
         markdown_content="## Original\n\nOriginal content.",
         filename="test.pdf",
-        etl_service="UNSTRUCTURED",
+        etl_service="DOCLING",
         search_space_id=db_search_space.id,
         user_id=str(db_user.id),
         llm=mocker.Mock(),
@@ -208,7 +208,7 @@ async def test_reindex_replaces_chunks(db_session, db_search_space, db_user, moc
     await adapter.index(
         markdown_content="## Original\n\nOriginal content.",
         filename="test.pdf",
-        etl_service="UNSTRUCTURED",
+        etl_service="DOCLING",
         search_space_id=db_search_space.id,
         user_id=str(db_user.id),
         llm=mocker.Mock(),
@@ -245,7 +245,7 @@ async def test_reindex_clears_reindexing_flag(
     await adapter.index(
         markdown_content="## Original\n\nOriginal content.",
         filename="test.pdf",
-        etl_service="UNSTRUCTURED",
+        etl_service="DOCLING",
         search_space_id=db_search_space.id,
         user_id=str(db_user.id),
         llm=mocker.Mock(),
@@ -278,7 +278,7 @@ async def test_reindex_raises_on_failure(db_session, db_search_space, db_user, m
     await adapter.index(
         markdown_content="## Original\n\nOriginal content.",
         filename="test.pdf",
-        etl_service="UNSTRUCTURED",
+        etl_service="DOCLING",
         search_space_id=db_search_space.id,
         user_id=str(db_user.id),
         llm=mocker.Mock(),

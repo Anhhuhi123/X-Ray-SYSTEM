@@ -409,36 +409,7 @@ async def _extract_text_with_etl(
     )
 
     try:
-        if etl_service == "UNSTRUCTURED":
-            logger.debug("[_extract_text_with_etl] Using UNSTRUCTURED ETL")
-            from langchain_unstructured import UnstructuredLoader
-
-            from app.utils.document_converters import convert_document_to_markdown
-
-            loader = UnstructuredLoader(
-                file_path,
-                mode="elements",
-                post_processors=[],
-                languages=["eng"],
-                include_orig_elements=False,
-                include_metadata=False,
-                strategy="auto",
-            )
-
-            docs = await loader.aload()
-            logger.debug(
-                f"[_extract_text_with_etl] UNSTRUCTURED loaded {len(docs) if docs else 0} docs"
-            )
-            if docs:
-                result = await convert_document_to_markdown(docs)
-                logger.debug(
-                    f"[_extract_text_with_etl] UNSTRUCTURED result: {len(result) if result else 0} chars"
-                )
-                return result
-            logger.debug("[_extract_text_with_etl] UNSTRUCTURED returned no docs")
-            return None
-
-        elif etl_service == "LLAMACLOUD":
+        if etl_service == "LLAMACLOUD":
             logger.debug("[_extract_text_with_etl] Using LLAMACLOUD ETL")
             from app.tasks.document_processors.file_processors import (
                 parse_with_llamacloud_retry,

@@ -295,8 +295,8 @@ CRITICAL CITATION REQUIREMENTS:
 4. You MUST use the exact chunk_id values from the `<chunk id='...'>` attributes. Do not create your own citation numbers.
 5. Every citation MUST be in the format [citation:chunk_id] where chunk_id is the exact chunk id value.
 6. Never modify or change the chunk_id - always use the original values exactly as provided in the chunk tags.
-7. Do not return citations as clickable links.
-8. Never format citations as standard markdown links like "[Text](url)". Always use plain square brackets with the prefix "citation:", exactly like "[citation:123]".
+7. NEVER write [citation:X](url) — do NOT append a URL in parentheses after a citation bracket. Write only [citation:X] with nothing following the closing bracket. The format [citation:5](https://...) is WRONG; [citation:5] is CORRECT.
+8. Never format citations as standard markdown links like "[Text](url)". Always use plain square brackets with the prefix "citation:", exactly like "[citation:123]". Do NOT use ([citation:5](url)) or any other variant with parentheses and URLs.
 9. Citations must ONLY appear as [citation:chunk_id] or [citation:chunk_id1], [citation:chunk_id2] format - never with parentheses, hyperlinks, or other formatting.
 10. ABSOLUTELY DO NOT create a "References", "Tài liệu tham khảo", or "Sources" section at the end of your response. Just include inline citations.
 11. Never make up chunk IDs. Only use chunk_id values that are explicitly provided in the `<chunk id='...'>` tags.
@@ -361,7 +361,8 @@ CORRECT citation formats:
 - [citation:chunk_id1], [citation:chunk_id2], [citation:chunk_id3] (multiple citations)
 
 INCORRECT citation formats (DO NOT use):
-- Using parentheses and markdown links: ([citation:5](https://github.com/MODSetter/NFD))
+- Appending a URL after the bracket: [citation:5](https://example.com)  ← WRONG
+- Wrapping in parentheses with URL: ([citation:5](https://github.com/MODSetter/NFD))  ← WRONG
 - Using parentheses around brackets: ([citation:5])
 - Using hyperlinked text: [link to source 5](https://example.com)
 - Using footnote style: ... library¹

@@ -71,6 +71,7 @@ dependencies = [
     "ragas>=0.1.0",
     "pandas>=2.0.0",
     "static-ffmpeg>=3.0",
+    "huggingface_hub>=0.24.0",
 ]
 
 [dependency-groups]

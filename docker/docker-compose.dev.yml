@@ -49,6 +49,7 @@ services:
     volumes:
       - ../nbd_backend/app:/app/app
       - shared_temp:/shared_tmp
+      - ../nbd_web/content:/nbd_web/content:ro
     env_file:
       - ../nbd_backend/.env
     environment:
@@ -87,6 +88,7 @@ services:
     volumes:
       - ../nbd_backend/app:/app/app
       - shared_temp:/shared_tmp
+      - ../nbd_web/content:/nbd_web/content:ro
     env_file:
       - ../nbd_backend/.env
     environment:

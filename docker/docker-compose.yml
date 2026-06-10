@@ -45,6 +45,7 @@ services:
       - "${BACKEND_PORT:-8929}:8000"
     volumes:
       - shared_temp:/shared_tmp
+      - ../nbd_web/content:/nbd_web/content:ro
     env_file:
       - .env
     environment:
@@ -82,6 +83,7 @@ services:
     image: ghcr.io/modsetter/surfsense-backend:${SURFSENSE_VERSION:-latest}
     volumes:
       - shared_temp:/shared_tmp
+      - ../nbd_web/content:/nbd_web/content:ro
     env_file:
       - .env
     environment:

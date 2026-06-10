@@ -1477,6 +1477,8 @@ async def handle_new_chat(
     except HTTPException:
         raise
     except Exception as e:
+        import traceback
+        traceback.print_exc()
         raise HTTPException(
             status_code=500,
             detail=f"An unexpected error occurred: {e!s}",

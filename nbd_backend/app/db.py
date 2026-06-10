@@ -1753,3 +1753,15 @@ def get_default_roles_config() -> list[dict]:
             "is_system_role": True,
         },
     ]
+
+from sqlalchemy import event
+
+@event.listens_for(Chunk.document, 'set')
+def receive_chunk_document_set(target, value, oldvalue, initiator):
+    if getattr(target, 'section', None) is not None and value is not None:
+        target.section.document = value
+
+@event.listens_for(Chunk.document_id, 'set')
+def receive_chunk_document_id_set(target, value, oldvalue, initiator):
+    if getattr(target, 'section', None) is not None and value is not None:
+        target.section.document_id = value

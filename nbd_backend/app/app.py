@@ -37,7 +37,7 @@ from app.utils.perf import get_perf_logger, log_system_snapshot
 
 rate_limit_logger = logging.getLogger("nfd.rate_limit")
 
-_NFD_DOCS_SEED_TIMEOUT_SEC = float(os.environ.get("NFD_DOCS_SEED_TIMEOUT_SEC", "120"))
+_NFD_DOCS_SEED_TIMEOUT_SEC = float(os.environ.get("NFD_DOCS_SEED_TIMEOUT_SEC", "900"))
 
 
 # ============================================================================

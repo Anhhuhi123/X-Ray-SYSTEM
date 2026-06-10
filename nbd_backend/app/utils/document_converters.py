@@ -291,62 +291,7 @@ async def create_document_chunks(content: str) -> list[Chunk]:
     return db_chunks
 
 
-async def convert_element_to_markdown(element) -> str:
-    """
-    Convert an Unstructured element to markdown format based on its category.
 
-    Args:
-        element: The Unstructured API element object
-
-    Returns:
-        str: Markdown formatted string
-    """
-    element_category = element.metadata["category"]
-    content = element.page_content
-
-    if not content:
-        return ""
-
-    markdown_mapping = {
-        "Formula": lambda x: f"```math\n{x}\n```",
-        "FigureCaption": lambda x: f"*Figure: {x}*",
-        "NarrativeText": lambda x: f"{x}\n\n",
-        "ListItem": lambda x: f"- {x}\n",
-        "Title": lambda x: f"# {x}\n\n",
-        "Address": lambda x: f"> {x}\n\n",
-        "EmailAddress": lambda x: f"`{x}`",
-        "Image": lambda x: f"![{x}]({x})",
-        "PageBreak": lambda x: "\n---\n",
-        "Table": lambda x: f"```html\n{element.metadata['text_as_html']}\n```",
-        "Header": lambda x: f"## {x}\n\n",
-        "Footer": lambda x: f"*{x}*\n\n",
-        "CodeSnippet": lambda x: f"```\n{x}\n```",
-        "PageNumber": lambda x: f"*Page {x}*\n\n",
-        "UncategorizedText": lambda x: f"{x}\n\n",
-    }
-
-    converter = markdown_mapping.get(element_category, lambda x: x)
-    return converter(content)
-
-
-async def convert_document_to_markdown(elements):
-    """
-    Convert all document elements to markdown.
-
-    Args:
-        elements: List of Unstructured API elements
-
-    Returns:
-        str: Complete markdown document
-    """
-    markdown_parts = []
-
-    for element in elements:
-        markdown_text = await convert_element_to_markdown(element)
-        if markdown_text:
-            markdown_parts.append(markdown_text)
-
-    return "".join(markdown_parts)
 
 
 def generate_content_hash(content: str, search_space_id: int) -> str:

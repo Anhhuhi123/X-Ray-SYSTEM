@@ -144,39 +144,7 @@ class PageLimitService:
 
         return row
 
-    def estimate_pages_from_elements(self, elements: list) -> int:
-        """
-        Estimate page count from document elements (for Unstructured).
 
-        Args:
-            elements: List of document elements
-
-        Returns:
-            Estimated number of pages
-        """
-        # For Unstructured, we can count unique page numbers in metadata
-        # or estimate based on content length
-        page_numbers = set()
-
-        for element in elements:
-            # Try to get page number from metadata
-            if hasattr(element, "metadata") and element.metadata:
-                page_num = element.metadata.get("page_number")
-                if page_num is not None:
-                    page_numbers.add(page_num)
-
-        # If we found page numbers in metadata, use that count
-        if page_numbers:
-            return len(page_numbers)
-
-        # Otherwise, estimate: assume ~2000 chars per page
-        total_content_length = sum(
-            len(element.page_content) if hasattr(element, "page_content") else 0
-            for element in elements
-        )
-        estimated_pages = max(1, total_content_length // 2000)
-
-        return estimated_pages
 
     def estimate_pages_from_markdown(self, markdown_documents: list) -> int:
         """

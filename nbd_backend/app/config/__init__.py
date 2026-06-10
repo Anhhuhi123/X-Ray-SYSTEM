@@ -269,11 +269,7 @@ class Config:
     # Pages limit for ETL services (default to very high number for OSS unlimited usage)
     PAGES_LIMIT = int(os.getenv("PAGES_LIMIT", "999999999"))
 
-    if ETL_SERVICE == "UNSTRUCTURED":
-        # Unstructured API Key
-        UNSTRUCTURED_API_KEY = os.getenv("UNSTRUCTURED_API_KEY")
-
-    elif ETL_SERVICE == "LLAMACLOUD":
+    if ETL_SERVICE == "LLAMACLOUD":
         # LlamaCloud API Key
         LLAMA_CLOUD_API_KEY = os.getenv("LLAMA_CLOUD_API_KEY")
 

@@ -64,23 +64,4 @@ def get_requests_proxies() -> dict[str, str] | None:
     return {"http": proxy_url, "https": proxy_url}
 
 
-def get_playwright_proxy() -> dict[str, str] | None:
-    """
-    Return a Playwright-compatible proxy dict::
 
-        {"server": "http://host:port", "username": "…", "password": "…"}
-
-    or ``None`` when not configured.
-    """
-    username = Config.RESIDENTIAL_PROXY_USERNAME
-    hostname = Config.RESIDENTIAL_PROXY_HOSTNAME
-    password_b64 = _build_password_b64()
-
-    if not all([username, hostname, password_b64]):
-        return None
-
-    return {
-        "server": f"http://{hostname}",
-        "username": username,
-        "password": password_b64,
-    }

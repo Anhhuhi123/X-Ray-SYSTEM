@@ -1,6 +1,7 @@
 import hashlib
 import logging
 import warnings
+import threading
 
 import numpy as np
 from litellm import get_model_info, token_counter
@@ -11,6 +12,7 @@ from app.prompts import SUMMARY_PROMPT_TEMPLATE
 
 logger = logging.getLogger(__name__)
 
+_embedding_lock = threading.Lock()
 
 def _get_embedding_max_tokens() -> int:
     """Get the max token limit for the configured embedding model.
@@ -52,7 +54,8 @@ def embed_text(text: str) -> np.ndarray:
     """Truncate text to fit and embed it. Drop-in replacement for
     ``config.embedding_model_instance.embed(text)`` that never exceeds the
     model's context window."""
-    return config.embedding_model_instance.embed(truncate_for_embedding(text))
+    with _embedding_lock:
+        return config.embedding_model_instance.embed(truncate_for_embedding(text))
 
 
 def embed_texts(texts: list[str]) -> list[np.ndarray]:
@@ -66,10 +69,11 @@ def embed_texts(texts: list[str]) -> list[np.ndarray]:
     """
     if not texts:
         return []
-    truncated = [truncate_for_embedding(t) for t in texts]
-    if config.is_local_embedding_model:
-        return [config.embedding_model_instance.embed(t) for t in truncated]
-    return config.embedding_model_instance.embed_batch(truncated)
+    with _embedding_lock:
+        truncated = [truncate_for_embedding(t) for t in texts]
+        if config.is_local_embedding_model:
+            return [config.embedding_model_instance.embed(t) for t in truncated]
+        return config.embedding_model_instance.embed_batch(truncated)
 
 
 def get_model_context_window(model_name: str) -> int:

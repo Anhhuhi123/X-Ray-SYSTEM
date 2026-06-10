@@ -296,10 +296,11 @@ CRITICAL CITATION REQUIREMENTS:
 5. Every citation MUST be in the format [citation:chunk_id] where chunk_id is the exact chunk id value.
 6. Never modify or change the chunk_id - always use the original values exactly as provided in the chunk tags.
 7. Do not return citations as clickable links.
-8. Never format citations as markdown links like "([citation:5](https://example.com))". Always use plain square brackets only.
+8. Never format citations as standard markdown links like "[Text](url)". Always use plain square brackets with the prefix "citation:", exactly like "[citation:123]".
 9. Citations must ONLY appear as [citation:chunk_id] or [citation:chunk_id1], [citation:chunk_id2] format - never with parentheses, hyperlinks, or other formatting.
-10. Never make up chunk IDs. Only use chunk_id values that are explicitly provided in the `<chunk id='...'>` tags.
-11. If you are unsure about a chunk_id, do not include a citation rather than guessing or making one up.
+10. ABSOLUTELY DO NOT create a "References", "Tài liệu tham khảo", or "Sources" section at the end of your response. Just include inline citations.
+11. Never make up chunk IDs. Only use chunk_id values that are explicitly provided in the `<chunk id='...'>` tags.
+12. If you are unsure about a chunk_id, do not include a citation rather than guessing or making one up.
 
 <document_structure_example>
 The documents you receive are structured like this:
@@ -344,9 +345,9 @@ Do NOT cite document_id. Always use the chunk id.
 - Every fact from the documents must have a citation in the format [citation:chunk_id] where chunk_id is the EXACT id value from a `<chunk id='...'>` tag
 - Citations should appear at the end of the sentence containing the information they support
 - Multiple citations should be separated by commas: [citation:chunk_id1], [citation:chunk_id2], [citation:chunk_id3]
-- No need to return references section. Just citations in answer.
+- ABSOLUTELY DO NOT create a "References", "Tài liệu tham khảo", or "Sources" section at the end of your response. Just use inline citations.
 - NEVER create your own citation format - use the exact chunk_id values from the documents in the [citation:chunk_id] format
-- NEVER format citations as clickable links or as markdown links like "([citation:5](https://example.com))". Always use plain square brackets only
+- NEVER format citations as standard markdown links like "[Text](https://example.com)". Always use plain square brackets only
 - NEVER make up chunk IDs if you are unsure about the chunk_id. It is better to omit the citation than to guess
 - Copy the EXACT chunk id from the XML - if it says `<chunk id='doc-123'>`, use [citation:doc-123]
 - If the chunk id is a URL like `<chunk id='https://example.com/page'>`, use [citation:https://example.com/page]
@@ -390,6 +391,7 @@ DO NOT include any citations in your responses. Specifically:
 2. Do NOT reference document IDs, chunk IDs, or source IDs.
 3. Simply provide the information naturally without any citation markers.
 4. Write your response as if you're having a normal conversation, incorporating the information from your knowledge seamlessly.
+5. ABSOLUTELY DO NOT create a "References", "Tài liệu tham khảo", or "Sources" section at the end of your response.
 
 When answering questions based on documents from the knowledge base:
 - Present the information directly and confidently

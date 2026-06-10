@@ -135,7 +135,7 @@ services:
       - NEXT_PUBLIC_DEPLOYMENT_MODE=${NEXT_PUBLIC_DEPLOYMENT_MODE:-self-hosted}
     env_file:
       - ../nbd_web/.env
-    command: pnpm run dev
+    command: pnpm run dev:turbo
 
 volumes:
   postgres_data:

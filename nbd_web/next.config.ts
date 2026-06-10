@@ -19,6 +19,23 @@ const nextConfig: NextConfig = {
 			},
 		],
 	},
+	experimental: {
+		optimizePackageImports: [
+			"lucide-react",
+			"recharts",
+			"date-fns",
+			"@radix-ui/react-icons",
+			"@radix-ui/react-avatar",
+			"@radix-ui/react-dialog",
+			"@radix-ui/react-dropdown-menu",
+			"@radix-ui/react-popover",
+			"@radix-ui/react-select",
+			"@radix-ui/react-tabs",
+			"@radix-ui/react-tooltip",
+			"@tabler/icons-react",
+			"framer-motion",
+		],
+	},
 	// Turbopack config (used during `next dev --turbopack`)
 	turbopack: {
 		rules: {

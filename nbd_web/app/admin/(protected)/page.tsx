@@ -3,7 +3,11 @@
 import { useAtomValue } from "jotai";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Users, MessageSquare, Activity, Zap, ArrowUpRight, ArrowDownRight, Loader2 } from "lucide-react";
-import { RequestTrendChart, ModelUsageChart, ActiveUsersChart } from "../components/overview-charts";
+import dynamic from "next/dynamic";
+
+const RequestTrendChart = dynamic(() => import("../components/overview-charts").then((mod) => mod.RequestTrendChart), { ssr: false });
+const ModelUsageChart = dynamic(() => import("../components/overview-charts").then((mod) => mod.ModelUsageChart), { ssr: false });
+const ActiveUsersChart = dynamic(() => import("../components/overview-charts").then((mod) => mod.ActiveUsersChart), { ssr: false });
 import { adminOverviewStatsAtom } from "@/atoms/admin/admin-query.atoms";
 
 export default function AdminOverviewPage() {

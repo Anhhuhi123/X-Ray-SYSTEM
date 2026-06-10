@@ -1,0 +1,505 @@
+Unused files (39)
+app/dashboard/[search_space_id]/documents/(manage)/components/PaginationControls.tsx
+app/dashboard/[search_space_id]/documents/(manage)/components/RowActions.tsx        
+app/db/index.ts                                                                     
+app/layout.config.tsx                                                               
+atoms/connectors/ui.atoms.ts                                                        
+atoms/invites/invites-query.atoms.ts                                                
+components/assistant-ui/connector-popup/components/connector-warning-banner.tsx     
+components/assistant-ui/connector-popup/index.ts                                    
+components/assistant-ui/edit-composer.tsx                                           
+components/assistant-ui/thread-list.tsx                                             
+components/assistant-ui/thread-scroll-to-bottom.tsx                                 
+components/connectors/google-drive-folder-tree.tsx                                  
+components/document-viewer.tsx                                                      
+components/homepage/use-cases-grid.tsx                                              
+components/LanguageSwitcher.tsx                                                     
+components/search-space-form.tsx                                                    
+components/tool-ui/article/index.tsx                                                
+components/tool-ui/audio.tsx                                                        
+components/tool-ui/image/index.tsx                                                  
+components/tool-ui/index.ts                                                         
+components/tool-ui/media-card/index.tsx                                             
+components/tool-ui/plan/index.tsx                                                   
+components/tool-ui/plan/plan.tsx                                                    
+components/tool-ui/plan/schema.ts                                                   
+components/tool-ui/write-todos.tsx                                                  
+components/ui/expanded-gif-overlay.tsx                                              
+components/ui/sidebar.tsx                                                           
+components/ui/slider.tsx                                                            
+components/ui/spotlight.tsx                                                         
+components/ui/table-icons.tsx                                                       
+components/ui/tilt.tsx                                                              
+components/UserDropdown.tsx                                                         
+contracts/types/chat-messages.types.ts                                              
+contracts/types/chat-session-state.types.ts                                         
+docker-entrypoint.js                                                                
+hooks/use-debounce.ts                                                               
+hooks/use-google-drive-folders.ts                                                   
+hooks/use-mounted.ts                                                                
+hooks/use-search-source-connectors.ts                                               
+Unused dependencies (2)
+@radix-ui/react-separator  package.json:62:4
+@radix-ui/react-slider     package.json:63:4
+Unused devDependencies (5)
+@svgr/webpack         package.json:127:4
+@types/gapi           package.json:130:4
+@types/google.picker  package.json:131:4
+eslint                package.json:138:4
+eslint-config-next    package.json:139:4
+Unused exports (286)
+DocumentTypeChip                      function  …arch_space_id]/documents/(manage)/components/DocumentTypeIcon.tsx:45:17
+registerPlanOwner                     function  atoms/chat/plan-state.atom.ts:38:17                                     
+getCanonicalPlanTitle                 function  atoms/chat/plan-state.atom.ts:53:17                                     
+hasPlan                               function  atoms/chat/plan-state.atom.ts:60:17                                     
+getFirstPlanInfo                      function  atoms/chat/plan-state.atom.ts:67:17                                     
+isPlanOwner                           function  atoms/chat/plan-state.atom.ts:74:17                                     
+planStatesAtom                                  atoms/chat/plan-state.atom.ts:89:14                                     
+updatePlanStateAtom                             atoms/chat/plan-state.atom.ts:104:14                                    
+getPlanStateAtom                                atoms/chat/plan-state.atom.ts:129:14                                    
+clearPlanStatesAtom                             atoms/chat/plan-state.atom.ts:137:14                                    
+hydratePlanStateAtom                            atoms/chat/plan-state.atom.ts:159:14                                    
+extractWriteTodosFromContent          function  atoms/chat/plan-state.atom.ts:194:17                                    
+reportPanelOpenAtom                             atoms/chat/report-panel.atom.ts:25:14                                   
+updateDocumentMutationAtom                      atoms/documents/document-mutation.atoms.ts:59:14                        
+documentsAtom                                   atoms/documents/document-query.atoms.ts:8:14                            
+editorUIAtom                                    atoms/editor/ui.atoms.ts:8:14                                           
+updateInviteMutationAtom                        atoms/invites/invites-mutation.atoms.ts:35:14                           
+leaveSearchSpaceMutationAtom                    atoms/members/members-mutation.atoms.ts:49:14                           
+searchSpacesQueryParamsAtom                     atoms/search-spaces/search-space-query.atoms.ts:9:14                    
+showGlobalLoadingAtom                           atoms/ui/loading.atoms.ts:12:14                                         
+hideGlobalLoadingAtom                           atoms/ui/loading.atoms.ts:17:14                                         
+MessageError                                    components/assistant-ui/assistant-message.tsx:44:14                     
+connectorStatusSchema                           …ts/assistant-ui/connector-popup/config/connector-status-config.ts:13:14
+connectorStatusConfigSchema                     …ts/assistant-ui/connector-popup/config/connector-status-config.ts:21:14
+connectorStatusMapSchema                        …ts/assistant-ui/connector-popup/config/connector-status-config.ts:27:14
+connectorStatusConfigFileSchema                 …ts/assistant-ui/connector-popup/config/connector-status-config.ts:29:14
+validateConnectorStatusConfig         function  …ts/assistant-ui/connector-popup/config/connector-status-config.ts:65:17
+validateSingleConnectorStatus         function  …ts/assistant-ui/connector-popup/config/connector-status-config.ts:72:17
+COMPOSIO_TOOLKITS                               …nts/assistant-ui/connector-popup/constants/connector-constants.ts:38:14
+connectorPopupQueryParamsSchema                 …/assistant-ui/connector-popup/constants/connector-popup.schemas.ts:7:14
+oauthAuthResponseSchema                         …assistant-ui/connector-popup/constants/connector-popup.schemas.ts:25:14
+indexingConfigStateSchema                       …assistant-ui/connector-popup/constants/connector-popup.schemas.ts:34:14
+connectorIdSchema                               …assistant-ui/connector-popup/constants/connector-popup.schemas.ts:77:14
+CONNECTOR_TO_DOCUMENT_TYPE                      …/assistant-ui/connector-popup/utils/connector-document-mapping.ts:11:14
+getDocumentTypeForConnector           function  …/assistant-ui/connector-popup/utils/connector-document-mapping.ts:22:17
+isIndexableConnectorType              function  …/assistant-ui/connector-popup/utils/connector-document-mapping.ts:44:17
+MCPServerConfigSchema                           …onents/assistant-ui/connector-popup/utils/mcp-config-validator.ts:57:14
+clearConfigCache                                …nents/assistant-ui/connector-popup/utils/mcp-config-validator.ts:254:14
+getConfigCacheStats                             …nents/assistant-ui/connector-popup/utils/mcp-config-validator.ts:261:14
+ThinkingStepsScrollHandler                      components/assistant-ui/thinking-steps.tsx:166:14                       
+transformAuthor                       function  components/chat-comments/comment-panel-container/utils.ts:7:17          
+transformReply                        function  components/chat-comments/comment-panel-container/utils.ts:17:17         
+fullPreset                                      components/editor/presets.ts:24:14                                      
+minimalPreset                                   components/editor/presets.ts:46:14                                      
+readonlyPreset                                  components/editor/presets.ts:60:14                                      
+useSidebarContext                               components/layout/hooks/index.ts:1:27                                   
+useSidebarContext                     function  components/layout/hooks/SidebarContext.tsx:23:17                        
+SIDEBAR_MAX_WIDTH                               components/layout/hooks/useSidebarResize.ts:9:14                        
+useSidebarState                                 components/layout/index.ts:1:10                                         
+ChatListItem                                    components/layout/index.ts:13:2                                         
+Header                                          components/layout/index.ts:15:2                                         
+IconRail                                        components/layout/index.ts:16:2                                         
+LayoutShell                                     components/layout/index.ts:17:2                                         
+MobileSidebar                                   components/layout/index.ts:18:2                                         
+MobileSidebarTrigger                            components/layout/index.ts:19:2                                         
+NavIcon                                         components/layout/index.ts:20:2                                         
+NavSection                                      components/layout/index.ts:21:2                                         
+PageUsageDisplay                                components/layout/index.ts:22:2                                         
+SearchSpaceAvatar                               components/layout/index.ts:23:2                                         
+Sidebar                                         components/layout/index.ts:24:2                                         
+SidebarCollapseButton                           components/layout/index.ts:25:2                                         
+SidebarHeader                                   components/layout/index.ts:26:2                                         
+SidebarSection                                  components/layout/index.ts:27:2                                         
+SidebarUserProfile                              components/layout/index.ts:28:2                                         
+NavIcon                                         components/layout/ui/icon-rail/index.ts:2:10                            
+SearchSpaceAvatar                               components/layout/ui/icon-rail/index.ts:3:10                            
+NavIcon                               function  components/layout/ui/icon-rail/NavIcon.tsx:15:17                        
+Header                                          components/layout/ui/index.ts:2:10                                      
+IconRail                                        components/layout/ui/index.ts:3:10                                      
+NavIcon                                         components/layout/ui/index.ts:3:20                                      
+SearchSpaceAvatar                               components/layout/ui/index.ts:3:29                                      
+LayoutShell                                     components/layout/ui/index.ts:4:10                                      
+ChatListItem                                    components/layout/ui/index.ts:6:2                                       
+MobileSidebar                                   components/layout/ui/index.ts:7:2                                       
+MobileSidebarTrigger                            components/layout/ui/index.ts:8:2                                       
+NavSection                                      components/layout/ui/index.ts:9:2                                       
+PageUsageDisplay                                components/layout/ui/index.ts:10:2                                      
+Sidebar                                         components/layout/ui/index.ts:11:2                                      
+SidebarCollapseButton                           components/layout/ui/index.ts:12:2                                      
+SidebarHeader                                   components/layout/ui/index.ts:13:2                                      
+SidebarSection                                  components/layout/ui/index.ts:14:2                                      
+SidebarUserProfile                              components/layout/ui/index.ts:15:2                                      
+RightPanelExpandButton                function  components/layout/ui/right-panel/RightPanel.tsx:40:17                   
+ChatListItem                                    components/layout/ui/sidebar/index.ts:4:10                              
+NavSection                                      components/layout/ui/sidebar/index.ts:8:10                              
+PageUsageDisplay                                components/layout/ui/sidebar/index.ts:9:10                              
+SidebarCollapseButton                           components/layout/ui/sidebar/index.ts:11:10                             
+SidebarHeader                                   components/layout/ui/sidebar/index.ts:12:10                             
+SidebarSection                                  components/layout/ui/sidebar/index.ts:13:10                             
+SidebarUserProfile                              components/layout/ui/sidebar/index.ts:14:10                             
+Loader                                function  components/prompt-kit/loader.tsx:60:17                                  
+createAnimation                                 components/theme/theme-toggle.tsx:107:14                                
+useThemeToggle                                  components/theme/theme-toggle.tsx:552:14                                
+ThemeToggleButton                               components/theme/theme-toggle.tsx:686:14                                
+parseThinkingStep                     function  components/tool-ui/deepagent-thinking.tsx:110:17                        
+parseThinkingResult                   function  components/tool-ui/deepagent-thinking.tsx:122:17                        
+DeepAgentThinkingToolUI                         components/tool-ui/deepagent-thinking.tsx:320:14                        
+InlineThinkingDisplay                           components/tool-ui/deepagent-thinking.tsx:374:14                        
+STEP_STATUS                                     components/tool-ui/deepagent-thinking.tsx:406:10                        
+THINKING_STATUS                                 components/tool-ui/deepagent-thinking.tsx:406:23                        
+AlertDialogPortal                               components/ui/alert-dialog.tsx:124:2                                    
+AlertDialogOverlay                              components/ui/alert-dialog.tsx:125:2                                    
+AvatarGroupCount                                components/ui/avatar.tsx:58:60                                          
+badgeVariants                                   components/ui/badge.tsx:39:17                                           
+CalendarDayButton                               components/ui/calendar.tsx:179:20                                       
+CommandDialog                                   components/ui/command.tsx:152:2                                         
+CommandShortcut                                 components/ui/command.tsx:158:2                                         
+CommandSeparator                                components/ui/command.tsx:159:2                                         
+ContextMenuCheckboxItem                         components/ui/context-menu.tsx:213:2                                    
+ContextMenuRadioItem                            components/ui/context-menu.tsx:214:2                                    
+ContextMenuLabel                                components/ui/context-menu.tsx:215:2                                    
+ContextMenuShortcut                             components/ui/context-menu.tsx:217:2                                    
+ContextMenuGroup                                components/ui/context-menu.tsx:218:2                                    
+ContextMenuPortal                               components/ui/context-menu.tsx:219:2                                    
+ContextMenuSub                                  components/ui/context-menu.tsx:220:2                                    
+ContextMenuSubContent                           components/ui/context-menu.tsx:221:2                                    
+ContextMenuSubTrigger                           components/ui/context-menu.tsx:222:2                                    
+ContextMenuRadioGroup                           components/ui/context-menu.tsx:223:2                                    
+DialogPortal                                    components/ui/dialog.tsx:95:2                                           
+DialogOverlay                                   components/ui/dialog.tsx:96:2                                           
+DialogClose                                     components/ui/dialog.tsx:97:2                                           
+DrawerPortal                                    components/ui/drawer.tsx:105:2                                          
+DrawerOverlay                                   components/ui/drawer.tsx:106:2                                          
+DrawerTrigger                                   components/ui/drawer.tsx:107:2                                          
+DrawerClose                                     components/ui/drawer.tsx:108:2                                          
+DrawerFooter                                    components/ui/drawer.tsx:111:2                                          
+DrawerDescription                               components/ui/drawer.tsx:113:2                                          
+DropdownMenuGroup                               components/ui/dropdown-menu.tsx:217:2                                   
+DropdownMenuShortcut                            components/ui/dropdown-menu.tsx:224:2                                   
+EditorView                            function  components/ui/editor.tsx:114:17                                         
+useFormField                                    components/ui/form.tsx:143:2                                            
+HeadingElement                        function  components/ui/heading-node.tsx:22:17                                    
+InlineComboboxRow                               components/ui/inline-combobox.tsx:403:2                                 
+PaginationLink                                  components/ui/pagination.tsx:99:2                                       
+PaginationPrevious                              components/ui/pagination.tsx:101:2                                      
+PaginationNext                                  components/ui/pagination.tsx:102:2                                      
+PaginationEllipsis                              components/ui/pagination.tsx:103:2                                      
+mediaResizeHandleVariants                       components/ui/resize-handle.tsx:16:14                                   
+Resizable                             function  components/ui/resize-handle.tsx:72:17                                   
+ScrollBar                                       components/ui/scroll-area.tsx:56:22                                     
+SelectScrollDownButton                          components/ui/select.tsx:166:2                                          
+SelectScrollUpButton                            components/ui/select.tsx:167:2                                          
+SelectSeparator                                 components/ui/select.tsx:168:2                                          
+SheetTrigger                                    components/ui/sheet.tsx:125:2                                           
+SheetClose                                      components/ui/sheet.tsx:126:2                                           
+SheetFooter                                     components/ui/sheet.tsx:129:2                                           
+TableFooter                                     components/ui/table.tsx:92:41                                           
+TableCaption                                    components/ui/table.tsx:92:86                                           
+ToolbarToggleGroup                    function  components/ui/toolbar.tsx:30:17                                         
+ToolbarLink                           function  components/ui/toolbar.tsx:42:17                                         
+ToolbarSeparator                      function  components/ui/toolbar.tsx:54:17                                         
+ToolbarSplitButton                    function  components/ui/toolbar.tsx:172:17                                        
+ToolbarSplitButtonPrimary             function  components/ui/toolbar.tsx:190:17                                        
+ToolbarSplitButtonSecondary           function  components/ui/toolbar.tsx:215:17                                        
+ToolbarToggleItem                     function  components/ui/toolbar.tsx:240:17                                        
+turnIntoItems                                   components/ui/turn-into-toolbar-button.tsx:36:14                        
+getModelsByProvider                   function  contracts/enums/llm-models.ts:1531:17                                   
+getProvidersWithModels                function  contracts/enums/llm-models.ts:1536:17                                   
+rawComment                                      contracts/types/chat-comments.types.ts:6:14                             
+author                                          contracts/types/chat-comments.types.ts:17:14                            
+commentReply                                    contracts/types/chat-comments.types.ts:24:14                            
+comment                                         contracts/types/chat-comments.types.ts:36:14                            
+mentionContext                                  contracts/types/chat-comments.types.ts:51:14                            
+mentionComment                                  contracts/types/chat-comments.types.ts:59:14                            
+mention                                         contracts/types/chat-comments.types.ts:66:14                            
+commentListResponse                             contracts/types/chat-comments.types.ts:92:14                            
+publicChatSnapshotInfo                          contracts/types/chat-threads.types.ts:6:14                              
+publicChatSnapshotDetail                        contracts/types/chat-threads.types.ts:50:14                             
+googleDriveItem                                 contracts/types/connector.types.ts:46:14                                
+googleDriveIndexBody                            contracts/types/connector.types.ts:141:14                               
+slackChannel                                    contracts/types/connector.types.ts:199:14                               
+listSlackChannelsRequest                        contracts/types/connector.types.ts:209:14                               
+discordChannel                                  contracts/types/connector.types.ts:218:14                               
+listDiscordChannelsRequest                      contracts/types/connector.types.ts:230:14                               
+document                                        contracts/types/document.types.ts:28:14                                 
+extensionDocumentContent                        contracts/types/document.types.ts:44:14                                 
+documentWithChunks                              contracts/types/document.types.ts:56:14                                 
+nfdDocsChunk                                    contracts/types/document.types.ts:70:14                                 
+nfdDocsDocument                                 contracts/types/document.types.ts:75:14                                 
+nfdDocsDocumentWithChunks                       contracts/types/document.types.ts:82:14                                 
+documentSortByEnum                              contracts/types/document.types.ts:89:14                                 
+sortOrderEnum                                   contracts/types/document.types.ts:90:14                                 
+documentStatus                                  contracts/types/document.types.ts:160:14                                
+documentStatusItem                              contracts/types/document.types.ts:165:14                                
+documentTitleRead                               contracts/types/document.types.ts:200:14                                
+getNFDDocsByChunkRequest                        contracts/types/document.types.ts:245:14                                
+inboxItemTypeEnum                               contracts/types/inbox.types.ts:8:14                                     
+inboxItemStatusEnum                             contracts/types/inbox.types.ts:20:14                                    
+documentProcessingStageEnum                     contracts/types/inbox.types.ts:25:14                                    
+baseInboxItemMetadata                           contracts/types/inbox.types.ts:38:14                                    
+connectorIndexingMetadata                       contracts/types/inbox.types.ts:48:14                                    
+connectorDeletionMetadata                       contracts/types/inbox.types.ts:68:14                                    
+documentProcessingMetadata                      contracts/types/inbox.types.ts:79:14                                    
+newMentionMetadata                              contracts/types/inbox.types.ts:92:14                                    
+commentReplyMetadata                            contracts/types/inbox.types.ts:105:14                                   
+pageLimitExceededMetadata                       contracts/types/inbox.types.ts:121:14                                   
+inboxItemMetadata                               contracts/types/inbox.types.ts:137:14                                   
+inboxItem                                       contracts/types/inbox.types.ts:150:14                                   
+connectorIndexingInboxItem                      contracts/types/inbox.types.ts:166:14                                   
+connectorDeletionInboxItem                      contracts/types/inbox.types.ts:171:14                                   
+documentProcessingInboxItem                     contracts/types/inbox.types.ts:176:14                                   
+newMentionInboxItem                             contracts/types/inbox.types.ts:181:14                                   
+commentReplyInboxItem                           contracts/types/inbox.types.ts:186:14                                   
+pageLimitExceededInboxItem                      contracts/types/inbox.types.ts:191:14                                   
+notificationCategory                            contracts/types/inbox.types.ts:203:14                                   
+getUnreadCountRequest                           contracts/types/inbox.types.ts:260:14                                   
+sourceTypeItem                                  contracts/types/inbox.types.ts:276:14                                   
+categoryUnreadCount                             contracts/types/inbox.types.ts:291:14                                   
+isConnectorDeletionMetadata           function  contracts/types/inbox.types.ts:317:17                                   
+parseInboxItemMetadata                function  contracts/types/inbox.types.ts:355:17                                   
+invite                                          contracts/types/invites.types.ts:4:14                                   
+logLevelEnum                                    contracts/types/log.types.ts:7:14                                       
+logStatusEnum                                   contracts/types/log.types.ts:9:14                                       
+logBase                                         contracts/types/log.types.ts:25:14                                      
+logFilters                                      contracts/types/log.types.ts:50:14                                      
+logActiveTask                                   contracts/types/log.types.ts:82:14                                      
+logFailure                                      contracts/types/log.types.ts:91:14                                      
+logSummary                                      contracts/types/log.types.ts:99:14                                      
+mcpServerConfig                                 contracts/types/mcp.types.ts:20:14                                      
+mcpConnectorCreate                              contracts/types/mcp.types.ts:25:14                                      
+mcpConnectorUpdate                              contracts/types/mcp.types.ts:30:14                                      
+mcpConnectorRead                                contracts/types/mcp.types.ts:35:14                                      
+createMCPConnectorRequest                       contracts/types/mcp.types.ts:49:14                                      
+updateMCPConnectorRequest                       contracts/types/mcp.types.ts:56:14                                      
+getMCPConnectorsRequest                         contracts/types/mcp.types.ts:61:14                                      
+membership                                      contracts/types/members.types.ts:4:14                                   
+liteLLMProviderEnum                             contracts/types/new-llm-config.types.ts:6:14                            
+newLLMConfig                                    contracts/types/new-llm-config.types.ts:45:14                           
+newLLMConfigPublic                              contracts/types/new-llm-config.types.ts:72:14                           
+globalNewLLMConfig                              contracts/types/new-llm-config.types.ts:145:14                          
+llmPreferences                                  contracts/types/new-llm-config.types.ts:175:14                          
+getLLMPreferencesRequest                        contracts/types/new-llm-config.types.ts:185:14                          
+modelListItem                                   contracts/types/new-llm-config.types.ts:208:14                          
+permissionInfo                                  contracts/types/permissions.types.ts:3:14                               
+publicAuthor                                    contracts/types/public-chat.types.ts:6:14                               
+publicChatMessage                               contracts/types/public-chat.types.ts:14:14                              
+publicChatThread                                contracts/types/public-chat.types.ts:24:14                              
+searchSpace                                     contracts/types/search-space.types.ts:4:14                              
+user                                            contracts/types/user.types.ts:3:14                                      
+updateUserRequest                               contracts/types/user.types.ts:23:14                                     
+useGlobalLoading                      function  hooks/use-global-loading.ts:20:17                                       
+Link                                            i18n/routing.ts:23:16                                                   
+redirect                                        i18n/routing.ts:23:22                                                   
+usePathname                                     i18n/routing.ts:23:32                                                   
+useRouter                                       i18n/routing.ts:23:45                                                   
+getPathname                                     i18n/routing.ts:23:56                                                   
+isAnnouncementActive                  function  lib/announcements/announcements-utils.ts:8:17                           
+announcementMatchesAudience           function  lib/announcements/announcements-utils.ts:24:17                          
+overviewStatsSchema                             lib/apis/admin-api.service.ts:4:14                                      
+adminUserItemSchema                             lib/apis/admin-api.service.ts:23:14                                     
+adminUsersResponseSchema                        lib/apis/admin-api.service.ts:34:14                                     
+adminConversationItemSchema                     lib/apis/admin-api.service.ts:44:14                                     
+adminConversationsResponseSchema                lib/apis/admin-api.service.ts:63:14                                     
+getAuthErrorMessage                   function  lib/auth-errors.ts:122:17                                               
+clearBearerToken                      function  lib/auth-utils.ts:90:17                                                 
+getRefreshToken                       function  lib/auth-utils.ts:98:17                                                 
+clearRefreshToken                     function  lib/auth-utils.ts:114:17                                                
+clearAllTokens                        function  lib/auth-utils.ts:122:17                                                
+getAuthHeaders                        function  lib/auth-utils.ts:191:17                                                
+createThreadListManager               function  lib/chat/thread-persistence.ts:209:17                                   
+ETL_SERVICE                                     lib/env-config.ts:24:14                                                 
+DEPLOYMENT_MODE                                 lib/env-config.ts:31:14                                                 
+APP_VERSION                                     lib/env-config.ts:35:14                                                 
+isLocalAuth                                     lib/env-config.ts:38:14                                                 
+isGoogleAuth                                    lib/env-config.ts:41:14                                                 
+isCloud                                         lib/env-config.ts:47:14                                                 
+NetworkError                          class     lib/error.ts:12:14                                                      
+trackSearchSpaceDeleted               function  lib/posthog/events.ts:74:17                                             
+trackSearchSpaceViewed                function  lib/posthog/events.ts:80:17                                             
+trackDocumentDeleted                  function  lib/posthog/events.ts:160:17                                            
+trackDocumentBulkDeleted              function  lib/posthog/events.ts:167:17                                            
+trackYouTubeImport                    function  lib/posthog/events.ts:174:17                                            
+trackConnectorSetupStarted            function  lib/posthog/events.ts:185:17                                            
+trackConnectorSetupSuccess            function  lib/posthog/events.ts:192:17                                            
+trackConnectorSetupFailure            function  lib/posthog/events.ts:204:17                                            
+trackConnectorSynced                  function  lib/posthog/events.ts:228:17                                            
+trackSettingsUpdated                  function  lib/posthog/events.ts:251:17                                            
+trackSourcesTabViewed                 function  lib/posthog/events.ts:259:17                                            
+trackConfigurePeriodicIndexingOpened  function  lib/posthog/events.ts:390:17                                            
+trackIncentivePageViewed              function  lib/posthog/events.ts:420:17                                            
+trackIncentiveTaskCompleted           function  lib/posthog/events.ts:424:17                                            
+trackIncentiveTaskClicked             function  lib/posthog/events.ts:431:17                                            
+trackIncentiveContactOpened           function  lib/posthog/events.ts:437:17                                            
+useMDXComponents                                mdx-components.tsx:33:14                                                
+changelog                                       source.config.ts:4:14                                                   
+default                                         source.config.ts:15:16                                                  
+Unused exported types (152)
+DocumentType                          type       …ashboard/[search_space_id]/documents/(manage)/components/types.ts:1:13
+ColumnVisibility                      type       …shboard/[search_space_id]/documents/(manage)/components/types.ts:23:13
+ChatInferenceOutputPrediction         interface  atoms/chat/chat-image-attachments.atom.ts:22:18                        
+PlanTodo                              interface  atoms/chat/plan-state.atom.ts:12:18                                    
+PlanState                             interface  atoms/chat/plan-state.atom.ts:18:18                                    
+UpdatePlanInput                       interface  atoms/chat/plan-state.atom.ts:94:18                                    
+HydratePlanInput                      interface  atoms/chat/plan-state.atom.ts:146:18                                   
+ConnectorStatusMap                    type       …s/assistant-ui/connector-popup/config/connector-status-config.ts:40:13
+CirclebackWebhookInfo                 type       …nnector-popup/connector-configs/components/circleback-config.tsx:28:13
+FrequencyMinutes                      type       …ssistant-ui/connector-popup/constants/connector-popup.schemas.ts:49:13
+DateRange                             type       …ssistant-ui/connector-popup/constants/connector-popup.schemas.ts:72:13
+CommentAuthor                         interface  components/chat-comments/comment-item/types.ts:1:18                    
+ChatItem                              type       components/layout/index.ts:4:2                                         
+IconRailProps                         type       components/layout/index.ts:5:2                                         
+NavItem                               type       components/layout/index.ts:6:2                                         
+PageUsage                             type       components/layout/index.ts:7:2                                         
+SearchSpace                           type       components/layout/index.ts:8:2                                         
+SidebarSectionProps                   type       components/layout/index.ts:9:2                                         
+User                                  type       components/layout/index.ts:10:2                                        
+IconRailProps                         interface  components/layout/types/layout.types.ts:44:18                          
+SidebarHeaderProps                    interface  components/layout/types/layout.types.ts:52:18                          
+SidebarSectionProps                   interface  components/layout/types/layout.types.ts:57:18                          
+NavSectionProps                       interface  components/layout/types/layout.types.ts:64:18                          
+ChatsSectionProps                     interface  components/layout/types/layout.types.ts:69:18                          
+PageUsageDisplayProps                 interface  components/layout/types/layout.types.ts:79:18                          
+SidebarUserProfileProps               interface  components/layout/types/layout.types.ts:84:18                          
+SidebarProps                          interface  components/layout/types/layout.types.ts:95:18                          
+LayoutShellProps                      interface  components/layout/types/layout.types.ts:117:18                         
+LoaderProps                           interface  components/prompt-kit/loader.tsx:5:18                                  
+AnimationVariant                      type       components/theme/theme-toggle.tsx:11:13                                
+AnimationStart                        type       components/theme/theme-toggle.tsx:12:13                                
+InlineThinkingDisplayProps            interface  components/tool-ui/deepagent-thinking.tsx:359:18                       
+DeepAgentThinkingArgs                 type       components/tool-ui/deepagent-thinking.tsx:400:2                        
+DeepAgentThinkingResult               type       components/tool-ui/deepagent-thinking.tsx:401:2                        
+StepStatus                            type       components/tool-ui/deepagent-thinking.tsx:402:2                        
+ThinkingStatus                        type       components/tool-ui/deepagent-thinking.tsx:403:2                        
+AnnouncementAudience                  type       contracts/types/announcement.types.ts:16:13                            
+LoginResponse                         type       contracts/types/auth.types.ts:28:13                                    
+RegisterResponse                      type       contracts/types/auth.types.ts:30:13                                    
+RawComment                            type       contracts/types/chat-comments.types.ts:155:13                          
+Author                                type       contracts/types/chat-comments.types.ts:156:13                          
+MentionContext                        type       contracts/types/chat-comments.types.ts:159:13                          
+MentionComment                        type       contracts/types/chat-comments.types.ts:160:13                          
+Mention                               type       contracts/types/chat-comments.types.ts:161:13                          
+GetBatchCommentsResponse              type       contracts/types/chat-comments.types.ts:165:13                          
+CreateCommentResponse                 type       contracts/types/chat-comments.types.ts:167:13                          
+CreateReplyResponse                   type       contracts/types/chat-comments.types.ts:169:13                          
+UpdateCommentResponse                 type       contracts/types/chat-comments.types.ts:171:13                          
+DeleteCommentResponse                 type       contracts/types/chat-comments.types.ts:173:13                          
+GetMentionsResponse                   type       contracts/types/chat-comments.types.ts:175:13                          
+PublicChatSnapshotInfo                type       contracts/types/chat-threads.types.ts:73:13                            
+SearchSourceConnectorType             type       contracts/types/connector.types.ts:237:13                              
+GetConnectorResponse                  type       contracts/types/connector.types.ts:242:13                              
+CreateConnectorResponse               type       contracts/types/connector.types.ts:244:13                              
+UpdateConnectorResponse               type       contracts/types/connector.types.ts:246:13                              
+DeleteConnectorResponse               type       contracts/types/connector.types.ts:248:13                              
+ListGoogleDriveFoldersResponse        type       contracts/types/connector.types.ts:252:13                              
+GoogleDriveItem                       type       contracts/types/connector.types.ts:253:13                              
+ListSlackChannelsRequest              type       contracts/types/connector.types.ts:255:13                              
+ListSlackChannelsResponse             type       contracts/types/connector.types.ts:256:13                              
+ListDiscordChannelsRequest            type       contracts/types/connector.types.ts:258:13                              
+ListDiscordChannelsResponse           type       contracts/types/connector.types.ts:259:13                              
+DocumentTitleRead                     type       contracts/types/document.types.ts:288:13                               
+GetDocumentResponse                   type       contracts/types/document.types.ts:292:13                               
+CreateDocumentResponse                type       contracts/types/document.types.ts:294:13                               
+UploadDocumentResponse                type       contracts/types/document.types.ts:296:13                               
+GetDocumentsStatusResponse            type       contracts/types/document.types.ts:298:13                               
+DocumentStatus                        type       contracts/types/document.types.ts:299:13                               
+DocumentStatusItem                    type       contracts/types/document.types.ts:300:13                               
+SearchDocumentsResponse               type       contracts/types/document.types.ts:302:13                               
+GetDocumentTypeCountsResponse         type       contracts/types/document.types.ts:306:13                               
+UpdateDocumentResponse                type       contracts/types/document.types.ts:310:13                               
+DeleteDocumentResponse                type       contracts/types/document.types.ts:312:13                               
+NFDDocsChunk                          type       contracts/types/document.types.ts:316:13                               
+NFDDocsDocument                       type       contracts/types/document.types.ts:317:13                               
+NFDDocsDocumentWithChunks             type       contracts/types/document.types.ts:318:13                               
+GetNFDDocsByChunkRequest              type       contracts/types/document.types.ts:319:13                               
+GetNFDDocsResponse                    type       contracts/types/document.types.ts:322:13                               
+InboxItemStatusEnum                   type       contracts/types/inbox.types.ts:401:13                                  
+DocumentProcessingStageEnum           type       contracts/types/inbox.types.ts:402:13                                  
+BaseInboxItemMetadata                 type       contracts/types/inbox.types.ts:403:13                                  
+ConnectorDeletionMetadata             type       contracts/types/inbox.types.ts:405:13                                  
+InboxItemMetadata                     type       contracts/types/inbox.types.ts:410:13                                  
+ConnectorIndexingInboxItem            type       contracts/types/inbox.types.ts:412:13                                  
+ConnectorDeletionInboxItem            type       contracts/types/inbox.types.ts:413:13                                  
+DocumentProcessingInboxItem           type       contracts/types/inbox.types.ts:414:13                                  
+NewMentionInboxItem                   type       contracts/types/inbox.types.ts:415:13                                  
+CommentReplyInboxItem                 type       contracts/types/inbox.types.ts:416:13                                  
+PageLimitExceededInboxItem            type       contracts/types/inbox.types.ts:417:13                                  
+GetUnreadCountRequest                 type       contracts/types/inbox.types.ts:425:13                                  
+SourceTypeItem                        type       contracts/types/inbox.types.ts:427:13                                  
+PaginationQueryParams                 type       contracts/types/index.ts:12:13                                         
+LogLevelEnum                          type       contracts/types/log.types.ts:118:13                                    
+LogStatusEnum                         type       contracts/types/log.types.ts:119:13                                    
+LogFilters                            type       contracts/types/log.types.ts:120:13                                    
+CreateLogResponse                     type       contracts/types/log.types.ts:122:13                                    
+UpdateLogResponse                     type       contracts/types/log.types.ts:124:13                                    
+DeleteLogResponse                     type       contracts/types/log.types.ts:126:13                                    
+GetLogsResponse                       type       contracts/types/log.types.ts:128:13                                    
+GetLogResponse                        type       contracts/types/log.types.ts:130:13                                    
+LogSummary                            type       contracts/types/log.types.ts:131:13                                    
+LogFailure                            type       contracts/types/log.types.ts:132:13                                    
+LogActiveTask                         type       contracts/types/log.types.ts:133:13                                    
+GetLogSummaryResponse                 type       contracts/types/log.types.ts:135:13                                    
+MCPConnectorCreate                    type       contracts/types/mcp.types.ts:69:13                                     
+MCPConnectorUpdate                    type       contracts/types/mcp.types.ts:70:13                                     
+ModelListItem                         type       contracts/types/new-llm-config.types.ts:217:13                         
+GetModelListResponse                  type       contracts/types/new-llm-config.types.ts:218:13                         
+CreateNewLLMConfigResponse            type       contracts/types/new-llm-config.types.ts:227:13                         
+GetNewLLMConfigResponse               type       contracts/types/new-llm-config.types.ts:231:13                         
+DeleteNewLLMConfigResponse            type       contracts/types/new-llm-config.types.ts:235:13                         
+GetDefaultSystemInstructionsResponse  type       contracts/types/new-llm-config.types.ts:236:13                         
+GetGlobalNewLLMConfigsResponse        type       contracts/types/new-llm-config.types.ts:240:13                         
+LLMPreferences                        type       contracts/types/new-llm-config.types.ts:241:13                         
+GetLLMPreferencesRequest              type       contracts/types/new-llm-config.types.ts:242:13                         
+GetLLMPreferencesResponse             type       contracts/types/new-llm-config.types.ts:243:13                         
+UpdateLLMPreferencesResponse          type       contracts/types/new-llm-config.types.ts:245:13                         
+GetPermissionsResponse                type       contracts/types/permissions.types.ts:18:13                             
+PublicAuthor                          type       contracts/types/public-chat.types.ts:54:13                             
+PublicChatThread                      type       contracts/types/public-chat.types.ts:56:13                             
+GetRolesResponse                      type       contracts/types/roles.types.ts:82:13                                   
+GetRoleByIdResponse                   type       contracts/types/roles.types.ts:84:13                                   
+SearchSpace                           type       contracts/types/search-space.types.ts:75:13                            
+GetSearchSpacesResponse               type       contracts/types/search-space.types.ts:77:13                            
+CreateSearchSpaceResponse             type       contracts/types/search-space.types.ts:79:13                            
+GetSearchSpaceResponse                type       contracts/types/search-space.types.ts:81:13                            
+UpdateSearchSpaceResponse             type       contracts/types/search-space.types.ts:83:13                            
+DeleteSearchSpaceResponse             type       contracts/types/search-space.types.ts:85:13                            
+User                                  type       contracts/types/user.types.ts:33:13                                    
+GetMeResponse                         type       contracts/types/user.types.ts:34:13                                    
+UpdateUserResponse                    type       contracts/types/user.types.ts:36:13                                    
+DocumentStatusType                    interface  hooks/use-documents.ts:7:18                                            
+PickerItem                            interface  hooks/use-google-picker.ts:6:18                                        
+InboxItemTypeEnum                     type       hooks/use-inbox.ts:9:2                                                 
+Log                                   interface  hooks/use-logs.ts:10:18                                                
+LogSummary                            interface  hooks/use-logs.ts:30:18                                                
+OverviewStats                         type       lib/apis/admin-api.service.ts:21:13                                    
+AdminUserItem                         type       lib/apis/admin-api.service.ts:41:13                                    
+AdminUsersResponse                    type       lib/apis/admin-api.service.ts:42:13                                    
+AdminConversationsResponse            type       lib/apis/admin-api.service.ts:71:13                                    
+RequestOptions                        type       lib/apis/base-api.service.ts:14:13                                     
+CreateNoteRequest                     type       lib/apis/notes-api.service.ts:64:13                                    
+CreateNoteResponse                    type       lib/apis/notes-api.service.ts:65:13                                    
+GetNotesRequest                       type       lib/apis/notes-api.service.ts:66:13                                    
+GetNotesResponse                      type       lib/apis/notes-api.service.ts:67:13                                    
+NoteItem                              type       lib/apis/notes-api.service.ts:68:13                                    
+DeleteNoteRequest                     type       lib/apis/notes-api.service.ts:69:13                                    
+DeleteNoteResponse                    type       lib/apis/notes-api.service.ts:70:13                                    
+ContentPart                           type       lib/chat/streaming-state.ts:10:13                                      
+RegenerateParams                      interface  lib/chat/thread-persistence.ts:166:18                                  
+ThreadListAdapterConfig               interface  lib/chat/thread-persistence.ts:191:18                                  
+ThreadListState                       interface  lib/chat/thread-persistence.ts:198:18                                  
+Duplicate exports (15)
+comment|createCommentResponse                                                    contracts/types/chat-comments.types.ts 
+commentReply|createReplyResponse|updateCommentResponse                           contracts/types/chat-comments.types.ts 
+searchSourceConnector|getConnectorResponse|createConnectorResponse|updateConne…  contracts/types/connector.types.ts     
+document|getDocumentResponse|updateDocumentResponse                              contracts/types/document.types.ts      
+documentWithChunks|getDocumentByChunkResponse                                    contracts/types/document.types.ts      
+nfdDocsDocumentWithChunks|getNFDDocsByChunkResponse                              contracts/types/document.types.ts      
+invite|createInviteResponse|updateInviteResponse                                 contracts/types/invites.types.ts       
+log|createLogResponse|updateLogResponse|getLogResponse                           contracts/types/log.types.ts           
+logSummary|getLogSummaryResponse                                                 contracts/types/log.types.ts           
+membership|updateMembershipResponse                                              contracts/types/members.types.ts       
+newLLMConfig|createNewLLMConfigResponse|getNewLLMConfigResponse|updateNewLLMCo…  contracts/types/new-llm-config.types.ts
+llmPreferences|getLLMPreferencesResponse|updateLLMPreferencesResponse            contracts/types/new-llm-config.types.ts
+role|createRoleResponse|getRoleByIdResponse|updateRoleResponse                   contracts/types/roles.types.ts         
+user|getMeResponse|updateUserResponse                                            contracts/types/user.types.ts          
+getMDXComponents|useMDXComponents                                                mdx-components.tsx                     

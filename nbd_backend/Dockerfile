@@ -38,12 +38,10 @@ RUN pip install --upgrade certifi pip-system-certs
 COPY pyproject.toml .
 COPY uv.lock .
 
-# Install PyTorch based on architecture
-RUN if [ "$(uname -m)" = "x86_64" ]; then \
-        pip install --no-cache-dir torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121; \
-    else \
-        pip install --no-cache-dir torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cpu; \
-    fi
+# Install PyTorch CPU build (no GPU on this host).
+# Must be >=2.5.0 so that transformers' finegrained_fp8 module can find
+# torch.float8_e8m0fnu; the cu121 index only carries older builds.
+RUN pip install --no-cache-dir torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cpu
 
 # Install python dependencies
 RUN pip install --no-cache-dir uv && \

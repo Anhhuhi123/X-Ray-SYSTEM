@@ -5,7 +5,7 @@ from pydantic import BaseModel
 from sqlalchemy import func, select
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.db import NewChatThread, User, get_async_session
+from app.db import NewChatMessage, NewChatMessageRole, NewChatThread, User, get_async_session
 from app.users import current_superuser
 
 router = APIRouter(
@@ -59,14 +59,37 @@ async def get_overview_stats(
     )
     active_conversations = active_convs_result.scalar_one_or_none() or 0
 
-    # Mocked data for requests and tokens
+    # Count user messages as "requests"
+    total_requests_result = await session.execute(
+        select(func.count(NewChatMessage.id)).where(
+            NewChatMessage.role == NewChatMessageRole.USER
+        )
+    )
+    total_requests = total_requests_result.scalar_one_or_none() or 0
+
+    today_requests_result = await session.execute(
+        select(func.count(NewChatMessage.id)).where(
+            NewChatMessage.role == NewChatMessageRole.USER,
+            NewChatMessage.created_at >= today_start,
+        )
+    )
+    today_requests = today_requests_result.scalar_one_or_none() or 0
+
+    week_requests_result = await session.execute(
+        select(func.count(NewChatMessage.id)).where(
+            NewChatMessage.role == NewChatMessageRole.USER,
+            NewChatMessage.created_at >= week_start,
+        )
+    )
+    week_requests = week_requests_result.scalar_one_or_none() or 0
+
     return OverviewStats(
         total_users=total_users,
         today_users=today_users,
         week_users=week_users,
-        total_requests=45231,
-        today_requests=1250,
-        week_requests=8430,
+        total_requests=total_requests,
+        today_requests=today_requests,
+        week_requests=week_requests,
         total_conversations=total_conversations,
         active_conversations=active_conversations,
         avg_response_time=1.2,

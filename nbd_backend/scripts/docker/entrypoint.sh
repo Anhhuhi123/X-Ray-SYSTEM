@@ -61,6 +61,14 @@ run_migrations() {
     fi
 }
 
+# ── Seed admin user (only if ADMIN_EMAIL is set) ─────────────
+seed_admin() {
+    if [ -n "${ADMIN_EMAIL}" ]; then
+        echo "Seeding admin user: ${ADMIN_EMAIL}..."
+        python scripts/make_admin.py "${ADMIN_EMAIL}" || echo "WARNING: make_admin.py failed (user may not exist yet)."
+    fi
+}
+
 # ── Service starters ─────────────────────────────────────────
 start_api() {
     echo "Starting FastAPI Backend..."
@@ -104,6 +112,7 @@ start_beat() {
 case "${SERVICE_ROLE}" in
     api)
         run_migrations
+        seed_admin
         start_api
         ;;
     worker)
@@ -114,6 +123,7 @@ case "${SERVICE_ROLE}" in
         ;;
     all)
         run_migrations
+        seed_admin
         start_api
         sleep 5
         start_worker

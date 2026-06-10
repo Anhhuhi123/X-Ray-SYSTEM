@@ -64,6 +64,7 @@ services:
       # DAYTONA_API_URL: ${DAYTONA_API_URL:-https://app.daytona.io/api}
       # DAYTONA_TARGET: ${DAYTONA_TARGET:-us}
       SERVICE_ROLE: api
+      ADMIN_EMAIL: ${ADMIN_EMAIL:-}
     labels:
       - "com.centurylinklabs.watchtower.enable=true"
     depends_on:

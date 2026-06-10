@@ -4,21 +4,29 @@ import createNextIntlPlugin from "next-intl/plugin";
 // Create the next-intl plugin
 const withNextIntl = createNextIntlPlugin("./i18n/request.ts");
 
+const configuredBackendUrl =
+	process.env.FASTAPI_BACKEND_URL ||
+	process.env.NEXT_PUBLIC_FASTAPI_BACKEND_URL ||
+	"http://localhost:8000";
+
 const nextConfig: NextConfig = {
 	output: "standalone",
+	// Vercel pages are served over HTTPS, so browser requests must stay on the
+	// same origin. The rewrite below performs the HTTP hop server-side.
+	env: {
+		NEXT_PUBLIC_FASTAPI_BACKEND_URL: process.env.VERCEL
+			? "/api/proxy"
+			: process.env.NEXT_PUBLIC_FASTAPI_BACKEND_URL || "http://localhost:8000",
+	},
 	async rewrites() {
 		// Server-side proxy: browser calls /api/proxy/* over HTTPS, Next.js server
 		// forwards to the backend over HTTP (no mixed-content restriction server-side).
-		// On Vercel set FASTAPI_BACKEND_URL=http://<ip>:8000 (private) and
-		// NEXT_PUBLIC_FASTAPI_BACKEND_URL=/api/proxy (public, embedded in JS bundle).
-		const backendUrl =
-			process.env.FASTAPI_BACKEND_URL ||
-			process.env.NEXT_PUBLIC_FASTAPI_BACKEND_URL ||
-			"http://localhost:8000";
+		// Prefer FASTAPI_BACKEND_URL on Vercel so the backend address is not
+		// exposed in the client bundle.
 		return [
 			{
 				source: "/api/proxy/:path*",
-				destination: `${backendUrl}/:path*`,
+				destination: `${configuredBackendUrl.replace(/\/$/, "")}/:path*`,
 			},
 		];
 	},

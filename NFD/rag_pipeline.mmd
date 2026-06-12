@@ -1,0 +1,28 @@
+flowchart TD
+    subgraph Ingestion ["1. Data Ingestion & Indexing Pipeline"]
+        A1[Data Sources: Files, Notes, Drive] -->|Connectors| A2[Document Markdown]
+        A2 --> A3[parse_markdown_into_sections]
+        A3 --> A4[Chunking & Hash]
+        A4 --> A5[document_embedder.embed_texts]
+        A5 --> A6[(PostgreSQL Vector DB)]
+    end
+
+    subgraph Retrieval ["2. Retrieval Pipeline"]
+        B1[User Query] --> B2[Tool: search_knowledge_base]
+        B2 --> B3[Embed Query]
+        B3 --> B4{Hybrid Search}
+        B4 -->|Semantic| B5[Cosine Similarity]
+        B4 -->|Keyword| B6[BM25 tsvector]
+        B5 --> B7[Reciprocal Rank Fusion]
+        B6 --> B7
+        B7 --> B8[Retrieve Top-K Chunks]
+        A6 -.-> B5
+        A6 -.-> B6
+    end
+
+    subgraph Generation ["3. Generation Pipeline"]
+        B8 --> C1[Format Context XML]
+        C1 --> C2[System Prompt Template]
+        C2 --> C3[LiteLLM Router]
+        C3 --> C4[Generated Answer with Citations]
+    end

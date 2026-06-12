@@ -7,8 +7,6 @@ from pathlib import Path
 
 from app.config import config as app_config
 from app.services.docling_service import create_docling_service
-from app.utils.document_converters import convert_document_to_markdown
-
 
 async def _parse_with_llamacloud(file_path: str) -> str:
     # Reuse existing retry logic from upload pipeline.
